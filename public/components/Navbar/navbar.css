@@ -1,0 +1,88 @@
+.header {
+    min-height: 120px;
+    background-color: var(--light-gray-color);
+    align-items: center;
+    display: flex;
+    width: auto;
+}
+
+.header__title {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    margin-left: 35px;
+    margin-top: 10px;
+}
+
+.search {
+    width: 680px;
+    height: 40px;
+    margin-left: 76px;
+    border-radius: 20px;
+    align-items: center;
+    display: flex;
+    border-style: solid;
+}
+
+input.nosubmit {
+    width: 100%;
+    height: 100%;
+    padding: 9px 4px 9px 51px;
+    background: transparent url("../../img/glass.svg") no-repeat 13px 4px;
+    border: none;
+    color: var(--gray-color);
+    font-size: 22px;
+    font-family: Comfortaa;
+    font-weight: 600;
+    word-wrap: break-word;
+    line-height: 35px;
+}
+
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input.nosubmit:focus {
+    border: none;
+    outline: none;
+}
+
+.address_title {
+    color: var(--gray-color);
+    font-size: 18px;
+    font-family: Comfortaa;
+    font-weight: 600;
+    word-wrap: break-word;
+    display: inline;
+    margin-left: 8px;
+}
+
+.address {
+    margin-left: 80px;
+    width: 400px;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding-left: 11px;
+    box-shadow: none;
+}
+
+.person {
+    margin-left: 52px;
+    width: 55.5px;
+    height: 55.5px;
+    border-radius: 18.75px;
+}
+
+.backet {
+    margin-left: 64px;
+    width: 55.5px;
+    height: 55.5px;
+    border-radius: 18.75px;
+    padding-right: 5px;
+}
