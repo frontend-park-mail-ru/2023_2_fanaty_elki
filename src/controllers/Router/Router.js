@@ -4,18 +4,20 @@ export class Router {
     empty_controller;
 
     route(path) {
-        if (this.controller) this.controller.hide();
+        if (this.controller) this.controller.stop();
+        this.controller = this.map(path);
+        this.controller.start();
+    }
+
+    map(path) {
         switch (path) {
             case '/empty':
-                this.controller = this.empty_controller;
-                break;
+                return this.empty_controller;
             case '/main':
-                this.controller = this.main_controller;
-                break;
+                return this.main_controller;
             default:
-                this.controller = this.main_controller;
-                break;
+                return this.main_controller;
+
         }
-        this.controller.show();
     }
 }

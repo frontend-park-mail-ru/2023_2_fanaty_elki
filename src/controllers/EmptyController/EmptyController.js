@@ -6,10 +6,10 @@ export class EmptyController extends IController {
         super(view);
     }
 
-    show() {
+    start() {
         console.log('show');
     }
-    hide() {
+    stop() {
         console.log('hide');
     }
 }

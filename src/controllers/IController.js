@@ -4,4 +4,12 @@ export class IController {
     constructor(view_) {
         this.view = view_;
     }
+
+    start() {
+        console.log('show');
+    }
+    
+    stop() {
+        console.log('hide');
+    }
 }

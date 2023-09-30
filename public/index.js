@@ -6,11 +6,10 @@ import { Router } from "/controllers/Router/Router.js";
 const rootElement = document.querySelector('#root');
 
 const router = new Router();
+window.router = router;
 const main_view = new MainView(rootElement);
 router.main_controller = new MainController(main_view);
 router.empty_controller = new EmptyController();
-
-window.router = router;
 
 window.onpopstate = (event) => {
     // event.preventDefault();

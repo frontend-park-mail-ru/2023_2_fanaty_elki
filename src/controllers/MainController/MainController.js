@@ -7,13 +7,14 @@ export class MainController extends IController {
         super(view);
     }
 
-    show() {
-        this.view.render({
+    start() {
+        this.view.update({
             address: config.navbar.address,
             search_ph: config.navbar.search_ph,
             title: config.categories.category1.title,
             cards: config.categories.category1.cards
         });
+        this.view.render();
         this.view.bindAddressClick(() => {
             const path = '/empty';
             window.history.pushState({}, "", path);
@@ -21,7 +22,7 @@ export class MainController extends IController {
         });
     }
 
-    hide() {
+    stop() {
         this.view.clear();
     }
 }
