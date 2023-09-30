@@ -1,14 +1,20 @@
-import {Navbar} from './components/Navbar/navbar.js';
+import { MainController } from "/controllers/MainController/MainController.js";
+import { EmptyController } from "/controllers/EmptyController/EmptyController.js";
+import { MainView } from "/views/MainView/MainView.js";
+import { Router } from "/controllers/Router/Router.js";
 
 const rootElement = document.querySelector('#root');
-const a = 1;
 
-const config = {
-    navbar : {
-        search_ph: "Find food",
-        address: "Измайловский проспект",
-    }
+const router = new Router();
+const main_view = new MainView(rootElement);
+router.main_controller = new MainController(main_view);
+router.empty_controller = new EmptyController();
+
+window.router = router;
+
+window.onpopstate = (event) => {
+    // event.preventDefault();
+    router.route(window.location.pathname)
 };
 
-const navbar = new Navbar(rootElement, config.navbar);
-navbar.render();
+router.route(window.location.pathname);

@@ -1,0 +1,8 @@
+.category_grid {
+    height: 323px;
+}
+
+.grid_items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
