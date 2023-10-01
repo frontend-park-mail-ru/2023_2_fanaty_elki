@@ -17,8 +17,11 @@ export class MainView extends IView {
         this.categoryTemplate = Handlebars.templates['category.hbs'];
     }
     
-    update(context) {
+    updateNavbar(context) {
         this.element.querySelector('#navbar').innerHTML = this.navbarTemplate(context); 
+    }
+
+    updateRestoraunt(context) {
         this.element.querySelector('#categories').innerHTML = this.categoryTemplate(context);
     }
 
@@ -26,4 +29,10 @@ export class MainView extends IView {
         this.element.querySelector('.address').addEventListener('click', handler);
     }
 
+    bindRefreshClick(handler) {
+        this.element.querySelector('.category_title').addEventListener('click', event => {
+            event.preventDefault();
+            handler(event);
+        });
+    }
 }

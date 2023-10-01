@@ -5,7 +5,7 @@ export const config = {
     },
     categories: {
         category1: {
-            title: "Наш выбор",
+            title: "Все",
             cards: [{
                 r_name: 'Вкусно и точка',
                 image: '/img/вкусно_и_точка.jpg',

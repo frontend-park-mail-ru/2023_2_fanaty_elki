@@ -1,50 +1,52 @@
-// Демонстрация модулей на IIFE. Это устаревшая концепция, но прекрасно работает до сих пор
-(function() {
-    const AJAX_METHODS = {
-        GET: 'GET',
-        POST: 'POST',
-    };
-
-    const noop = () => {};
-
-    class Ajax {
-        get({url, callback}) {
-            this._ajax({
-                method: AJAX_METHODS.GET,
-                url,
-                callback
+export function request(url, method, headers, body = null) {
+    return fetch(url, {
+        method: method,
+        body: body,
+        headers: headers
+    }).then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            return response.json().then(error => {
+                const e = new Error('my error');
+                e.data = error;
+                throw e;
             })
         }
+    });
+}
 
-        post({url, body, callback}) {
-            this._ajax({
-                method: AJAX_METHODS.POST,
-                url,
-                body,
-                callback
+export function get(url, headers = null) {
+    return fetch(url, {
+        method: GET,
+        headers: headers
+    }).then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            return response.json().then(error => {
+                const e = new Error('my error');
+                e.data = error;
+                throw e;
             })
         }
+    });
+}
 
-        _ajax({method, url, body = null, callback = noop}) {
-            const xhr = new XMLHttpRequest();
-            xhr.open(method, url, true);
-            xhr.withCredentials = true;
-
-            xhr.addEventListener('readystatechange', function () {
-                if (xhr.readyState !== XMLHttpRequest.DONE) return;
-
-                callback(xhr.status, xhr.responseText);
-            });
-
-            if (body) {
-                xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
-                xhr.send(JSON.stringify(body));
-                return;
-            }
-
-            xhr.send();
+export function post(url, body, headers = null) {
+    return fetch(url, {
+        method: POST,
+        body: body,
+        headers: headers
+    }).then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            return response.json().then(error => {
+                const e = new Error('my error');
+                e.data = error;
+                throw e;
+            })
         }
-    }
-
-    window.Ajax = new Ajax();
-})()
+    });
+}
