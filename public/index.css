@@ -3,6 +3,8 @@
 @import '/components/Category/category.css';
 @import '/components/Category/category.css';
 @import '/views/MainView/MainView.css';
+@import '/views/LoginView/LoginView.css';
+@import '/views/SignUpView/SignUpView.css';
 
 html {
     box-sizing: border-box;

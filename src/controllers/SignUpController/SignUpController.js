@@ -1,30 +1,30 @@
-import { UserModel } from "../../models/UserModel/UserModel";
-import { SignUpView } from "../../views/SignUpView/SignUpView";
+import { IController } from "../IController.js";
+import { Router } from "../Router/Router.js";
 
-export class SignUpController {
+export class SignUpController{
     _userModel;
     _signUpView;
 
-    constructor() {
-        this._userModel = new UserModel();
-        this._signUpView = new SignUpView();
+    constructor(signUpView, userModel) {
+        this._userModel = userModel;
+        this._signUpView = signUpView;
+        this._signUpView.bindSubmitHandler(() => {
+            const data = this._signUpView.formData;
+            this._userModel.signup(data).then(response => {
+            });
+        })
+        this._signUpView.bindLoginClick(() => {
+            const path = '/login';
+            window.history.pushState({}, "", path);
+            router.route(path);
+        })
     }
 
     start() {
-        document.querySelector('.regform-form').addEventListener('onsubmit', this.onSubmit);
         this._signUpView.render();
     }
 
-    onSubmit(event) {
-        event.preventDefault();
-
-        let form = document.querySelector('.regform-form');
-        let user = {
-            username: form.username,
-            password: form.password,
-            email: form.email
-        }
-
-        this._userModel.createUser(user);
+    stop() {
+        this._signUpView.clear();
     }
 }

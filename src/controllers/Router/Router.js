@@ -2,6 +2,8 @@ export class Router {
     controller;
     main_controller;
     empty_controller;
+    signup_controller;
+    login_controller;
 
     route(path) {
         if (this.controller) this.controller.stop();
@@ -11,8 +13,10 @@ export class Router {
 
     map(path) {
         switch (path) {
-            case '/empty':
-                return this.empty_controller;
+            case '/signup':
+                return this.signup_controller;
+            case '/login':
+                return this.login_controller;
             case '/main':
                 return this.main_controller;
             default:
