@@ -6,26 +6,75 @@ export class SignUpView extends IView {
         super(parent_);
         const SignUpTemplate = Handlebars.templates['SignUpView.hbs'];
         const parser = new DOMParser();
-        this.element = parser.parseFromString(SignUpTemplate(), 'text/html').querySelector('#regform');
+        this.element = parser.parseFromString(SignUpTemplate(), 'text/html').querySelector('#signup');
+        const inputTemplate = Handlebars.templates['FormInput.hbs'];
+        const inputGroup = this.element.querySelector('.signup-inputgroup');
+        const inputs = [
+            {
+                name: "email",
+                type: "email",
+                placeholder: "email",
+                style: "default"
+            },
+            {
+                name: "username",
+                type: "text",
+                placeholder: "имя пользователя",
+                style: "default"
+            },
+            {
+                name: "password",
+                type: "password",
+                placeholder: "пароль",
+                style: "default"
+            },
+            {
+                name: "password-confirm",
+                type: "password",
+                placeholder: "повторите пароль",
+                style: "default"
+            }
+        ]
+        inputs.forEach((element) => {
+            inputGroup.innerHTML += inputTemplate(element);
+        })
+
+        const buttonTemplate = Handlebars.templates['Button.hbs'];
+        const formControl = this.element.querySelector('.signup-control');
+        const buttons = [
+            {
+                id: "submit",
+                text: "Зарегистрироваться",
+                style: "primary"
+            },
+            {
+                id: "auth",
+                text: "Уже есть аккаунт?",
+                style: "secondary"
+            }
+        ]
+        buttons.forEach((element) => {
+            formControl.innerHTML += buttonTemplate(element);
+        })
         if (!this.element) return;
     }
 
     bindSubmitHandler(handler) {
-        this.element.querySelector('.regform-submit').addEventListener('click', event => {
+        this.element.querySelector('#submit').addEventListener('click', event => {
             event.preventDefault();
             handler(event);
         })
     }
 
     bindLoginClick(handler) {
-        this.element.querySelector('.regform-auth').addEventListener('click', event => {
+        this.element.querySelector('#auth').addEventListener('click', event => {
             event.preventDefault();
             handler(event);
         })
     }
 
     get formData() {
-        const form = this.element.querySelector('.regform-form');
+        const form = this.element.querySelector('.signup-form');
         return {
             name: form.username.value,
             email: form.email.value,

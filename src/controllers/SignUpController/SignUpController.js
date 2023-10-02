@@ -22,7 +22,7 @@ export class SignUpController {
                     if (response.ok) {
                         const path = '/main';
                         window.history.pushState({}, "", path);
-                        Router.route(path);
+                        router.route(path);
                     }
                 });
             }

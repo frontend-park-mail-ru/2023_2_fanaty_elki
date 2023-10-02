@@ -1,5 +1,21 @@
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['Button.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "<button class=\"button__"
+    + alias4(((helper = (helper = lookupProperty(helpers,"style") || (depth0 != null ? lookupProperty(depth0,"style") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"style","hash":{},"data":data,"loc":{"start":{"line":1,"column":23},"end":{"line":1,"column":34}}}) : helper)))
+    + "\" type=\"button\" id=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"id") || (depth0 != null ? lookupProperty(depth0,"id") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":1,"column":54},"end":{"line":1,"column":62}}}) : helper)))
+    + "\" >"
+    + alias4(((helper = (helper = lookupProperty(helpers,"text") || (depth0 != null ? lookupProperty(depth0,"text") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"text","hash":{},"data":data,"loc":{"start":{"line":1,"column":65},"end":{"line":1,"column":75}}}) : helper)))
+    + "</button>";
+},"useData":true});
 templates['navbar.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
@@ -37,6 +53,50 @@ templates['category.hbs'] = template({"1":function(container,depth0,helpers,part
     + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"cards") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":4,"column":8},"end":{"line":6,"column":17}}})) != null ? stack1 : "")
     + "    </div>\r\n</div>\r\n";
 },"usePartial":true,"useData":true});
+templates['FormInputWithMsg.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "<div class=\"form-input-with-msg\">\r\n    <div class=\"form-input-with-msg-msg__"
+    + alias4(((helper = (helper = lookupProperty(helpers,"style") || (depth0 != null ? lookupProperty(depth0,"style") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"style","hash":{},"data":data,"loc":{"start":{"line":2,"column":41},"end":{"line":2,"column":52}}}) : helper)))
+    + "\">"
+    + alias4(((helper = (helper = lookupProperty(helpers,"message") || (depth0 != null ? lookupProperty(depth0,"message") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"message","hash":{},"data":data,"loc":{"start":{"line":2,"column":54},"end":{"line":2,"column":67}}}) : helper)))
+    + "</div>\r\n    <input class=\"form-input-with-msg-input__"
+    + alias4(((helper = (helper = lookupProperty(helpers,"style") || (depth0 != null ? lookupProperty(depth0,"style") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"style","hash":{},"data":data,"loc":{"start":{"line":3,"column":45},"end":{"line":3,"column":56}}}) : helper)))
+    + "\" type=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"start":{"line":3,"column":64},"end":{"line":3,"column":74}}}) : helper)))
+    + "\" name=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":3,"column":82},"end":{"line":3,"column":92}}}) : helper)))
+    + "\" id=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":3,"column":98},"end":{"line":3,"column":108}}}) : helper)))
+    + "\"\r\n        placeholder=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"placeholder") || (depth0 != null ? lookupProperty(depth0,"placeholder") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"placeholder","hash":{},"data":data,"loc":{"start":{"line":4,"column":21},"end":{"line":4,"column":38}}}) : helper)))
+    + "\">\r\n</div>";
+},"useData":true});
+templates['FormInput.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "<input class=\"form-input__"
+    + alias4(((helper = (helper = lookupProperty(helpers,"style") || (depth0 != null ? lookupProperty(depth0,"style") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"style","hash":{},"data":data,"loc":{"start":{"line":1,"column":26},"end":{"line":1,"column":37}}}) : helper)))
+    + "\" type=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"start":{"line":1,"column":45},"end":{"line":1,"column":55}}}) : helper)))
+    + "\" name=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":1,"column":63},"end":{"line":1,"column":73}}}) : helper)))
+    + "\" id=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":1,"column":79},"end":{"line":1,"column":89}}}) : helper)))
+    + "\"\r\n    placeholder=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"placeholder") || (depth0 != null ? lookupProperty(depth0,"placeholder") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"placeholder","hash":{},"data":data,"loc":{"start":{"line":2,"column":17},"end":{"line":2,"column":34}}}) : helper)))
+    + "\">";
+},"useData":true});
 templates['card.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
@@ -59,5 +119,11 @@ templates['card.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(cont
 },"useData":true});
 templates['MainView.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div id=\"main\">\r\n    <div id=\"navbar\"></div>\r\n    <div id=\"categories\"></div>\r\n</div>\r\n";
+},"useData":true});
+templates['LoginView.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id=\"login_form\" class=\"loginform-formwindow\">\r\n    <div class=\"loginform-header\">\r\n        <img src=\"img/Принеси&Подай.svg\" alt=\"\" srcset=\"\">\r\n        <div class=\"loginform-text\">Создайте аккаунт</div>\r\n    </div>\r\n    <form class=\"loginform-form\" action=\"#\">\r\n        <div class=\"loginform-inputgroup\">\r\n            <input type=\"text\" class=\"loginform-input\" name=\"username\" id=\"username\" placeholder=\"Имя пользователя\">\r\n            <input type=\"password\" class=\"loginform-input\" name=\"password\" id=\"password\" placeholder=\"Пароль\">\r\n        </div>\r\n        <div class=\"loginform-control\">\r\n            <button type=\"submit\" class=\"loginform-submit\">Войти</button>\r\n            <a href=\"#\" class=\"loginform-auth\">Зарегистрироваться</a>\r\n        </div>\r\n    </form>\r\n</div>\r\n";
+},"useData":true});
+templates['SignUpView.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<div id=\"signup\" class=\"signup-formwindow\">\r\n    <div class=\"signup-header\">\r\n        <img src=\"img/Принеси&Подай.svg\" alt=\"\" srcset=\"\">\r\n        <div class=\"signup-text\">Создайте аккаунт</div>\r\n    </div>\r\n    <form class=\"signup-form\" action=\"#\">\r\n        <div class=\"signup-inputgroup\">\r\n        </div>\r\n        <div class=\"signup-control\">\r\n        </div>\r\n    </form>\r\n</div>";
 },"useData":true});
 })();
