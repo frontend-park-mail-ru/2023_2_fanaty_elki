@@ -7,6 +7,7 @@ export class SignUpView extends IView {
         const SignUpTemplate = Handlebars.templates['SignUpView.hbs'];
         const parser = new DOMParser();
         this.element = parser.parseFromString(SignUpTemplate(), 'text/html').querySelector('#signup');
+
         const inputTemplate = Handlebars.templates['FormInput.hbs'];
         const inputGroup = this.element.querySelector('.signup-inputgroup');
         const inputs = [
@@ -29,7 +30,7 @@ export class SignUpView extends IView {
                 style: "default"
             },
             {
-                name: "password-confirm",
+                name: "passwordconfirm",
                 type: "password",
                 placeholder: "повторите пароль",
                 style: "default"
@@ -56,6 +57,7 @@ export class SignUpView extends IView {
         buttons.forEach((element) => {
             formControl.innerHTML += buttonTemplate(element);
         })
+
         if (!this.element) return;
     }
 
@@ -73,12 +75,35 @@ export class SignUpView extends IView {
         })
     }
 
+    handleFormValidation(errors) {
+        const inputWithMsg = Handlebars.templates["FormInputWithMsg.hbs"];
+
+        errors.forEach((error) => {
+            const inputToReplace = this.element.querySelector(`#${error.field}`);
+
+            const placeholder = document.createElement("div");
+            placeholder.innerHTML = inputWithMsg({
+                style: "error",
+                type: inputToReplace.type,
+                name: inputToReplace.name,
+                placeholder: inputToReplace.placeholder,
+                value: inputToReplace.value,
+                message: error.message
+            })
+            const newInput = placeholder.firstChild;
+
+            inputToReplace.replaceWith(newInput);
+        })
+
+    }
+
     get formData() {
         const form = this.element.querySelector('.signup-form');
         return {
-            name: form.username.value,
+            username: form.username.value,
             email: form.email.value,
             password: form.password.value,
+            passwordConfirm: form.passwordconfirm.value
         };
     }
 }

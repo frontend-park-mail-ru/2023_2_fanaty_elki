@@ -14,66 +14,145 @@ export class SignUpController {
     constructor(signUpView, userModel) {
         this._userModel = userModel;
         this._signUpView = signUpView;
+
         this._signUpView.bindSubmitHandler(() => {
             const userData = this._signUpView.formData;
-            const validateResponce = this.validateFormData(userData)
-            if (validateResponce.isValid) {
-                this._userModel.signup(userData).then(response => {
-                    if (response.ok) {
-                        const path = '/main';
-                        window.history.pushState({}, "", path);
-                        router.route(path);
-                    }
-                });
+            const validationResponce = this.validateFormData(userData)
+            if (!validationResponce.isValid) {
+                this._signUpView.handleFormValidation(validationResponce.errors);
+                return;
             }
+
+            this._userModel.signup({
+                email: userData.email,
+                username: userData.username,
+                password: userData.password
+            })
+                .then(() => {
+                    const path = '/login';
+                    window.history.pushState({}, "", path);
+                    router.route(path);
+                })
+                .catch(() => {
+
+                })
         })
+
         this._signUpView.bindLoginClick(() => {
             const path = '/login';
             window.history.pushState({}, "", path);
-            Router.route(path);
+            router.route(path);
         })
     }
 
-    isValidEmail(email) {
-        return String(email)
+    validateFormData(userData) {
+        let validationResponce = {
+            isValid: true,
+            errors: []
+        }
+
+        const emailValidation = this.validateEmail(userData.email)
+        if (!emailValidation.isValid) {
+            validationResponce.isValid = false;
+            validationResponce.errors.push({
+                field: "email",
+                message: emailValidation.message
+            })
+        }
+
+        const usernameValidation = this.validateUsername(userData.username)
+        if (!usernameValidation.isValid) {
+            validationResponce.isValid = false;
+            validationResponce.errors.push({
+                field: "username",
+                message: usernameValidation.message
+            })
+        }
+
+        const passwordValidation = this.validatePassword(userData.password, userData.passwordConfirm)
+        if (!passwordValidation.isValid) {
+            validationResponce.isValid = false;
+            validationResponce.errors.push({
+                field: "password",
+                message: passwordValidation.message
+            })
+        }
+
+        return validationResponce;
+    }
+
+    validateEmail(email) {
+        if (!email) {
+            return {
+                isValid: false,
+                message: "Email не может быть пустым"
+            }
+        }
+
+        const emailMatches = String(email)
             .toLowerCase()
             .match(
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
-    }
-
-    validateFormData(userData) {
-        if (!userData.username || !userData.password || !userData.email) {
+        if (!emailMatches) {
             return {
                 isValid: false,
-                error: "some fields are empty"
-            }
-        }
-
-        if (3 < userData.username.length && userData.username.length < 30) {
-            return {
-                isValid: false,
-                errorText: Errors.userNameError
-            }
-        }
-
-        if (3 < userData.password.length && userData.password.length < 20) {
-            return {
-                isValid: false,
-                error: Errors.passwordError
-            }
-        }
-
-        if (isValidEmail(userData.email)) {
-            return {
-                isValid: false,
-                error: Errors.emailError
+                message: "Невалидный email"
             }
         }
 
         return {
             isValid: true,
-            error: null
+            message: null
+        }
+    }
+
+    validateUsername(username) {
+        if (!username) {
+            return {
+                isValid: false,
+                message: "Имя пользователя не может быть пустым"
+            }
+        }
+
+        if (!(3 < String(username).length && String(username).length < 30)) {
+            return {
+                isValid: false,
+                message: "Длина должна быть от 3 до 30 символов"
+            }
+        }
+
+        return {
+            isValid: true,
+            message: null
+        }
+    }
+
+    validatePassword(password, passwordConfirm) {
+        if (!password) {
+            return {
+                isValid: false,
+                message: "Пароль не может быть пустым"
+            }
+        }
+
+        if (!(3 < String(password).length && String(password).length < 20)) {
+            return {
+                isValid: false,
+                message: "Длина должна быть от 3 до 20 символов"
+            }
+        }
+
+        if (password !== passwordConfirm) {
+            return {
+                isValid: false,
+                message: "Пароли не совпадают"
+            }
+        }
+
+        return {
+            isValid: true,
+            message: null
         }
     }
 

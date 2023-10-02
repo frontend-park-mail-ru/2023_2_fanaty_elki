@@ -61,7 +61,9 @@ templates['FormInputWithMsg.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":f
         return undefined
     };
 
-  return "<div class=\"form-input-with-msg\">\r\n    <div class=\"form-input-with-msg-msg__"
+  return "<div class=\"form-input-with-msg\" id=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":1,"column":37},"end":{"line":1,"column":47}}}) : helper)))
+    + "\">\r\n    <div class=\"form-input-with-msg-msg__"
     + alias4(((helper = (helper = lookupProperty(helpers,"style") || (depth0 != null ? lookupProperty(depth0,"style") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"style","hash":{},"data":data,"loc":{"start":{"line":2,"column":41},"end":{"line":2,"column":52}}}) : helper)))
     + "\">"
     + alias4(((helper = (helper = lookupProperty(helpers,"message") || (depth0 != null ? lookupProperty(depth0,"message") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"message","hash":{},"data":data,"loc":{"start":{"line":2,"column":54},"end":{"line":2,"column":67}}}) : helper)))
@@ -71,10 +73,12 @@ templates['FormInputWithMsg.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":f
     + alias4(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"start":{"line":3,"column":64},"end":{"line":3,"column":74}}}) : helper)))
     + "\" name=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":3,"column":82},"end":{"line":3,"column":92}}}) : helper)))
-    + "\" id=\""
-    + alias4(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":3,"column":98},"end":{"line":3,"column":108}}}) : helper)))
+    + "\" id=\"input-"
+    + alias4(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":3,"column":104},"end":{"line":3,"column":114}}}) : helper)))
     + "\"\r\n        placeholder=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"placeholder") || (depth0 != null ? lookupProperty(depth0,"placeholder") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"placeholder","hash":{},"data":data,"loc":{"start":{"line":4,"column":21},"end":{"line":4,"column":38}}}) : helper)))
+    + "\" value=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"start":{"line":4,"column":47},"end":{"line":4,"column":58}}}) : helper)))
     + "\">\r\n</div>";
 },"useData":true});
 templates['FormInput.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
