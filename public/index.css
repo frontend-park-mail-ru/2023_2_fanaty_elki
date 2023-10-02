@@ -1,7 +1,9 @@
+@import '/components/Button/Button.css';
 @import '/components/Navbar/navbar.css';
 @import '/components/Card/card.css';
 @import '/components/Category/category.css';
-@import '/components/Category/category.css';
+@import '/components/FromInputWithMsg/FormInputWithMsg.css';
+@import '/components/FromInput/FromInput.css';
 @import '/views/MainView/MainView.css';
 @import '/views/LoginView/LoginView.css';
 @import '/views/SignUpView/SignUpView.css';
