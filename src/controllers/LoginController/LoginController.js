@@ -8,17 +8,17 @@ export class LoginController {
     constructor(loginView, userModel) {
         this._userModel = userModel;
         this._loginView = loginView;
-        this._loginView.bindSubmitHandler(() => {
-            const data = this.loginView.formData;
-            this._userModel.login(data).then(response => {
-            });
-        });
+        this._loginView.bindSubmitHandler(this.submitForm.bind(this));
         this._loginView.bindSignUpClick(() => {
-            const path = '/signup';
-            console.log('push');
-            window.history.pushState({}, "", path);
-            router.route(path);
-        })
+            router.redirect('/signup');
+        });
+    }
+
+    submitForm() {
+        const data = this._loginView.formData;
+        this._userModel.login(data).then(() => {
+            router.redirect('/')
+        }).catch(() => { })
     }
 
     start() {

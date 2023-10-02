@@ -5,6 +5,11 @@ export class Router {
     signup_controller;
     login_controller;
 
+    redirect(path) {
+        window.history.pushState({}, "", path);
+        this.route(path);
+    }
+
     route(path) {
         if (this.controller) this.controller.stop();
         this.controller = this.map(path);

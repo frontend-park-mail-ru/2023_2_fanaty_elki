@@ -2,7 +2,7 @@ export function request(url, method, headers, body = null) {
     return fetch(url, {
         method: method,
         body: body,
-        headers: headers
+        headers: headers,
     }).then(response => response.json());
 }
 

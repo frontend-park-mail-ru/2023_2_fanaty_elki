@@ -27,7 +27,7 @@ export class SignUpView extends IView {
     get formData() {
         const form = this.element.querySelector('.regform-form');
         return {
-            name: form.username.value,
+            username: form.username.value,
             email: form.email.value,
             password: form.password.value,
         };

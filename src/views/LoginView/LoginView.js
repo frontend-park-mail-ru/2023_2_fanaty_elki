@@ -27,7 +27,7 @@ export class LoginView extends IView {
     get formData() {
         const form = this.element.querySelector('.loginform-form');
         return {
-            name: form.username.value,
+            username: form.username.value,
             password: form.password.value,
         };
     }
