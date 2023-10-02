@@ -8,7 +8,9 @@ export class SignUpController {
     constructor(signUpView, userModel) {
         this._userModel = userModel;
         this._signUpView = signUpView;
+    }
 
+    bindListeners() {
         this._signUpView.bindSubmitHandler(() => {
             const userData = this._signUpView.formData;
             const validationResponce = this.validateFormData(userData)
@@ -23,9 +25,7 @@ export class SignUpController {
                 password: userData.password
             })
                 .then(() => {
-                    const path = '/login';
-                    window.history.pushState({}, "", path);
-                    router.route(path);
+                    router.redirect('/login');
                 })
                 .catch(() => {
 
@@ -149,10 +149,13 @@ export class SignUpController {
     }
 
     start() {
+        this._signUpView.setDefaultState();
+        this.bindListeners();
         this._signUpView.render();
     }
 
     stop() {
+        this._signUpView.clearState();
         this._signUpView.clear();
     }
 }

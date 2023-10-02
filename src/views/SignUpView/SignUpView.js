@@ -4,6 +4,10 @@ export class SignUpView extends IView {
 
     constructor(parent_) {
         super(parent_);
+        this.setDefaultState();
+    }
+
+    setDefaultState() {
         const SignUpTemplate = Handlebars.templates['SignUpView.hbs'];
         const parser = new DOMParser();
         this.element = parser.parseFromString(SignUpTemplate(), 'text/html').querySelector('#signup');
@@ -59,6 +63,10 @@ export class SignUpView extends IView {
         })
 
         if (!this.element) return;
+    }
+
+    clearState() {
+        this.element.innerHTML = "";
     }
 
     bindSubmitHandler(handler) {
