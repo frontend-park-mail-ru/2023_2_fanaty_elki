@@ -8,6 +8,9 @@ export class LoginController {
     constructor(loginView, userModel) {
         this._userModel = userModel;
         this._loginView = loginView;
+    }
+
+    bindListeners() {
         this._loginView.bindSubmitHandler(this.submitForm.bind(this));
         this._loginView.bindSignUpClick(() => {
             router.redirect('/signup');
@@ -24,10 +27,13 @@ export class LoginController {
     }
 
     start() {
+        this._loginView.setDefaultState();
+        this.bindListeners();
         this._loginView.render();
     }
 
     stop() {
+        this._loginView.clearState();
         this._loginView.clear();
     }
 }
