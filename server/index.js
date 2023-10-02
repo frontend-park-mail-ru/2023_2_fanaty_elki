@@ -133,7 +133,7 @@ app.get('/restaurant/all', (req, res) => {
 
 app.post('/users', (req, res) => {
     if (users.find(x => {
-        return x.login === req.body.login;
+        return x.login === req.body.name;
     })) return res.status(400).json({'reason': 'already exists'});
     const cookie = Math.random().toString();
     sessions.set(cookie, users.push(req.body)-1);
@@ -153,7 +153,7 @@ app.post('/users', (req, res) => {
 //     return res.json(config.categories.category1.cards);
 // });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 app.listen(port, function () {
     console.log(`Server listening port ${port}`);

@@ -11,23 +11,29 @@ import { UserModel } from "/models/UserModel/UserModel.js";
 
 const rootElement = document.querySelector('#root');
 
-window.backendURL = '127.0.0.1:3000';
+window.backendURL = 'http://127.0.0.1:3000';
 window.GET = 'GET';
 window.POST = 'POST';
+
+const userModel = new UserModel();
+try {
+    await userModel.auth();
+} catch {
+}
+
 const router = new Router();
 window.router = router;
 const main_view = new MainView(rootElement);
 const signup_view = new SignUpView(rootElement);
 const login_view = new LoginView(rootElement);
 const restaurantModel = new Restaurant();
-const userModel = new UserModel();
 router.main_controller = new MainController(main_view, restaurantModel, userModel);
 router.signup_controller = new SignUpController(signup_view, userModel);
 router.login_controller = new LoginController(login_view, userModel);
 router.empty_controller = new EmptyController();
 
 window.onpopstate = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
     router.route(window.location.pathname)
 };
 

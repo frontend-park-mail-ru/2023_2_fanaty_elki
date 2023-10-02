@@ -1,12 +1,6 @@
 import { IController } from "../IController.js";
 import { Router } from "../Router/Router.js";
 
-const Errors = {
-    userNameError: "Длина должна быть от 3 до 30 символов",
-    passwordError: "Длина должна быть от 3 до 20 символов",
-    emailError: "Невалидный email"
-}
-
 export class SignUpController {
     _userModel;
     _signUpView;
@@ -39,10 +33,8 @@ export class SignUpController {
         })
 
         this._signUpView.bindLoginClick(() => {
-            const path = '/login';
-            window.history.pushState({}, "", path);
-            router.route(path);
-        })
+            router.redirect('/login');
+        });
     }
 
     validateFormData(userData) {
