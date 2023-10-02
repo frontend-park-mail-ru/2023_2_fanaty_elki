@@ -17,7 +17,7 @@ export class MainController extends IController {
         this.view.bindPersonClick(() => {
             const path = '/login';
             window.history.pushState({}, "", path);
-            router.route(path);
+            Router.route(path);
         });
         this.view.bindAddressClick(event => {
             this.restaurantModel.getAll().then(data => {
