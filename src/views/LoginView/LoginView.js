@@ -72,7 +72,7 @@ export class LoginView extends IView {
     }
 
     showErrorMessage() {
-        this.element.querySelector(".loginform-error-msg").textContent += "Неверный логин или пароль";
+        this.element.querySelector(".loginform-error-msg").textContent = "Неверный логин или пароль";
     }
 
     get formData() {
