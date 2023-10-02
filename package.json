@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm run compile:templates",
     "start": "node server/index.js",
-    "compile:templates": "handlebars src/components/Navbar/navbar.hbs src/components/Category/category.hbs src/components/Card/card.hbs src/views/MainView/MainView.hbs src/views/LoginView/LoginView.hbs src/views/SignUpView/SignUpView.hbs  -f public/precompiled.js",
+    "compile:templates": "handlebars src/components/Button/Button.hbs src/components/Navbar/navbar.hbs src/components/Category/category.hbs src/components/FormInputWithMsg/FormInputWithMsg.hbs src/components/FromInput/FormInput.hbs src/components/Card/card.hbs src/views/MainView/MainView.hbs src/views/LoginView/LoginView.hbs src/views/SignUpView/SignUpView.hbs  -f public/precompiled.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
