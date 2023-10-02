@@ -18,7 +18,9 @@ export class LoginController {
         const data = this._loginView.formData;
         this._userModel.login(data).then(() => {
             router.redirect('/')
-        }).catch(() => { })
+        }).catch(() => { 
+            this._loginView.showErrorMessage();
+        })
     }
 
     start() {

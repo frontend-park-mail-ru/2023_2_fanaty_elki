@@ -7,21 +7,64 @@ export class LoginView extends IView {
         const SignUpTemplate = Handlebars.templates['LoginView.hbs'];
         const parser = new DOMParser();
         this.element = parser.parseFromString(SignUpTemplate(), 'text/html').querySelector('#login_form');
+
+        const inputTemplate = Handlebars.templates['FormInput.hbs'];
+        const inputGroup = this.element.querySelector(".loginform-inputgroup");
+        const inputs = [
+            {
+                name: "username",
+                type: "text",
+                placeholder: "имя пользователя",
+                style: "default"
+            },
+            {
+                name: "password",
+                type: "password",
+                placeholder: "пароль",
+                style: "default"
+            }
+        ]
+        inputs.forEach((element) => {
+            inputGroup.innerHTML += inputTemplate(element);
+        })
+
+        const buttonTemplate = Handlebars.templates['Button.hbs'];
+        const formControl = this.element.querySelector(".loginform-control");
+        const buttons = [
+            {
+                id: "submit",
+                text: "Войти",
+                style: "primary"
+            },
+            {
+                id: "reg",
+                text: "Зарегистрироваться",
+                style: "secondary"
+            }
+        ]
+        buttons.forEach((element) => {
+            formControl.innerHTML += buttonTemplate(element);
+        })
+
         if (!this.element) return;
     }
 
     bindSubmitHandler(handler) {
-        this.element.querySelector('.loginform-submit').addEventListener('click', event => {
+        this.element.querySelector('#submit').addEventListener('click', event => {
             event.preventDefault();
             handler(event);
         })
     }
 
     bindSignUpClick(handler) {
-        this.element.querySelector('.loginform-auth').addEventListener('click', event => {
+        this.element.querySelector('#reg').addEventListener('click', event => {
             event.preventDefault();
             handler(event);
         })
+    }
+
+    showErrorMessage() {
+        this.element.querySelector(".loginform-error-msg").textContent += "Неверный логин или пароль";
     }
 
     get formData() {
