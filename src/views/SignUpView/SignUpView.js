@@ -83,6 +83,13 @@ export class SignUpView extends IView {
         })
     }
 
+    bindCloseClick(handler) {
+        this.element.querySelector('.singup-close').addEventListener('click', event => {
+            event.preventDefault();
+            handler(event);
+        })
+    }
+
     handleFormValidation(errors) {
         const inputWithMsg = Handlebars.templates["FormInputWithMsg.hbs"];
 

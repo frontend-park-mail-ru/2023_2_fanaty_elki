@@ -30,10 +30,14 @@ export class SignUpController {
                 .catch(() => {
 
                 })
-        })
+        });
 
         this._signUpView.bindLoginClick(() => {
             router.redirect('/login');
+        });
+
+        this._signUpView.bindCloseClick(() => {
+            router.redirect("/");
         });
     }
 
