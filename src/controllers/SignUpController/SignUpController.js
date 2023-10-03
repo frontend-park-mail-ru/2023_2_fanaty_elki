@@ -111,7 +111,7 @@ export class SignUpController {
             }
         }
 
-        if (!(3 < String(username).length && String(username).length < 30)) {
+        if (!(3 <= String(username).length && String(username).length <= 30)) {
             return {
                 isValid: false,
                 message: "Длина должна быть от 3 до 30 символов"
@@ -132,7 +132,7 @@ export class SignUpController {
             }
         }
 
-        if (!(3 < String(password).length && String(password).length < 20)) {
+        if (!(3 <= String(password).length && String(password).length <= 20)) {
             return {
                 isValid: false,
                 message: "Длина должна быть от 3 до 20 символов"
