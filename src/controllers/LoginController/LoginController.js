@@ -15,6 +15,9 @@ export class LoginController {
         this._loginView.bindSignUpClick(() => {
             router.redirect('/signup');
         });
+        this._loginView.bindCloseClick(() => {
+            router.redirect("/");
+        });
     }
 
     submitForm() {
