@@ -6,8 +6,6 @@
 
 .signup-formwindow {
     display: flex;
-    width: 598px;
-    height: 810px;
     padding: 49px 65px 49px 65px;
     flex-direction: column;
     justify-content: center;
