@@ -67,7 +67,11 @@ export class SignUpController {
             validationResponce.errors.push({
                 field: "password",
                 message: passwordValidation.message
-            })
+            });
+            validationResponce.errors.push({
+                field: "passwordconfirm",
+                message: ""
+            });
         }
 
         return validationResponce;
