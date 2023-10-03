@@ -1,6 +1,6 @@
 import { request, get, post } from "/modules/ajax.js";
 
-export class Restaurant {
+export class RestaurantModel {
     async getAll() {
         const response = await fetch(backendURL + '/restaurants', {
             method: GET,

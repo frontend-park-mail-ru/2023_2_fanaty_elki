@@ -1,11 +1,16 @@
+
+/**
+ * Роутер для переключения между контроллерами разных страниц
+ * @class
+ */
 export class Router {
+    /**
+     * Текущий управляющий контроллер
+     */
     controller;
-    main_controller;
-    empty_controller;
-    signup_controller;
-    login_controller;
 
     redirect(path) {
+        console.log(path)
         window.history.pushState({}, "", path);
         this.route(path);
     }
