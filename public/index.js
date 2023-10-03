@@ -10,7 +10,7 @@ import { UserModel } from "/models/UserModel/UserModel.js";
 
 const rootElement = document.querySelector('#root');
 
-window.backendURL = 'http://127.0.0.1:3000';
+window.backendURL = 'http://84.23.53.216:8001';
 window.GET = 'GET';
 window.POST = 'POST';
 
