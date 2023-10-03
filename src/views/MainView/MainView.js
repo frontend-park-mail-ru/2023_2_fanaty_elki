@@ -21,6 +21,7 @@ export class MainView extends IView {
         this.element.querySelector('.address_title').innerHTML = config.navbar.address;
         this.userNameElement = this.element.querySelector('.name_container');
         this.signInButton = this.element.querySelector('.signin');
+        this.setNonAuthUser();
     }
 
     updateList(list) {
@@ -28,18 +29,20 @@ export class MainView extends IView {
     }
 
     setAuthUser(userName) {
+        this.is_auth = true;
         this.userNameElement.firstElementChild.innerHTML = userName;
         this.signInButton.parentNode.appendChild(this.userNameElement);
         this.signInButton.parentNode.removeChild(this.signInButton);
     }
 
     setNonAuthUser() {
+        this.is_auth = false;
         this.userNameElement.parentNode.appendChild(this.signInButton);
         this.userNameElement.parentNode.removeChild(this.userNameElement);
     }
 
     bindExitClick(handler) {
-        this.element.querySelector('.exit').addEventListener('click', handler);
+        this.userNameElement.querySelector('.exit').addEventListener('click', handler);
     }
 
     bindAddressClick(handler) {
@@ -47,7 +50,7 @@ export class MainView extends IView {
     }
 
     bindPersonClick(handler) {
-        this.element.querySelector('.signin').addEventListener('click', handler);
+        this.signInButton.addEventListener('click', handler);
     }
 
 }
