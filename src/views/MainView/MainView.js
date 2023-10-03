@@ -2,8 +2,8 @@ import { config } from "../../config.js";
 import { IView } from "../IView.js";
 
 export class MainView extends IView {
-    navbarTemplate;
-    categoryTemplate;
+    userNameElement;
+    signInButton;
 
     constructor(parent_) {
         super(parent_);
@@ -18,20 +18,28 @@ export class MainView extends IView {
         this.categoryTemplate = Handlebars.templates['category.hbs'];
         this.element.querySelector('#navbar').innerHTML = this.navbarTemplate();
         this.element.querySelector('#categories').innerHTML = this.categoryTemplate();
+        this.element.querySelector('.address_title').innerHTML = config.navbar.address;
+        this.userNameElement = this.element.querySelector('.name_container');
+        this.signInButton = this.element.querySelector('.signin');
     }
 
-    setAuthUser(userId){
-        this.element.querySelector('.address_title').innerHTML = userId;
-        this.element.querySelector('.person').setAttribute('hidden', 'hidden');
+    updateList(list) {
+        this.element.querySelector('#categories').innerHTML = this.categoryTemplate(list);
+    }
+
+    setAuthUser(userName) {
+        this.userNameElement.firstElementChild.innerHTML = userName;
+        this.signInButton.parentNode.appendChild(this.userNameElement);
+        this.signInButton.parentNode.removeChild(this.signInButton);
     }
 
     setNonAuthUser() {
-        this.element.querySelector('.address_title').innerHTML = config.navbar.address;
-        this.element.querySelector('.person').removeAttribute('hidden');
+        this.userNameElement.parentNode.appendChild(this.signInButton);
+        this.userNameElement.parentNode.removeChild(this.userNameElement);
     }
 
-    bindBacketClick(handler) {
-        this.element.querySelector('.backet').addEventListener('click', handler);
+    bindExitClick(handler) {
+        this.element.querySelector('.exit').addEventListener('click', handler);
     }
 
     bindAddressClick(handler) {
@@ -39,26 +47,7 @@ export class MainView extends IView {
     }
 
     bindPersonClick(handler) {
-        console.log(this.element)
-        this.element.querySelector('.person').addEventListener('click', handler);
+        this.element.querySelector('.signin').addEventListener('click', handler);
     }
-
-
-    // bindFormSubmit(handler) {
-    //     this.element.querySelector('#signup').querySelector('.submit').addEventListener('click', event => {
-    //         event.preventDefault();
-    //         handler(event);
-    //     })
-    // }
-
-    // get signup_data() {
-    //     const data = this.element.querySelector('#signup');
-    //     return {
-    //         name: data.name.value,
-    //         login: data.login.value,
-    //         password: data.password.value,
-    //         email: data.email.value
-    //     };
-    // }
 
 }

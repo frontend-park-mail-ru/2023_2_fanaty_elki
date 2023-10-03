@@ -14,7 +14,7 @@ export class MainController extends IController {
         this.view.bindPersonClick(() => {
             router.redirect('/login');
         });
-        this.view.bindBacketClick(this.logout.bind(this));
+        this.view.bindExitClick(this.logout.bind(this));
     }
     
     logout() {
@@ -24,12 +24,18 @@ export class MainController extends IController {
     }
 
     start() {
-        console.log(this.userModel._currentUser);
         if (this.userModel._currentUser) {
-            this.view.setAuthUser(this.userModel._currentUser);
+            this.view.setAuthUser(this.userModel._currentUser.username);
         } else {
             this.view.setNonAuthUser();
         }
+        this.restaurantModel.getAll().then(list => {
+            console.log(list);
+            list.restaurants.forEach(element => {
+                element.DeliveryTimeMax = element.DeliveryTime + 10;
+            });
+            this.view.updateList(list);
+        })
         this.view.render();
     }
 

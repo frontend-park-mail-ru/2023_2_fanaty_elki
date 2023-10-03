@@ -1,8 +1,10 @@
-.category_grid {
-    height: 323px;
+.category {
+    padding: 0 20px;
 }
 
 .grid_items {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    grid-row-gap: 20px;
 }

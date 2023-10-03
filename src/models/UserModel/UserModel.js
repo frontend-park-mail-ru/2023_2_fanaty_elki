@@ -50,8 +50,7 @@ export class UserModel {
         });
         if (response.ok) {
             const data = await response.json();
-            this._currentUser = data.Body.id;
-            console.log('id', this._currentUser)
+            this._currentUser = data.Body;
             return Promise.resolve();
         }
         return Promise.reject();
@@ -74,7 +73,7 @@ export class UserModel {
         });
         if (response.ok) {
             const data = await response.json();
-            this._currentUser = data.Body.id;
+            this._currentUser = data.Body;
             return Promise.resolve();
         }
         return Promise.reject();

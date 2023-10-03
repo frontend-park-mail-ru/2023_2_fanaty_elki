@@ -10,7 +10,7 @@ export class LoginView extends IView {
     setDefaultState() {
         const SignUpTemplate = Handlebars.templates['LoginView.hbs'];
         const parser = new DOMParser();
-        this.element = parser.parseFromString(SignUpTemplate(), 'text/html').querySelector('#login_form');
+        this.element = parser.parseFromString(SignUpTemplate(), 'text/html').querySelector('#container');
 
         const inputTemplate = Handlebars.templates['FormInput.hbs'];
         const inputGroup = this.element.querySelector(".loginform-inputgroup");

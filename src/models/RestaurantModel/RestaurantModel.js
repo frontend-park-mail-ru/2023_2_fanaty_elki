@@ -1,10 +1,15 @@
 import { request, get, post } from "/modules/ajax.js";
 
 export class Restaurant {
-    getAll() {
-        const headers = {
-            'Content-Type': 'application/json'
-        };
-        return get('/restaurant/all', headers);
+    async getAll() {
+        const response = await fetch(backendURL + '/restaurants', {
+            method: GET,
+            credentials: 'include',
+        });
+        if (response.ok) {
+            const res = await response.json();
+            return res.Body;
+        }
+        return Promise.reject();
     }
 }
