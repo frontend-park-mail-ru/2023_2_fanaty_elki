@@ -7,40 +7,14 @@ export class UserModel {
         this._currentUser = null;
     }
 
-    parseUser(json) {
-        obj = JSON.parse(json)
-        return {
-            id: obj.id,
-            username: obj.username,
-            email: obj.email
-        }
-    }
-
-    getUserById(id) {
-        fetch("") //TODO Add URL
-            .then(responce => {
-                if (responce.ok) {
-                    return this.parseUser(responce.json())
-                }
-            })
-    }
-
-    createUser(user) {
-        fetch("", { //TODO Add URL
-            method: "POST",
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify(user)
-        })
-            .then(responce => {
-                if (responce.ok) {
-                    this._currentUser = parseUser(responce.json());
-                    return this._currentUser;
-                }
-            })
-    }
-
+    /**
+     * Отправляет на сервер запрос об авторизации,
+     * сохраняет данные в _currentUser, если операция успешна
+     * @async
+     * @param {Object} login_data - данные пользователя
+     * @return {Promise} - разрешенный или отклоненный промис,
+     * в зависимости от ответа сервера 
+     */
     async login(login_data) {
         const body = JSON.stringify(login_data);
         const response = await fetch(backendURL + '/login', {
@@ -56,6 +30,13 @@ export class UserModel {
         return Promise.reject();
     }
 
+    /**
+     * Отправляет на сервер запрос о регистрации
+     * @async
+     * @param {Object} signup_data - данные пользователя
+     * @return {Promise} - разрешенный или отклоненный промис,
+     * в зависимости от ответа сервера 
+     */
     async signup(signup_data) {
         const body = JSON.stringify(signup_data);
         const response = await fetch(backendURL + '/users', {
@@ -66,6 +47,13 @@ export class UserModel {
         return Promise.reject();
     }
 
+    /**
+     * Отправляет на сервер запрос об аутентификации по cookies,
+     * сохраняет данные пользователя в _currentUser, если операция успешна
+     * @async
+     * @return {Promise} - разрешенный или отклоненный промис,
+     * в зависимости от ответа сервера 
+     */
     async auth() {
         const response = await fetch(backendURL + '/auth', {
             method: GET,
@@ -79,6 +67,14 @@ export class UserModel {
         return Promise.reject();
     }
 
+
+    /**
+     * Отправляет на сервер запрос о выходе из аккаунта,
+     * сохраняет null в _currentUser, если операция успешна
+     * @async
+     * @return {Promise} - разрешенный или отклоненный промис,
+     * в зависимости от ответа сервера 
+     */
     async logout() {
         const response = await fetch(backendURL + '/logout', {
             method: POST,

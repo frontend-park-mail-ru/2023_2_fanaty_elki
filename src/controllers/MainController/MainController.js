@@ -18,7 +18,7 @@ export class MainController extends IController {
 
     /**
      * Создает экземляр контроллера и инициализирует его
-     * @param {MainView} view - view главной страницы
+     * @param {MainView} view - представление главной страницы
      * @param {RestaurantModel} restaurantModel_ 
      * @param {UserModel} userModel_ 
      */
@@ -46,7 +46,6 @@ export class MainController extends IController {
                 this.view.setNonAuthUser();
         }
         this.restaurantModel.getAll().then(list => {
-            console.log(list);
             list.restaurants.forEach(element => {
                 element.DeliveryTimeMax = element.DeliveryTime + 10;
             });

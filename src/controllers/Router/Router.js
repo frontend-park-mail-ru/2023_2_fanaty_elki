@@ -9,12 +9,20 @@ export class Router {
      */
     controller;
 
+    /**
+     * Переход с одной страницы на другую с сохранением
+     * в историю
+     * @param {string} path - путь на новую страницу 
+     */
     redirect(path) {
-        console.log(path)
         window.history.pushState({}, "", path);
         this.route(path);
     }
 
+    /**
+     * Назначение нового главного контроллера
+     * @param {string} path - путь к страницы нового главного контроллера
+     */
     route(path) {
         if (this.controller) this.controller.stop();
         this.controller = this.map(path);
