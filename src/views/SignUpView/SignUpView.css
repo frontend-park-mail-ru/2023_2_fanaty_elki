@@ -1,6 +1,6 @@
 #signup {
     width: 400px;
-    height: 580px;
+    height: 595px;
     margin: 0 auto;
     margin-top: 65px;
 }
@@ -60,6 +60,17 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+}
+
+
+.signup-error-msg {
+    color: #DA4747;
+    font-family: Comfortaa;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
 }
 
 .signup-control {

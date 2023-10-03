@@ -112,6 +112,10 @@ export class SignUpView extends IView {
 
     }
 
+    showErrorMessage() {
+        this.element.querySelector(".signup-error-msg").textContent = "Такой пользователь уже существует";
+    }
+
     get formData() {
         const form = this.element.querySelector('.signup-form');
         return {

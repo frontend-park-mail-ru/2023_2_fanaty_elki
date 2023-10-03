@@ -28,7 +28,7 @@ export class SignUpController {
                     router.redirect('/login');
                 })
                 .catch(() => {
-
+                    this._signUpView.showErrorMessage();
                 })
         });
 

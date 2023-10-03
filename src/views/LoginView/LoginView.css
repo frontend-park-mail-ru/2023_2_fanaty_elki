@@ -19,6 +19,12 @@
     background: #FFF;
 }
 
+.login-close {
+    position: relative;
+    top: 5px;
+    left: 160px;
+}
+
 .loginform-header {
     display: flex;
     flex-direction: column;

@@ -71,6 +71,13 @@ export class LoginView extends IView {
         })
     }
 
+    bindCloseClick(handler) {
+        this.element.querySelector('.login-close').addEventListener('click', event => {
+            event.preventDefault();
+            handler(event);
+        })
+    }
+
     showErrorMessage() {
         this.element.querySelector(".loginform-error-msg").textContent = "Неверный логин или пароль";
     }
