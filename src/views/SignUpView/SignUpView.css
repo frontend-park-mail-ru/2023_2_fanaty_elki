@@ -1,6 +1,6 @@
 #signup {
     width: 400px;
-    height: 540px;
+    height: 580px;
     margin: 0 auto;
     margin-top: 65px;
 }
@@ -17,6 +17,12 @@
     border-radius: 45px;
     border: 1px solid #000;
     background: #FFF;
+}
+
+.singup-close {
+    position: relative;
+    top: 5px;
+    left: 160px;
 }
 
 .signup-header {
