@@ -1,10 +1,28 @@
 import { config } from "../../config.js";
 import { IView } from "../IView.js";
 
+/**
+ * Представление главной страницы
+ * @class 
+ * @extends {IView}
+ * @category Views 
+ */
 export class MainView extends IView {
+    /**
+     * Элемент, содержащий имя пользователя и кнопку
+     * выхода из аккаунта, отображается только если пользователь
+     * авторизован
+     */
     userNameElement;
+    /**
+     * Кнопка "Войти", отображается, если пользователь не авторизован
+     */
     signInButton;
 
+    /**
+     * Создает из шаблонов главную страницу
+     * @param {HTMLElement} parent_ - тег-контейнер для содержимового страницы  
+     */
     constructor(parent_) {
         super(parent_);
         const MainTemplate = Handlebars.templates['MainView.hbs'];
@@ -21,33 +39,59 @@ export class MainView extends IView {
         this.element.querySelector('.address_title').innerHTML = config.navbar.address;
         this.userNameElement = this.element.querySelector('.name_container');
         this.signInButton = this.element.querySelector('.signin');
+        this.setNonAuthUser();
     }
 
+    /**
+     * Обновляет содержимое списка ресторанов
+     * @param {Object} list  - новый список ресторанов
+     */
     updateList(list) {
         this.element.querySelector('#categories').innerHTML = this.categoryTemplate(list);
     }
 
+    /**
+     * Устанавливает navbar для авторизованного пользователя
+     * @param {string} userName - имя пользователя 
+     */
     setAuthUser(userName) {
+        this.is_auth = true;
         this.userNameElement.firstElementChild.innerHTML = userName;
         this.signInButton.parentNode.appendChild(this.userNameElement);
         this.signInButton.parentNode.removeChild(this.signInButton);
     }
 
+    /**
+     * Устанавливает navbar для неавторизованного пользователя
+     */
     setNonAuthUser() {
+        this.is_auth = false;
         this.userNameElement.parentNode.appendChild(this.signInButton);
         this.userNameElement.parentNode.removeChild(this.userNameElement);
     }
 
+    /**
+     * Устанавливает обработчик на кнопку выхода из аккаунта
+     * @param {Function} handler - обработчик
+     */
     bindExitClick(handler) {
-        this.element.querySelector('.exit').addEventListener('click', handler);
+        this.userNameElement.querySelector('.exit').addEventListener('click', handler);
     }
 
+    /**
+     * Устанавливает обработчик на кнопку с адресом
+     * @param {Function} handler - обработчик
+     */
     bindAddressClick(handler) {
         this.element.querySelector('.address').addEventListener('click', handler);
     }
 
+    /**
+     * Устанавливает обработчик на кнопку 'Войти'
+     * @param {Function} handler - обработчик
+     */
     bindPersonClick(handler) {
-        this.element.querySelector('.signin').addEventListener('click', handler);
+        this.signInButton.addEventListener('click', handler);
     }
 
 }

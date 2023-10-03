@@ -1,6 +1,16 @@
 import { request, get, post } from "/modules/ajax.js";
 
-export class Restaurant {
+/**
+ * Модель ресторанов
+ * @class 
+ * @category Models 
+ */
+export class RestaurantModel {
+    /**
+     * Запрашивает у сервера список ресторанов
+     * @async
+     * @return {Promise} - список ресторанов или отклоненный промис
+     */
     async getAll() {
         const response = await fetch(backendURL + '/restaurants', {
             method: GET,
