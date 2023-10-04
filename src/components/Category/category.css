@@ -1,0 +1,8 @@
+.grid_items {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    row-gap: 40px;
+    column-gap: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}

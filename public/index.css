@@ -1,0 +1,37 @@
+@import '/components/Button/Button.css';
+@import '/components/Navbar/navbar.css';
+@import '/components/Card/card.css';
+@import '/components/Category/category.css';
+@import '/components/FormInputWithMsg/FormInputWithMsg.css';
+@import '/components/FormInput/FormInput.css';
+
+@import '/views/MainView/MainView.css';
+@import '/views/LoginView/LoginView.css';
+@import '/views/SignUpView/SignUpView.css';
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    font-family: 'Comfortaa', cursive;
+    font-weight: 300;
+}
+
+:root {
+    --accent-color: ;
+    --gray-color: #333;
+    --middle-gray-color: #888;
+    --light-gray-color: #F6F6F6;
+    --yellow: #FF9900;
+    --white-color: #fff;
+    --green: #51C35D;
+    --font_size: 15px;
+}
