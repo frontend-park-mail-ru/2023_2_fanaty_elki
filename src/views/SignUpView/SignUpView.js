@@ -19,25 +19,29 @@ export class SignUpView extends IView {
                 name: "email",
                 type: "email",
                 placeholder: "email",
-                style: "default"
+                style: "default",
+                autocomplete: "email"
             },
             {
                 name: "username",
                 type: "text",
                 placeholder: "имя пользователя",
-                style: "default"
+                style: "default",
+                autocomplete: "username"
             },
             {
                 name: "password",
                 type: "password",
                 placeholder: "пароль",
-                style: "default"
+                style: "default",
+                autocomplete: "new-password"
             },
             {
                 name: "passwordconfirm",
                 type: "password",
                 placeholder: "повторите пароль",
-                style: "default"
+                style: "default",
+                autocomplete: "new-password"
             }
         ]
         inputs.forEach((element) => {

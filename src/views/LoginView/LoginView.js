@@ -19,13 +19,15 @@ export class LoginView extends IView {
                 name: "username",
                 type: "text",
                 placeholder: "имя пользователя",
-                style: "default"
+                style: "default",
+                autocomplete: "off"
             },
             {
                 name: "password",
                 type: "password",
                 placeholder: "пароль",
-                style: "default"
+                style: "default",
+                autocomplete: "off"
             }
         ]
         inputs.forEach((element) => {
