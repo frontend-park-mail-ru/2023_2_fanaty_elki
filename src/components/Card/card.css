@@ -1,7 +1,7 @@
 .restaurant_card {
     display: flex;
     flex-direction: column;
-    width: 267px;
+    width: 100%;
     min-height: 190px;
     justify-content: space-around;
     background-color: var(--light-gray-color);
@@ -11,8 +11,9 @@
 }
 
 .title_image {
-    width: 260px;
+    width: 253px;
     height: 133px;
+
     border-radius: 20px;
     margin: 0 auto;
 }
