@@ -34,9 +34,8 @@ export class MainView extends IView {
         Handlebars.registerPartial('cardTemplate', cardTemplate);
         this.navbarTemplate = Handlebars.templates['navbar.hbs'];
         this.categoryTemplate = Handlebars.templates['category.hbs'];
-        this.element.querySelector('#navbar').innerHTML = this.navbarTemplate();
+        this.element.querySelector('#navbar').innerHTML = this.navbarTemplate(config.navbar);
         this.element.querySelector('#categories').innerHTML = this.categoryTemplate();
-        this.element.querySelector('.address_title').innerHTML = config.navbar.address;
         this.userNameElement = this.element.querySelector('.name_container');
         this.signInButton = this.element.querySelector('.signin');
         this.setNonAuthUser();

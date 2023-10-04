@@ -1,6 +1,6 @@
 export const config = {
     navbar: {
-        search_ph: "Find food",
-        address: "Укажите адресс",
+        search_ph: "Крошка картошка ...",
+        address: "Укажите адрес",
     },
 };
