@@ -6,6 +6,8 @@
     justify-content: space-around;
     background-color: var(--light-gray-color);
     border-radius: 20px;
+
+    cursor: pointer;
 }
 
 .title_image {
