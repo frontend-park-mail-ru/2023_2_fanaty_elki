@@ -18,6 +18,10 @@
     margin: 0 auto;
 }
 
+.gold_star {
+    margin-right: 5px;
+}
+
 .delivery_info {
     font-size: 10px;
     font-family: Comfortaa;
