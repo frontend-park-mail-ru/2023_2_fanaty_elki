@@ -10,6 +10,10 @@
     cursor: pointer;
 }
 
+.restaurant_card:hover {
+    background-color: #ededed;
+}
+
 .title_image {
     width: 253px;
     height: 133px;
