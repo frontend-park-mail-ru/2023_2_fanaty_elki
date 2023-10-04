@@ -25,7 +25,13 @@ export class SignUpController {
                 password: userData.password
             })
                 .then(() => {
-                    router.redirect('/login');
+                    return this._userModel.login({
+                        username: userData.username,
+                        password: userData.password
+                    })
+                })
+                .then(() => {
+                    router.redirect('/')
                 })
                 .catch(() => {
                     this._signUpView.showErrorMessage();
