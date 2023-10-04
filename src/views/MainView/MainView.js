@@ -87,6 +87,14 @@ export class MainView extends IView {
     }
 
     /**
+     * Устанавливает обработчик на логотип
+     * @param {Function} handler - обработчик
+     */
+    bindLogoClick(handler) {
+        this.element.querySelector('.logo').addEventListener('click', handler);
+    }
+
+    /**
      * Устанавливает обработчик на кнопку 'Войти'
      * @param {Function} handler - обработчик
      */

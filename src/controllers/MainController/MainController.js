@@ -31,6 +31,9 @@ export class MainController extends IController {
             router.redirect('/login');
         });
         this.view.bindExitClick(this.logout.bind(this));
+        this.view.bindLogoClick(()=>{
+            router.redirect('/');
+        });
     }
 
     /**
