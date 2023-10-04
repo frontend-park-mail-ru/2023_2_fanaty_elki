@@ -23,6 +23,8 @@
     position: relative;
     top: 5px;
     left: 160px;
+
+    cursor: pointer;
 }
 
 .loginform-header {
