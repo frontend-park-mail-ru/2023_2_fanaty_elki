@@ -1,17 +1,14 @@
+import { IController } from "../IController.js";
+
 /**
  * Контроллер регистрации
  * @class
  */
-export class SignUpController {
+export class SignUpController extends IController {
     /**
      * Ссылка на модель пользователя
      */
     _userModel;
-
-    /**
-     * Ссылка на представление регистрации
-     */
-    _signUpView;
 
     /**
      * Устанавливает модель пользователя и соответствующее представление
@@ -19,19 +16,19 @@ export class SignUpController {
      * @param {UserModel} userModel - модель пользователя
      */
     constructor(signUpView, userModel) {
+        super(signUpView);
         this._userModel = userModel;
-        this._signUpView = signUpView;
     }
 
     /**
      * Добавляет обработчики на все интерактивные элементы страницы
      */
     bindListeners() {
-        this._signUpView.bindSubmitHandler(() => {
-            const userData = this._signUpView.formData;
+        this.view.bindSubmitHandler(() => {
+            const userData = this.view.formData;
             const validationResponce = this.validateFormData(userData)
             if (!validationResponce.isValid) {
-                this._signUpView.handleFormValidation(validationResponce.errors);
+                this.view.handleFormValidation(validationResponce.errors);
                 return;
             }
 
@@ -50,15 +47,15 @@ export class SignUpController {
                     router.redirect('/')
                 })
                 .catch(() => {
-                    this._signUpView.showErrorMessage();
+                    this.view.showErrorMessage();
                 })
         });
 
-        this._signUpView.bindLoginClick(() => {
+        this.view.bindLoginClick(() => {
             router.redirect('/login');
         });
 
-        this._signUpView.bindCloseClick(() => {
+        this.view.bindCloseClick(() => {
             router.redirect("/");
         });
     }
@@ -207,16 +204,16 @@ export class SignUpController {
      * Отрисовка страницы регистрации
      */
     start() {
-        this._signUpView.setDefaultState();
+        this.view.setDefaultState();
         this.bindListeners();
-        this._signUpView.render();
+        this.view.render();
     }
 
     /**
      * Очистка страницы регистрации
      */
     stop() {
-        this._signUpView.clearState();
-        this._signUpView.clear();
+        this.view.clearState();
+        this.view.clear();
     }
 }
