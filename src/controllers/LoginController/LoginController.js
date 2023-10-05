@@ -1,8 +1,10 @@
+import { IController } from "../IController.js";
+
 /**
  * Контроллер авторизации
  * @class
  */
-export class LoginController {
+export class LoginController extends IController {
     /**
      * Ссылка на модель пользователя
      */
@@ -15,32 +17,32 @@ export class LoginController {
 
     /**
      * Устанавливает модель пользователя и соответствующее представление
-     * @param {LoginView} signUpView - представление авторизации
+     * @param {LoginView} loginView - представление авторизации
      * @param {UserModel} userModel - модель пользователя
      */
     constructor(loginView, userModel) {
+        super(loginView);
         this._userModel = userModel;
-        this._loginView = loginView;
     }
 
     /**
      * Добавляет обработчики на все интерактивные элементы страницы
      */
     bindListeners() {
-        this._loginView.bindSubmitHandler(() => {
-            const data = this._loginView.formData;
+        this.view.bindSubmitHandler(() => {
+            const data = this.view.formData;
             this._userModel.login(data).then(() => {
                 router.redirect('/')
             }).catch(() => {
-                this._loginView.showErrorMessage();
+                this.view.showErrorMessage();
             })
         });
 
-        this._loginView.bindSignUpClick(() => {
+        this.view.bindSignUpClick(() => {
             router.redirect('/signup');
         });
 
-        this._loginView.bindCloseClick(() => {
+        this.view.bindCloseClick(() => {
             router.redirect("/");
         });
     }
@@ -49,16 +51,16 @@ export class LoginController {
      * Отрисовка страницы регистрации
      */
     start() {
-        this._loginView.setDefaultState();
+        this.view.setDefaultState();
         this.bindListeners();
-        this._loginView.render();
+        this.view.render();
     }
 
     /**
      * Очистка страницы регистрации
      */
     stop() {
-        this._loginView.clearState();
-        this._loginView.clear();
+        this.view.clearState();
+        this.view.clear();
     }
 }
