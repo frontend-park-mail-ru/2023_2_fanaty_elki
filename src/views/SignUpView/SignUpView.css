@@ -21,7 +21,7 @@
 
 .singup-close {
     position: relative;
-    top: 5px;
+    top: -5px;
     left: 160px;
 
     cursor: pointer;
