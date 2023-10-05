@@ -3,8 +3,7 @@ import { IController } from "../IController.js";
 /**
  * Контроллер главной страницы
  * @class 
- * @extends {IController}
- * @category Controllers 
+ * @extends {IController} 
  */
 export class MainController extends IController {
     /**
