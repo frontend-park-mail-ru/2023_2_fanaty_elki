@@ -3,6 +3,7 @@ import { IController } from "../IController.js";
 /**
  * Контроллер регистрации
  * @class
+ * @extends {IController}
  */
 export class SignUpController extends IController {
     /**
