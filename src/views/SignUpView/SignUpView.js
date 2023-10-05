@@ -17,13 +17,13 @@ export class SignUpView extends IView {
      * Добавляет элементы на страницу и устанавливает состояние по умолчанию
      */
     setDefaultState() {
-        const SignUpTemplate = Handlebars.templates['SignUpView.hbs'];
+        const SignUpTemplate = Handlebars.templates["SignUpView.hbs"];
         const parser = new DOMParser();
-        this.element = parser.parseFromString(SignUpTemplate(), 'text/html').querySelector('#signup');
+        this.element = parser.parseFromString(SignUpTemplate(), "text/html").querySelector("#signup");
         if (!this.element) return;
 
-        const inputTemplate = Handlebars.templates['FormInputWithMsg.hbs'];
-        const inputGroup = this.element.querySelector('.signup-inputgroup');
+        const inputTemplate = Handlebars.templates["FormInputWithMsg.hbs"];
+        const inputGroup = this.element.querySelector(".signup-inputgroup");
         const inputs = [
             {
                 style: "default",
@@ -32,7 +32,7 @@ export class SignUpView extends IView {
                 name: "email",
                 placeholder: "email",
                 value: "",
-                autocomplete: "email"
+                autocomplete: "email",
             },
             {
                 style: "default",
@@ -41,7 +41,7 @@ export class SignUpView extends IView {
                 name: "username",
                 placeholder: "имя пользователя",
                 value: "",
-                autocomplete: "username"
+                autocomplete: "username",
             },
             {
                 style: "default",
@@ -50,7 +50,7 @@ export class SignUpView extends IView {
                 name: "password",
                 placeholder: "пароль",
                 value: "",
-                autocomplete: "new-password"
+                autocomplete: "new-password",
             },
             {
                 style: "default",
@@ -59,34 +59,34 @@ export class SignUpView extends IView {
                 name: "passwordconfirm",
                 placeholder: "повторите пароль",
                 value: "",
-                autocomplete: "new-password"
-            }
-        ]
+                autocomplete: "new-password",
+            },
+        ];
         inputs.forEach((element) => {
             inputGroup.innerHTML += inputTemplate(element);
-        })
+        });
 
-        const buttonTemplate = Handlebars.templates['Button.hbs'];
-        const formControl = this.element.querySelector('.signup-control');
+        const buttonTemplate = Handlebars.templates["Button.hbs"];
+        const formControl = this.element.querySelector(".signup-control");
         const buttons = [
             {
                 id: "submit",
                 text: "Зарегистрироваться",
-                style: "primary"
+                style: "primary",
             },
             {
                 id: "auth",
                 text: "Уже есть аккаунт?",
-                style: "secondary"
-            }
-        ]
+                style: "secondary",
+            },
+        ];
         buttons.forEach((element) => {
             formControl.innerHTML += buttonTemplate(element);
-        })
+        });
     }
 
     /**
-     * Очищает станицу
+     * Очищает станицу и состояние
      */
     clearState() {
         this.element.innerHTML = "";
@@ -97,10 +97,10 @@ export class SignUpView extends IView {
      * @param {Function} handler - обработчик
      */
     bindSubmitHandler(handler) {
-        this.element.querySelector('#submit').addEventListener('click', event => {
+        this.element.querySelector("#submit").addEventListener("click", (event) => {
             event.preventDefault();
             handler(event);
-        })
+        });
     }
 
     /**
@@ -108,10 +108,10 @@ export class SignUpView extends IView {
      * @param {Function} handler - обработчик
      */
     bindLoginClick(handler) {
-        this.element.querySelector('#auth').addEventListener('click', event => {
+        this.element.querySelector("#auth").addEventListener("click", (event) => {
             event.preventDefault();
             handler(event);
-        })
+        });
     }
 
     /**
@@ -119,10 +119,10 @@ export class SignUpView extends IView {
      * @param {Function} handler - обработчик
      */
     bindCloseClick(handler) {
-        this.element.querySelector('.singup-close').addEventListener('click', event => {
+        this.element.querySelector(".singup-close").addEventListener("click", (event) => {
             event.preventDefault();
             handler(event);
-        })
+        });
     }
 
     /**
@@ -147,13 +147,12 @@ export class SignUpView extends IView {
                 name: inputToReplace.name,
                 placeholder: inputToReplace.placeholder,
                 value: inputToReplace.value,
-                autocomplete: inputToReplace.autocomplete
-            })
+                autocomplete: inputToReplace.autocomplete,
+            });
             const newInputDiv = placeholder.firstChild;
 
             inputDivToReplace.replaceWith(newInputDiv);
-        })
-
+        });
     }
 
     /**
@@ -165,14 +164,15 @@ export class SignUpView extends IView {
 
     /**
      * Получение данных формы
+     * @returns {Object} - данные формы
      */
     get formData() {
-        const form = this.element.querySelector('.signup-form');
+        const form = this.element.querySelector(".signup-form");
         return {
             username: form.username.value,
             email: form.email.value,
             password: form.password.value,
-            passwordConfirm: form.passwordconfirm.value
+            passwordConfirm: form.passwordconfirm.value,
         };
     }
 }
