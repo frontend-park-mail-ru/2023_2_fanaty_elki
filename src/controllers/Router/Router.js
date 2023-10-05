@@ -1,4 +1,3 @@
-
 /**
  * Роутер для переключения между контроллерами разных страниц
  * @class
@@ -32,7 +31,7 @@ export class Router {
     /**
      * Поиск контроллера по пути
      * @param {string} path - путь
-     * @returns {Object} - контроллер определенного пути
+     * @returns {IController} - контроллер определенного пути
      */
     map(path) {
         switch (path) {
