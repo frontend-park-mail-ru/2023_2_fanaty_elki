@@ -12,35 +12,43 @@ export class SignUpView extends IView {
         const parser = new DOMParser();
         this.element = parser.parseFromString(SignUpTemplate(), 'text/html').querySelector('#signup');
 
-        const inputTemplate = Handlebars.templates['FormInput.hbs'];
+        const inputTemplate = Handlebars.templates['FormInputWithMsg.hbs'];
         const inputGroup = this.element.querySelector('.signup-inputgroup');
         const inputs = [
             {
-                name: "email",
-                type: "email",
-                placeholder: "email",
                 style: "default",
+                message: "",
+                type: "email",
+                name: "email",
+                placeholder: "email",
+                value: "",
                 autocomplete: "email"
             },
             {
-                name: "username",
-                type: "text",
-                placeholder: "имя пользователя",
                 style: "default",
+                message: "",
+                type: "text",
+                name: "username",
+                placeholder: "имя пользователя",
+                value: "",
                 autocomplete: "username"
             },
             {
-                name: "password",
-                type: "password",
-                placeholder: "пароль",
                 style: "default",
+                message: "",
+                type: "password",
+                name: "password",
+                placeholder: "пароль",
+                value: "",
                 autocomplete: "new-password"
             },
             {
-                name: "passwordconfirm",
-                type: "password",
-                placeholder: "повторите пароль",
                 style: "default",
+                message: "",
+                type: "password",
+                name: "passwordconfirm",
+                placeholder: "повторите пароль",
+                value: "",
                 autocomplete: "new-password"
             }
         ]
@@ -98,20 +106,22 @@ export class SignUpView extends IView {
         const inputWithMsg = Handlebars.templates["FormInputWithMsg.hbs"];
 
         errors.forEach((error) => {
-            const inputToReplace = this.element.querySelector(`#${error.field}`);
+            const inputDivToReplace = this.element.querySelector(`#input-div-${error.field}`);
+            const inputToReplace = inputDivToReplace.querySelector(`#${error.field}`);
 
             const placeholder = document.createElement("div");
             placeholder.innerHTML = inputWithMsg({
                 style: "error",
+                message: error.message,
                 type: inputToReplace.type,
                 name: inputToReplace.name,
                 placeholder: inputToReplace.placeholder,
                 value: inputToReplace.value,
-                message: error.message
+                autocomplete: inputToReplace.autocomplete
             })
-            const newInput = placeholder.firstChild;
+            const newInputDiv = placeholder.firstChild;
 
-            inputToReplace.replaceWith(newInput);
+            inputDivToReplace.replaceWith(newInputDiv);
         })
 
     }
