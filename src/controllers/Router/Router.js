@@ -29,6 +29,11 @@ export class Router {
         this.controller.start();
     }
 
+    /**
+     * Поиск контроллера по пути
+     * @param {string} path - путь
+     * @returns {Object} - контроллер определенного пути
+     */
     map(path) {
         switch (path) {
             case '/signup':
