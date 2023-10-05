@@ -1,16 +1,26 @@
 import { IView } from "../IView.js";
-
+/**
+ * Представление страницы регистрации
+ * @extends {IView}
+ */
 export class SignUpView extends IView {
-
+    /**
+     * Добавляет родительский элемент отображения и устанавливает форму в состояние по умолчанию
+     * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы
+     */
     constructor(parent_) {
         super(parent_);
         this.setDefaultState();
     }
 
+    /**
+     * Добавляет элементы на страницу и устанавливает состояние по умолчанию
+     */
     setDefaultState() {
         const SignUpTemplate = Handlebars.templates['SignUpView.hbs'];
         const parser = new DOMParser();
         this.element = parser.parseFromString(SignUpTemplate(), 'text/html').querySelector('#signup');
+        if (!this.element) return;
 
         const inputTemplate = Handlebars.templates['FormInputWithMsg.hbs'];
         const inputGroup = this.element.querySelector('.signup-inputgroup');
@@ -73,14 +83,19 @@ export class SignUpView extends IView {
         buttons.forEach((element) => {
             formControl.innerHTML += buttonTemplate(element);
         })
-
-        if (!this.element) return;
     }
 
+    /**
+     * Очищает станицу
+     */
     clearState() {
         this.element.innerHTML = "";
     }
 
+    /**
+     * Устанавливает обработчик на кнопку отправки формы
+     * @param {Function} handler - обработчик
+     */
     bindSubmitHandler(handler) {
         this.element.querySelector('#submit').addEventListener('click', event => {
             event.preventDefault();
@@ -88,6 +103,10 @@ export class SignUpView extends IView {
         })
     }
 
+    /**
+     * Устанавливает обработчик на кнопку перенаправления на авторизацию
+     * @param {Function} handler - обработчик
+     */
     bindLoginClick(handler) {
         this.element.querySelector('#auth').addEventListener('click', event => {
             event.preventDefault();
@@ -95,6 +114,10 @@ export class SignUpView extends IView {
         })
     }
 
+    /**
+     * Устанавливает обработчик на кнопку закрытия формы
+     * @param {Function} handler - обработчик
+     */
     bindCloseClick(handler) {
         this.element.querySelector('.singup-close').addEventListener('click', event => {
             event.preventDefault();
@@ -102,6 +125,13 @@ export class SignUpView extends IView {
         })
     }
 
+    /**
+     * Обработчик результатов валидации формы
+     * Вывод сообщения об ошибках
+     * @param {Object[]} errors
+     * @param {string} errors[].field - невалидное поле
+     * @param {string} errors[].message - сообщение об ошибке
+     */
     handleFormValidation(errors) {
         const inputWithMsg = Handlebars.templates["FormInputWithMsg.hbs"];
 
@@ -126,10 +156,16 @@ export class SignUpView extends IView {
 
     }
 
+    /**
+     * Выводит сообщения об ошибках со стороны сервера
+     */
     showErrorMessage() {
         this.element.querySelector(".signup-error-msg").textContent = "Такой пользователь уже существует";
     }
 
+    /**
+     * Получение данных формы
+     */
     get formData() {
         const form = this.element.querySelector('.signup-form');
         return {
