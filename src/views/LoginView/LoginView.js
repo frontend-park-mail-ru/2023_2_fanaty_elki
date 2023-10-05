@@ -1,6 +1,7 @@
 import { IView } from "../IView.js";
 /**
  * Представление страницы авторизации
+ * @class
  * @extends {IView}
  */
 export class LoginView extends IView {

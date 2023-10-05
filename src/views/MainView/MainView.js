@@ -3,6 +3,7 @@ import { IView } from "../IView.js";
 
 /**
  * Представление главной страницы 
+ * @class
  * @extends {IView} 
  */
 export class MainView extends IView {

@@ -2,7 +2,7 @@ import { request, get, post } from "/modules/ajax.js";
 
 /**
  * Модель ресторанов
- *  
+ *  @class
  */
 export class RestaurantModel {
     /**
