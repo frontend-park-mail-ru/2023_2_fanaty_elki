@@ -10,15 +10,13 @@ import { UserModel } from "/models/UserModel/UserModel.js";
 
 const rootElement = document.querySelector('#root');
 
-window.backendURL = 'http://84.23.53.216:8001';
+// window.backendURL = 'http://84.23.53.216:8001';
+window.backendURL = 'http://127.0.0.1:3000';
 window.GET = 'GET';
 window.POST = 'POST';
 
 const userModel = new UserModel();
-try {
-    await userModel.auth();
-} catch {
-}
+await userModel.auth();
 
 const router = new Router();
 window.router = router;
