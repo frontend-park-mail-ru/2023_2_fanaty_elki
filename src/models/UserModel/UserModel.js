@@ -26,9 +26,9 @@ export class UserModel {
      * @param {Object} login_data - данные пользователя
      */
     async login(login_data) {
-        await loginUser(login_data).then(data =>{
+        return await loginUser(login_data).then(data => {
             this._currentUser = data;
-        }).catch(() => {})
+        });
     }
 
     /**
@@ -47,9 +47,9 @@ export class UserModel {
      * @async
      */
     async auth() {
-        await authUser().then(data =>{
+        await authUser().then(data => {
             this._currentUser = data;
-        }).catch(() => {})
+        }).catch(() => { })
     }
 
     /**
@@ -60,6 +60,6 @@ export class UserModel {
     async logout() {
         await logoutUser().then(() => {
             this._currentUser = null;
-        }).catch(() => {})
+        }).catch(() => { })
     }
 }
