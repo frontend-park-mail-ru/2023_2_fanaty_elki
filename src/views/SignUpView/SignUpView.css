@@ -1,6 +1,6 @@
 #signup {
     width: 400px;
-    height: 595px;
+    /* height: 595px; */
     margin: 0 auto;
     margin-top: 65px;
 }
@@ -21,8 +21,10 @@
 
 .singup-close {
     position: relative;
-    top: 5px;
+    top: -5px;
     left: 160px;
+    height: 15px;
+    width: 15px;
 
     cursor: pointer;
 }

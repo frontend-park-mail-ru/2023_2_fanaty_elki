@@ -1,42 +1,67 @@
 import { IController } from "../IController.js";
-import { Router } from "../Router/Router.js";
 
-export class LoginController {
+/**
+ * Контроллер авторизации
+ * @class
+ * @extends {IController}
+ */
+export class LoginController extends IController {
+    /**
+     * Ссылка на модель пользователя
+     */
     _userModel;
+
+    /**
+     * Ссылка на представление регистрации
+     */
     _loginView;
 
+    /**
+     * Устанавливает модель пользователя и соответствующее представление
+     * @param {LoginView} loginView - представление авторизации
+     * @param {UserModel} userModel - модель пользователя
+     */
     constructor(loginView, userModel) {
+        super(loginView);
         this._userModel = userModel;
-        this._loginView = loginView;
     }
 
+    /**
+     * Добавляет обработчики на все интерактивные элементы страницы
+     */
     bindListeners() {
-        this._loginView.bindSubmitHandler(this.submitForm.bind(this));
-        this._loginView.bindSignUpClick(() => {
+        this.view.bindSubmitHandler(() => {
+            const data = this.view.formData;
+            this._userModel.login(data).then(() => {
+                router.redirect('/')
+            }).catch(() => {
+                this.view.showErrorMessage();
+            })
+        });
+
+        this.view.bindSignUpClick(() => {
             router.redirect('/signup');
         });
-        this._loginView.bindCloseClick(() => {
+
+        this.view.bindCloseClick(() => {
             router.redirect("/");
         });
     }
 
-    submitForm() {
-        const data = this._loginView.formData;
-        this._userModel.login(data).then(() => {
-            router.redirect('/')
-        }).catch(() => { 
-            this._loginView.showErrorMessage();
-        })
-    }
-
+    /**
+     * Отрисовка страницы регистрации
+     */
     start() {
-        this._loginView.setDefaultState();
+        this.view.setDefaultState();
         this.bindListeners();
-        this._loginView.render();
+        this.view.render();
     }
 
+    /**
+     * Очистка страницы регистрации
+     */
     stop() {
-        this._loginView.clearState();
-        this._loginView.clear();
+        this.view.clearState();
+        this.view.clear();
     }
 }

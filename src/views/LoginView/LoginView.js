@@ -1,12 +1,22 @@
 import { IView } from "../IView.js";
-
+/**
+ * Представление страницы авторизации
+ * @class
+ * @extends {IView}
+ */
 export class LoginView extends IView {
-
+    /**
+     * Добавляет родительский элемент отображения и устанавливает форму в состояние по умолчанию
+     * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы
+     */
     constructor(parent_) {
         super(parent_);
         this.setDefaultState();
     }
 
+    /**
+     * Добавляет элементы на страницу и устанавливает состояние по умолчанию
+     */
     setDefaultState() {
         const SignUpTemplate = Handlebars.templates['LoginView.hbs'];
         const parser = new DOMParser();
@@ -55,10 +65,17 @@ export class LoginView extends IView {
         if (!this.element) return;
     }
 
+    /**
+     * Очищает станицу и состояние
+     */
     clearState() {
         this.element.innerHTML = "";
     }
 
+    /**
+     * Устанавливает обработчик на отправку формы
+     * @param {Function} handler - обработчик 
+     */
     bindSubmitHandler(handler) {
         this.element.querySelector('#submit').addEventListener('click', event => {
             event.preventDefault();
@@ -66,6 +83,10 @@ export class LoginView extends IView {
         })
     }
 
+    /**
+     * Устанавливает обработчик на кнопку перенаправления на регистрацию
+     * @param {Function} handler - обработчик 
+     */
     bindSignUpClick(handler) {
         this.element.querySelector('#reg').addEventListener('click', event => {
             event.preventDefault();
@@ -73,6 +94,10 @@ export class LoginView extends IView {
         })
     }
 
+    /**
+     * Устанавливает обработчик на кнопку закрытия формы
+     * @param {Function} handler - обработчик
+     */
     bindCloseClick(handler) {
         this.element.querySelector('.login-close').addEventListener('click', event => {
             event.preventDefault();
@@ -80,10 +105,16 @@ export class LoginView extends IView {
         })
     }
 
+    /**
+     * Выводит сообщения об ошибках со стороны сервера
+     */
     showErrorMessage() {
         this.element.querySelector(".loginform-error-msg").textContent = "Неверный логин или пароль";
     }
 
+    /**
+     * Получение данных формы
+     */
     get formData() {
         const form = this.element.querySelector('.loginform-form');
         return {

@@ -1,11 +1,10 @@
-import { config } from "../../config.js";
+import { config } from "./config.js";
 import { IView } from "../IView.js";
 
 /**
- * Представление главной страницы
- * @class 
- * @extends {IView}
- * @category Views 
+ * Представление главной страницы 
+ * @class
+ * @extends {IView} 
  */
 export class MainView extends IView {
     /**
@@ -21,7 +20,7 @@ export class MainView extends IView {
 
     /**
      * Создает из шаблонов главную страницу
-     * @param {HTMLElement} parent_ - тег-контейнер для содержимового страницы  
+     * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы  
      */
     constructor(parent_) {
         super(parent_);

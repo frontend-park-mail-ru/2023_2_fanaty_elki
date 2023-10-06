@@ -1,4 +1,3 @@
-
 /**
  * Роутер для переключения между контроллерами разных страниц
  * @class
@@ -29,6 +28,11 @@ export class Router {
         this.controller.start();
     }
 
+    /**
+     * Поиск контроллера по пути
+     * @param {string} path - путь
+     * @returns {IController} - контроллер определенного пути
+     */
     map(path) {
         switch (path) {
             case '/signup':

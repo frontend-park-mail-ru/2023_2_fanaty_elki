@@ -1,21 +1,35 @@
 import { IController } from "../IController.js";
-import { Router } from "../Router/Router.js";
 
-export class SignUpController {
+/**
+ * Контроллер регистрации
+ * @class
+ * @extends {IController}
+ */
+export class SignUpController extends IController {
+    /**
+     * Ссылка на модель пользователя
+     */
     _userModel;
-    _signUpView;
 
+    /**
+     * Устанавливает модель пользователя и соответствующее представление
+     * @param {SignUpView} signUpView - представление регистрации
+     * @param {UserModel} userModel - модель пользователя
+     */
     constructor(signUpView, userModel) {
+        super(signUpView);
         this._userModel = userModel;
-        this._signUpView = signUpView;
     }
 
+    /**
+     * Добавляет обработчики на все интерактивные элементы страницы
+     */
     bindListeners() {
-        this._signUpView.bindSubmitHandler(() => {
-            const userData = this._signUpView.formData;
+        this.view.bindSubmitHandler(() => {
+            const userData = this.view.formData;
             const validationResponce = this.validateFormData(userData)
             if (!validationResponce.isValid) {
-                this._signUpView.handleFormValidation(validationResponce.errors);
+                this.view.handleFormValidation(validationResponce.errors);
                 return;
             }
 
@@ -34,19 +48,28 @@ export class SignUpController {
                     router.redirect('/')
                 })
                 .catch(() => {
-                    this._signUpView.showErrorMessage();
+                    this.view.showErrorMessage();
                 })
         });
 
-        this._signUpView.bindLoginClick(() => {
+        this.view.bindLoginClick(() => {
             router.redirect('/login');
         });
 
-        this._signUpView.bindCloseClick(() => {
+        this.view.bindCloseClick(() => {
             router.redirect("/");
         });
     }
 
+    /**
+     * Функция валидации данных пользователя при регистрации
+     * @param {Object} userData - данные формы
+     * @param {string} userData.username - имя пользователя
+     * @param {string} userData.email - email пользователя
+     * @param {string} userData.password - пароль пользователя
+     * @param {string} userData.passwordConfirm - подтверждение пароля пользователя
+     * @returns {Object} - результат валидации
+     */
     validateFormData(userData) {
         let validationResponce = {
             isValid: true,
@@ -87,6 +110,11 @@ export class SignUpController {
         return validationResponce;
     }
 
+    /**
+     * Валидация email
+     * @param {string} email - email пользователя 
+     * @returns {Object} - результат валидации и сообщение об ошибке
+     */
     validateEmail(email) {
         if (!email) {
             return {
@@ -113,6 +141,11 @@ export class SignUpController {
         }
     }
 
+    /**
+     * Валидация имени пользователя
+     * @param {string} username - имя пользователя 
+     * @returns {Object} - результат валидации и сообщение об ошибке
+     */
     validateUsername(username) {
         if (!username) {
             return {
@@ -134,6 +167,12 @@ export class SignUpController {
         }
     }
 
+    /**
+     * Валидация пароля пользователя
+     * @param {string} password - пароль
+     * @param {string} passwordConfirm - подтверждение пароля 
+     * @returns {Object} - результат валидации и сообщение об ошибке
+     */
     validatePassword(password, passwordConfirm) {
         if (!password) {
             return {
@@ -162,14 +201,20 @@ export class SignUpController {
         }
     }
 
+    /**
+     * Отрисовка страницы регистрации
+     */
     start() {
-        this._signUpView.setDefaultState();
+        this.view.setDefaultState();
         this.bindListeners();
-        this._signUpView.render();
+        this.view.render();
     }
 
+    /**
+     * Очистка страницы регистрации
+     */
     stop() {
-        this._signUpView.clearState();
-        this._signUpView.clear();
+        this.view.clearState();
+        this.view.clear();
     }
 }

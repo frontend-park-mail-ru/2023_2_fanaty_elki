@@ -1,9 +1,7 @@
-import { request, get, post } from "/modules/ajax.js";
-
+import { getRestaurants } from "../../modules/api.js";
 /**
  * Модель ресторанов
- * @class 
- * @category Models 
+ *  @class
  */
 export class RestaurantModel {
     /**
@@ -12,14 +10,8 @@ export class RestaurantModel {
      * @return {Promise} - список ресторанов или отклоненный промис
      */
     async getAll() {
-        const response = await fetch(backendURL + '/restaurants', {
-            method: GET,
-            credentials: 'include',
-        });
-        if (response.ok) {
-            const res = await response.json();
-            return res.Body;
-        }
-        return Promise.reject();
+        return await getRestaurants().then(data => {
+            return data;
+        }).catch(() => {});
     }
 }

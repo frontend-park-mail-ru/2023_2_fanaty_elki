@@ -1,6 +1,6 @@
 #login {
     width: 400px;
-    height: 540px;
+    /* height: 540px; */
     margin: 0 auto;
     margin-top: 65px;
 }
@@ -23,6 +23,8 @@
     position: relative;
     top: 5px;
     left: 160px;
+    height: 15px;
+    width: 15px;
 
     cursor: pointer;
 }
