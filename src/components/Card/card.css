@@ -1,7 +1,7 @@
 .restaurant_card {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 253px;
     min-height: 190px;
     justify-content: space-around;
     background-color: var(--light-gray-color);
