@@ -23,7 +23,6 @@ export async function logoutUser() {
         method: POST,
         credentials: 'include'
     });
-    const json = await response.json();
     if (response.ok) return Promise.resolve();
     return Promise.reject();
 }

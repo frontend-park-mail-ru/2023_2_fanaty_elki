@@ -22,5 +22,12 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
+    },
+    "globals": {
+        "router": "readonly",
+        "backendURL": "readonly",
+        "GET": "readonly",
+        "POST": "readonly",
+        "Handlebars": "readonly"
     }
 }
