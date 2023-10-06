@@ -28,7 +28,7 @@ export class UserModel {
     async login(login_data) {
         await loginUser(login_data).then(data =>{
             this._currentUser = data;
-        }).catch(err => {})
+        }).catch(() => {})
     }
 
     /**
@@ -49,7 +49,7 @@ export class UserModel {
     async auth() {
         await authUser().then(data =>{
             this._currentUser = data;
-        }).catch(err => {})
+        }).catch(() => {})
     }
 
     /**
@@ -58,8 +58,8 @@ export class UserModel {
      * @async
      */
     async logout() {
-        await logoutUser().then(data => {
+        await logoutUser().then(() => {
             this._currentUser = null;
-        }).catch(err => {})
+        }).catch(() => {})
     }
 }
