@@ -26,9 +26,9 @@ export class UserModel {
      * @param {Object} login_data - данные пользователя
      */
     async login(login_data) {
-        await loginUser(login_data).then(data =>{
+        return await loginUser(login_data).then(data =>{
             this._currentUser = data;
-        }).catch(() => {})
+        });
     }
 
     /**
