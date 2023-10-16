@@ -7,9 +7,10 @@ export class SignUpView extends IView {
     /**
      * Добавляет родительский элемент отображения и устанавливает форму в состояние по умолчанию
      * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы
+     * @param {String} title_ - заголовок страницы
      */
-    constructor(parent_) {
-        super(parent_);
+    constructor(parent_, title_) {
+        super(parent_, title_);
         this.setDefaultState();
     }
 
