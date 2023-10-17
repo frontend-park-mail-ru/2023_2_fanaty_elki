@@ -170,29 +170,25 @@ export class SignUpView extends IView {
      * Обработчик результатов валидации формы
      * Вывод сообщения об ошибках
      * @param {Object[]} errors
-     * @param {string} errors[].field - невалидное поле
+     * @param {string} errors[].isValid - результат валидации
+     * @param {string} errors[].field - поле
      * @param {string} errors[].message - сообщение об ошибке
      */
     handleFormValidation(errors) {
-        const inputWithMsg = Handlebars.templates["FormInputWithMsg.hbs"];
-
         errors.forEach((error) => {
-            const inputDivToReplace = this.element.querySelector(`#input-div-${error.field}`);
-            const inputToReplace = inputDivToReplace.querySelector(`#${error.field}`);
+            const errorInputDiv = document.querySelector(`#input-div-${error.field}`);
+            const messageDiv = errorInputDiv.querySelector('div');
+            const fieldInput = errorInputDiv.querySelector('input');
 
-            const placeholder = document.createElement("div");
-            placeholder.innerHTML = inputWithMsg({
-                style: "error",
-                message: error.message,
-                type: inputToReplace.type,
-                name: inputToReplace.name,
-                placeholder: inputToReplace.placeholder,
-                value: inputToReplace.value,
-                autocomplete: inputToReplace.autocomplete,
-            });
-            const newInputDiv = placeholder.firstChild;
-
-            inputDivToReplace.replaceWith(newInputDiv);
+            if (error.isValid) {
+                fieldInput.className = "form-input-with-msg-input__default";
+                messageDiv.className = "form-input-with-msg-msg__default";
+                messageDiv.innerText = "";
+            } else {
+                fieldInput.className = "form-input-with-msg-input__error";
+                messageDiv.className = "form-input-with-msg-msg__error";
+                messageDiv.innerText = error.message;
+            }
         });
     }
 
