@@ -94,6 +94,46 @@ export class SignUpView extends IView {
     }
 
     /**
+     * Устанавливает обработчик на поле ввода email
+     * @param {Function} handler - обработчик
+     */
+    bindEmailKeypressHandler(handler) {
+        this.element.querySelector('#email').addEventListener("input", (event) => {
+            handler(event);
+        });
+    }
+
+    /**
+     * Устанавливает обработчик на поле ввода username
+     * @param {Function} handler - обработчик
+     */
+    bindUsernameKeypressHandler(handler) {
+        this.element.querySelector('#username').addEventListener("input", (event) => {
+            handler(event);
+        });
+    }
+
+    /**
+     * Устанавливает обработчик на поле ввода password
+     * @param {Function} handler - обработчик
+     */
+    bindPasswordKeypressHandler(handler) {
+        this.element.querySelector('#password').addEventListener("input", (event) => {
+            handler(event);
+        });
+    }
+
+    /**
+     * Устанавливает обработчик на поле ввода passwordconfirm
+     * @param {Function} handler - обработчик
+     */
+    bindPasswordConfirmKeypressHandler(handler) {
+        this.element.querySelector('#passwordconfirm').addEventListener("input", (event) => {
+            handler(event);
+        });
+    }
+
+    /**
      * Устанавливает обработчик на кнопку отправки формы
      * @param {Function} handler - обработчик
      */
