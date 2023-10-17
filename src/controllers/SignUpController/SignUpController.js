@@ -25,6 +25,27 @@ export class SignUpController extends IController {
      * Добавляет обработчики на все интерактивные элементы страницы
      */
     bindListeners() {
+        this.view.bindEmailKeypressHandler((event) => {
+            const validationResponce = this.validateEmail(event.currentTarget.value);
+            this.view.handleFormValidation([validationResponce]);
+        });
+
+        this.view.bindUsernameKeypressHandler((event) => {
+            const validationResponce = this.validateUsername(event.currentTarget.value);
+            this.view.handleFormValidation([validationResponce]);
+        });
+
+        this.view.bindPasswordKeypressHandler((event) => {
+            const validationResponce = this.validatePassword(event.currentTarget.value);
+            this.view.handleFormValidation([validationResponce]);
+        });
+
+        this.view.bindPasswordConfirmKeypressHandler((event) => {
+            const password = this.view.formData.password;
+            const validationResponce = this.validatePasswordConfirm(password, event.currentTarget.value);
+            this.view.handleFormValidation([validationResponce]);
+        });
+
         this.view.bindSubmitHandler(() => {
             const userData = this.view.formData;
             const validationResponce = this.validateFormData(userData)
