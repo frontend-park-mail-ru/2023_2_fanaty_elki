@@ -47,9 +47,9 @@ export class UserModel {
      * @async
      */
     async auth() {
-        await authUser().then(data =>{
+        await authUser().then(data => {
             this._currentUser = data;
-        }).catch(() => {})
+        }).catch(() => { })
     }
 
     /**
@@ -60,6 +60,6 @@ export class UserModel {
     async logout() {
         await logoutUser().then(() => {
             this._currentUser = null;
-        }).catch(() => {})
+        }).catch(() => { })
     }
 }
