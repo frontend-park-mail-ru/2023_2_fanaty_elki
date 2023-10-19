@@ -31,11 +31,14 @@ export async function loginUser(login_data) {
         body: body,
         credentials: 'include'
     });
+    if (!response.ok) {
+        throw Error(response.status); // тело даже не запрашивается, думаю, можно обойтись кодами
+    }
+    if (response.headers.get('content-type') != 'application/json') {
+        throw Error('unexpected error');
+    }
     const json = await response.json();
-    if (response.ok) return Promise.resolve(json.Body);
-    return Promise.reject({
-        err: json.Err,
-    });
+    return json.Body;
 }
 
 /**
@@ -79,9 +82,12 @@ export async function getRestaurants() {
         method: GET,
         credentials: 'include',
     });
+    if (!response.ok) {
+        throw Error(response.status); // тело даже не запрашивается, думаю, можно обойтись кодами
+    }
+    if (response.headers.get('content-type') != 'application/json') {
+        throw Error('unexpected error');
+    }
     const json = await response.json();
-    if (response.ok) return Promise.resolve(json.Body);
-    return Promise.reject({
-        err: json.Err,
-    });
+    return json.Body;
 }

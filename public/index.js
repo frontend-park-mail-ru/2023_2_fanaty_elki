@@ -10,12 +10,16 @@ import { UserModel } from "/models/UserModel/UserModel.js";
 
 const rootElement = document.querySelector('#root');
 
-window.backendURL = 'http://84.23.53.216:8001';
+// window.backendURL = 'http://84.23.53.216:8001';
+window.backendURL = 'http://127.0.0.1:3000';
 window.GET = 'GET';
 window.POST = 'POST';
 
 const userModel = new UserModel();
 await userModel.auth(); // сюда ошибки не поднимаются
+                        // приходится ждать, так как вью при отрисовке должно уже иметь юзера 
+                        // (или точно знать, что авторизация не удалась),
+                        // лучше сделать event-loop, чтобы вью могло подписаться на изменение пользователя
 
 const router = new Router();
 window.router = router;

@@ -29,7 +29,7 @@ export class UserModel {
             const data = await authUser();
             this._currentUser = data;
         } catch(e) {
-            console.log(e); // сюда стекает всё: ошибки сети, отрицательные ответы сервера,
+            // console.log(e); // сюда стекает всё: ошибки сети, отрицательные ответы сервера,
                             // ошибка формата тела ответа (не json) => подумать над обработкой
         }
     }
@@ -41,9 +41,13 @@ export class UserModel {
      * @param {Object} login_data - данные пользователя
      */
     async login(login_data) {
-        return await loginUser(login_data).then(data =>{
+        try {
+            const data = await loginUser(login_data);
             this._currentUser = data;
-        });
+        } catch(e) {
+            // console.log(e); // сюда стекает всё: ошибки сети, отрицательные ответы сервера,
+                            // ошибка формата тела ответа (не json) => подумать над обработкой
+        }
     }
 
     /**
@@ -56,7 +60,7 @@ export class UserModel {
         try {
             await createUser(signup_data);
         } catch (e) {
-            console.log(e);
+            // console.log(e);
             throw e;
         }
     }
@@ -71,7 +75,7 @@ export class UserModel {
             await logoutUser();
             this._currentUser = null;
         } catch(e) {
-            console.log(e); // сюда стекает всё: ошибки сети, отрицательные ответы сервера
+            // console.log(e); // сюда стекает всё: ошибки сети, отрицательные ответы сервера
                             // => подумать над обработкой
         }
     }
