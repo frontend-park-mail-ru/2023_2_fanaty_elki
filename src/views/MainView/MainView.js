@@ -20,10 +20,11 @@ export class MainView extends IView {
 
     /**
      * Создает из шаблонов главную страницу
-     * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы  
+     * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы
+     * @param {String} title_ - заголовок страницы
      */
-    constructor(parent_) {
-        super(parent_);
+    constructor(parent_, title_) {
+        super(parent_, title_);
         const MainTemplate = Handlebars.templates['MainView.hbs'];
         const parser = new DOMParser();
         this.element = parser.parseFromString(MainTemplate(), 'text/html').querySelector('#main');

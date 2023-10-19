@@ -7,9 +7,10 @@ export class SignUpView extends IView {
     /**
      * Добавляет родительский элемент отображения и устанавливает форму в состояние по умолчанию
      * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы
+     * @param {String} title_ - заголовок страницы
      */
-    constructor(parent_) {
-        super(parent_);
+    constructor(parent_, title_) {
+        super(parent_, title_);
         this.setDefaultState();
     }
 
@@ -93,6 +94,46 @@ export class SignUpView extends IView {
     }
 
     /**
+     * Устанавливает обработчик на поле ввода email
+     * @param {Function} handler - обработчик
+     */
+    bindEmailKeypressHandler(handler) {
+        this.element.querySelector('#email').addEventListener("input", (event) => {
+            handler(event);
+        });
+    }
+
+    /**
+     * Устанавливает обработчик на поле ввода username
+     * @param {Function} handler - обработчик
+     */
+    bindUsernameKeypressHandler(handler) {
+        this.element.querySelector('#username').addEventListener("input", (event) => {
+            handler(event);
+        });
+    }
+
+    /**
+     * Устанавливает обработчик на поле ввода password
+     * @param {Function} handler - обработчик
+     */
+    bindPasswordKeypressHandler(handler) {
+        this.element.querySelector('#password').addEventListener("input", (event) => {
+            handler(event);
+        });
+    }
+
+    /**
+     * Устанавливает обработчик на поле ввода passwordconfirm
+     * @param {Function} handler - обработчик
+     */
+    bindPasswordConfirmKeypressHandler(handler) {
+        this.element.querySelector('#passwordconfirm').addEventListener("input", (event) => {
+            handler(event);
+        });
+    }
+
+    /**
      * Устанавливает обработчик на кнопку отправки формы
      * @param {Function} handler - обработчик
      */
@@ -129,29 +170,25 @@ export class SignUpView extends IView {
      * Обработчик результатов валидации формы
      * Вывод сообщения об ошибках
      * @param {Object[]} errors
-     * @param {string} errors[].field - невалидное поле
+     * @param {string} errors[].isValid - результат валидации
+     * @param {string} errors[].field - поле
      * @param {string} errors[].message - сообщение об ошибке
      */
     handleFormValidation(errors) {
-        const inputWithMsg = Handlebars.templates["FormInputWithMsg.hbs"];
-
         errors.forEach((error) => {
-            const inputDivToReplace = this.element.querySelector(`#input-div-${error.field}`);
-            const inputToReplace = inputDivToReplace.querySelector(`#${error.field}`);
+            const errorInputDiv = document.querySelector(`#input-div-${error.field}`);
+            const messageDiv = errorInputDiv.querySelector('div');
+            const fieldInput = errorInputDiv.querySelector('input');
 
-            const placeholder = document.createElement("div");
-            placeholder.innerHTML = inputWithMsg({
-                style: "error",
-                message: error.message,
-                type: inputToReplace.type,
-                name: inputToReplace.name,
-                placeholder: inputToReplace.placeholder,
-                value: inputToReplace.value,
-                autocomplete: inputToReplace.autocomplete,
-            });
-            const newInputDiv = placeholder.firstChild;
-
-            inputDivToReplace.replaceWith(newInputDiv);
+            if (error.isValid) {
+                fieldInput.className = "form-input-with-msg-input__default";
+                messageDiv.className = "form-input-with-msg-msg__default";
+                messageDiv.innerText = "";
+            } else {
+                fieldInput.className = "form-input-with-msg-input__error";
+                messageDiv.className = "form-input-with-msg-msg__error";
+                messageDiv.innerText = error.message;
+            }
         });
     }
 
