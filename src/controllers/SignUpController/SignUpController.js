@@ -38,8 +38,10 @@ export class SignUpController extends IController {
         });
 
         this.view.bindPasswordInputHandler((event) => {
-            const validationResponce = this.validatePassword(event.currentTarget.value);
-            this.view.handleFormValidation([validationResponce]);
+            const passwordValidationPResponce = this.validatePassword(event.currentTarget.value);
+            const passwordConfirm = this.view.formData.passwordConfirm;
+            const passwordConfirmValidationResponce = this.validatePasswordConfirm(event.currentTarget.value, passwordConfirm);
+            this.view.handleFormValidation([passwordValidationPResponce, passwordConfirmValidationResponce]);
             this.view.showErrorMessage("");
         });
 
