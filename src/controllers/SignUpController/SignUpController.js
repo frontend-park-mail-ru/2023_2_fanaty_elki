@@ -138,7 +138,7 @@ export class SignUpController extends IController {
             }
         }
 
-        if (!String(email).match(/@/)) {
+        if (!String(email).match(/^\w*@\w*$/)) {
             return {
                 isValid: false,
                 field: "email",
