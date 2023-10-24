@@ -1,3 +1,5 @@
+const ERR_WRONG_CONNTENT_TYPE = "wong content type";
+
 /**
  * Отправляет на сервер запрос об аутентификации по кукам,
  * @async
@@ -11,7 +13,7 @@ export async function authUser() {
         throw Error(response.status);
     }
     if (response.headers.get('content-type') != 'application/json') {
-        throw Error('unexpected error');
+        throw Error(ERR_WRONG_CONNTENT_TYPE);
     }
     const json = await response.json();
     return json.Body;
@@ -33,7 +35,7 @@ export async function loginUser(login_data) {
         throw Error(response.status);
     }
     if (response.headers.get('content-type') != 'application/json') {
-        throw Error('unexpected error');
+        throw Error(ERR_WRONG_CONNTENT_TYPE);
     }
     const json = await response.json();
     return json.Body;
@@ -84,7 +86,7 @@ export async function getRestaurants() {
         throw Error(response.status);
     }
     if (response.headers.get('content-type') != 'application/json') {
-        throw Error('unexpected error');
+        throw Error(ERR_WRONG_CONNTENT_TYPE);
     }
     const json = await response.json();
     return json.Body;
