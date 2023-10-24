@@ -34,7 +34,7 @@ export class LoginController extends IController {
             const loginData = this.view.formData;
 
             const validationMsg = this.validateLoginData(loginData);
-            if (validationMsg !== null) {
+            if (!validationMsg) {
                 this.view.showErrorMessage(validationMsg);
                 return;
             }
@@ -60,13 +60,14 @@ export class LoginController extends IController {
      * @param {Object} loginData - данные формы 
      * @param {String} loginData.username - имя пользователя
      * @param {String} loginData.password - пароль
+     * @returns {(String)}
      */
     validateLoginData(loginData) {
         if (!loginData.username && !loginData.password) return "Укажите логин и пароль";
         if (!loginData.username) return "Укажите имя пользователя";
         if (!loginData.password) return "Укажите пароль";
 
-        return null;
+        return "";
     }
 
     /**
