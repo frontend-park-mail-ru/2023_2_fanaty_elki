@@ -195,8 +195,8 @@ export class SignUpView extends IView {
     /**
      * Выводит сообщения об ошибках со стороны сервера
      */
-    showErrorMessage() {
-        this.element.querySelector(".signup-error-msg").textContent = "Такой пользователь уже существует";
+    showErrorMessage(msg) {
+        this.element.querySelector(".signup-error-msg").textContent = msg;
     }
 
     /**

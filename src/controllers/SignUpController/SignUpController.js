@@ -28,22 +28,26 @@ export class SignUpController extends IController {
         this.view.bindEmailInputHandler((event) => {
             const validationResponce = this.validateEmail(event.currentTarget.value);
             this.view.handleFormValidation([validationResponce]);
+            this.view.showErrorMessage("");
         });
 
         this.view.bindUsernameInputHandler((event) => {
             const validationResponce = this.validateUsername(event.currentTarget.value);
             this.view.handleFormValidation([validationResponce]);
+            this.view.showErrorMessage("");
         });
 
         this.view.bindPasswordInputHandler((event) => {
             const validationResponce = this.validatePassword(event.currentTarget.value);
             this.view.handleFormValidation([validationResponce]);
+            this.view.showErrorMessage("");
         });
 
         this.view.bindPasswordConfirmInputHandler((event) => {
             const password = this.view.formData.password;
             const validationResponce = this.validatePasswordConfirm(password, event.currentTarget.value);
             this.view.handleFormValidation([validationResponce]);
+            this.view.showErrorMessage("");
         });
 
         this.view.bindSubmitHandler(() => {
@@ -69,7 +73,7 @@ export class SignUpController extends IController {
                     router.redirect('/')
                 })
                 .catch(() => {
-                    this.view.showErrorMessage();
+                    this.view.showErrorMessage("Такой пользователь уже существует");
                 })
         });
 
