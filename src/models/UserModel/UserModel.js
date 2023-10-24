@@ -59,10 +59,6 @@ export class UserModel {
     async signup(signup_data) {
         try {
             await createUser(signup_data);
-        } catch (e) {
-            // console.log(e);
-            throw e;
-        }
     }
 
     /**
