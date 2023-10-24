@@ -1,5 +1,3 @@
-
-
 /**
  * Отправляет на сервер запрос об аутентификации по кукам,
  * @async
@@ -9,8 +7,8 @@ export async function authUser() {
         method: GET,
         credentials: 'include'
     });
-    if (!response.ok) {
-        throw Error(response.status); // тело даже не запрашивается, думаю, можно обойтись кодами
+    if (response.status !== 200) {
+        throw Error(response.status);
     }
     if (response.headers.get('content-type') != 'application/json') {
         throw Error('unexpected error');
@@ -31,8 +29,8 @@ export async function loginUser(login_data) {
         body: body,
         credentials: 'include'
     });
-    if (!response.ok) {
-        throw Error(response.status); // тело даже не запрашивается, думаю, можно обойтись кодами
+    if (response.status !== 200) {
+        throw Error(response.status);
     }
     if (response.headers.get('content-type') != 'application/json') {
         throw Error('unexpected error');
@@ -52,7 +50,7 @@ export async function createUser(signup_data) {
         method: POST,
         body: body,
     });
-    if (!response.ok) {
+    if (response.status !== 201) {
         throw Error(response.status);
     }
     return;
@@ -67,7 +65,7 @@ export async function logoutUser() {
         method: POST,
         credentials: 'include'
     });
-    if (!response.ok) {
+    if (response.ok !== 200) {
         throw Error(response.status);
     }
     return;
@@ -82,8 +80,8 @@ export async function getRestaurants() {
         method: GET,
         credentials: 'include',
     });
-    if (!response.ok) {
-        throw Error(response.status); // тело даже не запрашивается, думаю, можно обойтись кодами
+    if (response.ok !== 200) {
+        throw Error(response.status);
     }
     if (response.headers.get('content-type') != 'application/json') {
         throw Error('unexpected error');
