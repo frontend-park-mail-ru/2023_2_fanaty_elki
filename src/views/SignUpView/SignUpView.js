@@ -103,7 +103,7 @@ export class SignUpView extends IView {
      * Устанавливает обработчик на поле ввода email
      * @param {Function} handler - обработчик
      */
-    bindEmailKeypressHandler(handler) {
+    bindEmailInputHandler(handler) {
         this.element.querySelector('#email').addEventListener("input", (event) => {
             handler(event);
         });
@@ -113,7 +113,7 @@ export class SignUpView extends IView {
      * Устанавливает обработчик на поле ввода username
      * @param {Function} handler - обработчик
      */
-    bindUsernameKeypressHandler(handler) {
+    bindUsernameInputHandler(handler) {
         this.element.querySelector('#username').addEventListener("input", (event) => {
             handler(event);
         });
@@ -123,7 +123,7 @@ export class SignUpView extends IView {
      * Устанавливает обработчик на поле ввода password
      * @param {Function} handler - обработчик
      */
-    bindPasswordKeypressHandler(handler) {
+    bindPasswordInputHandler(handler) {
         this.element.querySelector('#password').addEventListener("input", (event) => {
             handler(event);
         });
@@ -133,7 +133,7 @@ export class SignUpView extends IView {
      * Устанавливает обработчик на поле ввода passwordconfirm
      * @param {Function} handler - обработчик
      */
-    bindPasswordConfirmKeypressHandler(handler) {
+    bindPasswordConfirmInputHandler(handler) {
         this.element.querySelector('#passwordconfirm').addEventListener("input", (event) => {
             handler(event);
         });
@@ -201,8 +201,8 @@ export class SignUpView extends IView {
     /**
      * Выводит сообщения об ошибках со стороны сервера
      */
-    showErrorMessage() {
-        this.element.querySelector(".signup-error-msg").textContent = "Такой пользователь уже существует";
+    showErrorMessage(msg) {
+        this.element.querySelector(".signup-error-msg").textContent = msg;
     }
 
     /**

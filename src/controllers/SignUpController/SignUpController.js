@@ -25,25 +25,31 @@ export class SignUpController extends IController {
      * Добавляет обработчики на все интерактивные элементы страницы
      */
     bindListeners() {
-        this.view.bindEmailKeypressHandler((event) => {
+        this.view.bindEmailInputHandler((event) => {
             const validationResponce = this.validateEmail(event.currentTarget.value);
             this.view.handleFormValidation([validationResponce]);
+            this.view.showErrorMessage("");
         });
 
-        this.view.bindUsernameKeypressHandler((event) => {
+        this.view.bindUsernameInputHandler((event) => {
             const validationResponce = this.validateUsername(event.currentTarget.value);
             this.view.handleFormValidation([validationResponce]);
+            this.view.showErrorMessage("");
         });
 
-        this.view.bindPasswordKeypressHandler((event) => {
-            const validationResponce = this.validatePassword(event.currentTarget.value);
-            this.view.handleFormValidation([validationResponce]);
+        this.view.bindPasswordInputHandler((event) => {
+            const passwordValidationPResponce = this.validatePassword(event.currentTarget.value);
+            const passwordConfirm = this.view.formData.passwordConfirm;
+            const passwordConfirmValidationResponce = this.validatePasswordConfirm(event.currentTarget.value, passwordConfirm);
+            this.view.handleFormValidation([passwordValidationPResponce, passwordConfirmValidationResponce]);
+            this.view.showErrorMessage("");
         });
 
-        this.view.bindPasswordConfirmKeypressHandler((event) => {
+        this.view.bindPasswordConfirmInputHandler((event) => {
             const password = this.view.formData.password;
             const validationResponce = this.validatePasswordConfirm(password, event.currentTarget.value);
             this.view.handleFormValidation([validationResponce]);
+            this.view.showErrorMessage("");
         });
 
         this.view.bindSubmitHandler(async () => {
@@ -137,7 +143,7 @@ export class SignUpController extends IController {
             }
         }
 
-        if (!String(email).match(/@/)) {
+        if (!String(email).match(/^[\x00-\x7F]*@[\x00-\x7F]*$/)) {
             return {
                 isValid: false,
                 field: "email",

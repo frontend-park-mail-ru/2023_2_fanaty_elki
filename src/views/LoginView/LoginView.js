@@ -115,8 +115,8 @@ export class LoginView extends IView {
     /**
      * Выводит сообщения об ошибках со стороны сервера
      */
-    showErrorMessage() {
-        this.element.querySelector(".loginform-error-msg").textContent = "Неверный логин или пароль";
+    showErrorMessage(msg) {
+        this.element.querySelector(".loginform-error-msg").textContent = msg;
     }
 
     /**
