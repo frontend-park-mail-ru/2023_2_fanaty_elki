@@ -1,13 +1,13 @@
-@import '/components/Button/Button.css';
-@import '/components/Navbar/navbar.css';
-@import '/components/Card/card.css';
-@import '/components/Category/category.css';
-@import '/components/FormInputWithMsg/FormInputWithMsg.css';
-@import '/components/FormInput/FormInput.css';
+@import '../src/components/Button/Button.css';
+@import '../src/components/Navbar/navbar.css';
+@import '../src/components/Card/card.css';
+@import '../src/components/Category/category.css';
+@import '../src/components/FormInputWithMsg/FormInputWithMsg.css';
+@import '../src/components/FormInput/FormInput.css';
 
-@import '/views/MainView/MainView.css';
-@import '/views/LoginView/LoginView.css';
-@import '/views/SignUpView/SignUpView.css';
+@import '../src/views/MainView/MainView.css';
+@import '../src/views/LoginView/LoginView.css';
+@import '../src/views/SignUpView/SignUpView.css';
 
 html {
     box-sizing: border-box;
