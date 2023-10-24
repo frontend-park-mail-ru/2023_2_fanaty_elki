@@ -20,15 +20,32 @@ export class UserModel {
     }
 
     /**
+     * Получает ответ на запрос об аутентификации по cookies,
+     * сохраняет данные пользователя в _currentUser, если операция успешна
+     * @async
+     */
+    async auth() {
+        try {
+            const data = await authUser();
+            this._currentUser = data;
+        } catch (e) {
+            //TODO: добавить обработку ошибки
+        }
+    }
+
+    /**
      * Получает ответ на запрос об авторизации,
      * сохраняет данные в _currentUser, если операция успешна
      * @async
      * @param {Object} login_data - данные пользователя
      */
     async login(login_data) {
-        return await loginUser(login_data).then(data =>{
+        try {
+            const data = await loginUser(login_data);
             this._currentUser = data;
-        });
+        } catch (e) {
+            //TODO: добавить обработку ошибок
+        }
     }
 
     /**
@@ -38,18 +55,7 @@ export class UserModel {
      * @param {Object} signup_data - данные пользователя
      */
     async signup(signup_data) {
-        return createUser(signup_data);
-    }
-
-    /**
-     * Получает ответ на запрос об аутентификации по cookies,
-     * сохраняет данные пользователя в _currentUser, если операция успешна
-     * @async
-     */
-    async auth() {
-        await authUser().then(data => {
-            this._currentUser = data;
-        }).catch(() => { })
+        await createUser(signup_data);
     }
 
     /**
@@ -58,8 +64,11 @@ export class UserModel {
      * @async
      */
     async logout() {
-        await logoutUser().then(() => {
+        try {
+            await logoutUser();
             this._currentUser = null;
-        }).catch(() => { })
+        } catch (e) {
+            //TODO: добавить обработку ошибок
+        }
     }
 }

@@ -39,7 +39,7 @@ export class MainController extends IController {
      * Функция передачи управления контроллеру,
      * подготавливает страницу и инициирует её отрисовку
      */
-    start() {
+    async start() {
         if (this.userModel._currentUser) {
             if (!this.view.is_auth)
                 this.view.setAuthUser(this.userModel._currentUser.username);
@@ -47,12 +47,16 @@ export class MainController extends IController {
             if (this.view.is_auth)
                 this.view.setNonAuthUser();
         }
-        this.restaurantModel.getAll().then(list => {
+        try {
+            const list = await this.restaurantModel.getAll();
             list.restaurants.forEach(element => {
-                element.DeliveryTimeMax = element.DeliveryTime + 10;
+                element.DeliveryTimeMax = element.DeliveryTime + 10; // грязый хак
             });
             this.view.updateList(list);
-        }).catch(() => { })
+        } catch(e) {
+            // ошибка получения ресторана, а точнее все ошибки => придумать, что делать
+            // console.log(e);
+        }
         this.view.render();
     }
 

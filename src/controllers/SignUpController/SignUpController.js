@@ -46,7 +46,7 @@ export class SignUpController extends IController {
             this.view.handleFormValidation([validationResponce]);
         });
 
-        this.view.bindSubmitHandler(() => {
+        this.view.bindSubmitHandler(async () => {
             const userData = this.view.formData;
             const validationResponce = this.validateFormData(userData)
             if (!validationResponce.isValid) {
@@ -54,23 +54,22 @@ export class SignUpController extends IController {
                 return;
             }
 
-            this._userModel.signup({
-                email: userData.email,
-                username: userData.username,
-                password: userData.password
-            })
-                .then(() => {
-                    return this._userModel.login({
-                        username: userData.username,
-                        password: userData.password
-                    })
-                })
-                .then(() => {
-                    router.redirect('/')
-                })
-                .catch(() => {
-                    this.view.showErrorMessage();
-                })
+            userData.passwordConfirm = null;
+            try {
+                await this._userModel.signup(userData);
+            } catch(e) {
+                // не удалось зарегистрироваться
+                this.view.showErrorMessage();
+                return;
+            }
+
+            try {
+                await this._userModel.login(userData);
+            } catch(e) {
+                // не удалось войти
+                return;
+            }
+            router.redirect('/')
         });
 
         this.view.bindLoginClick(() => {
