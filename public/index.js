@@ -15,10 +15,7 @@ window.GET = 'GET';
 window.POST = 'POST';
 
 const userModel = new UserModel();
-await userModel.auth(); // сюда ошибки не поднимаются
-                        // приходится ждать, так как вью при отрисовке должно уже иметь юзера 
-                        // (или точно знать, что авторизация не удалась),
-                        // лучше сделать event-loop, чтобы вью могло подписаться на изменение пользователя
+await userModel.auth();
 
 const router = new Router();
 window.router = router;

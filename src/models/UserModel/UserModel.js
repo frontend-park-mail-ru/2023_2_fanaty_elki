@@ -28,9 +28,8 @@ export class UserModel {
         try {
             const data = await authUser();
             this._currentUser = data;
-        } catch(e) {
-            // console.log(e); // сюда стекает всё: ошибки сети, отрицательные ответы сервера,
-                            // ошибка формата тела ответа (не json) => подумать над обработкой
+        } catch (e) {
+            //TODO: добавить обработку ошибки
         }
     }
 
@@ -44,9 +43,8 @@ export class UserModel {
         try {
             const data = await loginUser(login_data);
             this._currentUser = data;
-        } catch(e) {
-            // console.log(e); // сюда стекает всё: ошибки сети, отрицательные ответы сервера,
-                            // ошибка формата тела ответа (не json) => подумать над обработкой
+        } catch (e) {
+            //TODO: добавить обработку ошибок
         }
     }
 
@@ -57,8 +55,7 @@ export class UserModel {
      * @param {Object} signup_data - данные пользователя
      */
     async signup(signup_data) {
-        try {
-            await createUser(signup_data);
+        await createUser(signup_data);
     }
 
     /**
@@ -70,9 +67,8 @@ export class UserModel {
         try {
             await logoutUser();
             this._currentUser = null;
-        } catch(e) {
-            // console.log(e); // сюда стекает всё: ошибки сети, отрицательные ответы сервера
-                            // => подумать над обработкой
+        } catch (e) {
+            //TODO: добавить обработку ошибок
         }
     }
 }
