@@ -10,8 +10,7 @@ export class RestaurantModel {
      * @return {Promise} - список ресторанов или отклоненный промис
      */
     async getAll() {
-        return await getRestaurants().then(data => {
-            return data;
-        }).catch(() => {});
+        const data = await getRestaurants();
+        return data;
     }
 }
