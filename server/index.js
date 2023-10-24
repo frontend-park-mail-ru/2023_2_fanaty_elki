@@ -9,7 +9,7 @@ const path = require('path');
 const app = express();
 
 app.use(morgan('dev'));
-app.use(express.static(path.resolve(__dirname, '..', 'public')));
+app.use(express.static(path.resolve(__dirname, '..', 'dist')));
 app.use(express.static(path.resolve(__dirname, '..', 'src')));
 app.use(express.static(path.resolve(__dirname, 'images')));
 app.use(express.static(path.resolve(__dirname, '..', 'node_modules')));
@@ -25,19 +25,19 @@ app.get('/main', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    return res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
 });
 
 app.get('/signup', (req, res) => {
-    return res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
 });
 
 app.get('/login', (req, res) => {
-    return res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
 });
 
 app.get('/restaurants', (req, res) => {
-    return res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
 });
 
 const port = process.env.PORT || 4000;

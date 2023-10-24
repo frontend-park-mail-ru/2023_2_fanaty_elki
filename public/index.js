@@ -1,16 +1,22 @@
-import { MainController } from "/controllers/MainController/MainController.js";
-import { SignUpController } from "/controllers/SignUpController/SignUpController.js";
-import { LoginController } from "/controllers/LoginController/LoginController.js";
-import { MainView } from "/views/MainView/MainView.js";
-import { SignUpView } from "/views/SignUpView/SignUpView.js";
-import { LoginView } from "/views/LoginView/LoginView.js";
-import { Router } from "/controllers/Router/Router.js";
-import { RestaurantModel } from "/models/RestaurantModel/RestaurantModel.js";
-import { UserModel } from "/models/UserModel/UserModel.js";
+import { MainController } from "../src/controllers/MainController/MainController.js";
+import { SignUpController } from "../src/controllers/SignUpController/SignUpController.js";
+import { LoginController } from "../src/controllers/LoginController/LoginController.js";
+
+import { MainView } from "../src/views/MainView/MainView.js";
+import { SignUpView } from "../src/views/SignUpView/SignUpView.js";
+import { LoginView } from "../src/views/LoginView/LoginView.js";
+
+import { Router } from "../src/controllers/Router/Router.js";
+
+import { RestaurantModel } from "../src/models/RestaurantModel/RestaurantModel.js";
+import { UserModel } from "../src/models/UserModel/UserModel.js";
+
+import './index.css';
+import favIconImg from './favicon.ico';
 
 const rootElement = document.querySelector('#root');
 
-window.backendURL = 'http://84.23.53.216:8001';
+window.backendURL = 'http://localhost:3333';
 window.GET = 'GET';
 window.POST = 'POST';
 
@@ -33,3 +39,9 @@ window.onpopstate = (event) => {
 };
 
 router.route(window.location.pathname);
+
+const favicon = document.createElement('link');
+favicon.setAttribute('rel', 'icon');
+favicon.setAttribute('href', favIconImg);
+favicon.setAttribute('type', 'image/x-icon');
+document.querySelector('head').appendChild(favicon);

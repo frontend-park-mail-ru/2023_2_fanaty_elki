@@ -1,4 +1,13 @@
 import { IView } from "../IView.js";
+import loginTemplate from './LoginView.hbs';
+import './LoginView.css';
+
+import inputTemplate from '../../components/FormInputWithMsg/FormInputWithMsg.hbs';
+import '../../components/FormInputWithMsg/FormInputWithMsg.css';
+
+import buttonTemplate from '../../components/Button/Button.hbs';
+import '../../components/Button/Button.css';
+
 /**
  * Представление страницы авторизации
  * @class
@@ -19,11 +28,9 @@ export class LoginView extends IView {
      * Добавляет элементы на страницу и устанавливает состояние по умолчанию
      */
     setDefaultState() {
-        const SignUpTemplate = Handlebars.templates['LoginView.hbs'];
         const parser = new DOMParser();
-        this.element = parser.parseFromString(SignUpTemplate(), 'text/html').querySelector('#login');
+        this.element = parser.parseFromString(loginTemplate(), 'text/html').querySelector('#login');
 
-        const inputTemplate = Handlebars.templates['FormInput.hbs'];
         const inputGroup = this.element.querySelector(".loginform-inputgroup");
         const inputs = [
             {
@@ -45,7 +52,6 @@ export class LoginView extends IView {
             inputGroup.innerHTML += inputTemplate(element);
         })
 
-        const buttonTemplate = Handlebars.templates['Button.hbs'];
         const formControl = this.element.querySelector(".loginform-control");
         const buttons = [
             {
