@@ -12,6 +12,7 @@ import { RestaurantModel } from "../src/models/RestaurantModel/RestaurantModel.j
 import { UserModel } from "../src/models/UserModel/UserModel.js";
 
 import './index.css';
+import favIconImg from './favicon.ico';
 
 const rootElement = document.querySelector('#root');
 
@@ -38,3 +39,9 @@ window.onpopstate = (event) => {
 };
 
 router.route(window.location.pathname);
+
+const favicon = document.createElement('link');
+favicon.setAttribute('rel', 'icon');
+favicon.setAttribute('href', favIconImg);
+favicon.setAttribute('type', 'image/x-icon');
+document.querySelector('head').appendChild(favicon);

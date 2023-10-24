@@ -1,10 +1,11 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './public/index.js',
     output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'public'),
+        filename: 'index_bundle.js',
+        path: path.resolve(__dirname, 'dist'),
     },
     module: {
         rules: [
@@ -16,6 +17,19 @@ module.exports = {
                 test: /\.hbs$/i,
                 use: ['handlebars-loader'],
             },
+            {
+                test: /\.(png|jpe?g|gif|ico)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                    },
+                ],
+            },
         ],
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, 'public/index.html')
+        }),
+    ],
 }
