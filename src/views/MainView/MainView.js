@@ -1,5 +1,16 @@
 import { config } from "./config.js";
 import { IView } from "../IView.js";
+import MainTemplate from './MainView.hbs';
+import './MainView.css';
+
+import cardTemplate from '../../components/Card/card.hbs';
+import '../../components/Card/card.css';
+
+import navbarTemplate from '../../components/Navbar/navbar.hbs';
+import '../../components/Navbar/navbar.css';
+
+import categoryTemplate from '../../components/Category/category.hbs';
+import '../../components/Category/category.css';
 
 /**
  * Представление главной страницы 
@@ -20,19 +31,18 @@ export class MainView extends IView {
 
     /**
      * Создает из шаблонов главную страницу
-     * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы  
+     * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы
+     * @param {String} title_ - заголовок страницы
      */
-    constructor(parent_) {
-        super(parent_);
-        const MainTemplate = Handlebars.templates['MainView.hbs'];
+    constructor(parent_, title_) {
+        super(parent_, title_);
         const parser = new DOMParser();
         this.element = parser.parseFromString(MainTemplate(), 'text/html').querySelector('#main');
         if (!this.element) return;
 
-        const cardTemplate = Handlebars.templates['card.hbs'];
         Handlebars.registerPartial('cardTemplate', cardTemplate);
-        this.navbarTemplate = Handlebars.templates['navbar.hbs'];
-        this.categoryTemplate = Handlebars.templates['category.hbs'];
+        this.navbarTemplate = navbarTemplate;
+        this.categoryTemplate = categoryTemplate;
         this.element.querySelector('#navbar').innerHTML = this.navbarTemplate(config.navbar);
         this.element.querySelector('#categories').innerHTML = this.categoryTemplate();
         this.userNameElement = this.element.querySelector('.name_container');

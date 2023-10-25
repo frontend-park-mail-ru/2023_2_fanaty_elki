@@ -31,11 +31,18 @@ export class LoginController extends IController {
      */
     bindListeners() {
         this.view.bindSubmitHandler(() => {
-            const data = this.view.formData;
-            this._userModel.login(data).then(() => {
+            const loginData = this.view.formData;
+
+            const validationMsg = this.validateLoginData(loginData);
+            if (!validationMsg) {
+                this.view.showErrorMessage(validationMsg);
+                return;
+            }
+
+            this._userModel.login(loginData).then(() => {
                 router.redirect('/')
-            }).catch(() => {
-                this.view.showErrorMessage();
+            }).catch(() => { //TODO: Добавить вывод ошибки с сервера
+                this.view.showErrorMessage("Неверный логин или пароль");
             })
         });
 
@@ -46,6 +53,21 @@ export class LoginController extends IController {
         this.view.bindCloseClick(() => {
             router.redirect("/");
         });
+    }
+
+    /**
+     * Проверка данных формы
+     * @param {Object} loginData - данные формы 
+     * @param {String} loginData.username - имя пользователя
+     * @param {String} loginData.password - пароль
+     * @returns {(String)}
+     */
+    validateLoginData(loginData) {
+        if (!loginData.username && !loginData.password) return "Укажите логин и пароль";
+        if (!loginData.username) return "Укажите имя пользователя";
+        if (!loginData.password) return "Укажите пароль";
+
+        return "";
     }
 
     /**

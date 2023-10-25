@@ -25,7 +25,34 @@ export class SignUpController extends IController {
      * Добавляет обработчики на все интерактивные элементы страницы
      */
     bindListeners() {
-        this.view.bindSubmitHandler(() => {
+        this.view.bindEmailInputHandler((event) => {
+            const validationResponce = this.validateEmail(event.currentTarget.value);
+            this.view.handleFormValidation([validationResponce]);
+            this.view.showErrorMessage("");
+        });
+
+        this.view.bindUsernameInputHandler((event) => {
+            const validationResponce = this.validateUsername(event.currentTarget.value);
+            this.view.handleFormValidation([validationResponce]);
+            this.view.showErrorMessage("");
+        });
+
+        this.view.bindPasswordInputHandler((event) => {
+            const passwordValidationPResponce = this.validatePassword(event.currentTarget.value);
+            const passwordConfirm = this.view.formData.passwordConfirm;
+            const passwordConfirmValidationResponce = this.validatePasswordConfirm(event.currentTarget.value, passwordConfirm);
+            this.view.handleFormValidation([passwordValidationPResponce, passwordConfirmValidationResponce]);
+            this.view.showErrorMessage("");
+        });
+
+        this.view.bindPasswordConfirmInputHandler((event) => {
+            const password = this.view.formData.password;
+            const validationResponce = this.validatePasswordConfirm(password, event.currentTarget.value);
+            this.view.handleFormValidation([validationResponce]);
+            this.view.showErrorMessage("");
+        });
+
+        this.view.bindSubmitHandler(async () => {
             const userData = this.view.formData;
             const validationResponce = this.validateFormData(userData)
             if (!validationResponce.isValid) {
@@ -33,23 +60,22 @@ export class SignUpController extends IController {
                 return;
             }
 
-            this._userModel.signup({
-                email: userData.email,
-                username: userData.username,
-                password: userData.password
-            })
-                .then(() => {
-                    return this._userModel.login({
-                        username: userData.username,
-                        password: userData.password
-                    })
-                })
-                .then(() => {
-                    router.redirect('/')
-                })
-                .catch(() => {
-                    this.view.showErrorMessage();
-                })
+            userData.passwordConfirm = null;
+            try {
+                await this._userModel.signup(userData);
+            } catch(e) {
+                // не удалось зарегистрироваться
+                this.view.showErrorMessage();
+                return;
+            }
+
+            try {
+                await this._userModel.login(userData);
+            } catch(e) {
+                // не удалось войти
+                return;
+            }
+            router.redirect('/')
         });
 
         this.view.bindLoginClick(() => {
@@ -74,38 +100,31 @@ export class SignUpController extends IController {
         let validationResponce = {
             isValid: true,
             errors: []
-        }
+        };
 
-        const emailValidation = this.validateEmail(userData.email)
+        const emailValidation = this.validateEmail(userData.email);
         if (!emailValidation.isValid) {
             validationResponce.isValid = false;
-            validationResponce.errors.push({
-                field: "email",
-                message: emailValidation.message
-            })
         }
+        validationResponce.errors.push(emailValidation);
 
-        const usernameValidation = this.validateUsername(userData.username)
+        const usernameValidation = this.validateUsername(userData.username);
         if (!usernameValidation.isValid) {
             validationResponce.isValid = false;
-            validationResponce.errors.push({
-                field: "username",
-                message: usernameValidation.message
-            })
         }
+        validationResponce.errors.push(usernameValidation);
 
-        const passwordValidation = this.validatePassword(userData.password, userData.passwordConfirm)
+        const passwordValidation = this.validatePassword(userData.password);
         if (!passwordValidation.isValid) {
             validationResponce.isValid = false;
-            validationResponce.errors.push({
-                field: "password",
-                message: passwordValidation.message
-            });
-            validationResponce.errors.push({
-                field: "passwordconfirm",
-                message: ""
-            });
         }
+        validationResponce.errors.push(passwordValidation);
+
+        const passwordConfirmValidation = this.validatePasswordConfirm(userData.password, userData.passwordConfirm);
+        if (!passwordConfirmValidation.isValid) {
+            validationResponce.isValid = false;
+        }
+        validationResponce.errors.push(passwordConfirmValidation);
 
         return validationResponce;
     }
@@ -113,30 +132,28 @@ export class SignUpController extends IController {
     /**
      * Валидация email
      * @param {string} email - email пользователя 
-     * @returns {Object} - результат валидации и сообщение об ошибке
+     * @returns {Object} - результат валидации, валидируемое поле и сообщение об ошибке
      */
     validateEmail(email) {
         if (!email) {
             return {
                 isValid: false,
+                field: "email",
                 message: "Email не может быть пустым"
             }
         }
 
-        const emailMatches = String(email)
-            .toLowerCase()
-            .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            );
-        if (!emailMatches) {
+        if (!String(email).match(/^[\x00-\x7F]*@[\x00-\x7F]*$/)) {
             return {
                 isValid: false,
+                field: "email",
                 message: "Невалидный email"
             }
         }
 
         return {
             isValid: true,
+            field: "email",
             message: null
         }
     }
@@ -144,25 +161,36 @@ export class SignUpController extends IController {
     /**
      * Валидация имени пользователя
      * @param {string} username - имя пользователя 
-     * @returns {Object} - результат валидации и сообщение об ошибке
+     * @returns {Object} - результат валидации, валидируемое поле и сообщение об ошибке
      */
     validateUsername(username) {
         if (!username) {
             return {
                 isValid: false,
+                field: "username",
                 message: "Имя пользователя не может быть пустым"
             }
         }
 
-        if (!(3 <= String(username).length && String(username).length <= 30)) {
+        if (!String(username).match(/^[a-zA-Z0-9_-]*$/)) {
             return {
                 isValid: false,
-                message: "Длина должна быть от 3 до 30 символов"
+                field: "username",
+                message: "Имя пользователя должно состоять из латинских букв, цифр, символов \"-\", \"_\""
+            }
+        }
+
+        if (!String(username).match(/^.{3,30}$/)) {
+            return {
+                isValid: false,
+                field: "username",
+                message: "Имя пользователя должно иметь длину от 3 до 30 символов"
             }
         }
 
         return {
             isValid: true,
+            field: "username",
             message: null
         }
     }
@@ -170,33 +198,58 @@ export class SignUpController extends IController {
     /**
      * Валидация пароля пользователя
      * @param {string} password - пароль
-     * @param {string} passwordConfirm - подтверждение пароля 
-     * @returns {Object} - результат валидации и сообщение об ошибке
+     * @returns {Object} - результат валидации, валидируемое поле и сообщение об ошибке
      */
-    validatePassword(password, passwordConfirm) {
+    validatePassword(password) {
         if (!password) {
             return {
                 isValid: false,
+                field: "password",
                 message: "Пароль не может быть пустым"
             }
         }
 
-        if (!(3 <= String(password).length && String(password).length <= 20)) {
+        if (!String(password).match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
             return {
                 isValid: false,
-                message: "Длина должна быть от 3 до 20 символов"
+                field: "password",
+                message: "Пароль должен быть длиннее 8 символов и содержать хотя бы одну букву и цифру"
+            }
+        }
+
+        return {
+            isValid: true,
+            field: "password",
+            message: null
+        }
+    }
+
+    /**
+     * Валидация подтверждения пароля
+     * @param {string} password - пароль
+     * @param {string} passwordConfirm - подтверждение пароля 
+     * @returns {Object} - результат валидации, валидируемое поле и сообщение об ошибке
+     */
+    validatePasswordConfirm(password, passwordConfirm) {
+        if (!passwordConfirm) {
+            return {
+                isValid: false,
+                field: "passwordconfirm",
+                message: "Подтвердите пароль"
             }
         }
 
         if (password !== passwordConfirm) {
             return {
                 isValid: false,
+                field: "passwordconfirm",
                 message: "Пароли не совпадают"
             }
         }
 
         return {
             isValid: true,
+            field: "passwordconfirm",
             message: null
         }
     }

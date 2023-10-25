@@ -1,5 +1,5 @@
 /**
- * Интерфейс отображения
+ * Интерфейс представления
  * @interface
  */
 export class IView {
@@ -14,18 +14,27 @@ export class IView {
     element;
 
     /**
-     * Инициализирует родительский элемент
-     * @param {HTMLElement} parent_ 
+     * Заголовок страницы
      */
-    constructor(parent_) {
+    title;
+
+    /**
+     * Инициализирует родительский элемент
+     * @param {HTMLElement} parent_ - родительский элемент, куда встраивается представление
+     * @param {String} title_ - заголовок страницы
+     */
+    constructor(parent_, title_) {
         this.parent = parent_;
+        this.title = title_;
     }
 
     /**
      * Функция отображения
      * Добавляет встраиваемый элемент в родительский
+     * Изменяет заголовок страницы
      */
     render() {
+        document.title = this.title;
         this.parent.appendChild(this.element);
     }
 
