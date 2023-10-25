@@ -1,5 +1,5 @@
 import { IController } from "../IController.js";
-import { config } from "/config.js"
+import { config } from "../../config.js"
 
 /**
  * Контроллер авторизации
@@ -35,14 +35,14 @@ export class LoginController extends IController {
             const loginData = this.view.formData;
 
             const validationMsg = this.validateLoginData(loginData);
-            if (!validationMsg) {
+            if (validationMsg) {
                 this.view.showErrorMessage(validationMsg);
                 return;
             }
 
             try {
                 await this._userModel.login(loginData);
-            } catch(e) {
+            } catch(error) {
                 let msg;
                 switch (error.type) {
                     case config.ERROR_TYPE.FAILURE:

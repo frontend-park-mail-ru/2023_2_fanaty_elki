@@ -1,4 +1,4 @@
-import { config } from "/config.js"
+import { config } from "../config.js"
 
 function checkResponse(response, local_config) {
     let status = response.status;

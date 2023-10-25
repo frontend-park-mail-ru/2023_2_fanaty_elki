@@ -1,5 +1,5 @@
 import { IController } from "../IController.js";
-import { config } from "/config.js"
+import { config } from "../../config.js"
 
 /**
  * Контроллер регистрации
@@ -64,7 +64,7 @@ export class SignUpController extends IController {
             userData.passwordConfirm = null;
             try {
                 await this._userModel.signup(userData);
-            } catch(e) {
+            } catch(error) {
                 let msg;
                 switch (error.type) {
                     case config.ERROR_TYPE.FAILURE:
