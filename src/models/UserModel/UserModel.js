@@ -25,12 +25,9 @@ export class UserModel {
      * @async
      */
     async auth() {
-        try {
-            const data = await authUser();
-            this._currentUser = data;
-        } catch (e) {
-            //TODO: добавить обработку ошибки
-        }
+        this._currentUser = null;
+        const data = await authUser();
+        this._currentUser = data;
     }
 
     /**
@@ -40,12 +37,9 @@ export class UserModel {
      * @param {Object} login_data - данные пользователя
      */
     async login(login_data) {
-        try {
-            const data = await loginUser(login_data);
-            this._currentUser = data;
-        } catch (e) {
-            //TODO: добавить обработку ошибок
-        }
+        this._currentUser = null;
+        const data = await loginUser(login_data);
+        this._currentUser = data;
     }
 
     /**
@@ -64,11 +58,7 @@ export class UserModel {
      * @async
      */
     async logout() {
-        try {
-            await logoutUser();
-            this._currentUser = null;
-        } catch (e) {
-            //TODO: добавить обработку ошибок
-        }
+        await logoutUser();
+        this._currentUser = null;
     }
 }

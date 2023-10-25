@@ -1,4 +1,6 @@
 import { IView } from "../IView.js";
+import { config } from "/config.js"
+
 /**
  * Представление страницы авторизации
  * @class
@@ -109,8 +111,20 @@ export class LoginView extends IView {
     /**
      * Выводит сообщения об ошибках со стороны сервера
      */
-    showErrorMessage() {
-        this.element.querySelector(".loginform-error-msg").textContent = "Неверный логин или пароль";
+    showErrorMessage(error) {
+        let msg;
+        switch (error.type) {
+            case config.ERROR_TYPE.FAILURE:
+                msg = config.api.login.failure[error.status];
+                break;
+            case config.ERROR_TYPE.NETWORK_ERROR:
+                msg = config.GENERAL_MESSAGE.NETWORK_ERROR;
+                break;
+            case config.ERROR_TYPE.UNEXPECTED:
+                msg = config.GENERAL_MESSAGE.UNEXPECTED_ERROR;
+                break;
+        }
+        this.element.querySelector(".loginform-error-msg").textContent = msg;
     }
 
     /**

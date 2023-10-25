@@ -1,4 +1,6 @@
 import { IView } from "../IView.js";
+import { config } from "/config.js"
+
 /**
  * Представление страницы регистрации
  * @extends {IView}
@@ -195,8 +197,20 @@ export class SignUpView extends IView {
     /**
      * Выводит сообщения об ошибках со стороны сервера
      */
-    showErrorMessage() {
-        this.element.querySelector(".signup-error-msg").textContent = "Такой пользователь уже существует";
+    showErrorMessage(error) {
+        let msg;
+        switch (error.type) {
+            case config.ERROR_TYPE.FAILURE:
+                msg = config.api.signup.failure[error.status];
+                break;
+            case config.ERROR_TYPE.NETWORK_ERROR:
+                msg = config.GENERAL_MESSAGE.NETWORK_ERROR;
+                break;
+            case config.ERROR_TYPE.UNEXPECTED:
+                msg = config.GENERAL_MESSAGE.UNEXPECTED_ERROR;
+                break;
+        }
+        this.element.querySelector(".signup-error-msg").textContent = msg;
     }
 
     /**
