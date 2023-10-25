@@ -1,4 +1,4 @@
-import { authUser, logoutUser, createUser, loginUser } from "/modules/api.js"
+import { authUser, logoutUser, createUser, loginUser } from "../../modules/api.js"
 
 /**
  * Модель пользователя

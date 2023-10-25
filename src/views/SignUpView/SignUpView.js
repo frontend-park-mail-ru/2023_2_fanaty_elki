@@ -1,5 +1,12 @@
 import { IView } from "../IView.js";
-import { config } from "/config.js"
+import SignUpTemplate from './SignUpView.hbs';
+import './SignUpView.css';
+
+import inputTemplate from '../../components/FormInputWithMsg/FormInputWithMsg.hbs';
+import '../../components/FormInputWithMsg/FormInputWithMsg.css';
+
+import buttonTemplate from '../../components/Button/Button.hbs';
+import '../../components/Button/Button.css';
 
 /**
  * Представление страницы регистрации
@@ -20,12 +27,10 @@ export class SignUpView extends IView {
      * Добавляет элементы на страницу и устанавливает состояние по умолчанию
      */
     setDefaultState() {
-        const SignUpTemplate = Handlebars.templates["SignUpView.hbs"];
         const parser = new DOMParser();
         this.element = parser.parseFromString(SignUpTemplate(), "text/html").querySelector("#signup");
         if (!this.element) return;
 
-        const inputTemplate = Handlebars.templates["FormInputWithMsg.hbs"];
         const inputGroup = this.element.querySelector(".signup-inputgroup");
         const inputs = [
             {
@@ -69,7 +74,6 @@ export class SignUpView extends IView {
             inputGroup.innerHTML += inputTemplate(element);
         });
 
-        const buttonTemplate = Handlebars.templates["Button.hbs"];
         const formControl = this.element.querySelector(".signup-control");
         const buttons = [
             {
@@ -99,7 +103,7 @@ export class SignUpView extends IView {
      * Устанавливает обработчик на поле ввода email
      * @param {Function} handler - обработчик
      */
-    bindEmailKeypressHandler(handler) {
+    bindEmailInputHandler(handler) {
         this.element.querySelector('#email').addEventListener("input", (event) => {
             handler(event);
         });
@@ -109,7 +113,7 @@ export class SignUpView extends IView {
      * Устанавливает обработчик на поле ввода username
      * @param {Function} handler - обработчик
      */
-    bindUsernameKeypressHandler(handler) {
+    bindUsernameInputHandler(handler) {
         this.element.querySelector('#username').addEventListener("input", (event) => {
             handler(event);
         });
@@ -119,7 +123,7 @@ export class SignUpView extends IView {
      * Устанавливает обработчик на поле ввода password
      * @param {Function} handler - обработчик
      */
-    bindPasswordKeypressHandler(handler) {
+    bindPasswordInputHandler(handler) {
         this.element.querySelector('#password').addEventListener("input", (event) => {
             handler(event);
         });
@@ -129,7 +133,7 @@ export class SignUpView extends IView {
      * Устанавливает обработчик на поле ввода passwordconfirm
      * @param {Function} handler - обработчик
      */
-    bindPasswordConfirmKeypressHandler(handler) {
+    bindPasswordConfirmInputHandler(handler) {
         this.element.querySelector('#passwordconfirm').addEventListener("input", (event) => {
             handler(event);
         });
@@ -197,19 +201,7 @@ export class SignUpView extends IView {
     /**
      * Выводит сообщения об ошибках со стороны сервера
      */
-    showErrorMessage(error) {
-        let msg;
-        switch (error.type) {
-            case config.ERROR_TYPE.FAILURE:
-                msg = config.api.signup.failure[error.status];
-                break;
-            case config.ERROR_TYPE.NETWORK_ERROR:
-                msg = config.GENERAL_MESSAGE.NETWORK_ERROR;
-                break;
-            case config.ERROR_TYPE.UNEXPECTED:
-                msg = config.GENERAL_MESSAGE.UNEXPECTED_ERROR;
-                break;
-        }
+    showErrorMessage(msg) {
         this.element.querySelector(".signup-error-msg").textContent = msg;
     }
 

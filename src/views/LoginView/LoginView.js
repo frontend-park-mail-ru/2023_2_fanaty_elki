@@ -1,5 +1,12 @@
 import { IView } from "../IView.js";
-import { config } from "/config.js"
+import loginTemplate from './LoginView.hbs';
+import './LoginView.css';
+
+import inputTemplate from '../../components/FormInputWithMsg/FormInputWithMsg.hbs';
+import '../../components/FormInputWithMsg/FormInputWithMsg.css';
+
+import buttonTemplate from '../../components/Button/Button.hbs';
+import '../../components/Button/Button.css';
 
 /**
  * Представление страницы авторизации
@@ -21,11 +28,9 @@ export class LoginView extends IView {
      * Добавляет элементы на страницу и устанавливает состояние по умолчанию
      */
     setDefaultState() {
-        const SignUpTemplate = Handlebars.templates['LoginView.hbs'];
         const parser = new DOMParser();
-        this.element = parser.parseFromString(SignUpTemplate(), 'text/html').querySelector('#login');
+        this.element = parser.parseFromString(loginTemplate(), 'text/html').querySelector('#login');
 
-        const inputTemplate = Handlebars.templates['FormInput.hbs'];
         const inputGroup = this.element.querySelector(".loginform-inputgroup");
         const inputs = [
             {
@@ -47,7 +52,6 @@ export class LoginView extends IView {
             inputGroup.innerHTML += inputTemplate(element);
         })
 
-        const buttonTemplate = Handlebars.templates['Button.hbs'];
         const formControl = this.element.querySelector(".loginform-control");
         const buttons = [
             {
@@ -111,19 +115,7 @@ export class LoginView extends IView {
     /**
      * Выводит сообщения об ошибках со стороны сервера
      */
-    showErrorMessage(error) {
-        let msg;
-        switch (error.type) {
-            case config.ERROR_TYPE.FAILURE:
-                msg = config.api.login.failure[error.status];
-                break;
-            case config.ERROR_TYPE.NETWORK_ERROR:
-                msg = config.GENERAL_MESSAGE.NETWORK_ERROR;
-                break;
-            case config.ERROR_TYPE.UNEXPECTED:
-                msg = config.GENERAL_MESSAGE.UNEXPECTED_ERROR;
-                break;
-        }
+    showErrorMessage(msg) {
         this.element.querySelector(".loginform-error-msg").textContent = msg;
     }
 

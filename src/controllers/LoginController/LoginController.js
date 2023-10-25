@@ -1,4 +1,5 @@
 import { IController } from "../IController.js";
+import { config } from "/config.js"
 
 /**
  * Контроллер авторизации
@@ -31,10 +32,30 @@ export class LoginController extends IController {
      */
     bindListeners() {
         this.view.bindSubmitHandler(async () => {
+            const loginData = this.view.formData;
+
+            const validationMsg = this.validateLoginData(loginData);
+            if (!validationMsg) {
+                this.view.showErrorMessage(validationMsg);
+                return;
+            }
+
             try {
-                await this._userModel.login(this.view.formData);
+                await this._userModel.login(loginData);
             } catch(e) {
-                this.view.showErrorMessage(e);
+                let msg;
+                switch (error.type) {
+                    case config.ERROR_TYPE.FAILURE:
+                        msg = config.api.login.failure[error.status];
+                        break;
+                    case config.ERROR_TYPE.NETWORK_ERROR:
+                        msg = config.GENERAL_MESSAGE.NETWORK_ERROR;
+                        break;
+                    case config.ERROR_TYPE.UNEXPECTED:
+                        msg = config.GENERAL_MESSAGE.UNEXPECTED_ERROR;
+                        break;
+                }
+                this.view.showErrorMessage(msg);
                 return;
             }
             router.redirect('/')
@@ -47,6 +68,21 @@ export class LoginController extends IController {
         this.view.bindCloseClick(() => {
             router.redirect("/");
         });
+    }
+
+    /**
+     * Проверка данных формы
+     * @param {Object} loginData - данные формы 
+     * @param {String} loginData.username - имя пользователя
+     * @param {String} loginData.password - пароль
+     * @returns {(String)}
+     */
+    validateLoginData(loginData) {
+        if (!loginData.username && !loginData.password) return "Укажите логин и пароль";
+        if (!loginData.username) return "Укажите имя пользователя";
+        if (!loginData.password) return "Укажите пароль";
+
+        return "";
     }
 
     /**
