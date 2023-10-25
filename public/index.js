@@ -15,7 +15,11 @@ window.GET = 'GET';
 window.POST = 'POST';
 
 const userModel = new UserModel();
-await userModel.auth();
+try {
+    await userModel.auth();
+} catch {
+    
+}
 
 const router = new Router();
 window.router = router;

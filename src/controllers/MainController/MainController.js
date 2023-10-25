@@ -53,9 +53,7 @@ export class MainController extends IController {
                 element.DeliveryTimeMax = element.DeliveryTime + 10; // грязый хак
             });
             this.view.updateList(list);
-        } catch(e) {
-            // ошибка получения ресторана, а точнее все ошибки => придумать, что делать
-            // console.log(e);
+        } catch {
         }
         this.view.render();
     }
@@ -70,9 +68,11 @@ export class MainController extends IController {
     /**
      * Коллбек для выхода из аккаунта по нажатию на кнопку
      */
-    logout() {
-        this.userModel.logout().then(() => {
-            this.view.setNonAuthUser()
-        });
+    async logout() {
+        try {
+            await this.userModel.logout();
+            this.view.setNonAuthUser();
+        } catch {   
+        }
     }
 }

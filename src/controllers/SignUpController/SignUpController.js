@@ -58,15 +58,13 @@ export class SignUpController extends IController {
             try {
                 await this._userModel.signup(userData);
             } catch(e) {
-                // не удалось зарегистрироваться
-                this.view.showErrorMessage();
+                this.view.showErrorMessage(e);
                 return;
             }
 
             try {
                 await this._userModel.login(userData);
             } catch(e) {
-                // не удалось войти
                 return;
             }
             router.redirect('/')

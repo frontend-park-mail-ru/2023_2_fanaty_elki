@@ -30,13 +30,14 @@ export class LoginController extends IController {
      * Добавляет обработчики на все интерактивные элементы страницы
      */
     bindListeners() {
-        this.view.bindSubmitHandler(() => {
-            const data = this.view.formData;
-            this._userModel.login(data).then(() => {
-                router.redirect('/')
-            }).catch(() => {
-                this.view.showErrorMessage();
-            })
+        this.view.bindSubmitHandler(async () => {
+            try {
+                await this._userModel.login(this.view.formData);
+            } catch(e) {
+                this.view.showErrorMessage(e);
+                return;
+            }
+            router.redirect('/')
         });
 
         this.view.bindSignUpClick(() => {
