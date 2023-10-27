@@ -34,7 +34,7 @@ export class LoginController extends IController {
             const loginData = this.view.formData;
 
             const validationMsg = this.validateLoginData(loginData);
-            if (!validationMsg) {
+            if (validationMsg) {
                 this.view.showErrorMessage(validationMsg);
                 return;
             }
