@@ -67,7 +67,7 @@ export async function logoutUser() {
         method: POST,
         credentials: 'include'
     });
-    if (response.ok !== 200) {
+    if (response.status !== 200) {
         throw Error(response.status);
     }
     return;
@@ -82,7 +82,7 @@ export async function getRestaurants() {
         method: GET,
         credentials: 'include',
     });
-    if (response.ok !== 200) {
+    if (response.status !== 200) {
         throw Error(response.status);
     }
     if (response.headers.get('content-type') != 'application/json') {
