@@ -1,24 +1,24 @@
 <div class="navbar">
-    <img src="img/logo.svg" alt="Logo" class="logo">
-    <div class="fields">
-        <form class="search gray_bordered_white">
-            <input class="nosubmit" type="search" placeholder="{{search_ph}}" disabled>
+    <img class="navbar__logo" id="logo" src="img/logo.svg" alt="Logo">
+    <div class="navbar__fields">
+        <form class="navbar__fields__search">
+            <input class="navbar__fields__search__input" type="search" placeholder="{{search_ph}}" disabled>
         </form>
-        <button class="address gray_bordered_white" type="button" value="" disabled>
-            <img src="img/navigate.svg" alt="">
-            <p class="address_title">{{address}}</p>
+        <button class="navbar__fields__address" id="address-button" type="button" value="" disabled>
+            <img class="navbar__fields__address__icon" src="img/navigate.svg" alt="">
+            <p class="navbar__fields__address__title">{{address}}</p>
         </button>
-        <button class="backet gray_bordered_white" type="button" value="" disabled>
-            <img src="img/shop_basket.svg" alt="">
+        <button class="navbar__fields__backet" type="button" value="" disabled>
+            <img class="navbar__fields__backet__icon" src="img/shop_basket.svg" alt="">
         </button>
     </div>
-    <button class="signin gray_bordered_white" type="button" value="">
-        <p class="signin_title">Войти</p>
+    <button class="navbar__signin" id="signin-button" type="button" value="">
+        <p class="navbar__signin__title">Войти</p>
     </button>
-    <div class="name_container">
-        <p class="name">{{name}}</p>
-        <button class="exit gray_bordered_white" type="button" value="">
-            <img src="img/door-exit.svg" alt="">
+    <div class="navbar__name-container" id="name-container">
+        <p class="navbar__name-container__name">{{name}}</p>
+        <button class="navbar__name-container__exit" id="exit-button" type="button" value="">
+            <img class="navbar__name-container__exit__icon" src="img/door-exit.svg" alt="">
         </button>
     </div>
 </div>
