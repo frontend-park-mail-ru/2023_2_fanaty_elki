@@ -1,11 +1,9 @@
-#signup {
+@use '../../../public/index.scss' as index;
+
+.signup-form {
     width: 400px;
-    /* height: 595px; */
     margin: 0 auto;
     margin-top: 65px;
-}
-
-.signup-formwindow {
     display: flex;
     padding: 49px 65px 49px 65px;
     flex-direction: column;
@@ -15,11 +13,11 @@
     flex-shrink: 0;
 
     border-radius: 45px;
-    border: 1px solid #000;
-    background: #FFF;
+    border: 1px solid index.$black;
+    background: index.$white;
 }
 
-.singup-close {
+.signup-form__close {
     position: relative;
     top: -5px;
     left: 160px;
@@ -29,7 +27,7 @@
     cursor: pointer;
 }
 
-.signup-header {
+.signup-form__header {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -38,17 +36,15 @@
     align-self: stretch;
 }
 
-.signup-text {
-    color: #000;
+.signup-form__header__title {
+    color: index.$gray;
     text-align: center;
-    font-family: Comfortaa;
     font-size: 17px;
-    font-style: normal;
     font-weight: 400;
-    line-height: normal;
+    word-wrap: break-word;
 }
 
-.signup-form {
+.signup-form__form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -57,7 +53,7 @@
     align-self: stretch;
 }
 
-.signup-inputgroup {
+.signup-form__form__input-container {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -66,10 +62,8 @@
     gap: 10px;
 }
 
-
-.signup-error-msg {
-    color: #DA4747;
-    font-family: Comfortaa;
+.signup-form__form__input-container__msg {
+    color: index.$red;
     font-size: 17px;
     font-style: normal;
     font-weight: 400;
@@ -77,7 +71,7 @@
     text-align: center;
 }
 
-.signup-control {
+.signup-form__form__button-container {
     display: flex;
     width: 100%;
     flex-direction: column;
