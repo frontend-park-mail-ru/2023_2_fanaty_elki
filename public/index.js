@@ -11,7 +11,7 @@ import { Router } from "../src/controllers/Router/Router.js";
 import { RestaurantModel } from "../src/models/RestaurantModel/RestaurantModel.js";
 import { UserModel } from "../src/models/UserModel/UserModel.js";
 
-import './index.css';
+import './index.scss';
 import favIconImg from './favicon.ico';
 
 const rootElement = document.querySelector('#root');
