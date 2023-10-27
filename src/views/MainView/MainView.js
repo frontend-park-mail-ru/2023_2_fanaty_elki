@@ -1,16 +1,16 @@
 import { config } from "./config.js";
 import { IView } from "../IView.js";
 import MainTemplate from './MainView.hbs';
-import './MainView.css';
+import './MainView.scss';
 
 import cardTemplate from '../../components/Card/card.hbs';
-import '../../components/Card/card.css';
+import '../../components/Card/card.scss';
 
 import navbarTemplate from '../../components/Navbar/navbar.hbs';
-import '../../components/Navbar/navbar.css';
+import '../../components/Navbar/navbar.scss';
 
 import categoryTemplate from '../../components/Category/category.hbs';
-import '../../components/Category/category.css';
+import '../../components/Category/category.scss';
 
 /**
  * Представление главной страницы 
@@ -45,8 +45,8 @@ export class MainView extends IView {
         this.categoryTemplate = categoryTemplate;
         this.element.querySelector('#navbar').innerHTML = this.navbarTemplate(config.navbar);
         this.element.querySelector('#categories').innerHTML = this.categoryTemplate();
-        this.userNameElement = this.element.querySelector('.name_container');
-        this.signInButton = this.element.querySelector('.signin');
+        this.userNameElement = this.element.querySelector('#name-container');
+        this.signInButton = this.element.querySelector('#signin-button');
         this.setNonAuthUser();
     }
 
@@ -83,7 +83,7 @@ export class MainView extends IView {
      * @param {Function} handler - обработчик
      */
     bindExitClick(handler) {
-        this.userNameElement.querySelector('.exit').addEventListener('click', handler);
+        this.userNameElement.querySelector('#exit-button').addEventListener('click', handler);
     }
 
     /**
@@ -91,7 +91,7 @@ export class MainView extends IView {
      * @param {Function} handler - обработчик
      */
     bindAddressClick(handler) {
-        this.element.querySelector('.address').addEventListener('click', handler);
+        this.element.querySelector('#address-button').addEventListener('click', handler);
     }
 
     /**
@@ -99,7 +99,7 @@ export class MainView extends IView {
      * @param {Function} handler - обработчик
      */
     bindLogoClick(handler) {
-        this.element.querySelector('.logo').addEventListener('click', handler);
+        this.element.querySelector('#logo').addEventListener('click', handler);
     }
 
     /**
