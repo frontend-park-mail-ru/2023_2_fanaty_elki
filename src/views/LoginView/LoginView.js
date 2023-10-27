@@ -1,12 +1,12 @@
 import { IView } from "../IView.js";
 import loginTemplate from './LoginView.hbs';
-import './LoginView.css';
+import './LoginView.scss';
 
 import inputTemplate from '../../components/FormInputWithMsg/FormInputWithMsg.hbs';
-import '../../components/FormInputWithMsg/FormInputWithMsg.css';
+import '../../components/FormInputWithMsg/FormInputWithMsg.scss';
 
 import buttonTemplate from '../../components/Button/Button.hbs';
-import '../../components/Button/Button.css';
+import '../../components/Button/Button.scss';
 
 /**
  * Представление страницы авторизации
@@ -31,7 +31,7 @@ export class LoginView extends IView {
         const parser = new DOMParser();
         this.element = parser.parseFromString(loginTemplate(), 'text/html').querySelector('#login');
 
-        const inputGroup = this.element.querySelector(".loginform-inputgroup");
+        const inputGroup = this.element.querySelector("#input-container");
         const inputs = [
             {
                 name: "username",
@@ -52,7 +52,7 @@ export class LoginView extends IView {
             inputGroup.innerHTML += inputTemplate(element);
         })
 
-        const formControl = this.element.querySelector(".loginform-control");
+        const formControl = this.element.querySelector("#button-container");
         const buttons = [
             {
                 id: "submit",
@@ -106,7 +106,7 @@ export class LoginView extends IView {
      * @param {Function} handler - обработчик
      */
     bindCloseClick(handler) {
-        this.element.querySelector('.login-close').addEventListener('click', event => {
+        this.element.querySelector('#close').addEventListener('click', event => {
             event.preventDefault();
             handler(event);
         })
@@ -116,14 +116,14 @@ export class LoginView extends IView {
      * Выводит сообщения об ошибках со стороны сервера
      */
     showErrorMessage(msg) {
-        this.element.querySelector(".loginform-error-msg").textContent = msg;
+        this.element.querySelector("#msg").textContent = msg;
     }
 
     /**
      * Получение данных формы
      */
     get formData() {
-        const form = this.element.querySelector('.loginform-form');
+        const form = this.element.querySelector('#form');
         return {
             username: form.username.value,
             password: form.password.value,
