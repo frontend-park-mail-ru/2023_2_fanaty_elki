@@ -1,4 +1,5 @@
 import { IController } from "../IController.js";
+import { config } from "../../config.js"
 
 /**
  * Контроллер регистрации
@@ -63,16 +64,26 @@ export class SignUpController extends IController {
             userData.passwordConfirm = null;
             try {
                 await this._userModel.signup(userData);
-            } catch(e) {
-                // не удалось зарегистрироваться
-                this.view.showErrorMessage();
+            } catch(error) {
+                let msg;
+                switch (error.type) {
+                    case config.ERROR_TYPE.FAILURE:
+                        msg = config.api.signup.failure[error.status];
+                        break;
+                    case config.ERROR_TYPE.NETWORK_ERROR:
+                        msg = config.GENERAL_MESSAGE.NETWORK_ERROR;
+                        break;
+                    case config.ERROR_TYPE.UNEXPECTED:
+                        msg = config.GENERAL_MESSAGE.UNEXPECTED_ERROR;
+                        break;
+                }
+                this.view.showErrorMessage(msg);
                 return;
             }
 
             try {
                 await this._userModel.login(userData);
             } catch(e) {
-                // не удалось войти
                 return;
             }
             router.redirect('/')

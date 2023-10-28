@@ -54,8 +54,7 @@ export class MainController extends IController {
             });
             this.view.updateList(list);
         } catch(e) {
-            // ошибка получения ресторана, а точнее все ошибки => придумать, что делать
-            // console.log(e);
+            console.log(e);
         }
         this.view.render();
     }
@@ -70,9 +69,12 @@ export class MainController extends IController {
     /**
      * Коллбек для выхода из аккаунта по нажатию на кнопку
      */
-    logout() {
-        this.userModel.logout().then(() => {
-            this.view.setNonAuthUser()
-        });
+    async logout() {
+        try {
+            await this.userModel.logout();
+            this.view.setNonAuthUser();
+        } catch(e) {
+            console.log(e);
+        }
     }
 }

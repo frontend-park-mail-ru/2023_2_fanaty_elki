@@ -1,4 +1,5 @@
 import { IController } from "../IController.js";
+import { config } from "../../config.js"
 
 /**
  * Контроллер авторизации
@@ -30,7 +31,7 @@ export class LoginController extends IController {
      * Добавляет обработчики на все интерактивные элементы страницы
      */
     bindListeners() {
-        this.view.bindSubmitHandler(() => {
+        this.view.bindSubmitHandler(async () => {
             const loginData = this.view.formData;
 
             const validationMsg = this.validateLoginData(loginData);
@@ -39,11 +40,25 @@ export class LoginController extends IController {
                 return;
             }
 
-            this._userModel.login(loginData).then(() => {
-                router.redirect('/')
-            }).catch(() => { //TODO: Добавить вывод ошибки с сервера
-                this.view.showErrorMessage("Неверный логин или пароль");
-            })
+            try {
+                await this._userModel.login(loginData);
+            } catch(error) {
+                let msg;
+                switch (error.type) {
+                    case config.ERROR_TYPE.FAILURE:
+                        msg = config.api.login.failure[error.status];
+                        break;
+                    case config.ERROR_TYPE.NETWORK_ERROR:
+                        msg = config.GENERAL_MESSAGE.NETWORK_ERROR;
+                        break;
+                    case config.ERROR_TYPE.UNEXPECTED:
+                        msg = config.GENERAL_MESSAGE.UNEXPECTED_ERROR;
+                        break;
+                }
+                this.view.showErrorMessage(msg);
+                return;
+            }
+            router.redirect('/')
         });
 
         this.view.bindSignUpClick(() => {
