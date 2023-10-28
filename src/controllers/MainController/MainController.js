@@ -53,7 +53,8 @@ export class MainController extends IController {
                 element.DeliveryTimeMax = element.DeliveryTime + 10; // грязый хак
             });
             this.view.updateList(list);
-        } catch {
+        } catch(e) {
+            console.log(e);
         }
         this.view.render();
     }
@@ -72,7 +73,8 @@ export class MainController extends IController {
         try {
             await this.userModel.logout();
             this.view.setNonAuthUser();
-        } catch {   
+        } catch(e) {
+            console.log(e);
         }
     }
 }
