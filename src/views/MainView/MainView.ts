@@ -12,6 +12,14 @@ import "../../components/Navbar/navbar.scss";
 import categoryTemplate from "../../components/Category/category.hbs";
 import "../../components/Category/category.scss";
 
+type Restaurant = {
+    Icon: string;
+    Name: string;
+    DeliveryPrice: number;
+    DeliveryTime: number;
+    DeliveryTimeMax: number;
+};
+
 /**
  * Представление главной страницы
  * @class
@@ -23,35 +31,44 @@ export class MainView extends IView {
      * выхода из аккаунта, отображается только если пользователь
      * авторизован
      */
-    userNameElement;
+    userNameElement: HTMLElement;
     /**
      * Кнопка "Войти", отображается, если пользователь не авторизован
      */
-    signInButton;
+    signInButton: HTMLElement;
+
+    element: HTMLElement;
 
     /**
      * Создает из шаблонов главную страницу
      * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы
      * @param {String} title_ - заголовок страницы
      */
-    constructor(parent_, title_) {
+    constructor(parent_: HTMLElement, title_: string) {
         super(parent_, title_);
         const parser = new DOMParser();
-        this.element = parser
+        const element: HTMLElement | null = parser
             .parseFromString(MainTemplate(), "text/html")
             .querySelector("#main");
-        if (!this.element) return;
+
+        if (!element) {
+            console.log("error");
+            return;
+        }
+        this.element = element;
 
         Handlebars.registerPartial("cardTemplate", cardTemplate);
-        this.navbarTemplate = navbarTemplate;
-        this.categoryTemplate = categoryTemplate;
-        this.element.querySelector("#navbar").innerHTML = this.navbarTemplate(
+        this.element.querySelector("#navbar")!.innerHTML = navbarTemplate(
             config.navbar,
         );
-        this.element.querySelector("#categories").innerHTML =
-            this.categoryTemplate();
-        this.userNameElement = this.element.querySelector("#name-container");
-        this.signInButton = this.element.querySelector("#signin-button");
+        this.element.querySelector("#categories")!.innerHTML =
+            categoryTemplate();
+        this.userNameElement = <HTMLElement>(
+            this.element.querySelector("#name-container")
+        );
+        this.signInButton = <HTMLElement>(
+            this.element.querySelector("#signin-button")
+        );
         this.setNonAuthUser();
     }
 
@@ -59,29 +76,29 @@ export class MainView extends IView {
      * Обновляет содержимое списка ресторанов
      * @param {Object} list  - новый список ресторанов
      */
-    updateList(list) {
-        this.element.querySelector("#categories").innerHTML =
-            this.categoryTemplate(list);
+    updateList(list: Restaurant[]) {
+        this.element.querySelector("#categories")!.innerHTML =
+            categoryTemplate(list);
     }
 
     /**
      * Устанавливает navbar для авторизованного пользователя
      * @param {string} userName - имя пользователя
      */
-    setAuthUser(userName) {
-        this.is_auth = true;
-        this.userNameElement.firstElementChild.innerHTML = userName;
-        this.signInButton.parentNode.appendChild(this.userNameElement);
-        this.signInButton.parentNode.removeChild(this.signInButton);
+    setAuthUser(userName: string) {
+        // this.is_auth = true;
+        this.userNameElement.firstElementChild!.innerHTML = userName;
+        this.signInButton.parentNode!.appendChild(this.userNameElement);
+        this.signInButton.parentNode!.removeChild(this.signInButton);
     }
 
     /**
      * Устанавливает navbar для неавторизованного пользователя
      */
     setNonAuthUser() {
-        this.is_auth = false;
-        this.userNameElement.parentNode.appendChild(this.signInButton);
-        this.userNameElement.parentNode.removeChild(this.userNameElement);
+        // this.is_auth = false;
+        this.userNameElement.parentNode!.appendChild(this.signInButton);
+        this.userNameElement.parentNode!.removeChild(this.userNameElement);
     }
 
     /**
@@ -90,7 +107,7 @@ export class MainView extends IView {
      */
     bindExitClick(handler) {
         this.userNameElement
-            .querySelector("#exit-button")
+            .querySelector("#exit-button")!
             .addEventListener("click", handler);
     }
 
@@ -100,7 +117,7 @@ export class MainView extends IView {
      */
     bindAddressClick(handler) {
         this.element
-            .querySelector("#address-button")
+            .querySelector("#address-button")!
             .addEventListener("click", handler);
     }
 
@@ -109,7 +126,7 @@ export class MainView extends IView {
      * @param {Function} handler - обработчик
      */
     bindLogoClick(handler) {
-        this.element.querySelector("#logo").addEventListener("click", handler);
+        this.element.querySelector("#logo")!.addEventListener("click", handler);
     }
 
     /**

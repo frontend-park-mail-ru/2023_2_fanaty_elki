@@ -2,7 +2,7 @@
  * Интерфейс контроллера
  * @interface
  */
-export class IController {
+export abstract class IController {
     /**
      * Ссылка на представление
      */

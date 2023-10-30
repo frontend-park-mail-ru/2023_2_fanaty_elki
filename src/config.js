@@ -4,8 +4,8 @@ const REQUEST_METHOD = {
 };
 
 export const config = {
-    backend: "http://84.23.53.216:8001",
-    // backend: 'http://127.0.0.1:3000',
+    // backend: "http://84.23.53.216:8001",
+    backend: "http://127.0.0.1:3000",
     api: {
         auth: {
             url: "/auth",

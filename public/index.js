@@ -16,14 +16,12 @@ import favIconImg from "./favicon.ico";
 
 const rootElement = document.querySelector("#root");
 
-window.backendURL = "http://localhost:3333";
-window.GET = "GET";
-window.POST = "POST";
-
 const userModel = new UserModel();
 try {
     await userModel.auth();
-} catch {}
+} catch (e) {
+    console.log(e);
+}
 
 const router = new Router();
 window.router = router;
