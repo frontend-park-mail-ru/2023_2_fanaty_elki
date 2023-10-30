@@ -1,21 +1,21 @@
 import { config } from "./config.js";
 import { IView } from "../IView.js";
-import MainTemplate from './MainView.hbs';
-import './MainView.scss';
+import MainTemplate from "./MainView.hbs";
+import "./MainView.scss";
 
-import cardTemplate from '../../components/Card/card.hbs';
-import '../../components/Card/card.scss';
+import cardTemplate from "../../components/Card/card.hbs";
+import "../../components/Card/card.scss";
 
-import navbarTemplate from '../../components/Navbar/navbar.hbs';
-import '../../components/Navbar/navbar.scss';
+import navbarTemplate from "../../components/Navbar/navbar.hbs";
+import "../../components/Navbar/navbar.scss";
 
-import categoryTemplate from '../../components/Category/category.hbs';
-import '../../components/Category/category.scss';
+import categoryTemplate from "../../components/Category/category.hbs";
+import "../../components/Category/category.scss";
 
 /**
- * Представление главной страницы 
+ * Представление главной страницы
  * @class
- * @extends {IView} 
+ * @extends {IView}
  */
 export class MainView extends IView {
     /**
@@ -37,16 +37,21 @@ export class MainView extends IView {
     constructor(parent_, title_) {
         super(parent_, title_);
         const parser = new DOMParser();
-        this.element = parser.parseFromString(MainTemplate(), 'text/html').querySelector('#main');
+        this.element = parser
+            .parseFromString(MainTemplate(), "text/html")
+            .querySelector("#main");
         if (!this.element) return;
 
-        Handlebars.registerPartial('cardTemplate', cardTemplate);
+        Handlebars.registerPartial("cardTemplate", cardTemplate);
         this.navbarTemplate = navbarTemplate;
         this.categoryTemplate = categoryTemplate;
-        this.element.querySelector('#navbar').innerHTML = this.navbarTemplate(config.navbar);
-        this.element.querySelector('#categories').innerHTML = this.categoryTemplate();
-        this.userNameElement = this.element.querySelector('#name-container');
-        this.signInButton = this.element.querySelector('#signin-button');
+        this.element.querySelector("#navbar").innerHTML = this.navbarTemplate(
+            config.navbar,
+        );
+        this.element.querySelector("#categories").innerHTML =
+            this.categoryTemplate();
+        this.userNameElement = this.element.querySelector("#name-container");
+        this.signInButton = this.element.querySelector("#signin-button");
         this.setNonAuthUser();
     }
 
@@ -55,12 +60,13 @@ export class MainView extends IView {
      * @param {Object} list  - новый список ресторанов
      */
     updateList(list) {
-        this.element.querySelector('#categories').innerHTML = this.categoryTemplate(list);
+        this.element.querySelector("#categories").innerHTML =
+            this.categoryTemplate(list);
     }
 
     /**
      * Устанавливает navbar для авторизованного пользователя
-     * @param {string} userName - имя пользователя 
+     * @param {string} userName - имя пользователя
      */
     setAuthUser(userName) {
         this.is_auth = true;
@@ -83,7 +89,9 @@ export class MainView extends IView {
      * @param {Function} handler - обработчик
      */
     bindExitClick(handler) {
-        this.userNameElement.querySelector('#exit-button').addEventListener('click', handler);
+        this.userNameElement
+            .querySelector("#exit-button")
+            .addEventListener("click", handler);
     }
 
     /**
@@ -91,7 +99,9 @@ export class MainView extends IView {
      * @param {Function} handler - обработчик
      */
     bindAddressClick(handler) {
-        this.element.querySelector('#address-button').addEventListener('click', handler);
+        this.element
+            .querySelector("#address-button")
+            .addEventListener("click", handler);
     }
 
     /**
@@ -99,7 +109,7 @@ export class MainView extends IView {
      * @param {Function} handler - обработчик
      */
     bindLogoClick(handler) {
-        this.element.querySelector('#logo').addEventListener('click', handler);
+        this.element.querySelector("#logo").addEventListener("click", handler);
     }
 
     /**
@@ -107,7 +117,6 @@ export class MainView extends IView {
      * @param {Function} handler - обработчик
      */
     bindPersonClick(handler) {
-        this.signInButton.addEventListener('click', handler);
+        this.signInButton.addEventListener("click", handler);
     }
-
 }

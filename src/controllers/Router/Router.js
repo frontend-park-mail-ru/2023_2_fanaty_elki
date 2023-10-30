@@ -11,7 +11,7 @@ export class Router {
     /**
      * Переход с одной страницы на другую с сохранением
      * в историю
-     * @param {string} path - путь на новую страницу 
+     * @param {string} path - путь на новую страницу
      */
     redirect(path) {
         window.history.pushState({}, "", path);
@@ -35,15 +35,14 @@ export class Router {
      */
     map(path) {
         switch (path) {
-            case '/signup':
+            case "/signup":
                 return this.signup_controller;
-            case '/login':
+            case "/login":
                 return this.login_controller;
-            case '/main':
+            case "/main":
                 return this.main_controller;
             default:
                 return this.main_controller;
-
         }
     }
 }

@@ -1,13 +1,15 @@
-import { config } from "../config.js"
+import { config } from "../config.js";
 
 function checkResponse(response, local_config) {
     let status = response.status;
     if (status in local_config.success) {
         for (let restr in local_config.restrictions) {
-            if (response.headers.get(restr) !== local_config.restrictions[restr]) {
+            if (
+                response.headers.get(restr) !== local_config.restrictions[restr]
+            ) {
                 throw {
                     type: config.ERROR_TYPE.UNEXPECTED,
-                }
+                };
             }
         }
         return;
@@ -33,7 +35,7 @@ async function ajax(url, params) {
     } catch {
         throw {
             type: config.ERROR_TYPE.NETWORK_ERROR,
-        }
+        };
     }
 }
 
@@ -43,7 +45,10 @@ async function ajax(url, params) {
  */
 export async function authUser() {
     const auth_config = config.api.auth;
-    const response = await ajax(`${config.backend}${auth_config.url}`, auth_config.params);
+    const response = await ajax(
+        `${config.backend}${auth_config.url}`,
+        auth_config.params,
+    );
     checkResponse(response, auth_config);
     const json = await response.json();
     return json.Body;
@@ -56,8 +61,11 @@ export async function authUser() {
  */
 export async function loginUser(login_data) {
     const login_config = config.api.login;
-    const body = JSON.stringify(login_data)
-    const response = await ajax(`${config.backend}${login_config.url}`, login_config.params(body));
+    const body = JSON.stringify(login_data);
+    const response = await ajax(
+        `${config.backend}${login_config.url}`,
+        login_config.params(body),
+    );
     checkResponse(response, login_config);
     const json = await response.json();
     return json.Body;
@@ -71,7 +79,10 @@ export async function loginUser(login_data) {
 export async function createUser(signup_data) {
     const signup_config = config.api.signup;
     const body = JSON.stringify(signup_data);
-    const response = await ajax(`${config.backend}${signup_config.url}`, signup_config.params(body));
+    const response = await ajax(
+        `${config.backend}${signup_config.url}`,
+        signup_config.params(body),
+    );
     checkResponse(response, signup_config);
     return;
 }
@@ -82,7 +93,10 @@ export async function createUser(signup_data) {
  */
 export async function logoutUser() {
     const logout_config = config.api.logout;
-    const response = await ajax(`${config.backend}${logout_config.url}`, logout_config.params);
+    const response = await ajax(
+        `${config.backend}${logout_config.url}`,
+        logout_config.params,
+    );
     checkResponse(response, logout_config);
     return;
 }
@@ -93,7 +107,10 @@ export async function logoutUser() {
  */
 export async function getRestaurants() {
     const restaurants_config = config.api.restaurants;
-    const response = await ajax(`${config.backend}${restaurants_config.url}`, restaurants_config.params);
+    const response = await ajax(
+        `${config.backend}${restaurants_config.url}`,
+        restaurants_config.params,
+    );
     checkResponse(response, restaurants_config);
     const json = await response.json();
     return json.Body;

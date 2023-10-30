@@ -1,12 +1,12 @@
 import { IView } from "../IView.js";
-import loginTemplate from './LoginView.hbs';
-import './LoginView.scss';
+import loginTemplate from "./LoginView.hbs";
+import "./LoginView.scss";
 
-import inputTemplate from '../../components/FormInputWithMsg/FormInputWithMsg.hbs';
-import '../../components/FormInputWithMsg/FormInputWithMsg.scss';
+import inputTemplate from "../../components/FormInputWithMsg/FormInputWithMsg.hbs";
+import "../../components/FormInputWithMsg/FormInputWithMsg.scss";
 
-import buttonTemplate from '../../components/Button/Button.hbs';
-import '../../components/Button/Button.scss';
+import buttonTemplate from "../../components/Button/Button.hbs";
+import "../../components/Button/Button.scss";
 
 /**
  * Представление страницы авторизации
@@ -29,7 +29,9 @@ export class LoginView extends IView {
      */
     setDefaultState() {
         const parser = new DOMParser();
-        this.element = parser.parseFromString(loginTemplate(), 'text/html').querySelector('#login');
+        this.element = parser
+            .parseFromString(loginTemplate(), "text/html")
+            .querySelector("#login");
 
         const inputGroup = this.element.querySelector("#input-container");
         const inputs = [
@@ -38,36 +40,36 @@ export class LoginView extends IView {
                 type: "text",
                 placeholder: "имя пользователя",
                 style: "default",
-                autocomplete: "off"
+                autocomplete: "off",
             },
             {
                 name: "password",
                 type: "password",
                 placeholder: "пароль",
                 style: "default",
-                autocomplete: "off"
-            }
-        ]
+                autocomplete: "off",
+            },
+        ];
         inputs.forEach((element) => {
             inputGroup.innerHTML += inputTemplate(element);
-        })
+        });
 
         const formControl = this.element.querySelector("#button-container");
         const buttons = [
             {
                 id: "submit",
                 text: "Войти",
-                style: "primary"
+                style: "primary",
             },
             {
                 id: "reg",
                 text: "Зарегистрироваться",
-                style: "secondary"
-            }
-        ]
+                style: "secondary",
+            },
+        ];
         buttons.forEach((element) => {
             formControl.innerHTML += buttonTemplate(element);
-        })
+        });
 
         if (!this.element) return;
     }
@@ -81,24 +83,28 @@ export class LoginView extends IView {
 
     /**
      * Устанавливает обработчик на отправку формы
-     * @param {Function} handler - обработчик 
+     * @param {Function} handler - обработчик
      */
     bindSubmitHandler(handler) {
-        this.element.querySelector('#submit').addEventListener('click', event => {
-            event.preventDefault();
-            handler(event);
-        })
+        this.element
+            .querySelector("#submit")
+            .addEventListener("click", (event) => {
+                event.preventDefault();
+                handler(event);
+            });
     }
 
     /**
      * Устанавливает обработчик на кнопку перенаправления на регистрацию
-     * @param {Function} handler - обработчик 
+     * @param {Function} handler - обработчик
      */
     bindSignUpClick(handler) {
-        this.element.querySelector('#reg').addEventListener('click', event => {
-            event.preventDefault();
-            handler(event);
-        })
+        this.element
+            .querySelector("#reg")
+            .addEventListener("click", (event) => {
+                event.preventDefault();
+                handler(event);
+            });
     }
 
     /**
@@ -106,10 +112,12 @@ export class LoginView extends IView {
      * @param {Function} handler - обработчик
      */
     bindCloseClick(handler) {
-        this.element.querySelector('#close').addEventListener('click', event => {
-            event.preventDefault();
-            handler(event);
-        })
+        this.element
+            .querySelector("#close")
+            .addEventListener("click", (event) => {
+                event.preventDefault();
+                handler(event);
+            });
     }
 
     /**
@@ -123,7 +131,7 @@ export class LoginView extends IView {
      * Получение данных формы
      */
     get formData() {
-        const form = this.element.querySelector('#form');
+        const form = this.element.querySelector("#form");
         return {
             username: form.username.value,
             password: form.password.value,

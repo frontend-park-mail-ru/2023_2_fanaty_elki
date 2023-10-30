@@ -10,7 +10,7 @@ export class IController {
 
     /**
      * Установка представления
-     * @param {IView} view_ - представление 
+     * @param {IView} view_ - представление
      */
     constructor(view_) {
         this.view = view_;
@@ -20,13 +20,13 @@ export class IController {
      * Отрисовка представления
      */
     start() {
-        console.log('show');
+        console.log("show");
     }
-    
+
     /**
      * Очистка представления
      */
     stop() {
-        console.log('hide');
+        console.log("hide");
     }
 }

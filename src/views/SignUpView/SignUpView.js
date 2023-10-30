@@ -1,12 +1,12 @@
 import { IView } from "../IView.js";
-import SignUpTemplate from './SignUpView.hbs';
-import './SignUpView.scss';
+import SignUpTemplate from "./SignUpView.hbs";
+import "./SignUpView.scss";
 
-import inputTemplate from '../../components/FormInputWithMsg/FormInputWithMsg.hbs';
-import '../../components/FormInputWithMsg/FormInputWithMsg.scss';
+import inputTemplate from "../../components/FormInputWithMsg/FormInputWithMsg.hbs";
+import "../../components/FormInputWithMsg/FormInputWithMsg.scss";
 
-import buttonTemplate from '../../components/Button/Button.hbs';
-import '../../components/Button/Button.scss';
+import buttonTemplate from "../../components/Button/Button.hbs";
+import "../../components/Button/Button.scss";
 
 /**
  * Представление страницы регистрации
@@ -28,7 +28,9 @@ export class SignUpView extends IView {
      */
     setDefaultState() {
         const parser = new DOMParser();
-        this.element = parser.parseFromString(SignUpTemplate(), "text/html").querySelector("#signup");
+        this.element = parser
+            .parseFromString(SignUpTemplate(), "text/html")
+            .querySelector("#signup");
         if (!this.element) return;
 
         const inputGroup = this.element.querySelector("#input-container");
@@ -104,9 +106,11 @@ export class SignUpView extends IView {
      * @param {Function} handler - обработчик
      */
     bindEmailInputHandler(handler) {
-        this.element.querySelector('#email').addEventListener("input", (event) => {
-            handler(event);
-        });
+        this.element
+            .querySelector("#email")
+            .addEventListener("input", (event) => {
+                handler(event);
+            });
     }
 
     /**
@@ -114,9 +118,11 @@ export class SignUpView extends IView {
      * @param {Function} handler - обработчик
      */
     bindUsernameInputHandler(handler) {
-        this.element.querySelector('#username').addEventListener("input", (event) => {
-            handler(event);
-        });
+        this.element
+            .querySelector("#username")
+            .addEventListener("input", (event) => {
+                handler(event);
+            });
     }
 
     /**
@@ -124,9 +130,11 @@ export class SignUpView extends IView {
      * @param {Function} handler - обработчик
      */
     bindPasswordInputHandler(handler) {
-        this.element.querySelector('#password').addEventListener("input", (event) => {
-            handler(event);
-        });
+        this.element
+            .querySelector("#password")
+            .addEventListener("input", (event) => {
+                handler(event);
+            });
     }
 
     /**
@@ -134,9 +142,11 @@ export class SignUpView extends IView {
      * @param {Function} handler - обработчик
      */
     bindPasswordConfirmInputHandler(handler) {
-        this.element.querySelector('#passwordconfirm').addEventListener("input", (event) => {
-            handler(event);
-        });
+        this.element
+            .querySelector("#passwordconfirm")
+            .addEventListener("input", (event) => {
+                handler(event);
+            });
     }
 
     /**
@@ -144,10 +154,12 @@ export class SignUpView extends IView {
      * @param {Function} handler - обработчик
      */
     bindSubmitHandler(handler) {
-        this.element.querySelector("#submit").addEventListener("click", (event) => {
-            event.preventDefault();
-            handler(event);
-        });
+        this.element
+            .querySelector("#submit")
+            .addEventListener("click", (event) => {
+                event.preventDefault();
+                handler(event);
+            });
     }
 
     /**
@@ -155,10 +167,12 @@ export class SignUpView extends IView {
      * @param {Function} handler - обработчик
      */
     bindLoginClick(handler) {
-        this.element.querySelector("#auth").addEventListener("click", (event) => {
-            event.preventDefault();
-            handler(event);
-        });
+        this.element
+            .querySelector("#auth")
+            .addEventListener("click", (event) => {
+                event.preventDefault();
+                handler(event);
+            });
     }
 
     /**
@@ -166,10 +180,12 @@ export class SignUpView extends IView {
      * @param {Function} handler - обработчик
      */
     bindCloseClick(handler) {
-        this.element.querySelector("#close").addEventListener("click", (event) => {
-            event.preventDefault();
-            handler(event);
-        });
+        this.element
+            .querySelector("#close")
+            .addEventListener("click", (event) => {
+                event.preventDefault();
+                handler(event);
+            });
     }
 
     /**
@@ -182,9 +198,11 @@ export class SignUpView extends IView {
      */
     handleFormValidation(errors) {
         errors.forEach((error) => {
-            const errorInputDiv = document.querySelector(`#input-div-${error.field}`);
-            const messageDiv = errorInputDiv.querySelector('div');
-            const fieldInput = errorInputDiv.querySelector('input');
+            const errorInputDiv = document.querySelector(
+                `#input-div-${error.field}`,
+            );
+            const messageDiv = errorInputDiv.querySelector("div");
+            const fieldInput = errorInputDiv.querySelector("input");
 
             if (error.isValid) {
                 fieldInput.className = "input-with-msg__input_default";

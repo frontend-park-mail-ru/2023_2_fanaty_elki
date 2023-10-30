@@ -1,5 +1,5 @@
 import { IController } from "../IController.js";
-import { config } from "../../config.js"
+import { config } from "../../config.js";
 
 /**
  * Контроллер авторизации
@@ -42,7 +42,7 @@ export class LoginController extends IController {
 
             try {
                 await this._userModel.login(loginData);
-            } catch(error) {
+            } catch (error) {
                 let msg;
                 switch (error.type) {
                     case config.ERROR_TYPE.FAILURE:
@@ -58,11 +58,11 @@ export class LoginController extends IController {
                 this.view.showErrorMessage(msg);
                 return;
             }
-            router.redirect('/')
+            router.redirect("/");
         });
 
         this.view.bindSignUpClick(() => {
-            router.redirect('/signup');
+            router.redirect("/signup");
         });
 
         this.view.bindCloseClick(() => {
@@ -72,13 +72,14 @@ export class LoginController extends IController {
 
     /**
      * Проверка данных формы
-     * @param {Object} loginData - данные формы 
+     * @param {Object} loginData - данные формы
      * @param {String} loginData.username - имя пользователя
      * @param {String} loginData.password - пароль
      * @returns {(String)}
      */
     validateLoginData(loginData) {
-        if (!loginData.username && !loginData.password) return "Укажите логин и пароль";
+        if (!loginData.username && !loginData.password)
+            return "Укажите логин и пароль";
         if (!loginData.username) return "Укажите имя пользователя";
         if (!loginData.password) return "Укажите пароль";
 

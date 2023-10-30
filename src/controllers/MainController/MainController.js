@@ -2,8 +2,8 @@ import { IController } from "../IController.js";
 
 /**
  * Контроллер главной страницы
- * @class 
- * @extends {IController} 
+ * @class
+ * @extends {IController}
  */
 export class MainController extends IController {
     /**
@@ -11,15 +11,15 @@ export class MainController extends IController {
      */
     restaurantModel;
     /**
-     * Модель пользователя 
+     * Модель пользователя
      */
     userModel;
 
     /**
      * Создает экземляр контроллера и инициализирует его
      * @param {MainView} view - представление главной страницы
-     * @param {RestaurantModel} restaurantModel_ 
-     * @param {UserModel} userModel_ 
+     * @param {RestaurantModel} restaurantModel_
+     * @param {UserModel} userModel_
      */
     constructor(view, restaurantModel_, userModel_) {
         super(view);
@@ -27,11 +27,11 @@ export class MainController extends IController {
         this.userModel = userModel_;
 
         this.view.bindPersonClick(() => {
-            router.redirect('/login');
+            router.redirect("/login");
         });
         this.view.bindExitClick(this.logout.bind(this));
-        this.view.bindLogoClick(()=>{
-            router.redirect('/');
+        this.view.bindLogoClick(() => {
+            router.redirect("/");
         });
     }
 
@@ -44,16 +44,15 @@ export class MainController extends IController {
             if (!this.view.is_auth)
                 this.view.setAuthUser(this.userModel._currentUser.username);
         } else {
-            if (this.view.is_auth)
-                this.view.setNonAuthUser();
+            if (this.view.is_auth) this.view.setNonAuthUser();
         }
         try {
             const list = await this.restaurantModel.getAll();
-            list.restaurants.forEach(element => {
+            list.restaurants.forEach((element) => {
                 element.DeliveryTimeMax = element.DeliveryTime + 10; // грязый хак
             });
             this.view.updateList(list);
-        } catch(e) {
+        } catch (e) {
             console.log(e);
         }
         this.view.render();
@@ -73,7 +72,7 @@ export class MainController extends IController {
         try {
             await this.userModel.logout();
             this.view.setNonAuthUser();
-        } catch(e) {
+        } catch (e) {
             console.log(e);
         }
     }
