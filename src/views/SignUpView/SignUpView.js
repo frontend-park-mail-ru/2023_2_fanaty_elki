@@ -1,12 +1,12 @@
 import { IView } from "../IView.js";
 import SignUpTemplate from './SignUpView.hbs';
-import './SignUpView.css';
+import './SignUpView.scss';
 
 import inputTemplate from '../../components/FormInputWithMsg/FormInputWithMsg.hbs';
-import '../../components/FormInputWithMsg/FormInputWithMsg.css';
+import '../../components/FormInputWithMsg/FormInputWithMsg.scss';
 
 import buttonTemplate from '../../components/Button/Button.hbs';
-import '../../components/Button/Button.css';
+import '../../components/Button/Button.scss';
 
 /**
  * Представление страницы регистрации
@@ -31,7 +31,7 @@ export class SignUpView extends IView {
         this.element = parser.parseFromString(SignUpTemplate(), "text/html").querySelector("#signup");
         if (!this.element) return;
 
-        const inputGroup = this.element.querySelector(".signup-inputgroup");
+        const inputGroup = this.element.querySelector("#input-container");
         const inputs = [
             {
                 style: "default",
@@ -74,7 +74,7 @@ export class SignUpView extends IView {
             inputGroup.innerHTML += inputTemplate(element);
         });
 
-        const formControl = this.element.querySelector(".signup-control");
+        const formControl = this.element.querySelector("#button-container");
         const buttons = [
             {
                 id: "submit",
@@ -166,7 +166,7 @@ export class SignUpView extends IView {
      * @param {Function} handler - обработчик
      */
     bindCloseClick(handler) {
-        this.element.querySelector(".singup-close").addEventListener("click", (event) => {
+        this.element.querySelector("#close").addEventListener("click", (event) => {
             event.preventDefault();
             handler(event);
         });
@@ -187,12 +187,12 @@ export class SignUpView extends IView {
             const fieldInput = errorInputDiv.querySelector('input');
 
             if (error.isValid) {
-                fieldInput.className = "form-input-with-msg-input__default";
-                messageDiv.className = "form-input-with-msg-msg__default";
+                fieldInput.className = "input-with-msg__input_default";
+                messageDiv.className = "input-with-msg__msg_default";
                 messageDiv.innerText = "";
             } else {
-                fieldInput.className = "form-input-with-msg-input__error";
-                messageDiv.className = "form-input-with-msg-msg__error";
+                fieldInput.className = "input-with-msg__input_error";
+                messageDiv.className = "input-with-msg__msg_error";
                 messageDiv.innerText = error.message;
             }
         });
@@ -202,7 +202,7 @@ export class SignUpView extends IView {
      * Выводит сообщения об ошибках со стороны сервера
      */
     showErrorMessage(msg) {
-        this.element.querySelector(".signup-error-msg").textContent = msg;
+        this.element.querySelector("#msg").textContent = msg;
     }
 
     /**
@@ -210,7 +210,7 @@ export class SignUpView extends IView {
      * @returns {Object} - данные формы
      */
     get formData() {
-        const form = this.element.querySelector(".signup-form");
+        const form = this.element.querySelector("#form");
         return {
             username: form.username.value,
             email: form.email.value,

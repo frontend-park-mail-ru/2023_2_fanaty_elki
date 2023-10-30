@@ -1,0 +1,27 @@
+$gray: #333;
+$middle-gray: #888;
+$light-gray: #F6F6F6;
+$yellow: #FF9900;
+$white: #FFF;
+$green: #51C35D;
+$red: #DA4747;
+$black: #000;
+
+$font-family: 'Comfortaa';
+$font-size: 15px;
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    font-family: $font-family;
+    font-weight: 300;
+}
