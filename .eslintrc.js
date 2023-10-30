@@ -1,10 +1,12 @@
 module.exports = {
+    parser: '@typescript-eslint/parser',
     "env": {
         "browser": true,
         "es2021": true
     },
-    "extends": "eslint:recommended",
-    "overrides": [
+    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+    plugins: ['@typescript-eslint'],
+    overrides: [
         {
             "env": {
                 "node": true
@@ -17,13 +19,13 @@ module.exports = {
             }
         }
     ],
-    "parserOptions": {
+    parserOptions: {
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "rules": {
+    rules: {
     },
-    "globals": {
+    globals: {
         "router": "readonly",
         "backendURL": "readonly",
         "GET": "readonly",
