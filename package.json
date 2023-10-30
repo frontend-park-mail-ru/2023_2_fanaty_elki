@@ -14,15 +14,16 @@
         "build:js-prod": "webpack --env production",
         "build:js-dev": "webpack --env development",
         "build-prod": "npm run build:types && npm run build:js",
-        "build-dev": "npm run build:types && npm run build:js-dev",
+        "build-dev-tcs": "npm run build:types && npm run build:js-dev",
         "server": "node server/index.js",
-        "start": "npm run build-dev && npm run server"
+        "start": "npm run build:js-dev && npm run server"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
         "-": "^0.0.1",
+        "@types/hbs": "^4.0.3",
         "body-parser": "^1.20.0",
         "cookie-parser": "^1.4.6",
         "css-loader": "^6.8.1",

@@ -5,10 +5,12 @@
         "allowJs": true,
         "declaration": true,
         "emitDeclarationOnly": true,
-        "isolatedModules": true
+        "isolatedModules": true,
+        "strictPropertyInitialization": false,
     },
     "include": [
         "public/index.js",
+        "types/global.d.ts",
         "src/**/*.ts"
-    ],
+, "src/views/IView.ts", "src/views/LoginView/LoginView.js"    ],
 }
