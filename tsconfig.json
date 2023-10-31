@@ -12,5 +12,5 @@
         "public/index.js",
         "types/global.d.ts",
         "src/**/*.ts"
-, "src/views/IView.ts", "src/views/LoginView/LoginView.js"    ],
+    ],
 }

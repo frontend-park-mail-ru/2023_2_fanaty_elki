@@ -14,12 +14,13 @@ import "../../components/Button/Button.scss";
  * @extends {IView}
  */
 export class LoginView extends IView {
+    element: HTMLElement;
     /**
      * Добавляет родительский элемент отображения и устанавливает форму в состояние по умолчанию
      * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы
      * @param {String} title_ - заголовок страницы
      */
-    constructor(parent_, title_) {
+    constructor(parent_: HTMLElement, title_: string) {
         super(parent_, title_);
         this.setDefaultState();
     }
@@ -29,11 +30,16 @@ export class LoginView extends IView {
      */
     setDefaultState() {
         const parser = new DOMParser();
-        this.element = parser
+        const element: HTMLElement | null = parser
             .parseFromString(loginTemplate(), "text/html")
             .querySelector("#login");
+        if (!element) {
+            console.log("Error on parse");
+            return;
+        }
+        this.element = element;
 
-        const inputGroup = this.element.querySelector("#input-container");
+        const inputGroup = this.element.querySelector("#input-container")!;
         const inputs = [
             {
                 name: "username",
@@ -54,7 +60,7 @@ export class LoginView extends IView {
             inputGroup.innerHTML += inputTemplate(element);
         });
 
-        const formControl = this.element.querySelector("#button-container");
+        const formControl = this.element.querySelector("#button-container")!;
         const buttons = [
             {
                 id: "submit",
@@ -85,12 +91,12 @@ export class LoginView extends IView {
      * Устанавливает обработчик на отправку формы
      * @param {Function} handler - обработчик
      */
-    bindSubmitHandler(handler) {
+    bindSubmitHandler(handler: () => void) {
         this.element
-            .querySelector("#submit")
+            .querySelector("#submit")!
             .addEventListener("click", (event) => {
                 event.preventDefault();
-                handler(event);
+                handler();
             });
     }
 
@@ -98,12 +104,12 @@ export class LoginView extends IView {
      * Устанавливает обработчик на кнопку перенаправления на регистрацию
      * @param {Function} handler - обработчик
      */
-    bindSignUpClick(handler) {
+    bindSignUpClick(handler: () => void) {
         this.element
-            .querySelector("#reg")
+            .querySelector("#reg")!
             .addEventListener("click", (event) => {
                 event.preventDefault();
-                handler(event);
+                handler();
             });
     }
 
@@ -111,30 +117,30 @@ export class LoginView extends IView {
      * Устанавливает обработчик на кнопку закрытия формы
      * @param {Function} handler - обработчик
      */
-    bindCloseClick(handler) {
+    bindCloseClick(handler: () => void) {
         this.element
-            .querySelector("#close")
+            .querySelector("#close")!
             .addEventListener("click", (event) => {
                 event.preventDefault();
-                handler(event);
+                handler();
             });
     }
 
     /**
      * Выводит сообщения об ошибках со стороны сервера
      */
-    showErrorMessage(msg) {
-        this.element.querySelector("#msg").textContent = msg;
+    showErrorMessage(msg: string) {
+        this.element.querySelector("#msg")!.textContent = msg;
     }
 
     /**
      * Получение данных формы
      */
     get formData() {
-        const form = this.element.querySelector("#form");
+        const form: HTMLFormElement = this.element.querySelector("#form")!;
         return {
-            username: form.username.value,
-            password: form.password.value,
+            username: form.get("username"),
+            password: form.get("password"),
         };
     }
 }

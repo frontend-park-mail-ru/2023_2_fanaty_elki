@@ -105,7 +105,7 @@ export class MainView extends IView {
      * Устанавливает обработчик на кнопку выхода из аккаунта
      * @param {Function} handler - обработчик
      */
-    bindExitClick(handler) {
+    bindExitClick(handler: () => void) {
         this.userNameElement
             .querySelector("#exit-button")!
             .addEventListener("click", handler);
@@ -115,7 +115,7 @@ export class MainView extends IView {
      * Устанавливает обработчик на кнопку с адресом
      * @param {Function} handler - обработчик
      */
-    bindAddressClick(handler) {
+    bindAddressClick(handler: () => void) {
         this.element
             .querySelector("#address-button")!
             .addEventListener("click", handler);
@@ -125,7 +125,7 @@ export class MainView extends IView {
      * Устанавливает обработчик на логотип
      * @param {Function} handler - обработчик
      */
-    bindLogoClick(handler) {
+    bindLogoClick(handler: () => void) {
         this.element.querySelector("#logo")!.addEventListener("click", handler);
     }
 
@@ -133,7 +133,7 @@ export class MainView extends IView {
      * Устанавливает обработчик на кнопку 'Войти'
      * @param {Function} handler - обработчик
      */
-    bindPersonClick(handler) {
+    bindPersonClick(handler: () => void) {
         this.signInButton.addEventListener("click", handler);
     }
 }
