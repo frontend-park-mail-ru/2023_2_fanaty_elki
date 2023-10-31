@@ -1,5 +1,5 @@
-import { config } from "./config.js";
-import { IView } from "../IView.js";
+import { config } from "./config";
+import { IView } from "../IView";
 import MainTemplate from "./MainView.hbs";
 import "./MainView.scss";
 

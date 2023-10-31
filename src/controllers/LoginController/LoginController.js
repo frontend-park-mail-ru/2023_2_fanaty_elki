@@ -1,4 +1,4 @@
-import { IController } from "../IController.js";
+import { IController } from "../IController";
 import { config } from "../../config.js";
 
 /**

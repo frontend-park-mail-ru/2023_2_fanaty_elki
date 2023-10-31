@@ -1,3 +1,4 @@
+import { IView } from "../views/IView";
 /**
  * Интерфейс контроллера
  * @interface
@@ -12,7 +13,7 @@ export abstract class IController {
      * Установка представления
      * @param {IView} view_ - представление
      */
-    constructor(view_) {
+    constructor(view_: IView) {
         this.view = view_;
     }
 

@@ -1,4 +1,4 @@
-import { IView } from "../IView.js";
+import { IView } from "../IView";
 import loginTemplate from "./LoginView.hbs";
 import "./LoginView.scss";
 
@@ -137,10 +137,11 @@ export class LoginView extends IView {
      * Получение данных формы
      */
     get formData() {
-        const form: HTMLFormElement = this.element.querySelector("#form")!;
+        const htmlForm: HTMLFormElement = this.element.querySelector("#form")!;
+        const formData: FormData = new FormData(htmlForm);
         return {
-            username: form.get("username"),
-            password: form.get("password"),
+            username: formData.get("username"),
+            password: formData.get("password"),
         };
     }
 }

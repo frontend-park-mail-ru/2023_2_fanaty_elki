@@ -1,4 +1,4 @@
-import { IView } from "../IView.js";
+import { IView } from "../IView";
 import SignUpTemplate from "./SignUpView.hbs";
 import "./SignUpView.scss";
 
@@ -231,12 +231,13 @@ export class SignUpView extends IView {
      * @returns {Object} - данные формы
      */
     get formData() {
-        const form: HTMLFormElement = this.element.querySelector("#form")!;
+        const htmlForm = this.element.querySelector("#form") as HTMLFormElement;
+        const formData: FormData = new FormData(htmlForm);
         return {
-            username: form.get("username"),
-            email: form.get("email"),
-            password: form.get("password"),
-            passwordConfirm: form.get("passwordconfirm"),
+            username: formData.get("username"),
+            email: formData.get("email"),
+            password: formData.get("password"),
+            passwordConfirm: formData.get("passwordconfirm"),
         };
     }
 }

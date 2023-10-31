@@ -2,9 +2,9 @@ import { MainController } from "../src/controllers/MainController/MainController
 import { SignUpController } from "../src/controllers/SignUpController/SignUpController.js";
 import { LoginController } from "../src/controllers/LoginController/LoginController.js";
 
-import { MainView } from "../src/views/MainView/MainView.js";
-import { SignUpView } from "../src/views/SignUpView/SignUpView.js";
-import { LoginView } from "../src/views/LoginView/LoginView.js";
+import { MainView } from "../src/views/MainView/MainView";
+import { SignUpView } from "../src/views/SignUpView/SignUpView";
+import { LoginView } from "../src/views/LoginView/LoginView";
 
 import { Router } from "../src/controllers/Router/Router.js";
 

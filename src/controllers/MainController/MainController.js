@@ -1,4 +1,4 @@
-import { IController } from "../IController.js";
+import { IController } from "../IController";
 
 /**
  * Контроллер главной страницы
