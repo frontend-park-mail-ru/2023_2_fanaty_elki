@@ -5,6 +5,19 @@ import {
     loginUser,
 } from "../../modules/api.js";
 
+type User = {
+    username: string;
+};
+
+type LoginData = {
+    username: string;
+    password: string;
+};
+
+type SignUpData = LoginData & {
+    email: string;
+};
+
 /**
  * Модель пользователя
  * Хранит сессию текущего пользователя и предоставляет интефейс для получения данных о пользователях с бекэнд
@@ -14,7 +27,7 @@ export class UserModel {
     /**
      * Текущий пользователь
      */
-    _currentUser;
+    _currentUser: User | null;
 
     /**
      * Конструктор
@@ -31,8 +44,7 @@ export class UserModel {
      */
     async auth() {
         this._currentUser = null;
-        const data = await authUser();
-        this._currentUser = data;
+        this._currentUser = await authUser();
     }
 
     /**
@@ -41,10 +53,9 @@ export class UserModel {
      * @async
      * @param {Object} login_data - данные пользователя
      */
-    async login(login_data) {
+    async login(login_data: LoginData) {
         this._currentUser = null;
-        const data = await loginUser(login_data);
-        this._currentUser = data;
+        this._currentUser = await loginUser(login_data);
     }
 
     /**
@@ -53,7 +64,7 @@ export class UserModel {
      * @async
      * @param {Object} signup_data - данные пользователя
      */
-    async signup(signup_data) {
+    async signup(signup_data: SignUpData) {
         await createUser(signup_data);
     }
 

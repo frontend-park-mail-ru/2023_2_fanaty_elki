@@ -10,7 +10,6 @@ export class RestaurantModel {
      * @return {Promise} - список ресторанов или отклоненный промис
      */
     async getAll() {
-        const data = await getRestaurants();
-        return data;
+        return await getRestaurants();
     }
 }
