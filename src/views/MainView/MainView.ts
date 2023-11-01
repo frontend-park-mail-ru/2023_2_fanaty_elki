@@ -4,14 +4,14 @@ import MainTemplate from "./MainView.hbs";
 import "./MainView.scss";
 
 import Handlebars from "handlebars";
-import cardTemplate from "../../components/Card/card.hbs";
-import "../../components/Card/card.scss";
+import restaurantCardTemplate from "../../components/RestaurantCard/RestaurantCard.hbs";
+import "../../components/RestaurantCard/RestaurantCard.scss";
 
-import navbarTemplate from "../../components/Navbar/navbar.hbs";
-import "../../components/Navbar/navbar.scss";
+import navbarTemplate from "../../components/Navbar/Navbar.hbs";
+import "../../components/Navbar/Navbar.scss";
 
-import categoryTemplate from "../../components/Category/category.hbs";
-import "../../components/Category/category.scss";
+import restaurantsCategoryTemplate from "../../components/RestaurantsCategory/RestaurantsCategory.hbs";
+import "../../components/RestaurantsCategory/RestaurantsCategory.scss";
 
 export type Restaurant = {
     Icon: string;
@@ -59,12 +59,13 @@ export class MainView extends IView {
         }
         this.element = element;
 
-        Handlebars.registerPartial("cardTemplate", cardTemplate);
+        Handlebars.registerPartial('restaurantCardTemplate', restaurantCardTemplate);
+
         this.element.querySelector("#navbar")!.innerHTML = navbarTemplate(
             config.navbar,
         );
         this.element.querySelector("#categories")!.innerHTML =
-            categoryTemplate();
+            restaurantsCategoryTemplate();
         this.userNameElement = <HTMLElement>(
             this.element.querySelector("#name-container")
         );
@@ -80,7 +81,7 @@ export class MainView extends IView {
      */
     updateList(list: Restaurant[]) {
         this.element.querySelector("#categories")!.innerHTML =
-            categoryTemplate(list);
+            restaurantsCategoryTemplate(list);
     }
 
     /**

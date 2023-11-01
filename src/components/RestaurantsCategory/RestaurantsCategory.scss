@@ -1,0 +1,36 @@
+.restaurants-categories {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 35px;
+}
+
+.restaurants-categories__title {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+}
+
+.restaurants-categories__categories {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 35px;
+    align-self: stretch;
+}
+
+.restaurants-categories__categories__title {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+    margin: 0;
+}
+
+.restaurants-categories__categories__items {
+    display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 40px 70px;
+    align-self: stretch;
+    flex-wrap: wrap;
+}
