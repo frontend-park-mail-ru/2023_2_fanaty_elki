@@ -8,10 +8,17 @@ import "../../components/FormInputWithMsg/FormInputWithMsg.scss";
 import buttonTemplate from "../../components/Button/Button.hbs";
 import "../../components/Button/Button.scss";
 
-type ValidationError = {
+export type ValidationError = {
     isValid: boolean;
     field: string;
     message: string;
+};
+
+export type SignUpFormData = {
+    username: string;
+    email: string;
+    password: string;
+    passwordConfirm: string;
 };
 
 /**
@@ -230,14 +237,14 @@ export class SignUpView extends IView {
      * Получение данных формы
      * @returns {Object} - данные формы
      */
-    get formData() {
+    get formData(): SignUpFormData {
         const htmlForm = this.element.querySelector("#form") as HTMLFormElement;
         const formData: FormData = new FormData(htmlForm);
         return {
-            username: formData.get("username"),
-            email: formData.get("email"),
-            password: formData.get("password"),
-            passwordConfirm: formData.get("passwordconfirm"),
+            username: <string>formData.get("username"),
+            email: <string>formData.get("email"),
+            password: <string>formData.get("password"),
+            passwordConfirm: <string>formData.get("passwordconfirm"),
         };
     }
 }

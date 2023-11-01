@@ -1,14 +1,15 @@
-import { config } from "../config.js";
+import { ApiElement, ERROR_TYPE, config } from "../config";
+import { LoginData, SignUpData } from "../models/UserModel/UserModel";
 
-function checkResponse(response, local_config) {
-    let status = response.status;
+function checkResponse(response: Response, local_config: ApiElement) {
+    const status = response.status;
     if (status in local_config.success) {
-        for (let restr in local_config.restrictions) {
+        for (const restr in local_config.restrictions) {
             if (
                 response.headers.get(restr) !== local_config.restrictions[restr]
             ) {
                 throw {
-                    type: config.ERROR_TYPE.UNEXPECTED,
+                    type: ERROR_TYPE.UNEXPECTED,
                 };
             }
         }
@@ -16,12 +17,12 @@ function checkResponse(response, local_config) {
     }
     if (status in local_config.failure) {
         throw {
-            type: config.ERROR_TYPE.FAILURE,
+            type: ERROR_TYPE.FAILURE,
             status: status,
         };
     }
     throw {
-        type: config.ERROR_TYPE.UNEXPECTED,
+        type: ERROR_TYPE.UNEXPECTED,
     };
 }
 
@@ -29,12 +30,12 @@ function checkResponse(response, local_config) {
  * Приводит ошибки Fetch API к общему виду
  * @async
  */
-async function ajax(url, params) {
+async function ajax(url: string, params: { [index: string]: string }) {
     try {
         return await fetch(url, params);
     } catch {
         throw {
-            type: config.ERROR_TYPE.NETWORK_ERROR,
+            type: ERROR_TYPE.NETWORK_ERROR,
         };
     }
 }
@@ -44,10 +45,10 @@ async function ajax(url, params) {
  * @async
  */
 export async function authUser() {
-    const auth_config = config.api.auth;
+    const auth_config: ApiElement = config.api.auth;
     const response = await ajax(
         `${config.backend}${auth_config.url}`,
-        auth_config.params,
+        auth_config.params(""),
     );
     checkResponse(response, auth_config);
     const json = await response.json();
@@ -59,8 +60,8 @@ export async function authUser() {
  * @async
  * @param {Object} login_data - данные пользователя
  */
-export async function loginUser(login_data) {
-    const login_config = config.api.login;
+export async function loginUser(login_data: LoginData) {
+    const login_config: ApiElement = config.api.login;
     const body = JSON.stringify(login_data);
     const response = await ajax(
         `${config.backend}${login_config.url}`,
@@ -76,8 +77,8 @@ export async function loginUser(login_data) {
  * @async
  * @param {Object} signup_data - данные пользователя
  */
-export async function createUser(signup_data) {
-    const signup_config = config.api.signup;
+export async function createUser(signup_data: SignUpData) {
+    const signup_config: ApiElement = config.api.signup;
     const body = JSON.stringify(signup_data);
     const response = await ajax(
         `${config.backend}${signup_config.url}`,
@@ -95,7 +96,7 @@ export async function logoutUser() {
     const logout_config = config.api.logout;
     const response = await ajax(
         `${config.backend}${logout_config.url}`,
-        logout_config.params,
+        logout_config.params(""),
     );
     checkResponse(response, logout_config);
     return;
@@ -109,7 +110,7 @@ export async function getRestaurants() {
     const restaurants_config = config.api.restaurants;
     const response = await ajax(
         `${config.backend}${restaurants_config.url}`,
-        restaurants_config.params,
+        restaurants_config.params(""),
     );
     checkResponse(response, restaurants_config);
     const json = await response.json();

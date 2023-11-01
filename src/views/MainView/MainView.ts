@@ -3,6 +3,7 @@ import { IView } from "../IView";
 import MainTemplate from "./MainView.hbs";
 import "./MainView.scss";
 
+import Handlebars from "handlebars";
 import cardTemplate from "../../components/Card/card.hbs";
 import "../../components/Card/card.scss";
 
@@ -12,7 +13,7 @@ import "../../components/Navbar/navbar.scss";
 import categoryTemplate from "../../components/Category/category.hbs";
 import "../../components/Category/category.scss";
 
-type Restaurant = {
+export type Restaurant = {
     Icon: string;
     Name: string;
     DeliveryPrice: number;
@@ -38,6 +39,7 @@ export class MainView extends IView {
     signInButton: HTMLElement;
 
     element: HTMLElement;
+    is_auth: boolean;
 
     /**
      * Создает из шаблонов главную страницу
@@ -86,7 +88,7 @@ export class MainView extends IView {
      * @param {string} userName - имя пользователя
      */
     setAuthUser(userName: string) {
-        // this.is_auth = true;
+        this.is_auth = true;
         this.userNameElement.firstElementChild!.innerHTML = userName;
         this.signInButton.parentNode!.appendChild(this.userNameElement);
         this.signInButton.parentNode!.removeChild(this.signInButton);
@@ -96,7 +98,7 @@ export class MainView extends IView {
      * Устанавливает navbar для неавторизованного пользователя
      */
     setNonAuthUser() {
-        // this.is_auth = false;
+        this.is_auth = false;
         this.userNameElement.parentNode!.appendChild(this.signInButton);
         this.userNameElement.parentNode!.removeChild(this.userNameElement);
     }

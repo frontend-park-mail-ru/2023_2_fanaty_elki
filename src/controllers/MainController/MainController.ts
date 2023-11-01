@@ -1,3 +1,7 @@
+import { RestaurantModel } from "../../models/RestaurantModel/RestaurantModel";
+import { UserModel } from "../../models/UserModel/UserModel";
+import { MainView } from "../../views/MainView/MainView";
+import { Restaurant } from "../../views/MainView/MainView";
 import { IController } from "../IController";
 
 /**
@@ -9,11 +13,12 @@ export class MainController extends IController {
     /**
      * Модель ресторана
      */
-    restaurantModel;
+    restaurantModel: RestaurantModel;
     /**
      * Модель пользователя
      */
-    userModel;
+    userModel: UserModel;
+    mainView: MainView;
 
     /**
      * Создает экземляр контроллера и инициализирует его
@@ -21,16 +26,21 @@ export class MainController extends IController {
      * @param {RestaurantModel} restaurantModel_
      * @param {UserModel} userModel_
      */
-    constructor(view, restaurantModel_, userModel_) {
-        super(view);
+    constructor(
+        view: MainView,
+        restaurantModel_: RestaurantModel,
+        userModel_: UserModel,
+    ) {
+        super();
+        this.mainView = view;
         this.restaurantModel = restaurantModel_;
         this.userModel = userModel_;
 
-        this.view.bindPersonClick(() => {
+        this.mainView.bindPersonClick(() => {
             router.redirect("/login");
         });
-        this.view.bindExitClick(this.logout.bind(this));
-        this.view.bindLogoClick(() => {
+        this.mainView.bindExitClick(this.logout.bind(this));
+        this.mainView.bindLogoClick(() => {
             router.redirect("/");
         });
     }
@@ -41,28 +51,28 @@ export class MainController extends IController {
      */
     async start() {
         if (this.userModel._currentUser) {
-            if (!this.view.is_auth)
-                this.view.setAuthUser(this.userModel._currentUser.username);
+            if (!this.mainView.is_auth)
+                this.mainView.setAuthUser(this.userModel._currentUser.username);
         } else {
-            if (this.view.is_auth) this.view.setNonAuthUser();
+            if (this.mainView.is_auth) this.mainView.setNonAuthUser();
         }
         try {
             const list = await this.restaurantModel.getAll();
-            list.restaurants.forEach((element) => {
+            list.restaurants.forEach((element: Restaurant) => {
                 element.DeliveryTimeMax = element.DeliveryTime + 10; // грязый хак
             });
-            this.view.updateList(list);
+            this.mainView.updateList(list);
         } catch (e) {
             console.log(e);
         }
-        this.view.render();
+        this.mainView.render();
     }
 
     /**
      * Конец управления контроллера перед передачей управления другому
      */
     stop() {
-        this.view.clear();
+        this.mainView.clear();
     }
 
     /**
@@ -71,7 +81,7 @@ export class MainController extends IController {
     async logout() {
         try {
             await this.userModel.logout();
-            this.view.setNonAuthUser();
+            this.mainView.setNonAuthUser();
         } catch (e) {
             console.log(e);
         }

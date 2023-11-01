@@ -1,20 +1,15 @@
-import {
-    authUser,
-    logoutUser,
-    createUser,
-    loginUser,
-} from "../../modules/api.js";
+import { authUser, logoutUser, createUser, loginUser } from "../../modules/api";
 
 type User = {
     username: string;
 };
 
-type LoginData = {
+export type LoginData = {
     username: string;
     password: string;
 };
 
-type SignUpData = LoginData & {
+export type SignUpData = LoginData & {
     email: string;
 };
 

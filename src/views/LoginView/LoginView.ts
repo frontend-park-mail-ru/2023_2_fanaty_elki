@@ -140,8 +140,8 @@ export class LoginView extends IView {
         const htmlForm: HTMLFormElement = this.element.querySelector("#form")!;
         const formData: FormData = new FormData(htmlForm);
         return {
-            username: formData.get("username"),
-            password: formData.get("password"),
+            username: <string>formData.get("username")!,
+            password: <string>formData.get("password")!,
         };
     }
 }

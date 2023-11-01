@@ -13,7 +13,7 @@
         "build:types": "tsc",
         "build:js-prod": "webpack --env production",
         "build:js-dev": "webpack --env development",
-        "build-prod": "npm run build:types && npm run build:js",
+        "build-prod": "npm run build:types && npm run build:js-prod",
         "build-dev-tcs": "npm run build:types && npm run build:js-dev",
         "server": "node server/index.js",
         "start": "npm run build:js-dev && npm run server"

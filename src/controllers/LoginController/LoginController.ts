@@ -1,5 +1,14 @@
+import { config } from "../../config";
+import { ERROR_TYPE } from "../../config";
+import { GENERAL_MESSAGE } from "../../config";
+import { LoginView } from "../../views/LoginView/LoginView";
+import { LoginData, UserModel } from "../../models/UserModel/UserModel";
 import { IController } from "../IController";
-import { config } from "../../config.js";
+
+type Error = {
+    type: ERROR_TYPE;
+    status: string;
+};
 
 /**
  * Контроллер авторизации
@@ -10,20 +19,21 @@ export class LoginController extends IController {
     /**
      * Ссылка на модель пользователя
      */
-    _userModel;
+    _userModel: UserModel;
 
     /**
      * Ссылка на представление регистрации
      */
-    _loginView;
+    loginView: LoginView;
 
     /**
      * Устанавливает модель пользователя и соответствующее представление
      * @param {LoginView} loginView - представление авторизации
      * @param {UserModel} userModel - модель пользователя
      */
-    constructor(loginView, userModel) {
-        super(loginView);
+    constructor(view: LoginView, userModel: UserModel) {
+        super();
+        this.loginView = view;
         this._userModel = userModel;
     }
 
@@ -31,12 +41,12 @@ export class LoginController extends IController {
      * Добавляет обработчики на все интерактивные элементы страницы
      */
     bindListeners() {
-        this.view.bindSubmitHandler(async () => {
-            const loginData = this.view.formData;
+        this.loginView.bindSubmitHandler(async () => {
+            const loginData: LoginData = this.loginView.formData;
 
             const validationMsg = this.validateLoginData(loginData);
             if (validationMsg) {
-                this.view.showErrorMessage(validationMsg);
+                this.loginView.showErrorMessage(validationMsg);
                 return;
             }
 
@@ -44,28 +54,28 @@ export class LoginController extends IController {
                 await this._userModel.login(loginData);
             } catch (error) {
                 let msg;
-                switch (error.type) {
-                    case config.ERROR_TYPE.FAILURE:
-                        msg = config.api.login.failure[error.status];
+                switch ((<Error>error).type) {
+                    case ERROR_TYPE.FAILURE:
+                        msg = config.api.login.failure[(<Error>error).status];
                         break;
-                    case config.ERROR_TYPE.NETWORK_ERROR:
-                        msg = config.GENERAL_MESSAGE.NETWORK_ERROR;
+                    case ERROR_TYPE.NETWORK_ERROR:
+                        msg = GENERAL_MESSAGE.NETWORK_ERROR;
                         break;
-                    case config.ERROR_TYPE.UNEXPECTED:
-                        msg = config.GENERAL_MESSAGE.UNEXPECTED_ERROR;
+                    case ERROR_TYPE.UNEXPECTED:
+                        msg = GENERAL_MESSAGE.UNEXPECTED;
                         break;
                 }
-                this.view.showErrorMessage(msg);
+                this.loginView.showErrorMessage(msg);
                 return;
             }
             router.redirect("/");
         });
 
-        this.view.bindSignUpClick(() => {
+        this.loginView.bindSignUpClick(() => {
             router.redirect("/signup");
         });
 
-        this.view.bindCloseClick(() => {
+        this.loginView.bindCloseClick(() => {
             router.redirect("/");
         });
     }
@@ -77,7 +87,7 @@ export class LoginController extends IController {
      * @param {String} loginData.password - пароль
      * @returns {(String)}
      */
-    validateLoginData(loginData) {
+    validateLoginData(loginData: LoginData) {
         if (!loginData.username && !loginData.password)
             return "Укажите логин и пароль";
         if (!loginData.username) return "Укажите имя пользователя";
@@ -90,16 +100,16 @@ export class LoginController extends IController {
      * Отрисовка страницы регистрации
      */
     start() {
-        this.view.setDefaultState();
+        this.loginView.setDefaultState();
         this.bindListeners();
-        this.view.render();
+        this.loginView.render();
     }
 
     /**
      * Очистка страницы регистрации
      */
     stop() {
-        this.view.clearState();
-        this.view.clear();
+        this.loginView.clearState();
+        this.loginView.clear();
     }
 }

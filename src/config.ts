@@ -1,17 +1,43 @@
-const REQUEST_METHOD = {
-    POST: "POST",
-    GET: "GET",
+export enum ERROR_TYPE {
+    FAILURE,
+    NETWORK_ERROR,
+    UNEXPECTED,
+}
+
+export enum GENERAL_MESSAGE {
+    NETWORK_ERROR = "Ошибка сети",
+    UNEXPECTED = "Неожиданная ошибка",
+}
+
+enum REQUEST_METHOD {
+    POST = "POST",
+    GET = "GET",
+}
+
+export type ApiElement = {
+    url: string;
+    params: (body: string) => { [index: string]: string };
+    success: { [index: string]: string };
+    failure: { [index: string]: string };
+    restrictions: { [index: string]: string };
 };
 
-export const config = {
+type Config = {
+    backend: string;
+    api: { [index: string]: ApiElement };
+};
+
+export const config: Config = {
     // backend: "http://84.23.53.216:8001",
     backend: "http://127.0.0.1:3000",
     api: {
         auth: {
             url: "/auth",
-            params: {
-                method: REQUEST_METHOD.GET,
-                credentials: "include",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                    credentials: "include",
+                };
             },
             success: {
                 200: "OK",
@@ -59,12 +85,15 @@ export const config = {
                 400: "Такой пользователь уже существует",
                 500: "Ошибка сервера",
             },
+            restrictions: {},
         },
         logout: {
             url: "/logout",
-            params: {
-                method: REQUEST_METHOD.POST,
-                credentials: "include",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.POST,
+                    credentials: "include",
+                };
             },
             success: {
                 200: "OK",
@@ -73,12 +102,15 @@ export const config = {
                 401: "Не авторизован",
                 500: "Ошибка сервера",
             },
+            restrictions: {},
         },
         restaurants: {
             url: "/restaurants",
-            params: {
-                method: REQUEST_METHOD.GET,
-                credentials: "include",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                    credentials: "include",
+                };
             },
             success: {
                 200: "OK",
@@ -86,15 +118,7 @@ export const config = {
             failure: {
                 500: "Ошибка сервера",
             },
+            restrictions: {},
         },
-    },
-    ERROR_TYPE: {
-        FAILURE: -1,
-        NETWORK_ERROR: -2,
-        UNEXPECTED: -3,
-    },
-    GENERAL_MESSAGE: {
-        NETWORK_ERROR: "Ошибка сети",
-        UNEXPECTED: "Неожиданная ошибка",
     },
 };

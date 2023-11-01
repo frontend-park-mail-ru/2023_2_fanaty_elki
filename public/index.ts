@@ -1,12 +1,12 @@
-import { MainController } from "../src/controllers/MainController/MainController.js";
-import { SignUpController } from "../src/controllers/SignUpController/SignUpController.js";
-import { LoginController } from "../src/controllers/LoginController/LoginController.js";
+import { MainController } from "../src/controllers/MainController/MainController";
+import { SignUpController } from "../src/controllers/SignUpController/SignUpController";
+import { LoginController } from "../src/controllers/LoginController/LoginController";
 
 import { MainView } from "../src/views/MainView/MainView";
 import { SignUpView } from "../src/views/SignUpView/SignUpView";
 import { LoginView } from "../src/views/LoginView/LoginView";
 
-import { Router } from "../src/controllers/Router/Router.js";
+import { Router } from "../src/controllers/Router/Router";
 
 import { RestaurantModel } from "../src/models/RestaurantModel/RestaurantModel";
 import { UserModel } from "../src/models/UserModel/UserModel";
@@ -14,7 +14,7 @@ import { UserModel } from "../src/models/UserModel/UserModel";
 import "./index.scss";
 import favIconImg from "./favicon.ico";
 
-const rootElement = document.querySelector("#root");
+const rootElement: HTMLElement = document.querySelector("#root")!;
 
 const userModel = new UserModel();
 try {
@@ -24,12 +24,12 @@ try {
 }
 
 const router = new Router();
-window.router = router;
+globalThis.router = router;
 const main_view = new MainView(rootElement, "Главная");
 const signup_view = new SignUpView(rootElement, "Регистрация");
 const login_view = new LoginView(rootElement, "Войти");
 const restaurantModel = new RestaurantModel();
-router.main_controller = new MainController(
+globalThis.router.main_controller = new MainController(
     main_view,
     restaurantModel,
     userModel,
@@ -48,4 +48,4 @@ const favicon = document.createElement("link");
 favicon.setAttribute("rel", "icon");
 favicon.setAttribute("href", favIconImg);
 favicon.setAttribute("type", "image/x-icon");
-document.querySelector("head").appendChild(favicon);
+document.querySelector("head")!.appendChild(favicon);

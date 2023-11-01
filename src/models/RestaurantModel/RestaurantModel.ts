@@ -1,4 +1,4 @@
-import { getRestaurants } from "../../modules/api.js";
+import { getRestaurants } from "../../modules/api";
 /**
  * Модель ресторанов
  *  @class

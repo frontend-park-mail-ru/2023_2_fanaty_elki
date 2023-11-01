@@ -1,4 +1,3 @@
-import { IView } from "../views/IView";
 /**
  * Интерфейс контроллера
  * @interface
@@ -7,27 +6,23 @@ export abstract class IController {
     /**
      * Ссылка на представление
      */
-    view;
+    // view: IView;
 
-    /**
-     * Установка представления
-     * @param {IView} view_ - представление
-     */
-    constructor(view_: IView) {
-        this.view = view_;
-    }
+    // /**
+    //  * Установка представления
+    //  * @param {IView} view_ - конкретное представление
+    //  */
+    // constructor(view_: IView) {
+    //     this.view = view_;
+    // }
 
     /**
      * Отрисовка представления
      */
-    start() {
-        console.log("show");
-    }
+    abstract start(): void;
 
     /**
      * Очистка представления
      */
-    stop() {
-        console.log("hide");
-    }
+    abstract stop(): void;
 }
