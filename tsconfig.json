@@ -1,16 +1,19 @@
 {
     "extends": "@tsconfig/recommended/tsconfig.json",
     "compilerOptions": {
+        "module": "ESNext",
+        "target": "ESNext",
         "outDir": "./dist/",
         "allowJs": true,
+        "noEmitOnError": true,
         "declaration": true,
-        "emitDeclarationOnly": true,
         "isolatedModules": true,
         "strictPropertyInitialization": false,
+        "types": ["handlebars"],
     },
     "include": [
-        "public/index.js",
+        "public/index.ts",
         "types/global.d.ts",
         "src/**/*.ts"
-, "src/views/IView.ts", "src/views/LoginView/LoginView.js"    ],
+    ],
 }

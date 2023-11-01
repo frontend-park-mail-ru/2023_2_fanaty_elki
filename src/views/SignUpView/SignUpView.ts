@@ -1,4 +1,4 @@
-import { IView } from "../IView.js";
+import { IView } from "../IView";
 import SignUpTemplate from "./SignUpView.hbs";
 import "./SignUpView.scss";
 
@@ -8,17 +8,31 @@ import "../../components/FormInputWithMsg/FormInputWithMsg.scss";
 import buttonTemplate from "../../components/Button/Button.hbs";
 import "../../components/Button/Button.scss";
 
+export type ValidationError = {
+    isValid: boolean;
+    field: string;
+    message: string;
+};
+
+export type SignUpFormData = {
+    username: string;
+    email: string;
+    password: string;
+    passwordConfirm: string;
+};
+
 /**
  * Представление страницы регистрации
  * @extends {IView}
  */
 export class SignUpView extends IView {
+    element: HTMLElement;
     /**
      * Добавляет родительский элемент отображения и устанавливает форму в состояние по умолчанию
      * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы
      * @param {String} title_ - заголовок страницы
      */
-    constructor(parent_, title_) {
+    constructor(parent_: HTMLElement, title_: string) {
         super(parent_, title_);
         this.setDefaultState();
     }
@@ -28,12 +42,16 @@ export class SignUpView extends IView {
      */
     setDefaultState() {
         const parser = new DOMParser();
-        this.element = parser
+        const element: HTMLElement | null = parser
             .parseFromString(SignUpTemplate(), "text/html")
             .querySelector("#signup");
-        if (!this.element) return;
+        if (!element) {
+            console.log("Error on parse");
+            return;
+        }
+        this.element = element;
 
-        const inputGroup = this.element.querySelector("#input-container");
+        const inputGroup = this.element.querySelector("#input-container")!;
         const inputs = [
             {
                 style: "default",
@@ -76,7 +94,7 @@ export class SignUpView extends IView {
             inputGroup.innerHTML += inputTemplate(element);
         });
 
-        const formControl = this.element.querySelector("#button-container");
+        const formControl = this.element.querySelector("#button-container")!;
         const buttons = [
             {
                 id: "submit",
@@ -105,60 +123,52 @@ export class SignUpView extends IView {
      * Устанавливает обработчик на поле ввода email
      * @param {Function} handler - обработчик
      */
-    bindEmailInputHandler(handler) {
+    bindEmailInputHandler(handler: (event: Event) => void) {
         this.element
-            .querySelector("#email")
-            .addEventListener("input", (event) => {
-                handler(event);
-            });
+            .querySelector("#email")!
+            .addEventListener("input", handler);
     }
 
     /**
      * Устанавливает обработчик на поле ввода username
      * @param {Function} handler - обработчик
      */
-    bindUsernameInputHandler(handler) {
+    bindUsernameInputHandler(handler: (event: Event) => void) {
         this.element
-            .querySelector("#username")
-            .addEventListener("input", (event) => {
-                handler(event);
-            });
+            .querySelector("#username")!
+            .addEventListener("input", handler);
     }
 
     /**
      * Устанавливает обработчик на поле ввода password
      * @param {Function} handler - обработчик
      */
-    bindPasswordInputHandler(handler) {
+    bindPasswordInputHandler(handler: (event: Event) => void) {
         this.element
-            .querySelector("#password")
-            .addEventListener("input", (event) => {
-                handler(event);
-            });
+            .querySelector("#password")!
+            .addEventListener("input", handler);
     }
 
     /**
      * Устанавливает обработчик на поле ввода passwordconfirm
      * @param {Function} handler - обработчик
      */
-    bindPasswordConfirmInputHandler(handler) {
+    bindPasswordConfirmInputHandler(handler: (event: Event) => void) {
         this.element
-            .querySelector("#passwordconfirm")
-            .addEventListener("input", (event) => {
-                handler(event);
-            });
+            .querySelector("#passwordconfirm")!
+            .addEventListener("input", handler);
     }
 
     /**
      * Устанавливает обработчик на кнопку отправки формы
      * @param {Function} handler - обработчик
      */
-    bindSubmitHandler(handler) {
+    bindSubmitHandler(handler: () => void) {
         this.element
-            .querySelector("#submit")
+            .querySelector("#submit")!
             .addEventListener("click", (event) => {
                 event.preventDefault();
-                handler(event);
+                handler();
             });
     }
 
@@ -166,12 +176,12 @@ export class SignUpView extends IView {
      * Устанавливает обработчик на кнопку перенаправления на авторизацию
      * @param {Function} handler - обработчик
      */
-    bindLoginClick(handler) {
+    bindLoginClick(handler: () => void) {
         this.element
-            .querySelector("#auth")
+            .querySelector("#auth")!
             .addEventListener("click", (event) => {
                 event.preventDefault();
-                handler(event);
+                handler();
             });
     }
 
@@ -179,12 +189,12 @@ export class SignUpView extends IView {
      * Устанавливает обработчик на кнопку закрытия формы
      * @param {Function} handler - обработчик
      */
-    bindCloseClick(handler) {
+    bindCloseClick(handler: () => void) {
         this.element
-            .querySelector("#close")
+            .querySelector("#close")!
             .addEventListener("click", (event) => {
                 event.preventDefault();
-                handler(event);
+                handler();
             });
     }
 
@@ -196,13 +206,13 @@ export class SignUpView extends IView {
      * @param {string} errors[].field - поле
      * @param {string} errors[].message - сообщение об ошибке
      */
-    handleFormValidation(errors) {
-        errors.forEach((error) => {
+    handleFormValidation(errors: ValidationError[]) {
+        errors.forEach((error: ValidationError) => {
             const errorInputDiv = document.querySelector(
                 `#input-div-${error.field}`,
-            );
-            const messageDiv = errorInputDiv.querySelector("div");
-            const fieldInput = errorInputDiv.querySelector("input");
+            )!;
+            const messageDiv = errorInputDiv.querySelector("div")!;
+            const fieldInput = errorInputDiv.querySelector("input")!;
 
             if (error.isValid) {
                 fieldInput.className = "input-with-msg__input_default";
@@ -219,21 +229,22 @@ export class SignUpView extends IView {
     /**
      * Выводит сообщения об ошибках со стороны сервера
      */
-    showErrorMessage(msg) {
-        this.element.querySelector("#msg").textContent = msg;
+    showErrorMessage(msg: string) {
+        this.element.querySelector("#msg")!.textContent = msg;
     }
 
     /**
      * Получение данных формы
      * @returns {Object} - данные формы
      */
-    get formData() {
-        const form = this.element.querySelector("#form");
+    get formData(): SignUpFormData {
+        const htmlForm = this.element.querySelector("#form") as HTMLFormElement;
+        const formData: FormData = new FormData(htmlForm);
         return {
-            username: form.username.value,
-            email: form.email.value,
-            password: form.password.value,
-            passwordConfirm: form.passwordconfirm.value,
+            username: <string>formData.get("username"),
+            email: <string>formData.get("email"),
+            password: <string>formData.get("password"),
+            passwordConfirm: <string>formData.get("passwordconfirm"),
         };
     }
 }

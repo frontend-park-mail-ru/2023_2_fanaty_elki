@@ -1,5 +1,18 @@
-import { IController } from "../IController.js";
-import { config } from "../../config.js";
+import { IController } from "../IController";
+import { ERROR_TYPE } from "../../config";
+import { GENERAL_MESSAGE } from "../../config";
+import { config } from "../../config";
+import {
+    SignUpFormData,
+    ValidationError,
+    SignUpView,
+} from "../../views/SignUpView/SignUpView";
+import { UserModel } from "../../models/UserModel/UserModel";
+
+type Error = {
+    type: ERROR_TYPE;
+    status: string;
+};
 
 /**
  * Контроллер регистрации
@@ -10,90 +23,99 @@ export class SignUpController extends IController {
     /**
      * Ссылка на модель пользователя
      */
-    _userModel;
+    _userModel: UserModel;
+
+    _signUpView: SignUpView;
 
     /**
      * Устанавливает модель пользователя и соответствующее представление
      * @param {SignUpView} signUpView - представление регистрации
      * @param {UserModel} userModel - модель пользователя
      */
-    constructor(signUpView, userModel) {
-        super(signUpView);
-        this._userModel = userModel;
+    constructor(view: SignUpView, model: UserModel) {
+        super();
+        this._signUpView = view;
+        this._userModel = model;
     }
 
     /**
      * Добавляет обработчики на все интерактивные элементы страницы
      */
     bindListeners() {
-        this.view.bindEmailInputHandler((event) => {
+        this._signUpView.bindEmailInputHandler((event: Event) => {
             const validationResponce = this.validateEmail(
-                event.currentTarget.value,
+                (<HTMLInputElement>event.currentTarget).value,
             );
-            this.view.handleFormValidation([validationResponce]);
-            this.view.showErrorMessage("");
+            this._signUpView.handleFormValidation([validationResponce]);
+            this._signUpView.showErrorMessage("");
         });
 
-        this.view.bindUsernameInputHandler((event) => {
+        this._signUpView.bindUsernameInputHandler((event: Event) => {
             const validationResponce = this.validateUsername(
-                event.currentTarget.value,
+                (<HTMLInputElement>event.currentTarget).value,
             );
-            this.view.handleFormValidation([validationResponce]);
-            this.view.showErrorMessage("");
+            this._signUpView.handleFormValidation([validationResponce]);
+            this._signUpView.showErrorMessage("");
         });
 
-        this.view.bindPasswordInputHandler((event) => {
+        this._signUpView.bindPasswordInputHandler((event: Event) => {
             const passwordValidationPResponce = this.validatePassword(
-                event.currentTarget.value,
+                (<HTMLInputElement>event.currentTarget).value,
             );
-            const passwordConfirm = this.view.formData.passwordConfirm;
+            const passwordConfirm = <string>(
+                this._signUpView.formData.passwordConfirm
+            );
             const passwordConfirmValidationResponce =
                 this.validatePasswordConfirm(
-                    event.currentTarget.value,
+                    (<HTMLInputElement>event.currentTarget).value,
                     passwordConfirm,
                 );
-            this.view.handleFormValidation([
+            this._signUpView.handleFormValidation([
                 passwordValidationPResponce,
                 passwordConfirmValidationResponce,
             ]);
-            this.view.showErrorMessage("");
+            this._signUpView.showErrorMessage("");
         });
 
-        this.view.bindPasswordConfirmInputHandler((event) => {
-            const password = this.view.formData.password;
+        this._signUpView.bindPasswordConfirmInputHandler((event: Event) => {
+            const password = <string>this._signUpView.formData.password;
             const validationResponce = this.validatePasswordConfirm(
                 password,
-                event.currentTarget.value,
+                (<HTMLInputElement>event.currentTarget).value,
             );
-            this.view.handleFormValidation([validationResponce]);
-            this.view.showErrorMessage("");
+            this._signUpView.handleFormValidation([validationResponce]);
+            this._signUpView.showErrorMessage("");
         });
 
-        this.view.bindSubmitHandler(async () => {
-            const userData = this.view.formData;
-            const validationResponce = this.validateFormData(userData);
+        this._signUpView.bindSubmitHandler(async () => {
+            const userData: SignUpFormData = this._signUpView.formData;
+            const validationResponce: {
+                isValid: boolean;
+                errors: ValidationError[];
+            } = this.validateFormData(userData);
             if (!validationResponce.isValid) {
-                this.view.handleFormValidation(validationResponce.errors);
+                this._signUpView.handleFormValidation(
+                    validationResponce.errors,
+                );
                 return;
             }
 
-            userData.passwordConfirm = null;
             try {
                 await this._userModel.signup(userData);
             } catch (error) {
                 let msg;
-                switch (error.type) {
-                    case config.ERROR_TYPE.FAILURE:
-                        msg = config.api.signup.failure[error.status];
+                switch ((<Error>error).type) {
+                    case ERROR_TYPE.FAILURE:
+                        msg = config.api.signup.failure[(<Error>error).status];
                         break;
-                    case config.ERROR_TYPE.NETWORK_ERROR:
-                        msg = config.GENERAL_MESSAGE.NETWORK_ERROR;
+                    case ERROR_TYPE.NETWORK_ERROR:
+                        msg = GENERAL_MESSAGE.NETWORK_ERROR;
                         break;
-                    case config.ERROR_TYPE.UNEXPECTED:
-                        msg = config.GENERAL_MESSAGE.UNEXPECTED_ERROR;
+                    case ERROR_TYPE.UNEXPECTED:
+                        msg = GENERAL_MESSAGE.UNEXPECTED;
                         break;
                 }
-                this.view.showErrorMessage(msg);
+                this._signUpView.showErrorMessage(msg);
                 return;
             }
 
@@ -105,11 +127,11 @@ export class SignUpController extends IController {
             router.redirect("/");
         });
 
-        this.view.bindLoginClick(() => {
+        this._signUpView.bindLoginClick(() => {
             router.redirect("/login");
         });
 
-        this.view.bindCloseClick(() => {
+        this._signUpView.bindCloseClick(() => {
             router.redirect("/");
         });
     }
@@ -123,8 +145,11 @@ export class SignUpController extends IController {
      * @param {string} userData.passwordConfirm - подтверждение пароля пользователя
      * @returns {Object} - результат валидации
      */
-    validateFormData(userData) {
-        let validationResponce = {
+    validateFormData(userData: SignUpFormData) {
+        const validationResponce: {
+            isValid: boolean;
+            errors: ValidationError[];
+        } = {
             isValid: true,
             errors: [],
         };
@@ -164,7 +189,7 @@ export class SignUpController extends IController {
      * @param {string} email - email пользователя
      * @returns {Object} - результат валидации, валидируемое поле и сообщение об ошибке
      */
-    validateEmail(email) {
+    validateEmail(email: string) {
         if (!email) {
             return {
                 isValid: false,
@@ -184,7 +209,7 @@ export class SignUpController extends IController {
         return {
             isValid: true,
             field: "email",
-            message: null,
+            message: "",
         };
     }
 
@@ -193,7 +218,7 @@ export class SignUpController extends IController {
      * @param {string} username - имя пользователя
      * @returns {Object} - результат валидации, валидируемое поле и сообщение об ошибке
      */
-    validateUsername(username) {
+    validateUsername(username: string) {
         if (!username) {
             return {
                 isValid: false,
@@ -223,7 +248,7 @@ export class SignUpController extends IController {
         return {
             isValid: true,
             field: "username",
-            message: null,
+            message: "",
         };
     }
 
@@ -232,7 +257,7 @@ export class SignUpController extends IController {
      * @param {string} password - пароль
      * @returns {Object} - результат валидации, валидируемое поле и сообщение об ошибке
      */
-    validatePassword(password) {
+    validatePassword(password: string) {
         if (!password) {
             return {
                 isValid: false,
@@ -253,7 +278,7 @@ export class SignUpController extends IController {
         return {
             isValid: true,
             field: "password",
-            message: null,
+            message: "",
         };
     }
 
@@ -263,7 +288,7 @@ export class SignUpController extends IController {
      * @param {string} passwordConfirm - подтверждение пароля
      * @returns {Object} - результат валидации, валидируемое поле и сообщение об ошибке
      */
-    validatePasswordConfirm(password, passwordConfirm) {
+    validatePasswordConfirm(password: string, passwordConfirm: string) {
         if (!passwordConfirm) {
             return {
                 isValid: false,
@@ -283,7 +308,7 @@ export class SignUpController extends IController {
         return {
             isValid: true,
             field: "passwordconfirm",
-            message: null,
+            message: "",
         };
     }
 
@@ -291,16 +316,16 @@ export class SignUpController extends IController {
      * Отрисовка страницы регистрации
      */
     start() {
-        this.view.setDefaultState();
+        this._signUpView.setDefaultState();
         this.bindListeners();
-        this.view.render();
+        this._signUpView.render();
     }
 
     /**
      * Очистка страницы регистрации
      */
     stop() {
-        this.view.clearState();
-        this.view.clear();
+        this._signUpView.clearState();
+        this._signUpView.clear();
     }
 }

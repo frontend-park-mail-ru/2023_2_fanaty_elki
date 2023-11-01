@@ -2,28 +2,27 @@
  * Интерфейс представления
  * @interface
  */
-export class IView {
+export abstract class IView {
     /**
      * Родительский элемент, куда встраивается отображение
      */
-    parent;
-
+    protected parent: HTMLElement;
     /**
      * Встраиваемый элемент
      */
-    element;
+    protected abstract element: HTMLElement;
 
     /**
      * Заголовок страницы
      */
-    title;
+    protected title: string;
 
     /**
      * Инициализирует родительский элемент
      * @param {HTMLElement} parent_ - родительский элемент, куда встраивается представление
      * @param {String} title_ - заголовок страницы
      */
-    constructor(parent_, title_) {
+    constructor(parent_: HTMLElement, title_: string) {
         this.parent = parent_;
         this.title = title_;
     }

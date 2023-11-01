@@ -1,4 +1,4 @@
-import { getRestaurants } from "../../modules/api.js";
+import { getRestaurants } from "../../modules/api";
 /**
  * Модель ресторанов
  *  @class
@@ -10,7 +10,6 @@ export class RestaurantModel {
      * @return {Promise} - список ресторанов или отклоненный промис
      */
     async getAll() {
-        const data = await getRestaurants();
-        return data;
+        return await getRestaurants();
     }
 }

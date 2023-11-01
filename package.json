@@ -10,10 +10,10 @@
         "prettier-fix": "prettier . --write --ignore-path .eslintignore",
         "type-check": "tsc --noEmit",
         "type-check:watch": "npm run type-check -- --watch",
-        "build:types": "tsc",
+        "build:types": "tsc --emitDeclarationOnly",
         "build:js-prod": "webpack --env production",
         "build:js-dev": "webpack --env development",
-        "build-prod": "npm run build:types && npm run build:js",
+        "build-prod": "npm run build:types && npm run build:js-prod",
         "build-dev-tcs": "npm run build:types && npm run build:js-dev",
         "server": "node server/index.js",
         "start": "npm run build:js-dev && npm run server"
