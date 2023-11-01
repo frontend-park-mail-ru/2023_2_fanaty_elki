@@ -1,0 +1,8 @@
+<div class="dishes-category">
+    <h1 class="dishes-category__title">{{ title }}</h1>
+    <div class="dishes-category__items">
+        {{#each dishes}}
+        {{> dishCardTemplate }}
+        {{/each}}
+    </div>
+</div>
