@@ -1,4 +1,4 @@
-import { IView } from "../IView";
+import IView from "../IView";
 import loginTemplate from "./LoginView.hbs";
 import "./LoginView.scss";
 
@@ -13,8 +13,7 @@ import "../../components/Button/Button.scss";
  * @class
  * @extends {IView}
  */
-export class LoginView extends IView {
-    element: HTMLElement;
+export default class LoginView extends IView {
     /**
      * Добавляет родительский элемент отображения и устанавливает форму в состояние по умолчанию
      * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы

@@ -2,7 +2,7 @@
  * Интерфейс представления
  * @interface
  */
-export abstract class IView {
+export default abstract class IView {
     /**
      * Родительский элемент, куда встраивается отображение
      */
@@ -10,7 +10,7 @@ export abstract class IView {
     /**
      * Встраиваемый элемент
      */
-    protected abstract element: HTMLElement;
+    protected element: HTMLElement;
 
     /**
      * Заголовок страницы

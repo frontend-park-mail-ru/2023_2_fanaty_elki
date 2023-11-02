@@ -1,24 +1,24 @@
-import { RestaurantModel } from "../../models/RestaurantModel/RestaurantModel";
-import { UserModel } from "../../models/UserModel/UserModel";
+import RestaurantModel from "../../models/RestaurantModel/RestaurantModel";
+import UserModel from "../../models/UserModel/UserModel";
 import { MainView } from "../../views/MainView/MainView";
 import { Restaurant } from "../../views/MainView/MainView";
-import { IController } from "../IController";
+import IController from "../IController";
 
 /**
  * Контроллер главной страницы
  * @class
  * @extends {IController}
  */
-export class MainController extends IController {
+export default class MainController implements IController {
     /**
      * Модель ресторана
      */
-    restaurantModel: RestaurantModel;
+    private restaurantModel: RestaurantModel;
     /**
      * Модель пользователя
      */
-    userModel: UserModel;
-    mainView: MainView;
+    private userModel: UserModel;
+    private mainView: MainView;
 
     /**
      * Создает экземляр контроллера и инициализирует его
@@ -31,7 +31,6 @@ export class MainController extends IController {
         restaurantModel_: RestaurantModel,
         userModel_: UserModel,
     ) {
-        super();
         this.mainView = view;
         this.restaurantModel = restaurantModel_;
         this.userModel = userModel_;
@@ -50,9 +49,9 @@ export class MainController extends IController {
      * подготавливает страницу и инициирует её отрисовку
      */
     async start() {
-        if (this.userModel._currentUser) {
+        if (this.userModel.currentUser) {
             if (!this.mainView.is_auth)
-                this.mainView.setAuthUser(this.userModel._currentUser.username);
+                this.mainView.setAuthUser(this.userModel.currentUser.username);
         } else {
             if (this.mainView.is_auth) this.mainView.setNonAuthUser();
         }

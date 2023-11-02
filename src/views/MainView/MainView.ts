@@ -1,5 +1,5 @@
-import { config } from "./config";
-import { IView } from "../IView";
+import MainViewConfig from "./MainViewConfig";
+import IView from "../IView";
 import MainTemplate from "./MainView.hbs";
 import "./MainView.scss";
 
@@ -32,14 +32,17 @@ export class MainView extends IView {
      * выхода из аккаунта, отображается только если пользователь
      * авторизован
      */
-    userNameElement: HTMLElement;
+    private userNameElement: HTMLElement;
     /**
      * Кнопка "Войти", отображается, если пользователь не авторизован
      */
-    signInButton: HTMLElement;
+    private signInButton: HTMLElement;
 
-    element: HTMLElement;
-    is_auth: boolean;
+    private _is_auth: boolean;
+
+    get is_auth() {
+        return this._is_auth;
+    }
 
     /**
      * Создает из шаблонов главную страницу
@@ -61,7 +64,7 @@ export class MainView extends IView {
 
         Handlebars.registerPartial("cardTemplate", cardTemplate);
         this.element.querySelector("#navbar")!.innerHTML = navbarTemplate(
-            config.navbar,
+            MainViewConfig.navbar,
         );
         this.element.querySelector("#categories")!.innerHTML =
             categoryTemplate();
@@ -88,7 +91,7 @@ export class MainView extends IView {
      * @param {string} userName - имя пользователя
      */
     setAuthUser(userName: string) {
-        this.is_auth = true;
+        this._is_auth = true;
         this.userNameElement.firstElementChild!.innerHTML = userName;
         this.signInButton.parentNode!.appendChild(this.userNameElement);
         this.signInButton.parentNode!.removeChild(this.signInButton);
@@ -98,7 +101,7 @@ export class MainView extends IView {
      * Устанавливает navbar для неавторизованного пользователя
      */
     setNonAuthUser() {
-        this.is_auth = false;
+        this._is_auth = false;
         this.userNameElement.parentNode!.appendChild(this.signInButton);
         this.userNameElement.parentNode!.removeChild(this.userNameElement);
     }

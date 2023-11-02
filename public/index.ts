@@ -1,15 +1,16 @@
-import { MainController } from "../src/controllers/MainController/MainController";
-import { SignUpController } from "../src/controllers/SignUpController/SignUpController";
-import { LoginController } from "../src/controllers/LoginController/LoginController";
+import MainController from "../src/controllers/MainController/MainController";
+import SignUpController from "../src/controllers/SignUpController/SignUpController";
+import LoginController from "../src/controllers/LoginController/LoginController";
+import Router from "../src/controllers/Router/Router";
 
 import { MainView } from "../src/views/MainView/MainView";
-import { SignUpView } from "../src/views/SignUpView/SignUpView";
-import { LoginView } from "../src/views/LoginView/LoginView";
+import SignUpView from "../src/views/SignUpView/SignUpView";
+import LoginView from "../src/views/LoginView/LoginView";
 
-import { Router } from "../src/controllers/Router/Router";
+import RestaurantModel from "../src/models/RestaurantModel/RestaurantModel";
+import UserModel from "../src/models/UserModel/UserModel";
 
-import { RestaurantModel } from "../src/models/RestaurantModel/RestaurantModel";
-import { UserModel } from "../src/models/UserModel/UserModel";
+import { ROUTES } from "../src/config";
 
 import "./index.scss";
 import favIconImg from "./favicon.ico";
@@ -23,19 +24,23 @@ try {
     console.log(e);
 }
 
-const router = new Router();
-globalThis.router = router;
 const main_view = new MainView(rootElement, "Главная");
 const signup_view = new SignUpView(rootElement, "Регистрация");
 const login_view = new LoginView(rootElement, "Войти");
 const restaurantModel = new RestaurantModel();
-globalThis.router.main_controller = new MainController(
+const main_controller = new MainController(
     main_view,
     restaurantModel,
     userModel,
 );
-router.signup_controller = new SignUpController(signup_view, userModel);
-router.login_controller = new LoginController(login_view, userModel);
+const signup_controller = new SignUpController(signup_view, userModel);
+const login_controller = new LoginController(login_view, userModel);
+globalThis.router = new Router({
+    [ROUTES.signup]: signup_controller,
+    [ROUTES.login]: login_controller,
+    [ROUTES.main]: main_controller,
+    [ROUTES.default]: main_controller,
+});
 
 window.onpopstate = (event) => {
     event.preventDefault();

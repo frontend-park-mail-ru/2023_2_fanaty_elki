@@ -1,29 +1,62 @@
-import { ApiElement, ERROR_TYPE, config } from "../config";
-import { LoginData, SignUpData } from "../models/UserModel/UserModel";
+import apiConfig from "./config";
 
-function checkResponse(response: Response, local_config: ApiElement) {
+enum ERROR_TYPE {
+    FAILURE,
+    NETWORK_ERROR,
+    UNEXPECTED,
+}
+
+type ApiElementConfig = {
+    url: string;
+    params: (body: string) => { [index: string]: string };
+    success: { [index: number]: string };
+    failure: { [index: number]: string };
+    restrictions: { [index: string]: string };
+};
+
+type ApiConfig = {
+    backend: string;
+    api: { [index: string]: ApiElementConfig };
+};
+
+type LoginData = {
+    username: string;
+    password: string;
+};
+
+type SignUpData = LoginData & {
+    email: string;
+};
+class RequestError {
+    type: ERROR_TYPE;
+    status: number;
+
+    constructor(type_: ERROR_TYPE, status_: number = -1) {
+        this.type = type_;
+        this.status = status_;
+    }
+}
+
+function checkResponse(
+    response: Response,
+    apiElementConfig: ApiElementConfig,
+): void {
     const status = response.status;
-    if (status in local_config.success) {
-        for (const restr in local_config.restrictions) {
+    if (status in apiElementConfig.success) {
+        for (const restr in apiElementConfig.restrictions) {
             if (
-                response.headers.get(restr) !== local_config.restrictions[restr]
+                response.headers.get(restr) !==
+                apiElementConfig.restrictions[restr]
             ) {
-                throw {
-                    type: ERROR_TYPE.UNEXPECTED,
-                };
+                throw new RequestError(ERROR_TYPE.UNEXPECTED);
             }
         }
         return;
     }
-    if (status in local_config.failure) {
-        throw {
-            type: ERROR_TYPE.FAILURE,
-            status: status,
-        };
+    if (status in apiElementConfig.failure) {
+        throw new RequestError(ERROR_TYPE.FAILURE, status);
     }
-    throw {
-        type: ERROR_TYPE.UNEXPECTED,
-    };
+    throw new RequestError(ERROR_TYPE.UNEXPECTED);
 }
 
 /**
@@ -34,85 +67,87 @@ async function ajax(url: string, params: { [index: string]: string }) {
     try {
         return await fetch(url, params);
     } catch {
-        throw {
-            type: ERROR_TYPE.NETWORK_ERROR,
-        };
+        throw new RequestError(ERROR_TYPE.NETWORK_ERROR);
     }
 }
+const Api = {
+    /**
+     * Отправляет на сервер запрос об аутентификации по кукам
+     * @async
+     */
+    async authUser() {
+        const auth_config: ApiElementConfig = apiConfig.api.auth;
+        const response = await ajax(
+            `${apiConfig.backend}${auth_config.url}`,
+            auth_config.params(""),
+        );
+        checkResponse(response, auth_config);
+        const json = await response.json();
+        return json.Body;
+    },
 
-/**
- * Отправляет на сервер запрос об аутентификации по кукам
- * @async
- */
-export async function authUser() {
-    const auth_config: ApiElement = config.api.auth;
-    const response = await ajax(
-        `${config.backend}${auth_config.url}`,
-        auth_config.params(""),
-    );
-    checkResponse(response, auth_config);
-    const json = await response.json();
-    return json.Body;
-}
+    /**
+     * Отправляет на сервер запрос о входе в аккаунт
+     * @async
+     * @param {Object} login_data - данные пользователя
+     */
+    async loginUser(login_data: LoginData) {
+        const login_config: ApiElementConfig = apiConfig.api.login;
+        const body = JSON.stringify(login_data);
+        const response = await ajax(
+            `${apiConfig.backend}${login_config.url}`,
+            login_config.params(body),
+        );
+        checkResponse(response, login_config);
+        const json = await response.json();
+        return json.Body;
+    },
 
-/**
- * Отправляет на сервер запрос о входе в аккаунт
- * @async
- * @param {Object} login_data - данные пользователя
- */
-export async function loginUser(login_data: LoginData) {
-    const login_config: ApiElement = config.api.login;
-    const body = JSON.stringify(login_data);
-    const response = await ajax(
-        `${config.backend}${login_config.url}`,
-        login_config.params(body),
-    );
-    checkResponse(response, login_config);
-    const json = await response.json();
-    return json.Body;
-}
+    /**
+     * Отправляет на сервер запрос о создании пользователя
+     * @async
+     * @param {Object} signup_data - данные пользователя
+     */
+    async createUser(signup_data: SignUpData) {
+        const signup_config: ApiElementConfig = apiConfig.api.signup;
+        const body = JSON.stringify(signup_data);
+        const response = await ajax(
+            `${apiConfig.backend}${signup_config.url}`,
+            signup_config.params(body),
+        );
+        checkResponse(response, signup_config);
+        return;
+    },
 
-/**
- * Отправляет на сервер запрос о создании пользователя
- * @async
- * @param {Object} signup_data - данные пользователя
- */
-export async function createUser(signup_data: SignUpData) {
-    const signup_config: ApiElement = config.api.signup;
-    const body = JSON.stringify(signup_data);
-    const response = await ajax(
-        `${config.backend}${signup_config.url}`,
-        signup_config.params(body),
-    );
-    checkResponse(response, signup_config);
-    return;
-}
+    /**
+     * Отправляет на сервер запрос о выходе из аккаунта
+     * @async
+     */
+    async logoutUser() {
+        const logout_config = apiConfig.api.logout;
+        const response = await ajax(
+            `${apiConfig.backend}${logout_config.url}`,
+            logout_config.params(""),
+        );
+        checkResponse(response, logout_config);
+        return;
+    },
 
-/**
- * Отправляет на сервер запрос о выходе из аккаунта
- * @async
- */
-export async function logoutUser() {
-    const logout_config = config.api.logout;
-    const response = await ajax(
-        `${config.backend}${logout_config.url}`,
-        logout_config.params(""),
-    );
-    checkResponse(response, logout_config);
-    return;
-}
+    /**
+     * Отправляет на сервер запрос на получение списка ресторанов
+     * @async
+     */
+    async getRestaurants() {
+        const restaurants_config = apiConfig.api.restaurants;
+        const response = await ajax(
+            `${apiConfig.backend}${restaurants_config.url}`,
+            restaurants_config.params(""),
+        );
+        checkResponse(response, restaurants_config);
+        const json = await response.json();
+        return json.Body;
+    },
+};
 
-/**
- * Отправляет на сервер запрос на получение списка ресторанов
- * @async
- */
-export async function getRestaurants() {
-    const restaurants_config = config.api.restaurants;
-    const response = await ajax(
-        `${config.backend}${restaurants_config.url}`,
-        restaurants_config.params(""),
-    );
-    checkResponse(response, restaurants_config);
-    const json = await response.json();
-    return json.Body;
-}
+export { Api, ERROR_TYPE };
+export type { ApiConfig, RequestError, LoginData, SignUpData };
