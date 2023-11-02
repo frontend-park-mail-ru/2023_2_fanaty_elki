@@ -1,16 +1,8 @@
-import { authUser, logoutUser, createUser, loginUser } from "../../modules/api";
+import { Api } from "../../modules/api";
+import type { LoginData, SignUpData } from "../../modules/api";
 
 type User = {
     username: string;
-};
-
-export type LoginData = {
-    username: string;
-    password: string;
-};
-
-export type SignUpData = LoginData & {
-    email: string;
 };
 
 /**
@@ -18,11 +10,11 @@ export type SignUpData = LoginData & {
  * Хранит сессию текущего пользователя и предоставляет интефейс для получения данных о пользователях с бекэнд
  * @class
  */
-export class UserModel {
+export default class UserModel {
     /**
      * Текущий пользователь
      */
-    _currentUser: User | null;
+    private _currentUser: User | null;
 
     /**
      * Конструктор
@@ -32,25 +24,29 @@ export class UserModel {
         this._currentUser = null;
     }
 
+    get currentUser(): User | null {
+        return this._currentUser;
+    }
+
     /**
      * Получает ответ на запрос об аутентификации по cookies,
-     * сохраняет данные пользователя в _currentUser, если операция успешна
+     * сохраняет данные пользователя в currentUser, если операция успешна
      * @async
      */
     async auth() {
         this._currentUser = null;
-        this._currentUser = await authUser();
+        this._currentUser = await Api.authUser();
     }
 
     /**
      * Получает ответ на запрос об авторизации,
-     * сохраняет данные в _currentUser, если операция успешна
+     * сохраняет данные в currentUser, если операция успешна
      * @async
      * @param {Object} login_data - данные пользователя
      */
     async login(login_data: LoginData) {
         this._currentUser = null;
-        this._currentUser = await loginUser(login_data);
+        this._currentUser = await Api.loginUser(login_data);
     }
 
     /**
@@ -60,16 +56,16 @@ export class UserModel {
      * @param {Object} signup_data - данные пользователя
      */
     async signup(signup_data: SignUpData) {
-        await createUser(signup_data);
+        await Api.createUser(signup_data);
     }
 
     /**
      * Получает ответ на запрос о выходе из аккаунта,
-     * сохраняет null в _currentUser, если операция успешна
+     * сохраняет null в currentUser, если операция успешна
      * @async
      */
     async logout() {
-        await logoutUser();
+        await Api.logoutUser();
         this._currentUser = null;
     }
 }

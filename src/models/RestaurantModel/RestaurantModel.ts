@@ -1,4 +1,4 @@
-import { getRestaurants } from "../../modules/api";
+import { Api } from "../../modules/api";
 
 export type Restaurant = {
     Icon: string;
@@ -21,18 +21,17 @@ export type RestaurantCategoryListObject = {
  * Модель ресторанов
  *  @class
  */
-export class RestaurantModel {
+export default class RestaurantModel {
     /**
      * Запрашивает у сервера список ресторанов
      * @async
      * @return {Promise} - список ресторанов или отклоненный промис
      */
     async getAll() {
-        let data = await getRestaurants();
+        let data = await Api.getRestaurants();
         data.restaurants.forEach((element: Restaurant) => {
             element.DeliveryTimeMax = element.DeliveryTime + 10; // грязый хак
         });
-        console.log(data);
         return {
             restaurantsCategories: [
                 {
