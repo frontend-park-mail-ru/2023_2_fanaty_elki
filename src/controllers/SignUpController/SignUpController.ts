@@ -1,31 +1,27 @@
-import { IController } from "../IController";
-import { ERROR_TYPE } from "../../config";
+import apiConfig from "../../modules/config";
+import { ERROR_TYPE } from "../../modules/api";
+import type { RequestError } from "../../modules/api";
 import { GENERAL_MESSAGE } from "../../config";
-import { config } from "../../config";
-import {
+import IController from "../IController";
+import SignUpView from "../../views/SignUpView/SignUpView";
+import type {
     SignUpFormData,
     ValidationError,
-    SignUpView,
 } from "../../views/SignUpView/SignUpView";
-import { UserModel } from "../../models/UserModel/UserModel";
-
-type Error = {
-    type: ERROR_TYPE;
-    status: string;
-};
+import UserModel from "../../models/UserModel/UserModel";
 
 /**
  * Контроллер регистрации
  * @class
  * @extends {IController}
  */
-export class SignUpController extends IController {
+export default class SignUpController implements IController {
     /**
      * Ссылка на модель пользователя
      */
-    _userModel: UserModel;
+    private userModel: UserModel;
 
-    _signUpView: SignUpView;
+    private signUpView: SignUpView;
 
     /**
      * Устанавливает модель пользователя и соответствующее представление
@@ -33,80 +29,80 @@ export class SignUpController extends IController {
      * @param {UserModel} userModel - модель пользователя
      */
     constructor(view: SignUpView, model: UserModel) {
-        super();
-        this._signUpView = view;
-        this._userModel = model;
+        this.signUpView = view;
+        this.userModel = model;
     }
 
     /**
      * Добавляет обработчики на все интерактивные элементы страницы
      */
     bindListeners() {
-        this._signUpView.bindEmailInputHandler((event: Event) => {
+        this.signUpView.bindEmailInputHandler((event: Event) => {
             const validationResponce = this.validateEmail(
                 (<HTMLInputElement>event.currentTarget).value,
             );
-            this._signUpView.handleFormValidation([validationResponce]);
-            this._signUpView.showErrorMessage("");
+            this.signUpView.handleFormValidation([validationResponce]);
+            this.signUpView.showErrorMessage("");
         });
 
-        this._signUpView.bindUsernameInputHandler((event: Event) => {
+        this.signUpView.bindUsernameInputHandler((event: Event) => {
             const validationResponce = this.validateUsername(
                 (<HTMLInputElement>event.currentTarget).value,
             );
-            this._signUpView.handleFormValidation([validationResponce]);
-            this._signUpView.showErrorMessage("");
+            this.signUpView.handleFormValidation([validationResponce]);
+            this.signUpView.showErrorMessage("");
         });
 
-        this._signUpView.bindPasswordInputHandler((event: Event) => {
+        this.signUpView.bindPasswordInputHandler((event: Event) => {
             const passwordValidationPResponce = this.validatePassword(
                 (<HTMLInputElement>event.currentTarget).value,
             );
             const passwordConfirm = <string>(
-                this._signUpView.formData.passwordConfirm
+                this.signUpView.formData.passwordConfirm
             );
             const passwordConfirmValidationResponce =
                 this.validatePasswordConfirm(
                     (<HTMLInputElement>event.currentTarget).value,
                     passwordConfirm,
                 );
-            this._signUpView.handleFormValidation([
+            this.signUpView.handleFormValidation([
                 passwordValidationPResponce,
                 passwordConfirmValidationResponce,
             ]);
-            this._signUpView.showErrorMessage("");
+            this.signUpView.showErrorMessage("");
         });
 
-        this._signUpView.bindPasswordConfirmInputHandler((event: Event) => {
-            const password = <string>this._signUpView.formData.password;
+        this.signUpView.bindPasswordConfirmInputHandler((event: Event) => {
+            const password = <string>this.signUpView.formData.password;
             const validationResponce = this.validatePasswordConfirm(
                 password,
                 (<HTMLInputElement>event.currentTarget).value,
             );
-            this._signUpView.handleFormValidation([validationResponce]);
-            this._signUpView.showErrorMessage("");
+            this.signUpView.handleFormValidation([validationResponce]);
+            this.signUpView.showErrorMessage("");
         });
 
-        this._signUpView.bindSubmitHandler(async () => {
-            const userData: SignUpFormData = this._signUpView.formData;
+        this.signUpView.bindSubmitHandler(async () => {
+            const userData: SignUpFormData = this.signUpView.formData;
             const validationResponce: {
                 isValid: boolean;
                 errors: ValidationError[];
             } = this.validateFormData(userData);
             if (!validationResponce.isValid) {
-                this._signUpView.handleFormValidation(
-                    validationResponce.errors,
-                );
+                this.signUpView.handleFormValidation(validationResponce.errors);
                 return;
             }
 
             try {
-                await this._userModel.signup(userData);
+                await this.userModel.signup(userData);
             } catch (error) {
                 let msg;
-                switch ((<Error>error).type) {
+                switch ((<RequestError>error).type) {
                     case ERROR_TYPE.FAILURE:
-                        msg = config.api.signup.failure[(<Error>error).status];
+                        msg =
+                            apiConfig.api.signup.failure[
+                                (<RequestError>error).status
+                            ];
                         break;
                     case ERROR_TYPE.NETWORK_ERROR:
                         msg = GENERAL_MESSAGE.NETWORK_ERROR;
@@ -115,23 +111,23 @@ export class SignUpController extends IController {
                         msg = GENERAL_MESSAGE.UNEXPECTED;
                         break;
                 }
-                this._signUpView.showErrorMessage(msg);
+                this.signUpView.showErrorMessage(msg);
                 return;
             }
 
             try {
-                await this._userModel.login(userData);
+                await this.userModel.login(userData);
             } catch (e) {
                 return;
             }
             router.redirect("/");
         });
 
-        this._signUpView.bindLoginClick(() => {
+        this.signUpView.bindLoginClick(() => {
             router.redirect("/login");
         });
 
-        this._signUpView.bindCloseClick(() => {
+        this.signUpView.bindCloseClick(() => {
             router.redirect("/");
         });
     }
@@ -316,16 +312,16 @@ export class SignUpController extends IController {
      * Отрисовка страницы регистрации
      */
     start() {
-        this._signUpView.setDefaultState();
+        this.signUpView.setDefaultState();
         this.bindListeners();
-        this._signUpView.render();
+        this.signUpView.render();
     }
 
     /**
      * Очистка страницы регистрации
      */
     stop() {
-        this._signUpView.clearState();
-        this._signUpView.clear();
+        this.signUpView.clearState();
+        this.signUpView.clear();
     }
 }
