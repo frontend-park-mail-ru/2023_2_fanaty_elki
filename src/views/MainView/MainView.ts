@@ -13,13 +13,7 @@ import "../../components/Navbar/Navbar.scss";
 import restaurantsCategoryTemplate from "../../components/RestaurantsCategory/RestaurantsCategory.hbs";
 import "../../components/RestaurantsCategory/RestaurantsCategory.scss";
 
-export type Restaurant = {
-    Icon: string;
-    Name: string;
-    DeliveryPrice: number;
-    DeliveryTime: number;
-    DeliveryTimeMax: number;
-};
+import { RestaurantCategoryListObject } from "../../models/RestaurantModel/RestaurantModel";
 
 /**
  * Представление главной страницы
@@ -79,7 +73,8 @@ export class MainView extends IView {
      * Обновляет содержимое списка ресторанов
      * @param {Object} list  - новый список ресторанов
      */
-    updateList(list: Restaurant[]) {
+    updateList(list: RestaurantCategoryListObject) {
+        console.log(list);
         this.element.querySelector("#categories")!.innerHTML =
             restaurantsCategoryTemplate(list);
     }

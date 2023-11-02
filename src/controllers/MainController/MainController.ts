@@ -1,7 +1,6 @@
 import { RestaurantModel } from "../../models/RestaurantModel/RestaurantModel";
 import { UserModel } from "../../models/UserModel/UserModel";
 import { MainView } from "../../views/MainView/MainView";
-import { Restaurant } from "../../views/MainView/MainView";
 import { IController } from "../IController";
 
 /**
@@ -58,9 +57,6 @@ export class MainController extends IController {
         }
         try {
             const list = await this.restaurantModel.getAll();
-            list.restaurants.forEach((element: Restaurant) => {
-                element.DeliveryTimeMax = element.DeliveryTime + 10; // грязый хак
-            });
             this.mainView.updateList(list);
         } catch (e) {
             console.log(e);
