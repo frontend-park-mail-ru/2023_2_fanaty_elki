@@ -1,4 +1,4 @@
-import { IView } from "../IView";
+import IView from "../IView";
 import SignUpTemplate from "./SignUpView.hbs";
 import "./SignUpView.scss";
 
@@ -25,8 +25,7 @@ export type SignUpFormData = {
  * Представление страницы регистрации
  * @extends {IView}
  */
-export class SignUpView extends IView {
-    element: HTMLElement;
+export default class SignUpView extends IView {
     /**
      * Добавляет родительский элемент отображения и устанавливает форму в состояние по умолчанию
      * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы

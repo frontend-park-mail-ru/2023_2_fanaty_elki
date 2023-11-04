@@ -1,9 +1,11 @@
 /**
  * Конфиг навигационной панели главной страницы
  */
-export const config = {
+const config = {
     navbar: {
         search_ph: "Крошка картошка ...",
         address: "Укажите адрес",
     },
 };
+
+export default config;

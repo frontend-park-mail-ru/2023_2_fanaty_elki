@@ -1,25 +1,19 @@
-import { config } from "./config";
-import { IView } from "../IView";
+import MainViewConfig from "./MainViewConfig";
+import IView from "../IView";
 import MainTemplate from "./MainView.hbs";
 import "./MainView.scss";
 
 import Handlebars from "handlebars";
-import cardTemplate from "../../components/Card/card.hbs";
-import "../../components/Card/card.scss";
+import restaurantCardTemplate from "../../components/RestaurantCard/RestaurantCard.hbs";
+import "../../components/RestaurantCard/RestaurantCard.scss";
 
-import navbarTemplate from "../../components/Navbar/navbar.hbs";
-import "../../components/Navbar/navbar.scss";
+import navbarTemplate from "../../components/Navbar/Navbar.hbs";
+import "../../components/Navbar/Navbar.scss";
 
-import categoryTemplate from "../../components/Category/category.hbs";
-import "../../components/Category/category.scss";
+import restaurantsCategoryTemplate from "../../components/RestaurantsCategory/RestaurantsCategory.hbs";
+import "../../components/RestaurantsCategory/RestaurantsCategory.scss";
 
-export type Restaurant = {
-    Icon: string;
-    Name: string;
-    DeliveryPrice: number;
-    DeliveryTime: number;
-    DeliveryTimeMax: number;
-};
+import { RestaurantCategoryListObject } from "../../models/RestaurantModel/RestaurantModel";
 
 /**
  * Представление главной страницы
@@ -32,14 +26,17 @@ export class MainView extends IView {
      * выхода из аккаунта, отображается только если пользователь
      * авторизован
      */
-    userNameElement: HTMLElement;
+    private userNameElement: HTMLElement;
     /**
      * Кнопка "Войти", отображается, если пользователь не авторизован
      */
-    signInButton: HTMLElement;
+    private signInButton: HTMLElement;
 
-    element: HTMLElement;
-    is_auth: boolean;
+    private _is_auth: boolean;
+
+    get is_auth() {
+        return this._is_auth;
+    }
 
     /**
      * Создает из шаблонов главную страницу
@@ -59,12 +56,13 @@ export class MainView extends IView {
         }
         this.element = element;
 
-        Handlebars.registerPartial("cardTemplate", cardTemplate);
+        Handlebars.registerPartial('restaurantCardTemplate', restaurantCardTemplate);
+
         this.element.querySelector("#navbar")!.innerHTML = navbarTemplate(
-            config.navbar,
+            MainViewConfig.navbar,
         );
         this.element.querySelector("#categories")!.innerHTML =
-            categoryTemplate();
+            restaurantsCategoryTemplate();
         this.userNameElement = <HTMLElement>(
             this.element.querySelector("#name-container")
         );
@@ -78,9 +76,10 @@ export class MainView extends IView {
      * Обновляет содержимое списка ресторанов
      * @param {Object} list  - новый список ресторанов
      */
-    updateList(list: Restaurant[]) {
+    updateList(list: RestaurantCategoryListObject) {
+        console.log(list);
         this.element.querySelector("#categories")!.innerHTML =
-            categoryTemplate(list);
+            restaurantsCategoryTemplate(list);
     }
 
     /**
@@ -88,7 +87,7 @@ export class MainView extends IView {
      * @param {string} userName - имя пользователя
      */
     setAuthUser(userName: string) {
-        this.is_auth = true;
+        this._is_auth = true;
         this.userNameElement.firstElementChild!.innerHTML = userName;
         this.signInButton.parentNode!.appendChild(this.userNameElement);
         this.signInButton.parentNode!.removeChild(this.signInButton);
@@ -98,7 +97,7 @@ export class MainView extends IView {
      * Устанавливает navbar для неавторизованного пользователя
      */
     setNonAuthUser() {
-        this.is_auth = false;
+        this._is_auth = false;
         this.userNameElement.parentNode!.appendChild(this.signInButton);
         this.userNameElement.parentNode!.removeChild(this.userNameElement);
     }

@@ -1,21 +1,27 @@
-import { IController } from "../IController";
-import { LoginController } from "../LoginController/LoginController";
-import { MainController } from "../MainController/MainController";
-import { SignUpController } from "../SignUpController/SignUpController";
+import IController from "../IController";
+
+type RouteList = {
+    [route: string]: IController;
+};
 
 /**
  * Роутер для переключения между контроллерами разных страниц
  * @class
  */
-export class Router {
-    main_controller: MainController;
-    signup_controller: SignUpController;
-    login_controller: LoginController;
+export default class Router {
+    private routes: RouteList;
     /**
      * Текущий управляющий контроллер
      */
     currentController: IController;
 
+    constructor(routes_: RouteList) {
+        this.routes = routes_;
+    }
+
+    add_route(path: string, controller: IController) {
+        this.routes[path] = controller;
+    }
     /**
      * Переход с одной страницы на другую с сохранением
      * в историю
@@ -32,25 +38,7 @@ export class Router {
      */
     route(path: string) {
         if (this.currentController) this.currentController.stop();
-        this.currentController = this.map(path);
+        this.currentController = this.routes[path];
         this.currentController.start();
-    }
-
-    /**
-     * Поиск контроллера по пути
-     * @param {string} path - путь
-     * @returns {IController} - контроллер определенного пути
-     */
-    map(path: string) {
-        switch (path) {
-            case "/signup":
-                return this.signup_controller;
-            case "/login":
-                return this.login_controller;
-            case "/main":
-                return this.main_controller;
-            default:
-                return this.main_controller;
-        }
     }
 }

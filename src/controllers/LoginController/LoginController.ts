@@ -1,30 +1,26 @@
-import { config } from "../../config";
-import { ERROR_TYPE } from "../../config";
+import apiConfig from "../../modules/config";
+import { ERROR_TYPE } from "../../modules/api";
+import type { LoginData, RequestError } from "../../modules/api";
 import { GENERAL_MESSAGE } from "../../config";
-import { LoginView } from "../../views/LoginView/LoginView";
-import { LoginData, UserModel } from "../../models/UserModel/UserModel";
-import { IController } from "../IController";
-
-type Error = {
-    type: ERROR_TYPE;
-    status: string;
-};
+import LoginView from "../../views/LoginView/LoginView";
+import UserModel from "../../models/UserModel/UserModel";
+import IController from "../IController";
 
 /**
  * Контроллер авторизации
  * @class
  * @extends {IController}
  */
-export class LoginController extends IController {
+export default class LoginController implements IController {
     /**
      * Ссылка на модель пользователя
      */
-    _userModel: UserModel;
+    private userModel: UserModel;
 
     /**
      * Ссылка на представление регистрации
      */
-    loginView: LoginView;
+    private loginView: LoginView;
 
     /**
      * Устанавливает модель пользователя и соответствующее представление
@@ -32,9 +28,8 @@ export class LoginController extends IController {
      * @param {UserModel} userModel - модель пользователя
      */
     constructor(view: LoginView, userModel: UserModel) {
-        super();
         this.loginView = view;
-        this._userModel = userModel;
+        this.userModel = userModel;
     }
 
     /**
@@ -51,12 +46,15 @@ export class LoginController extends IController {
             }
 
             try {
-                await this._userModel.login(loginData);
+                await this.userModel.login(loginData);
             } catch (error) {
                 let msg;
-                switch ((<Error>error).type) {
+                switch ((<RequestError>error).type) {
                     case ERROR_TYPE.FAILURE:
-                        msg = config.api.login.failure[(<Error>error).status];
+                        msg =
+                            apiConfig.api.login.failure[
+                                (<RequestError>error).status
+                            ];
                         break;
                     case ERROR_TYPE.NETWORK_ERROR:
                         msg = GENERAL_MESSAGE.NETWORK_ERROR;
