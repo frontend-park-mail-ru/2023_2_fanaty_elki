@@ -53,7 +53,7 @@ class RestaurantController implements IController {
             if (this.restaurantView.is_auth) this.restaurantView.setNonAuthUser();
         }
         try {
-            const list = await this.dishModel.getAllByRestaurant(resta);
+            const list = await this.dishModel.getAllByRestaurant(this.restaurant.Id);
             this.restaurantView.updateList(list);
         } catch (e) {
             console.log(e);
