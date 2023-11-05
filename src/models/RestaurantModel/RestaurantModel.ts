@@ -1,6 +1,7 @@
 import { Api } from "../../modules/api";
 
 export type Restaurant = {
+    Id: number;
     Icon: string;
     Name: string;
     DeliveryPrice: number;
