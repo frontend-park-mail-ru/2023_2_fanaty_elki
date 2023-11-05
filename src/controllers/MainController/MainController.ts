@@ -1,7 +1,7 @@
 import RestaurantModel from "../../models/RestaurantModel/RestaurantModel";
 import UserModel from "../../models/UserModel/UserModel";
 import { MainView } from "../../views/MainView/MainView";
-import { IController } from "../IController";
+import IController from "../IController";
 
 /**
  * Контроллер главной страницы
