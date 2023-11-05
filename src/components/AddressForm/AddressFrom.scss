@@ -1,0 +1,68 @@
+.address-form {
+    display: flex;
+    width: 788px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.address-form__title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+}
+
+.address-form__fields {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+}
+
+.address-from__fields__first-field-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 71px;
+    align-self: stretch;
+}
+
+.address-from__fields__second-field-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 38px;
+    align-self: stretch;
+}
+
+.address-from__fields__field-row__input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    flex: 1 0 0;
+}
+
+.input__title {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+}
+
+.input__field {
+    display: flex;
+    height: 65px;
+    padding: 10px 10px 10px 25px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+}
+
+.address-from__fields__comment {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+}
