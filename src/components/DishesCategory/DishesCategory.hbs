@@ -1,8 +1,13 @@
 <div class="dishes-category">
-    <h1 class="dishes-category__title">{{ title }}</h1>
-    <div class="dishes-category__items">
-        {{#each dishes}}
-        {{> dishCardTemplate }}
-        {{/each}}
+    <h1 class="dishes-category__title">Рестораны</h1>
+    {{#each restaurantsCategories}}
+    <div class="dishes-category__categories">
+        <h2 class="dishes-category__categories__title">{{ this.title }}</h2>
+        <div class="dishes-category__categories__items">
+            {{#each this.restaurants}}
+            {{> ../RestaurantCard/RestaurantCard }}
+            {{/each}}
+        </div>
     </div>
+    {{/each}}
 </div>

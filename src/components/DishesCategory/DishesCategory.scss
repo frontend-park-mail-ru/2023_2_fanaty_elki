@@ -11,7 +11,22 @@
     align-self: stretch;
 }
 
-.dishes-category__items {
+.dishes-category__categories {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 35px;
+    align-self: stretch;
+}
+
+.dishes-category__categories__title {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+    margin: 0;
+}
+
+.dishes-category__categories__items {
     display: flex;
     align-items: flex-start;
     align-content: flex-start;
