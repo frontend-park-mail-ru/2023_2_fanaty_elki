@@ -12,11 +12,11 @@ export type Dish = {
 export type DishCategory = {
     title: string;
     restaurants: DishCategory[];
-}
+};
 
 export type DishesCategoryListObject = {
     dishesCategory: DishCategory[];
-}
+};
 
 /**
  * Модель ресторанов
@@ -29,6 +29,6 @@ export default class DishModel {
      * @return {Promise} - список ресторанов или отклоненный промис
      */
     async getAllByRestaurant(restaurantId: number) {
-        
+        return await Api.getRestaurant(restaurantId);
     }
 }

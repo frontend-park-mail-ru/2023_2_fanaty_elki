@@ -5,6 +5,7 @@ enum GENERAL_MESSAGE {
 
 enum ROUTES {
     signup = "/signup",
+    restaurants = "/restaurants",
     login = "/login",
     main = "/main",
     default = "/",

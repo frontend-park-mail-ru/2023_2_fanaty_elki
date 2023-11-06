@@ -1,7 +1,7 @@
 import IView from "../IView";
-import RestaurantViewConfig from './RestaurantViewConfig';
-import restaurantTemplate from "../RestaurantView.hbs";
-import "../RestaurantView.scss";
+import RestaurantViewConfig from "./RestaurantViewConfig";
+import restaurantTemplate from "./RestaurantView.hbs";
+import "./RestaurantView.scss";
 
 import Handlebars from "handlebars";
 import dishCardTemplate from "../../components/DishCard/DishCard.hbs";
@@ -10,18 +10,17 @@ import "../../components/DishCard/DishCard.scss";
 import navbarTemplate from "../../components/Navbar/Navbar.hbs";
 import "../../components/Navbar/Navbar.scss";
 
-import dishCategoryTemplate from "../../components/DishesCategory/DishCategory.hbs";
+import dishCategoryTemplate from "../../components/DishesCategory/DishesCategory.hbs";
 import "../../components/DishesCategory/DishesCategory.scss";
 
 import { DishesCategoryListObject } from "../../models/DishModel/DishModel";
-import { Restaurant } from "../../models/RestaurantModel/RestaurantModel";
 
 /**
  * Представление страницы ресторана
  * @class
  * @extends {IView}
  */
-export class RestaurantView extends IView {
+export default class RestaurantView extends IView {
     /**
      * Элемент, содержащий имя пользователя и кнопку
      * выхода из аккаунта, отображается только если пользователь
@@ -40,7 +39,7 @@ export class RestaurantView extends IView {
     }
 
     /**
-     * Создает из шаблонов главную страницу
+     * Создает из шаблонов страницу ресторана
      * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы
      * @param {String} title_ - заголовок страницы
      */
@@ -57,7 +56,7 @@ export class RestaurantView extends IView {
         }
         this.element = element;
 
-        Handlebars.registerPartial('dishCardTemplate', dishCardTemplate);
+        Handlebars.registerPartial("dishCardTemplate", dishCardTemplate);
 
         this.element.querySelector("#navbar")!.innerHTML = navbarTemplate(
             RestaurantViewConfig.navbar,
@@ -74,8 +73,8 @@ export class RestaurantView extends IView {
     }
 
     /**
-     * Обновляет содержимое списка ресторанов
-     * @param {Object} list  - новый список ресторанов
+     * Обновляет содержимое списка блюд
+     * @param {Object} list  - новый список блюд
      */
     updateList(list: DishesCategoryListObject) {
         console.log(list);

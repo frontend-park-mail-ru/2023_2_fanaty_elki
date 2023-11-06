@@ -6,7 +6,7 @@ export default interface IController {
     /**
      * Отрисовка представления
      */
-    start(): void;
+    start(params?: URLSearchParams): void;
 
     /**
      * Очистка представления

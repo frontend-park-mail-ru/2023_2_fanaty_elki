@@ -20,7 +20,7 @@ import { RestaurantCategoryListObject } from "../../models/RestaurantModel/Resta
  * @class
  * @extends {IView}
  */
-export class MainView extends IView {
+export default class MainView extends IView {
     /**
      * Элемент, содержащий имя пользователя и кнопку
      * выхода из аккаунта, отображается только если пользователь
@@ -56,7 +56,10 @@ export class MainView extends IView {
         }
         this.element = element;
 
-        Handlebars.registerPartial('restaurantCardTemplate', restaurantCardTemplate);
+        Handlebars.registerPartial(
+            "restaurantCardTemplate",
+            restaurantCardTemplate,
+        );
 
         this.element.querySelector("#navbar")!.innerHTML = navbarTemplate(
             MainViewConfig.navbar,

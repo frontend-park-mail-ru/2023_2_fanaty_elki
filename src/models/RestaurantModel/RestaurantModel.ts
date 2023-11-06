@@ -12,11 +12,11 @@ export type Restaurant = {
 export type RestaurantCategory = {
     title: string;
     restaurants: Restaurant[];
-}
+};
 
 export type RestaurantCategoryListObject = {
     restaurantsCategories: RestaurantCategory[];
-}
+};
 
 /**
  * Модель ресторанов
@@ -29,7 +29,7 @@ export default class RestaurantModel {
      * @return {Promise} - список ресторанов или отклоненный промис
      */
     async getAll() {
-        let data = await Api.getRestaurants();
+        const data = await Api.getAllRestaurants();
         data.restaurants.forEach((element: Restaurant) => {
             element.DeliveryTimeMax = element.DeliveryTime + 10; // грязый хак
         });
@@ -39,7 +39,7 @@ export default class RestaurantModel {
                     title: "Все рестораны",
                     restaurants: data.restaurants,
                 },
-            ]
-        }
+            ],
+        };
     }
 }

@@ -1,6 +1,6 @@
 import RestaurantModel from "../../models/RestaurantModel/RestaurantModel";
 import UserModel from "../../models/UserModel/UserModel";
-import { MainView } from "../../views/MainView/MainView";
+import MainView from "../../views/MainView/MainView";
 import IController from "../IController";
 
 /**
