@@ -1,0 +1,59 @@
+.payment-chooser {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 19px;
+}
+
+.payment-chooser__title {
+    flex: 1 0 0;
+}
+
+.radio-chooser {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    align-self: stretch;
+}
+
+.payment-chooser__online-card {
+    display: flex;
+    width: 644px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.payment-chooser__online-card__card-data__card-number {
+    display: flex;
+    height: 65px;
+    padding: 10px 10px 10px 25px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+}
+
+.payment-chooser__online-card__card-valid-thru-cvv {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+}
+
+.payment-chooser__online-card__card-data__card-valid-thru {
+    display: flex;
+    width: 493px;
+    height: 65px;
+    padding: 10px 10px 10px 25px;
+    align-items: center;
+    gap: 10px;
+}
+
+.payment-chooser__online-card__card-data__card-cvv {
+    display: flex;
+    height: 65px;
+    padding: 10px 10px 10px 25px;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;
+}

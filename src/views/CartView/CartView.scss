@@ -1,0 +1,34 @@
+@use "../../components/Button/Button.scss" as button;
+
+.cart {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 72px;
+}
+
+.cart__content__control__payment-approve {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 15px;
+    align-self: stretch;
+}
+
+.cart__content__control__payment-approve__title {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+}
+
+.cart__content__control__payment-approve__approve {
+    display: flex;
+    height: 82px !important;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+}

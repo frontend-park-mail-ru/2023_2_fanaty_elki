@@ -2,7 +2,9 @@ import DishModel from "../../models/DishModel/DishModel";
 import RestaurantView from "../../views/RestaurantView/RestaurantView";
 import IController from "../IController";
 import UserModel from "../../models/UserModel/UserModel";
-import RestaurantModel, { Restaurant } from "../../models/RestaurantModel/RestaurantModel";
+import RestaurantModel, {
+    Restaurant,
+} from "../../models/RestaurantModel/RestaurantModel";
 
 export default class RestaurantController implements IController {
     private restaurant: Restaurant;
@@ -35,11 +37,11 @@ export default class RestaurantController implements IController {
         this.userModel = userModel_;
         this.restaurantModel = restaurantModel_;
 
-        this.restaurantView.bindPersonClick(() => {
+        navbar.bindPersonClick(() => {
             router.redirect("/login");
         });
-        this.restaurantView.bindExitClick(this.logout.bind(this));
-        this.restaurantView.bindLogoClick(() => {
+        navbar.bindExitClick(this.logout.bind(this));
+        navbar.bindLogoClick(() => {
             router.redirect("/");
         });
     }
@@ -49,15 +51,7 @@ export default class RestaurantController implements IController {
      * подготавливает страницу и инициирует её отрисовку
      */
     async start(params?: URLSearchParams) {
-        if (this.userModel.currentUser) {
-            if (!this.restaurantView.is_auth)
-                this.restaurantView.setAuthUser(
-                    this.userModel.currentUser.username,
-                );
-        } else {
-            if (this.restaurantView.is_auth)
-                this.restaurantView.setNonAuthUser();
-        }
+        this.restaurantView.mountNavbar();
         try {
             if (!params || !params.get("id")) throw Error("no id");
             const id = Number(params.get("id")!);
@@ -80,7 +74,8 @@ export default class RestaurantController implements IController {
     }
 
     async setCurrentRestaurant(restaurantId: number) {
-        this.restaurant = await this.restaurantModel.getRestaurantById(restaurantId);
+        this.restaurant =
+            await this.restaurantModel.getRestaurantById(restaurantId);
     }
 
     /**
@@ -89,7 +84,7 @@ export default class RestaurantController implements IController {
     async logout() {
         try {
             await this.userModel.logout();
-            this.restaurantView.setNonAuthUser();
+            navbar.setNonAuthUser();
         } catch (e) {
             console.log(e);
         }
