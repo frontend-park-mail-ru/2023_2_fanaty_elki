@@ -11,11 +11,11 @@ export type Restaurant = {
 export type RestaurantCategory = {
     title: string;
     restaurants: Restaurant[];
-}
+};
 
 export type RestaurantCategoryListObject = {
     restaurantsCategories: RestaurantCategory[];
-}
+};
 
 /**
  * Модель ресторанов
@@ -38,7 +38,7 @@ export default class RestaurantModel {
                     title: "Все рестораны",
                     restaurants: data.restaurants,
                 },
-            ]
-        }
+            ],
+        };
     }
 }

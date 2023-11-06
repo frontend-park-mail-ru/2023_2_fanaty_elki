@@ -56,7 +56,10 @@ export class MainView extends IView {
         }
         this.element = element;
 
-        Handlebars.registerPartial('restaurantCardTemplate', restaurantCardTemplate);
+        Handlebars.registerPartial(
+            "restaurantCardTemplate",
+            restaurantCardTemplate,
+        );
 
         this.element.querySelector("#navbar")!.innerHTML = navbarTemplate(
             MainViewConfig.navbar,

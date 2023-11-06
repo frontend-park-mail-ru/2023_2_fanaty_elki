@@ -9,11 +9,7 @@
         "declaration": true,
         "isolatedModules": true,
         "strictPropertyInitialization": false,
-        "types": ["handlebars"],
+        "types": ["handlebars"]
     },
-    "include": [
-        "public/index.ts",
-        "types/global.d.ts",
-        "src/**/*.ts"
-    ],
+    "include": ["public/index.ts", "types/global.d.ts", "src/**/*.ts"]
 }
