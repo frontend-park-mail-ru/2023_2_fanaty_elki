@@ -32,13 +32,17 @@ export default class DishModel {
     async getAllByRestaurant(restaurantId: number) {
         const restaurantData = await Api.getRestaurant(restaurantId);
 
-        let dishesWithCategories: DishesCategoryListObject = { dishesCategory: [] };
-        restaurantData.RestaurantWithProducts.MenuTypesWithProducts.forEach((menuTypeWithProduct: any) => {
-            dishesWithCategories.dishesCategory.push({
-                title: menuTypeWithProduct.MenuType.Name,
-                dishes: menuTypeWithProduct.Products,
-            })
-        });
+        let dishesWithCategories: DishesCategoryListObject = {
+            dishesCategory: [],
+        };
+        restaurantData.RestaurantWithProducts.MenuTypesWithProducts.forEach(
+            (menuTypeWithProduct: any) => {
+                dishesWithCategories.dishesCategory.push({
+                    title: menuTypeWithProduct.MenuType.Name,
+                    dishes: menuTypeWithProduct.Products,
+                });
+            },
+        );
 
         return dishesWithCategories;
     }
