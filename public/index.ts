@@ -1,14 +1,17 @@
 import MainController from "../src/controllers/MainController/MainController";
 import SignUpController from "../src/controllers/SignUpController/SignUpController";
 import LoginController from "../src/controllers/LoginController/LoginController";
+import RestaurantController from "../src/controllers/RestaurantController/RestaurantController";
 import Router from "../src/controllers/Router/Router";
 
-import { MainView } from "../src/views/MainView/MainView";
+import MainView from "../src/views/MainView/MainView";
 import SignUpView from "../src/views/SignUpView/SignUpView";
 import LoginView from "../src/views/LoginView/LoginView";
+import RestaurantView from "../src/views/RestaurantView/RestaurantView";
 
 import RestaurantModel from "../src/models/RestaurantModel/RestaurantModel";
 import UserModel from "../src/models/UserModel/UserModel";
+import DishModel from "../src/models/DishModel/DishModel";
 
 import { ROUTES } from "../src/config";
 
@@ -24,30 +27,34 @@ try {
     console.log(e);
 }
 
-const main_view = new MainView(rootElement, "Главная");
-const signup_view = new SignUpView(rootElement, "Регистрация");
-const login_view = new LoginView(rootElement, "Войти");
+const mainView = new MainView(rootElement, "Главная");
+const signupView = new SignUpView(rootElement, "Регистрация");
+const loginView = new LoginView(rootElement, "Войти");
+const restaurantView = new RestaurantView(rootElement, "Рестораны");
 const restaurantModel = new RestaurantModel();
-const main_controller = new MainController(
-    main_view,
-    restaurantModel,
+const dishModel = new DishModel();
+const mainController = new MainController(mainView, restaurantModel, userModel);
+const restaurantController = new RestaurantController(
+    restaurantView,
+    dishModel,
     userModel,
 );
-const signup_controller = new SignUpController(signup_view, userModel);
-const login_controller = new LoginController(login_view, userModel);
+const signup_controller = new SignUpController(signupView, userModel);
+const login_controller = new LoginController(loginView, userModel);
 globalThis.router = new Router({
     [ROUTES.signup]: signup_controller,
     [ROUTES.login]: login_controller,
-    [ROUTES.main]: main_controller,
-    [ROUTES.default]: main_controller,
+    [ROUTES.main]: mainController,
+    [ROUTES.restaurants]: restaurantController,
+    [ROUTES.default]: mainController,
 });
 
 window.onpopstate = (event) => {
     event.preventDefault();
-    router.route(window.location.pathname);
+    router.route(window.location.pathname, window.location.search);
 };
 
-router.route(window.location.pathname);
+router.route(window.location.pathname, window.location.search);
 
 const favicon = document.createElement("link");
 favicon.setAttribute("rel", "icon");

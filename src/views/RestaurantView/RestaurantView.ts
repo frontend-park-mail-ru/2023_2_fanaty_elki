@@ -1,26 +1,26 @@
-import MainViewConfig from "./MainViewConfig";
 import IView from "../IView";
-import MainTemplate from "./MainView.hbs";
-import "./MainView.scss";
+import RestaurantViewConfig from "./RestaurantViewConfig";
+import restaurantTemplate from "./RestaurantView.hbs";
+import "./RestaurantView.scss";
 
 import Handlebars from "handlebars";
-import restaurantCardTemplate from "../../components/RestaurantCard/RestaurantCard.hbs";
-import "../../components/RestaurantCard/RestaurantCard.scss";
+import dishCardTemplate from "../../components/DishCard/DishCard.hbs";
+import "../../components/DishCard/DishCard.scss";
 
 import navbarTemplate from "../../components/Navbar/Navbar.hbs";
 import "../../components/Navbar/Navbar.scss";
 
-import restaurantsCategoryTemplate from "../../components/RestaurantsCategory/RestaurantsCategory.hbs";
-import "../../components/RestaurantsCategory/RestaurantsCategory.scss";
+import dishCategoryTemplate from "../../components/DishesCategory/DishesCategory.hbs";
+import "../../components/DishesCategory/DishesCategory.scss";
 
-import { RestaurantCategoryListObject } from "../../models/RestaurantModel/RestaurantModel";
+import { DishesCategoryListObject } from "../../models/DishModel/DishModel";
 
 /**
- * Представление главной страницы
+ * Представление страницы ресторана
  * @class
  * @extends {IView}
  */
-export default class MainView extends IView {
+export default class RestaurantView extends IView {
     /**
      * Элемент, содержащий имя пользователя и кнопку
      * выхода из аккаунта, отображается только если пользователь
@@ -39,7 +39,7 @@ export default class MainView extends IView {
     }
 
     /**
-     * Создает из шаблонов главную страницу
+     * Создает из шаблонов страницу ресторана
      * @param {HTMLElement} parent_ - тег-контейнер для содержимого страницы
      * @param {String} title_ - заголовок страницы
      */
@@ -47,7 +47,7 @@ export default class MainView extends IView {
         super(parent_, title_);
         const parser = new DOMParser();
         const element: HTMLElement | null = parser
-            .parseFromString(MainTemplate(), "text/html")
+            .parseFromString(restaurantTemplate(), "text/html")
             .querySelector("#main");
 
         if (!element) {
@@ -56,16 +56,13 @@ export default class MainView extends IView {
         }
         this.element = element;
 
-        Handlebars.registerPartial(
-            "restaurantCardTemplate",
-            restaurantCardTemplate,
-        );
+        Handlebars.registerPartial("dishCardTemplate", dishCardTemplate);
 
         this.element.querySelector("#navbar")!.innerHTML = navbarTemplate(
-            MainViewConfig.navbar,
+            RestaurantViewConfig.navbar,
         );
         this.element.querySelector("#categories")!.innerHTML =
-            restaurantsCategoryTemplate();
+            dishCategoryTemplate();
         this.userNameElement = <HTMLElement>(
             this.element.querySelector("#name-container")
         );
@@ -76,13 +73,13 @@ export default class MainView extends IView {
     }
 
     /**
-     * Обновляет содержимое списка ресторанов
-     * @param {Object} list  - новый список ресторанов
+     * Обновляет содержимое списка блюд
+     * @param {Object} list  - новый список блюд
      */
-    updateList(list: RestaurantCategoryListObject) {
+    updateList(list: DishesCategoryListObject) {
         console.log(list);
         this.element.querySelector("#categories")!.innerHTML =
-            restaurantsCategoryTemplate(list);
+            dishCategoryTemplate(list);
     }
 
     /**

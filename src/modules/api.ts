@@ -137,13 +137,24 @@ const Api = {
      * Отправляет на сервер запрос на получение списка ресторанов
      * @async
      */
-    async getRestaurants() {
-        const restaurants_config = apiConfig.api.restaurants;
+    async getAllRestaurants() {
+        const config = apiConfig.api.restaurants_all;
         const response = await ajax(
-            `${apiConfig.backend}${restaurants_config.url}`,
-            restaurants_config.params(""),
+            `${apiConfig.backend}${config.url}`,
+            config.params(""),
         );
-        checkResponse(response, restaurants_config);
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
+    async getRestaurant(restaurantId: number) {
+        const config = apiConfig.api.restaurants_get;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}/${restaurantId}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
         const json = await response.json();
         return json.Body;
     },

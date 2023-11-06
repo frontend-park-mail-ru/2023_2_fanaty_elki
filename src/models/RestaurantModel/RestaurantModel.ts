@@ -1,6 +1,7 @@
 import { Api } from "../../modules/api";
 
 export type Restaurant = {
+    Id: number;
     Icon: string;
     Name: string;
     DeliveryPrice: number;
@@ -28,7 +29,7 @@ export default class RestaurantModel {
      * @return {Promise} - список ресторанов или отклоненный промис
      */
     async getAll() {
-        let data = await Api.getRestaurants();
+        const data = await Api.getAllRestaurants();
         data.restaurants.forEach((element: Restaurant) => {
             element.DeliveryTimeMax = element.DeliveryTime + 10; // грязый хак
         });

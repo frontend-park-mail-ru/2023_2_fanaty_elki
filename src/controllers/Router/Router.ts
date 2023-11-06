@@ -27,18 +27,19 @@ export default class Router {
      * в историю
      * @param {string} path - путь на новую страницу
      */
-    redirect(path: string) {
+    redirect(path: string, search?: string) {
         window.history.pushState({}, "", path);
-        this.route(path);
+        this.route(path, search);
     }
 
     /**
      * Назначение нового главного контроллера
      * @param {string} path - путь к страницы нового главного контроллера
      */
-    route(path: string) {
+    route(path: string, search?: string) {
         if (this.currentController) this.currentController.stop();
         this.currentController = this.routes[path];
-        this.currentController.start();
+        const searchParams = search ? new URLSearchParams(search) : undefined;
+        this.currentController.start(searchParams);
     }
 }
