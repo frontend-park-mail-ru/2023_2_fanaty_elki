@@ -4,6 +4,7 @@ import LoginController from "../src/controllers/LoginController/LoginController"
 import RestaurantController from "../src/controllers/RestaurantController/RestaurantController";
 import Router from "../src/controllers/Router/Router";
 
+import MainViewConfig from "../src/views/MainView/MainViewConfig";
 import MainView from "../src/views/MainView/MainView";
 import SignUpView from "../src/views/SignUpView/SignUpView";
 import LoginView from "../src/views/LoginView/LoginView";
@@ -17,12 +18,15 @@ import { ROUTES } from "../src/config";
 
 import "./index.scss";
 import favIconImg from "./favicon.ico";
+import Navbar from "../src/views/Navbar";
 
 const rootElement: HTMLElement = document.querySelector("#root")!;
 
+globalThis.navbar = new Navbar(MainViewConfig.navbar);
 const userModel = new UserModel();
 try {
     await userModel.auth();
+    navbar.setAuthUser(userModel.currentUser!.username);
 } catch (e) {
     console.log(e);
 }

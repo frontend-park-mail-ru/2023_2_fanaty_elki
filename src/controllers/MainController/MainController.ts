@@ -34,11 +34,11 @@ export default class MainController implements IController {
         this.restaurantModel = restaurantModel_;
         this.userModel = userModel_;
 
-        this.mainView.bindPersonClick(() => {
+        navbar.bindPersonClick(() => {
             router.redirect("/login");
         });
-        this.mainView.bindExitClick(this.logout.bind(this));
-        this.mainView.bindLogoClick(() => {
+        navbar.bindExitClick(this.logout.bind(this));
+        navbar.bindLogoClick(() => {
             router.redirect("/");
         });
     }
@@ -48,12 +48,7 @@ export default class MainController implements IController {
      * подготавливает страницу и инициирует её отрисовку
      */
     async start() {
-        if (this.userModel.currentUser) {
-            if (!this.mainView.is_auth)
-                this.mainView.setAuthUser(this.userModel.currentUser.username);
-        } else {
-            if (this.mainView.is_auth) this.mainView.setNonAuthUser();
-        }
+        this.mainView.mountNavbar();
         try {
             const list = await this.restaurantModel.getAll();
             this.mainView.updateList(list);
@@ -76,7 +71,7 @@ export default class MainController implements IController {
     async logout() {
         try {
             await this.userModel.logout();
-            this.mainView.setNonAuthUser();
+            navbar.setNonAuthUser();
         } catch (e) {
             console.log(e);
         }

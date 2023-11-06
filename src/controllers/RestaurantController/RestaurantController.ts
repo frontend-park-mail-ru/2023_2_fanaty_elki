@@ -32,11 +32,11 @@ export default class RestaurantController implements IController {
         this.dishModel = dishModel_;
         this.userModel = userModel_;
 
-        this.restaurantView.bindPersonClick(() => {
+        navbar.bindPersonClick(() => {
             router.redirect("/login");
         });
-        this.restaurantView.bindExitClick(this.logout.bind(this));
-        this.restaurantView.bindLogoClick(() => {
+        navbar.bindExitClick(this.logout.bind(this));
+        navbar.bindLogoClick(() => {
             router.redirect("/");
         });
     }
@@ -46,16 +46,7 @@ export default class RestaurantController implements IController {
      * подготавливает страницу и инициирует её отрисовку
      */
     async start(params?: URLSearchParams) {
-        console.log(params);
-        if (this.userModel.currentUser) {
-            if (!this.restaurantView.is_auth)
-                this.restaurantView.setAuthUser(
-                    this.userModel.currentUser.username,
-                );
-        } else {
-            if (this.restaurantView.is_auth)
-                this.restaurantView.setNonAuthUser();
-        }
+        this.restaurantView.mountNavbar();
         try {
             if (!params || !params.get("id")) throw Error("no id");
             const id = Number(params.get("id")!);
@@ -81,7 +72,7 @@ export default class RestaurantController implements IController {
     async logout() {
         try {
             await this.userModel.logout();
-            this.restaurantView.setNonAuthUser();
+            navbar.setNonAuthUser();
         } catch (e) {
             console.log(e);
         }

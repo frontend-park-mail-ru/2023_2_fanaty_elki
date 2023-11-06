@@ -66,6 +66,7 @@ export default class LoginController implements IController {
                 this.loginView.showErrorMessage(msg);
                 return;
             }
+            navbar.setAuthUser(this.userModel.currentUser!.username);
             router.redirect("/");
         });
 
