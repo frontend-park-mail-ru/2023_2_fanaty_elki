@@ -2,7 +2,7 @@ import DishModel from "../../models/DishModel/DishModel";
 import RestaurantView from "../../views/RestaurantView/RestaurantView";
 import IController from "../IController";
 import UserModel from "../../models/UserModel/UserModel";
-import { Restaurant } from "../../models/RestaurantModel/RestaurantModel";
+import RestaurantModel, { Restaurant } from "../../models/RestaurantModel/RestaurantModel";
 
 export default class RestaurantController implements IController {
     private restaurant: Restaurant;
@@ -11,6 +11,7 @@ export default class RestaurantController implements IController {
      * Модель блюда
      */
     private dishModel: DishModel;
+    private restaurantModel: RestaurantModel;
     /**
      * Модель пользователя
      */
@@ -27,10 +28,12 @@ export default class RestaurantController implements IController {
         view: RestaurantView,
         dishModel_: DishModel,
         userModel_: UserModel,
+        restaurantModel_: RestaurantModel,
     ) {
         this.restaurantView = view;
         this.dishModel = dishModel_;
         this.userModel = userModel_;
+        this.restaurantModel = restaurantModel_;
 
         this.restaurantView.bindPersonClick(() => {
             router.redirect("/login");
@@ -46,7 +49,6 @@ export default class RestaurantController implements IController {
      * подготавливает страницу и инициирует её отрисовку
      */
     async start(params?: URLSearchParams) {
-        console.log(params);
         if (this.userModel.currentUser) {
             if (!this.restaurantView.is_auth)
                 this.restaurantView.setAuthUser(
@@ -60,6 +62,7 @@ export default class RestaurantController implements IController {
             if (!params || !params.get("id")) throw Error("no id");
             const id = Number(params.get("id")!);
             if (isNaN(id)) throw Error("id is NaN");
+            await this.setCurrentRestaurant(id);
             const list = await this.dishModel.getAllByRestaurant(id);
             this.restaurantView.updateList(list);
         } catch (e) {
@@ -73,6 +76,10 @@ export default class RestaurantController implements IController {
      */
     stop() {
         this.restaurantView.clear();
+    }
+
+    async setCurrentRestaurant(restaurantId: number) {
+        this.restaurant = await this.restaurantModel.getRestaurantById(restaurantId);
     }
 
     /**

@@ -42,4 +42,10 @@ export default class RestaurantModel {
             ],
         };
     }
+
+    async getRestaurantById(restaurantId: number) {
+        const restaurantData = await Api.getRestaurant(restaurantId);
+
+        return restaurantData.RestaurantWithProducts.Restaurant;
+    }
 }
