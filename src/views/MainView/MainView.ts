@@ -72,7 +72,7 @@ export default class MainView extends IView {
         this.signInButton = <HTMLElement>(
             this.element.querySelector("#signin-button")
         );
-        this.setNonAuthUser();
+        this.setNonAuthUser()
     }
 
     /**
@@ -83,6 +83,7 @@ export default class MainView extends IView {
         console.log(list);
         this.element.querySelector("#categories")!.innerHTML =
             restaurantsCategoryTemplate(list);
+        this.bindRestaurantClick();
     }
 
     /**
@@ -139,5 +140,13 @@ export default class MainView extends IView {
      */
     bindPersonClick(handler: () => void) {
         this.signInButton.addEventListener("click", handler);
+    }
+
+    bindRestaurantClick() {
+        this.element.querySelectorAll('.restaurant-card').forEach((card: Element) => {
+            card.addEventListener('click', () => {
+                router.redirect('/restaurants', `?id=${card.id}`);
+            });
+        });
     }
 }
