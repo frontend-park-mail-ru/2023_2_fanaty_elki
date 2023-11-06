@@ -1,3 +1,6 @@
+@use '../Button/Button.scss' as button;
+@use '../../../public/index.scss' as index;
+
 .dish-card {
     display: flex;
     width: 253px;
@@ -41,4 +44,17 @@
     align-items: flex-start;
     gap: 9px;
     align-self: stretch;
+}
+
+.button_primary-green {
+    display: flex;
+    height: 44px;
+    width: 138px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    border-radius: 17px;
+    @include button.button-style($color: index.$gray, $background-color: index.$green, $border: none);
 }

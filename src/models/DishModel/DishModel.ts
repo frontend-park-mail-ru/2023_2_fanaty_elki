@@ -1,6 +1,7 @@
 import { Api } from "../../modules/api";
 
 export type Dish = {
+    Id: number;
     Icon: string;
     Name: string;
     Price: number;
@@ -11,7 +12,7 @@ export type Dish = {
 
 export type DishCategory = {
     title: string;
-    restaurants: DishCategory[];
+    dishes: DishCategory[];
 };
 
 export type DishesCategoryListObject = {
@@ -29,6 +30,16 @@ export default class DishModel {
      * @return {Promise} - список ресторанов или отклоненный промис
      */
     async getAllByRestaurant(restaurantId: number) {
-        return await Api.getRestaurant(restaurantId);
+        const restaurantData = await Api.getRestaurant(restaurantId);
+
+        let dishesWithCategories: DishesCategoryListObject = { dishesCategory: [] };
+        restaurantData.RestaurantWithProducts.MenuTypesWithProducts.forEach((menuTypeWithProduct: any) => {
+            dishesWithCategories.dishesCategory.push({
+                title: menuTypeWithProduct.MenuType.Name,
+                dishes: menuTypeWithProduct.Products,
+            })
+        });
+
+        return dishesWithCategories;
     }
 }

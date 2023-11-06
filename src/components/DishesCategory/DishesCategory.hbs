@@ -1,11 +1,10 @@
 <div class="dishes-category">
-    <h1 class="dishes-category__title">Рестораны</h1>
-    {{#each restaurantsCategories}}
+    {{#each dishesCategory}}
     <div class="dishes-category__categories">
         <h2 class="dishes-category__categories__title">{{ this.title }}</h2>
         <div class="dishes-category__categories__items">
-            {{#each this.restaurants}}
-            {{> ../RestaurantCard/RestaurantCard }}
+            {{#each this.dishes}}
+            {{> ../DishCard/DishCard }}
             {{/each}}
         </div>
     </div>

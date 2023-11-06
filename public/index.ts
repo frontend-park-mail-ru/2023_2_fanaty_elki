@@ -38,6 +38,7 @@ const restaurantController = new RestaurantController(
     restaurantView,
     dishModel,
     userModel,
+    restaurantModel,
 );
 const signup_controller = new SignUpController(signupView, userModel);
 const login_controller = new LoginController(loginView, userModel);

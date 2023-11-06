@@ -82,6 +82,10 @@ export default class RestaurantView extends IView {
             dishCategoryTemplate(list);
     }
 
+    setRestaurantTitle(title: string) {
+        this.element.querySelector('#title')!.innerHTML = title;
+    }
+
     /**
      * Устанавливает navbar для авторизованного пользователя
      * @param {string} userName - имя пользователя
