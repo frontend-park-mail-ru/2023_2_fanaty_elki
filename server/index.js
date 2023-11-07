@@ -40,6 +40,10 @@ app.get('/restaurants', (req, res) => {
     return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
 });
 
+app.get('/cart', (req, res) => {
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+});
+
 const port = process.env.PORT || 4000;
 
 app.listen(port, function () {

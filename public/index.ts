@@ -19,6 +19,10 @@ import { ROUTES } from "../src/config";
 import "./index.scss";
 import favIconImg from "./favicon.ico";
 import Navbar from "../src/views/Navbar";
+import CartController from "../src/controllers/CartController/CartController";
+import CartView from "../src/views/CartView/CartView";
+import CartModel from "../src/models/CartModel/CartModel";
+import OrderModel from "../src/models/OrderModel/OrderModel";
 
 const rootElement: HTMLElement = document.querySelector("#root")!;
 
@@ -35,8 +39,11 @@ const mainView = new MainView(rootElement, "Главная");
 const signupView = new SignUpView(rootElement, "Регистрация");
 const loginView = new LoginView(rootElement, "Войти");
 const restaurantView = new RestaurantView(rootElement, "Рестораны");
+const cartView = new CartView(rootElement, "Корзина");
 const restaurantModel = new RestaurantModel();
 const dishModel = new DishModel();
+const cartModel = new CartModel();
+const orderModel = new OrderModel();
 const mainController = new MainController(mainView, restaurantModel, userModel);
 const restaurantController = new RestaurantController(
     restaurantView,
@@ -46,12 +53,14 @@ const restaurantController = new RestaurantController(
 );
 const signup_controller = new SignUpController(signupView, userModel);
 const login_controller = new LoginController(loginView, userModel);
+const cartController = new CartController(cartView, cartModel, dishModel, orderModel, userModel);
 globalThis.router = new Router({
     [ROUTES.signup]: signup_controller,
     [ROUTES.login]: login_controller,
     [ROUTES.main]: mainController,
     [ROUTES.restaurants]: restaurantController,
     [ROUTES.default]: mainController,
+    [ROUTES.cart]: cartController,
 });
 
 window.onpopstate = (event) => {
