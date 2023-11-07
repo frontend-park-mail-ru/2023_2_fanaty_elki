@@ -48,7 +48,6 @@ export default class DishModel {
     }
 
     async getDishById(dishId: number): Promise<Dish> {
-        //TODO: Добавить поход на бэк за данными
-        throw Error("not imp");
+        return await Api.getDishById(dishId);
     }
 }

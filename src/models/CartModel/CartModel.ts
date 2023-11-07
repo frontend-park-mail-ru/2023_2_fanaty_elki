@@ -1,3 +1,4 @@
+import { Api } from "../../modules/api";
 import DishModel, { Dish } from "../DishModel/DishModel";
 
 export type CartItem = {
@@ -20,11 +21,11 @@ export default class CartModel {
 
         if (dishIndex === -1) {
             this.dishes.push({ dish: await this.dishModel.getDishById(dishId), count: 1 });
+            this.addDishToCart(dishId);
         } else {
             this.dishes[dishIndex].count++;
+            //TODO: добавить запрос на бэк на увеличение
         }
-
-        //TODO: добавить запрос на бэк для добавления товара в корзину
     }
 
     async removeDish(dishId: number) {
@@ -32,12 +33,11 @@ export default class CartModel {
 
         if (this.dishes[dishIndex].count == 0) {
             this.dishes.splice(dishIndex, 1);
-            //TODO: Бахнуть запрос на удаление товара
+            this.removeDishFromCart(dishId);
         } else {
             this.dishes[dishIndex].count--;
+            //TODO: добавить запрос на бэк на уменьшение товара
         }
-
-        //TODO: добавить запрос на бэк для удаления товара в корзину
     }
 
     cartSum(): number {
@@ -51,5 +51,13 @@ export default class CartModel {
 
     getAllItems() {
         //TODO: Сделать поход к апишке через конфиг и добавить запись текущего состояния + предобработку для вьюхи
+    }
+
+    async addDishToCart(dishId: number) {
+        Api.addDishToCart(dishId);
+    }
+
+    async removeDishFromCart(dishId: number) {
+        Api.removeDishFromCart(dishId);
     }
 }
