@@ -8,7 +8,7 @@ enum ERROR_TYPE {
 
 type ApiElementConfig = {
     url: string;
-    params: (body: string) => { [index: string]: string };
+    params: (body: string) => RequestInit;
     success: { [index: number]: string };
     failure: { [index: number]: string };
     restrictions: { [index: string]: string };
@@ -63,7 +63,7 @@ function checkResponse(
  * Приводит ошибки Fetch API к общему виду
  * @async
  */
-async function ajax(url: string, params: { [index: string]: string }) {
+async function ajax(url: string, params: RequestInit) {
     try {
         return await fetch(url, params);
     } catch {
@@ -93,7 +93,10 @@ const Api = {
      */
     async loginUser(login_data: LoginData) {
         const login_config: ApiElementConfig = apiConfig.api.login;
-        const body = JSON.stringify(login_data);
+        const body = JSON.stringify({
+            Username: login_data.username,
+            Password: login_data.password,
+        });
         const response = await ajax(
             `${apiConfig.backend}${login_config.url}`,
             login_config.params(body),
@@ -110,7 +113,12 @@ const Api = {
      */
     async createUser(signup_data: SignUpData) {
         const signup_config: ApiElementConfig = apiConfig.api.signup;
-        const body = JSON.stringify(signup_data);
+        const body = JSON.stringify({
+            Username: signup_data.username,
+            Password: signup_data.password,
+            Email: signup_data.email,
+            PhoneNumber: Math.floor(Math.random() * 10000000) + "",
+        });
         const response = await ajax(
             `${apiConfig.backend}${signup_config.url}`,
             signup_config.params(body),

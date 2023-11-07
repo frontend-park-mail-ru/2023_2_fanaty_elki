@@ -2,7 +2,7 @@ import { Api } from "../../modules/api";
 import type { LoginData, SignUpData } from "../../modules/api";
 
 type User = {
-    username: string;
+    Username: string;
 };
 
 /**
@@ -37,6 +37,7 @@ export default class UserModel {
     async auth() {
         this._currentUser = null;
         this._currentUser = await Api.authUser();
+        navbar.setAuthUser(this.currentUser!.Username);
     }
 
     /**
@@ -48,6 +49,7 @@ export default class UserModel {
     async login(login_data: LoginData) {
         this._currentUser = null;
         this._currentUser = await Api.loginUser(login_data);
+        navbar.setAuthUser(this.currentUser!.Username);
     }
 
     /**

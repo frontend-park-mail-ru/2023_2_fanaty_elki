@@ -98,7 +98,6 @@ export default class Navbar {
         this.signInButton = <HTMLElement>(
             this.element.querySelector("#signin-button")
         );
-        this.setNonAuthUser();
         this.address = new AddressPopup(
             this.element.querySelector("#address-modal")!,
         );
@@ -109,6 +108,7 @@ export default class Navbar {
                 this.address.setAddress(userModel.address);
             }
         });
+        this.setNonAuthUser();
     }
 
     mount(root: HTMLElement) {

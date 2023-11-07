@@ -3,6 +3,7 @@ import type { ApiConfig } from "./api";
 enum REQUEST_METHOD {
     POST = "POST",
     GET = "GET",
+    DELETE = "DELETE",
 }
 
 const apiConfig: ApiConfig = {
@@ -57,7 +58,7 @@ const apiConfig: ApiConfig = {
                 };
             },
             success: {
-                200: "OK",
+                201: "OK",
             },
             failure: {
                 400: "Такой пользователь уже существует",
@@ -69,7 +70,7 @@ const apiConfig: ApiConfig = {
             url: "/logout",
             params: () => {
                 return {
-                    method: REQUEST_METHOD.POST,
+                    method: REQUEST_METHOD.DELETE,
                     credentials: "include",
                 };
             },
@@ -87,7 +88,6 @@ const apiConfig: ApiConfig = {
             params: () => {
                 return {
                     method: REQUEST_METHOD.GET,
-                    credentials: "include",
                 };
             },
             success: {

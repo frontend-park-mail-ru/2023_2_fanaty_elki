@@ -26,7 +26,6 @@ globalThis.navbar = new Navbar(MainViewConfig.navbar);
 globalThis.userModel = new UserModel();
 try {
     await userModel.auth();
-    navbar.setAuthUser(userModel.currentUser!.username);
 } catch (e) {
     console.log(e);
 }
