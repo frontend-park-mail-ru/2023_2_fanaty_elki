@@ -218,6 +218,17 @@ const Api = {
         checkResponse(response, config);
         const json = await response.json();
         return json.Body;
+    },
+
+    async createOrder(dishesId: string) {
+        const config = apiConfig.api.createOrder;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(dishesId),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
     }
 };
 

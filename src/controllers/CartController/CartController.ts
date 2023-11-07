@@ -35,8 +35,6 @@ export default class CartController implements IController {
             const address = this.userModel.address || "";
             const cartSum = this.cartModel.cartSum();
 
-            console.log(cartItems);
-
             this.cartView.updateCartList(cartItems);
             this.cartView.updateAddress(address);
             this.cartView.setCartSum(cartSum);
@@ -47,6 +45,10 @@ export default class CartController implements IController {
         this.cartView.render();
 
         //TODO: Добавить все бинды
+        this.cartView.bindOrderClick(() => {
+            const dishesId = this.cartModel.getDishesId();
+            this.orderModel.createOrder(dishesId);
+        });
     }
 
     stop(): void {

@@ -185,7 +185,7 @@ const apiConfig: ApiConfig = {
             restrictions: {},
         },
         getOrders: {
-            url: "orders",
+            url: "/orders",
             params: () => {
                 return {
                     method: REQUEST_METHOD.GET,
@@ -199,7 +199,24 @@ const apiConfig: ApiConfig = {
                 500: "Ошибка сервера",
             },
             restrictions: {},
-        }
+        },
+        createOrder: {
+            url: "/orders",
+            params: (body) => {
+                return {
+                    method: REQUEST_METHOD.POST,
+                    credentials: "include",
+                    body,
+                }
+            },
+            success: {
+                201: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
     },
 };
 

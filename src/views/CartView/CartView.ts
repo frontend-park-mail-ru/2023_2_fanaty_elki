@@ -51,4 +51,8 @@ export default class CartView extends IView {
             ) as any
         ).value = address;
     }
+
+    bindOrderClick(handler: () => void) {
+        this.element.querySelector('.cart__content__control__payment-approve__approve')!.addEventListener('click', handler);
+    }
 }

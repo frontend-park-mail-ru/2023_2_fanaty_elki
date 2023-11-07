@@ -57,9 +57,19 @@ export default class CartModel {
         return cartSum;
     }
 
+    async getDishesId() {
+        let cartData = await Api.getCart();
+        let dishesId = [] as any;
+
+        cartData.Cart.forEach((element: any) => {
+            dishesId.push(element.Product.ID);
+        });
+
+        return dishesId;
+    }
+
     async getAllItems() {
         let cartData = await Api.getCart();
-        console.log(cartData);
         let data = { dishes: [] as any };
 
         cartData.Cart.forEach((element: any) => {

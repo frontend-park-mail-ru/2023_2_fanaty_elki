@@ -4,4 +4,8 @@ export default class OrderModel {
     async getUserOrders() {
         return await Api.getUserOrders();
     }
+
+    async createOrder(dishesId: any) {
+        return await Api.createOrder(`{ "Products": ${JSON.stringify(await dishesId)} }`);
+    }
 }
