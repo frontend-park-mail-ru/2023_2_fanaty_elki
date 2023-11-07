@@ -106,6 +106,18 @@ const Api = {
         return json.Body;
     },
 
+    async me() {
+        const config = apiConfig.api.me;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        console.log(json.Body);
+        return json.Body;
+    },
+
     /**
      * Отправляет на сервер запрос о создании пользователя
      * @async

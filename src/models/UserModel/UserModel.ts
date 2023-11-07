@@ -2,10 +2,11 @@ import { Api } from "../../modules/api";
 import type { LoginData, SignUpData } from "../../modules/api";
 
 export type User = {
-    userName: string;
-    profileImage: string;
-    email: string;
-    bithday: string;
+    Username: string;
+    Icon: string;
+    Email: string;
+    Birthday: string;
+    PhoneNumber: string;
 };
 
 /**
@@ -49,7 +50,7 @@ export default class UserModel {
     async auth() {
         this._currentUser = null;
         this._currentUser = await Api.authUser();
-        navbar.setAuthUser(this.currentUser!.userName);
+        navbar.setAuthUser(this.currentUser!.Username);
     }
 
     /**
@@ -61,7 +62,11 @@ export default class UserModel {
     async login(login_data: LoginData) {
         this._currentUser = null;
         this._currentUser = await Api.loginUser(login_data);
-        navbar.setAuthUser(this.currentUser!.userName);
+        navbar.setAuthUser(this.currentUser!.Username);
+    }
+
+    async getCurrentUser() {
+        return await Api.me();
     }
 
     /**

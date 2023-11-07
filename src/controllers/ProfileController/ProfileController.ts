@@ -22,9 +22,8 @@ export default class ProfileController implements IController {
     async start(params?: URLSearchParams | undefined) {
         this.profileView.mountNavbar();
         try {
-            if (this.userModel.currentUser === null) throw Error("Unauth");
             const orders = await this.orderModel.getUserOrders() || {};
-            const user = this.userModel.currentUser;
+            const user = await this.userModel.getCurrentUser();
 
             this.profileView.setUser(user);
             this.profileView.setOrders(orders);

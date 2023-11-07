@@ -7,7 +7,7 @@ enum REQUEST_METHOD {
 }
 
 const apiConfig: ApiConfig = {
-    // backend: "http://84.23.53.216:8001",
+    // backend: "http://84.23.53.216:8080/api",
     backend: "http://localhost:8080/api",
     api: {
         auth: {
@@ -51,6 +51,22 @@ const apiConfig: ApiConfig = {
             restrictions: {
                 "content-type": "application/json",
             },
+        },
+        me: {
+            url: "/me",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                    credentials: "include",
+                }
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
         },
         signup: {
             url: "/users",

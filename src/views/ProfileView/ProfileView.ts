@@ -1,12 +1,12 @@
 import IView from "../IView";
 import profileTemplate from "./ProfileView.hbs";
-import "./ProfileView.hbs";
+import "./ProfileView.scss";
 
-import profile from "../../components/Profile/Profile.hbs";
-import "../../components/Profile/Profile.hbs";
+import profile from "../../components/ProfileInfo/ProfileInfo.hbs";
+import "../../components/ProfileInfo/ProfileInfo.scss";
 
 import orderList from "../../components/OrderList/OrderList.hbs";
-import "../../components/OrderList/OrderList.hbs";
+import "../../components/OrderList/OrderList.scss";
 import { User } from "../../models/UserModel/UserModel";
 
 export default class ProfileView extends IView {
@@ -29,10 +29,10 @@ export default class ProfileView extends IView {
     }
 
     setUser(user: User) {
-        this.profile = profile(user);
+        this.profile!.innerHTML = profile(user);
     }
 
     setOrders(orders: any) {
-        this.orders = orderList(orders);
+        this.orders!.innerHTML = orderList(orders);
     }
 }

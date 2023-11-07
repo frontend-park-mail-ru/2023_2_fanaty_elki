@@ -1,21 +1,22 @@
 @use '../Button/Button.scss' as button;
 @use '../../../public/index.scss' as index;
 
-.profile {
+.profile-info {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 41px;
+    min-width: 600px;
 }
 
-.profile__header {
+.profile-info__header {
     display: flex;
     align-items: center;
     gap: 55px;
     align-self: stretch;
 }
 
-.profile__header__username {
+.profile-info__header__username {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -23,7 +24,7 @@
     align-self: stretch;
 }
 
-.profile__control {
+.profile-info__control {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -31,16 +32,32 @@
     align-self: stretch;
 }
 
-.profile__control__field {
+.profile-info__control__field {
     display: flex;
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
 }
 
+.profile-info__control__field__value {
+    display: flex;
+    width: 300px;
+    height: 44px;
+    padding: 10px 10px 10px 25px;
+    align-items: center;
+    gap: 10px;
+
+    border-radius: 17px;
+    border: 1px solid index.$gray;
+
+    color: index.$gray;
+    font-weight: 400;
+    line-height: normal;
+}
+
 .button_primary-green {
     display: flex;
-    height: 65px;
+    height: 50px;
     padding: 10px 15px;
     justify-content: center;
     align-items: center;
