@@ -18,12 +18,12 @@ import { ROUTES } from "../src/config";
 
 import "./index.scss";
 import favIconImg from "./favicon.ico";
-import Navbar from "../src/views/Navbar";
+import Navbar from "../src/components/Navbar/Navbar";
 
 const rootElement: HTMLElement = document.querySelector("#root")!;
 
 globalThis.navbar = new Navbar(MainViewConfig.navbar);
-const userModel = new UserModel();
+globalThis.userModel = new UserModel();
 try {
     await userModel.auth();
     navbar.setAuthUser(userModel.currentUser!.username);

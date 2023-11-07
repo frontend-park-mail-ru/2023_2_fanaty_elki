@@ -1,10 +1,14 @@
-import navbarTemplate from "../components/Navbar/Navbar.hbs";
-import "../components/Navbar/Navbar.scss";
+import navbarTemplate from "./Navbar.hbs";
+import addressTemplate from "../AddressChooser/AddressChooser.hbs";
+import suggestsTemplate from "../AddressChooser/Suggests.hbs";
+import "./Navbar.scss";
+import "../AddressChooser/AddressChooser.scss";
 
 class AddressPopup {
     private modal: HTMLElement;
     constructor(modal_: HTMLElement) {
         this.modal = modal_;
+        this.modal.innerHTML = addressTemplate();
         this.modal
             .querySelector(".modal__box")!
             .addEventListener("click", (event: any) => {
@@ -19,14 +23,56 @@ class AddressPopup {
                 this.modal.classList.remove("open");
             }
         });
+        this.modal
+            .querySelector("#address-value")!
+            .addEventListener("input", (event) => {
+                this.addSuggests((<HTMLInputElement>event.target).value);
+            });
+        this.modal
+            .querySelector("#choose-address")!
+            .addEventListener("click", () => {
+                const address = (<HTMLInputElement>(
+                    this.modal.querySelector("#address-value")!
+                )).value;
+                if (address) {
+                    userModel.address = address;
+                    navbar.setAddress(address);
+                    this.modal.classList.remove("open");
+                }
+            });
     }
-    // show() {
-    //     console.log("modal=", this.modal);
-    //     // this.modal.classList.add("open");
-    // }
-    // hide() {
-    //     // this.modal.classList.remove("open");
-    // }
+
+    async addSuggests(word: string) {
+        try {
+            const suggests = await ymaps.suggest(word);
+            this.modal.querySelector(".suggest-container")!.innerHTML =
+                suggestsTemplate(suggests);
+            this.modal.querySelectorAll(".suggest")!.forEach((x) => {
+                x.addEventListener("click", (event) => {
+                    (<HTMLInputElement>(
+                        this.modal.querySelector("#address-value")!
+                    )).value = (<HTMLElement>event.currentTarget).querySelector(
+                        ".value",
+                    )!.innerHTML;
+                    this.modal.querySelector(".suggest-container")!.innerHTML =
+                        "";
+                });
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    setAddress(address: string) {
+        (<HTMLInputElement>this.modal.querySelector("#address-value")!).value =
+            address;
+    }
+
+    setAddressPh(pc: string) {
+        (<HTMLInputElement>(
+            this.modal.querySelector("#address-value")!
+        )).setAttribute("placeholder", pc);
+    }
 }
 
 export default class Navbar {
@@ -56,9 +102,12 @@ export default class Navbar {
         this.address = new AddressPopup(
             this.element.querySelector("#address-modal")!,
         );
-        // this.address.show();
+        this.address.setAddressPh("Укажите адрес");
         this.bindAddressClick(() => {
             this.element.querySelector("#address-modal")!.classList.add("open");
+            if (userModel.address) {
+                this.address.setAddress(userModel.address);
+            }
         });
     }
 
@@ -121,5 +170,12 @@ export default class Navbar {
      */
     bindPersonClick(handler: () => void) {
         this.signInButton.addEventListener("click", handler);
+    }
+
+    setAddress(pc: string) {
+        this.element.querySelector(
+            ".navbar__fields__address__title",
+        )!.innerHTML = pc;
+        this.address.setAddress(pc);
     }
 }

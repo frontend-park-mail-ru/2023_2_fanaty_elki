@@ -15,6 +15,7 @@ export default class UserModel {
      * Текущий пользователь
      */
     private _currentUser: User | null;
+    address: string;
 
     /**
      * Конструктор
@@ -67,5 +68,9 @@ export default class UserModel {
     async logout() {
         await Api.logoutUser();
         this._currentUser = null;
+    }
+
+    changeAddress(address: string) {
+        this.address = address;
     }
 }

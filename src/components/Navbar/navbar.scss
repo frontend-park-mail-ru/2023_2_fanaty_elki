@@ -1,4 +1,4 @@
-@use '../../../public/index.scss' as index;
+@use "../../../public/index.scss" as index;
 
 .navbar {
     margin: 0 auto;
@@ -61,7 +61,7 @@
     box-shadow: none;
     border-width: 1px;
     justify-content: flex-start;
-    // cursor: not-allowed;
+    cursor: pointer;
     font-family: index.$font-family;
 }
 
@@ -72,6 +72,9 @@
 }
 
 .navbar__fields__address__title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: index.$gray;
     font-size: 15px;
     font-weight: 600;
@@ -110,7 +113,6 @@
     display: inline;
     font-family: index.$font-family;
 }
-
 
 .navbar__name-container {
     display: flex;
@@ -155,26 +157,29 @@
     width: 100%;
     height: 100vh;
     z-index: 99998;
-    background-color: rgba(0, 0, 0, .3);
+    background-color: rgba(0, 0, 0, 0.3);
     display: grid;
     align-items: center;
     justify-content: center;
     overflow-y: auto;
     visibility: hidden;
     opacity: 0;
-    transition: opacity .4s, visibility .4s;
+    transition:
+        opacity 0.4s,
+        visibility 0.4s;
 }
 
 .modal__box {
     position: relative;
-    max-width: 500px;
+    border-radius: 45px;
+    max-height: 600px;
+    width: 740px;
     padding: 45px;
-    z-index: 1;
     margin: 30px 15px;
     background-color: white;
     box-shadow: 0px 0px 17px -7px rgba(34, 60, 80, 0.2);
     transform: scale(0);
-    transition: transform .8s;
+    transition: transform 0.8s;
 }
 
 .modal.open {

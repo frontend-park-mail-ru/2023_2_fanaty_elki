@@ -59,7 +59,7 @@ export default class RestaurantController implements IController {
             await this.setCurrentRestaurant(id);
             const list = await this.dishModel.getAllByRestaurant(id);
             this.restaurantView.updateList(list);
-            this.restaurantView.setRestaurantTitle(this.restaurant.Name);
+            // this.restaurantView.setRestaurantTitle(this.restaurant.Name);
         } catch (e) {
             console.log(e);
         }
