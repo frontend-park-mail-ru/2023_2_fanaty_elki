@@ -50,4 +50,13 @@ export default class RestaurantView extends IView {
         this.element.querySelector("#categories")!.innerHTML =
             dishCategoryTemplate(list);
     }
+
+    setRestaurantTitle(title: string) {
+        this.element.querySelector("#title")!.innerHTML =
+            title;
+    }
+
+    getButtons() {
+        return this.element.querySelectorAll('.button_primary-green');
+    }
 }

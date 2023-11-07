@@ -1,4 +1,4 @@
-import { Dish } from "../DishModel/DishModel";
+import DishModel, { Dish } from "../DishModel/DishModel";
 
 export type CartItem = {
     dish: Dish;
@@ -8,15 +8,18 @@ export type CartItem = {
 export default class CartModel {
     private dishes: CartItem[];
 
-    constructor() {
+    private dishModel: DishModel;
+
+    constructor(dishModel_: DishModel) {
         this.dishes = [];
+        this.dishModel = dishModel_;
     }
 
-    addDish(dish: Dish) {
-        let dishIndex = this.dishes.findIndex(item => { return item.dish === dish });
+    async addDish(dishId: number) {
+        let dishIndex = this.dishes.findIndex(item => { return item.dish.ID === dishId });
 
         if (dishIndex === -1) {
-            this.dishes.push({ dish, count: 1 });
+            this.dishes.push({ dish: await this.dishModel.getDishById(dishId), count: 1 });
         } else {
             this.dishes[dishIndex].count++;
         }
@@ -24,16 +27,17 @@ export default class CartModel {
         //TODO: добавить запрос на бэк для добавления товара в корзину
     }
 
-    removeDish(dish: Dish) {
-        let dishIndex = this.dishes.findIndex(item => { return item.dish === dish });
+    async removeDish(dishId: number) {
+        let dishIndex = this.dishes.findIndex(item => { return item.dish.ID === dishId });
 
         if (this.dishes[dishIndex].count == 0) {
             this.dishes.splice(dishIndex, 1);
+            //TODO: Бахнуть запрос на удаление товара
         } else {
             this.dishes[dishIndex].count--;
         }
 
-        //TODO: добавить запрос на бэк для добавления товара в корзину
+        //TODO: добавить запрос на бэк для удаления товара в корзину
     }
 
     cartSum(): number {
