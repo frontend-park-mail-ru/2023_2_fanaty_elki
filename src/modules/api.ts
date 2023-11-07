@@ -220,6 +220,26 @@ const Api = {
         return;
     },
 
+    async incProductInCart(dishId: number) {
+        const config = apiConfig.api.cartIncItem;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(`{ ProductID: ${dishId} }`),
+        );
+        checkResponse(response, config);
+        return;
+    },
+
+    async decProductInCart(dishId: number) {
+        const config = apiConfig.api.cartDecItem;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(`{ ProductID: ${dishId} }`),
+        );
+        checkResponse(response, config);
+        return;
+    },
+
     async getDishById(dishId: number) {
         const config = apiConfig.api.dishGetById;
         const response = await ajax(

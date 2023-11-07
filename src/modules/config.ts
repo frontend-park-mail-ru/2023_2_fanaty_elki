@@ -4,6 +4,7 @@ enum REQUEST_METHOD {
     POST = "POST",
     GET = "GET",
     DELETE = "DELETE",
+    PATCH = "PATCH",
 }
 
 const apiConfig: ApiConfig = {
@@ -174,6 +175,40 @@ const apiConfig: ApiConfig = {
                 return {
                     method: REQUEST_METHOD.POST,
                     body: `{ "ProductID" : ${id} }`,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        cartIncItem: {
+            url: "/cart/update/up",
+            params: (body) => {
+                return {
+                    method: REQUEST_METHOD.PATCH,
+                    body,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        cartDecItem: {
+            url: "/cart/update/down",
+            params: (body) => {
+                return {
+                    method: REQUEST_METHOD.PATCH,
+                    body,
                     credentials: "include",
                 };
             },

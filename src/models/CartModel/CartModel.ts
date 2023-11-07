@@ -76,9 +76,9 @@ export default class CartModel {
             data.dishes.push({
                 icon: "deficon",
                 Name: element.Product.Name,
-                decBtnId: `${element.Product.ID}1`,
+                decBtnId: `${element.Product.ID}-dec`,
                 Count: element.ItemCount,
-                incBtnId: `${element.Product.ID}2`,
+                incBtnId: `${element.Product.ID}-inc`,
                 Price: element.Product.Price,
             })
         });
@@ -92,6 +92,14 @@ export default class CartModel {
 
     async removeDishFromCart(dishId: number) {
         return Api.removeDishFromCart(dishId);
+    }
+
+    async incProductInCart(dishId: number) {
+        return Api.incProductInCart(dishId);
+    }
+
+    async decProductInCart(dishId: number) {
+        return Api.decProductInCart(dishId);
     }
 
     async clearCart() {

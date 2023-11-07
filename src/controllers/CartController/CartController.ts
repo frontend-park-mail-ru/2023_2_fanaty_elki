@@ -51,6 +51,21 @@ export default class CartController implements IController {
             this.cartModel.clearCart();
             router.redirect("/");
         });
+
+        // this.cartView.getButtons().forEach(button => {
+        //     button.addEventListener('click', async () => {
+        //         const type = button.id.slice(2);
+        //         const dishId = Number(button.id.slice(0, 1));
+
+        //         if (type === "inc") {
+        //             this.cartModel.incProductInCart(dishId);
+        //         } else {
+        //             this.cartModel.decProductInCart(dishId);
+        //         }
+
+                
+        //     })
+        // });
     }
 
     stop(): void {
