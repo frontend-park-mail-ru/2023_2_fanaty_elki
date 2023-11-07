@@ -40,14 +40,6 @@ export default class RestaurantController implements IController {
         this.userModel = userModel_;
         this.restaurantModel = restaurantModel_;
         this.cartModel = cartModel_;
-
-        navbar.bindPersonClick(() => {
-            router.redirect("/login");
-        });
-        navbar.bindExitClick(this.logout.bind(this));
-        navbar.bindLogoClick(() => {
-            router.redirect("/");
-        });
     }
 
     /**

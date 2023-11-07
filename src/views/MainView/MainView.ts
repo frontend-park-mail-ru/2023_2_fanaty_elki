@@ -55,7 +55,7 @@ export default class MainView extends IView {
         console.log(list);
         this.element.querySelector("#categories")!.innerHTML =
             restaurantsCategoryTemplate(list);
-        // this.bindRestaurantClick();
+        this.bindRestaurantClick();
     }
 
     bindRestaurantClick() {

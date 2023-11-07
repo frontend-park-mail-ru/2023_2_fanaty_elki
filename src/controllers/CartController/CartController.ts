@@ -33,7 +33,7 @@ export default class CartController implements IController {
         this.cartView.mountNavbar();
         try {
             const cartItems = this.cartModel.getAllItems();
-            const address = this.userModel.getAddress() || "";
+            const address = this.userModel.address || "";
             const cartSum = this.cartModel.cartSum();
 
             this.cartView.updateCartList(cartItems);
@@ -46,13 +46,6 @@ export default class CartController implements IController {
         this.cartView.render();
 
         //TODO: Добавить все бинды
-        navbar.bindPersonClick(() => {
-            router.redirect("/login");
-        });
-        navbar.bindExitClick(this.logout.bind(this));
-        navbar.bindLogoClick(() => {
-            router.redirect("/");
-        });
     }
 
     stop(): void {

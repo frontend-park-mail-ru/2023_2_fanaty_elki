@@ -18,7 +18,7 @@ import { ROUTES } from "../src/config";
 
 import "./index.scss";
 import favIconImg from "./favicon.ico";
-import Navbar from "../src/views/Navbar";
+import Navbar from "../src/components/Navbar/Navbar";
 import CartController from "../src/controllers/CartController/CartController";
 import CartView from "../src/views/CartView/CartView";
 import CartModel from "../src/models/CartModel/CartModel";

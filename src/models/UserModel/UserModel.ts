@@ -15,7 +15,7 @@ export default class UserModel {
      * Текущий пользователь
      */
     private _currentUser: User | null;
-    private address: string | null;
+    private currentAddress: string | null;
 
     /**
      * Конструктор
@@ -23,19 +23,19 @@ export default class UserModel {
      */
     constructor() {
         this._currentUser = null;
-        this.address = null;
+        this.currentAddress = null;
     }
 
     get currentUser(): User | null {
         return this._currentUser;
     }
 
-    setCurrentAddress(address: string) {
-        this.address = address;
+    set address(currentAddress_: string) {
+        this.currentAddress = currentAddress_;
     }
 
-    getAddress(): string | null {
-        return this.address;
+    get address(): string | null {
+        return this.currentAddress;
     }
 
     /**
@@ -81,7 +81,7 @@ export default class UserModel {
         this._currentUser = null;
     }
 
-    changeAddress(address: string) {
-        this.address = address;
-    }
+    // changeAddress(address: string) {
+    //     this.currentAddress = address;
+    // }
 }
