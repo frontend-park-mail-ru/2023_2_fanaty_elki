@@ -1,7 +1,7 @@
 import { Api } from "../../modules/api";
 
 export type Dish = {
-    Id: number;
+    ID: number;
     Icon: string;
     Name: string;
     Price: number;
@@ -45,5 +45,9 @@ export default class DishModel {
         );
 
         return dishesWithCategories;
+    }
+
+    async getDishById(dishId: number): Promise<Dish> {
+        return await Api.getDishById(dishId);
     }
 }

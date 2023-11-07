@@ -15,7 +15,7 @@ const apiConfig: ApiConfig = {
             params: () => {
                 return {
                     method: REQUEST_METHOD.GET,
-                    credentials: "include",
+
                 };
             },
             success: {
@@ -35,7 +35,6 @@ const apiConfig: ApiConfig = {
                 return {
                     method: REQUEST_METHOD.POST,
                     body: body,
-                    credentials: "include",
                 };
             },
             success: {
@@ -113,6 +112,53 @@ const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
+        cartAdd: {
+            url: "/cart/add",
+            params: (id) => {
+                return {
+                    method: REQUEST_METHOD.POST,
+                    body: `{ "Product_ID" : ${id} }`,
+                }
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        cartDelete: {
+            url: "/cart/delete",
+            params: (id) => {
+                return {
+                    method: REQUEST_METHOD.POST,
+                    body: `{ "Product_ID" : ${id} }`,
+                }
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        dishGetById: {
+            url: "/product",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                }
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        }
     },
 };
 

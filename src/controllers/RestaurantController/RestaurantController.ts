@@ -5,6 +5,7 @@ import UserModel from "../../models/UserModel/UserModel";
 import RestaurantModel, {
     Restaurant,
 } from "../../models/RestaurantModel/RestaurantModel";
+import CartModel from "../../models/CartModel/CartModel";
 
 export default class RestaurantController implements IController {
     private restaurant: Restaurant;
@@ -14,6 +15,7 @@ export default class RestaurantController implements IController {
      */
     private dishModel: DishModel;
     private restaurantModel: RestaurantModel;
+    private cartModel: CartModel;
     /**
      * Модель пользователя
      */
@@ -31,11 +33,21 @@ export default class RestaurantController implements IController {
         dishModel_: DishModel,
         userModel_: UserModel,
         restaurantModel_: RestaurantModel,
+        cartModel_: CartModel,
     ) {
         this.restaurantView = view;
         this.dishModel = dishModel_;
         this.userModel = userModel_;
         this.restaurantModel = restaurantModel_;
+        this.cartModel = cartModel_;
+
+        navbar.bindPersonClick(() => {
+            router.redirect("/login");
+        });
+        navbar.bindExitClick(this.logout.bind(this));
+        navbar.bindLogoClick(() => {
+            router.redirect("/");
+        });
     }
 
     /**
@@ -56,6 +68,11 @@ export default class RestaurantController implements IController {
             console.log(e);
         }
         this.restaurantView.render();
+        this.restaurantView.getButtons().forEach(button => {
+            button.addEventListener('click', () => {
+                this.cartModel.addDish(Number(button.id));
+            });
+        });
     }
 
     /**

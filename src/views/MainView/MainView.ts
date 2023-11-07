@@ -57,4 +57,12 @@ export default class MainView extends IView {
             restaurantsCategoryTemplate(list);
         // this.bindRestaurantClick();
     }
+
+    bindRestaurantClick() {
+        this.element.querySelectorAll('.restaurant-card').forEach((card: Element) => {
+            card.addEventListener('click', () => {
+                router.redirect('/restaurants', `?id=${card.id}`);
+            });
+        });
+    }
 }

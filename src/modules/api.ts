@@ -166,6 +166,37 @@ const Api = {
         const json = await response.json();
         return json.Body;
     },
+
+    async addDishToCart(dishId: number) {
+        const config = apiConfig.api.cartAdd;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(String(dishId)),
+        )
+        checkResponse(response, config);
+        return;
+    },
+
+    async removeDishFromCart(dishId: number) {
+        const config = apiConfig.api.cartDelete;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(String(dishId)),
+        )
+        checkResponse(response, config);
+        return;
+    },
+
+    async getDishById(dishId: number) {
+        const config = apiConfig.api.dishGetById;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}/${dishId}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    }
 };
 
 export { Api, ERROR_TYPE };
