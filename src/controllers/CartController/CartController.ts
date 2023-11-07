@@ -31,9 +31,11 @@ export default class CartController implements IController {
     async start(params?: URLSearchParams | undefined) {
         this.cartView.mountNavbar();
         try {
-            const cartItems = this.cartModel.getAllItems();
+            const cartItems = await this.cartModel.getAllItems();
             const address = this.userModel.address || "";
             const cartSum = this.cartModel.cartSum();
+
+            console.log(cartItems);
 
             this.cartView.updateCartList(cartItems);
             this.cartView.updateAddress(address);

@@ -26,7 +26,8 @@ export default class CartModel {
                 dish: await this.dishModel.getDishById(dishId),
                 count: 1,
             });
-            this.addDishToCart(dishId);
+            console.log(this.dishes);
+            await this.addDishToCart(dishId);
         } else {
             this.dishes[dishIndex].count++;
             //TODO: добавить запрос на бэк на увеличение
@@ -56,8 +57,23 @@ export default class CartModel {
         return cartSum;
     }
 
-    getAllItems() {
-        //TODO: Сделать поход к апишке через конфиг и добавить запись текущего состояния + предобработку для вьюхи
+    async getAllItems() {
+        let cartData = await Api.getCart();
+        console.log(cartData);
+        let data = { dishes: [] as any };
+
+        cartData.Cart.forEach((element: any) => {
+            data.dishes.push({
+                icon: "deficon",
+                Name: element.Product.Name,
+                decBtnId: `${element.Product.ID}1`,
+                Count: element.ItemCount,
+                incBtnId: `${element.Product.ID}2`,
+                Price: element.Product.Price,
+            })
+        });
+
+        return data;
     }
 
     async addDishToCart(dishId: number) {

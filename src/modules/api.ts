@@ -167,6 +167,17 @@ const Api = {
         return json.Body;
     },
 
+    async getCart() {
+        const config = apiConfig.api.getCart;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
     async addDishToCart(dishId: number) {
         const config = apiConfig.api.cartAdd;
         const response = await ajax(

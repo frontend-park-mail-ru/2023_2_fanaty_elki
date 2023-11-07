@@ -119,12 +119,29 @@ const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
+        getCart: {
+            url: "/cart",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
         cartAdd: {
             url: "/cart/add",
             params: (id) => {
                 return {
                     method: REQUEST_METHOD.POST,
-                    body: `{ "Product_ID" : ${id} }`,
+                    body: `{ "ProductID" : ${id} }`,
+                    credentials: "include",
                 };
             },
             success: {
@@ -140,7 +157,8 @@ const apiConfig: ApiConfig = {
             params: (id) => {
                 return {
                     method: REQUEST_METHOD.POST,
-                    body: `{ "Product_ID" : ${id} }`,
+                    body: `{ "ProductID" : ${id} }`,
+                    credentials: "include",
                 };
             },
             success: {
@@ -171,6 +189,7 @@ const apiConfig: ApiConfig = {
             params: () => {
                 return {
                     method: REQUEST_METHOD.GET,
+                    credentials: "include",
                 }
             },
             success: {
