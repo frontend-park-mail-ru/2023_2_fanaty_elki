@@ -53,7 +53,13 @@ const restaurantController = new RestaurantController(
 );
 const signup_controller = new SignUpController(signupView, userModel);
 const login_controller = new LoginController(loginView, userModel);
-const cartController = new CartController(cartView, cartModel, dishModel, orderModel, userModel);
+const cartController = new CartController(
+    cartView,
+    cartModel,
+    dishModel,
+    orderModel,
+    userModel,
+);
 globalThis.router = new Router({
     [ROUTES.signup]: signup_controller,
     [ROUTES.login]: login_controller,

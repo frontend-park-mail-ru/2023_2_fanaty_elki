@@ -4,7 +4,7 @@ import DishModel, { Dish } from "../DishModel/DishModel";
 export type CartItem = {
     dish: Dish;
     count: number;
-}
+};
 
 export default class CartModel {
     private dishes: CartItem[];
@@ -17,10 +17,15 @@ export default class CartModel {
     }
 
     async addDish(dishId: number) {
-        let dishIndex = this.dishes.findIndex(item => { return item.dish.ID === dishId });
+        let dishIndex = this.dishes.findIndex((item) => {
+            return item.dish.ID === dishId;
+        });
 
         if (dishIndex === -1) {
-            this.dishes.push({ dish: await this.dishModel.getDishById(dishId), count: 1 });
+            this.dishes.push({
+                dish: await this.dishModel.getDishById(dishId),
+                count: 1,
+            });
             this.addDishToCart(dishId);
         } else {
             this.dishes[dishIndex].count++;
@@ -29,7 +34,9 @@ export default class CartModel {
     }
 
     async removeDish(dishId: number) {
-        let dishIndex = this.dishes.findIndex(item => { return item.dish.ID === dishId });
+        let dishIndex = this.dishes.findIndex((item) => {
+            return item.dish.ID === dishId;
+        });
 
         if (this.dishes[dishIndex].count == 0) {
             this.dishes.splice(dishIndex, 1);
@@ -42,9 +49,9 @@ export default class CartModel {
 
     cartSum(): number {
         let cartSum = 0;
-        this.dishes.forEach(dish => {
+        this.dishes.forEach((dish) => {
             cartSum += dish.dish.Price * dish.count;
-        })
+        });
 
         return cartSum;
     }

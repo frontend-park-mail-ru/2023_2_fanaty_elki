@@ -1,4 +1,1 @@
-
-export default class OrderModel {
-    
-}
+export default class OrderModel {}

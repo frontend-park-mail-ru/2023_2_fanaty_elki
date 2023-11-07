@@ -59,10 +59,12 @@ export default class MainView extends IView {
     }
 
     bindRestaurantClick() {
-        this.element.querySelectorAll('.restaurant-card').forEach((card: Element) => {
-            card.addEventListener('click', () => {
-                router.redirect('/restaurants', `?id=${card.id}`);
+        this.element
+            .querySelectorAll(".restaurant-card")
+            .forEach((card: Element) => {
+                card.addEventListener("click", () => {
+                    router.redirect("/restaurants", `?id=${card.id}`);
+                });
             });
-        });
     }
 }
