@@ -103,7 +103,6 @@ const apiConfig: ApiConfig = {
             params: () => {
                 return {
                     method: REQUEST_METHOD.GET,
-                    credentials: "include",
                 };
             },
             success: {

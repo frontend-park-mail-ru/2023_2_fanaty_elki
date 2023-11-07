@@ -36,14 +36,6 @@ export default class RestaurantController implements IController {
         this.dishModel = dishModel_;
         this.userModel = userModel_;
         this.restaurantModel = restaurantModel_;
-
-        navbar.bindPersonClick(() => {
-            router.redirect("/login");
-        });
-        navbar.bindExitClick(this.logout.bind(this));
-        navbar.bindLogoClick(() => {
-            router.redirect("/");
-        });
     }
 
     /**
@@ -76,17 +68,5 @@ export default class RestaurantController implements IController {
     async setCurrentRestaurant(restaurantId: number) {
         this.restaurant =
             await this.restaurantModel.getRestaurantById(restaurantId);
-    }
-
-    /**
-     * Коллбек для выхода из аккаунта по нажатию на кнопку
-     */
-    async logout() {
-        try {
-            await this.userModel.logout();
-            navbar.setNonAuthUser();
-        } catch (e) {
-            console.log(e);
-        }
     }
 }

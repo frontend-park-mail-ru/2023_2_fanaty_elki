@@ -108,6 +108,13 @@ export default class Navbar {
                 this.address.setAddress(userModel.address);
             }
         });
+        this.bindPersonClick(() => {
+            router.redirect("/login");
+        });
+        this.bindExitClick(this.logout.bind(this));
+        this.bindLogoClick(() => {
+            router.redirect("/");
+        });
         this.setNonAuthUser();
     }
 
@@ -177,5 +184,17 @@ export default class Navbar {
             ".navbar__fields__address__title",
         )!.innerHTML = pc;
         this.address.setAddress(pc);
+    }
+
+    /**
+     * Коллбек для выхода из аккаунта по нажатию на кнопку
+     */
+    async logout() {
+        try {
+            await userModel.logout();
+            navbar.setNonAuthUser();
+        } catch (e) {
+            console.log(e);
+        }
     }
 }

@@ -33,14 +33,6 @@ export default class MainController implements IController {
         this.mainView = view;
         this.restaurantModel = restaurantModel_;
         this.userModel = userModel_;
-
-        navbar.bindPersonClick(() => {
-            router.redirect("/login");
-        });
-        navbar.bindExitClick(this.logout.bind(this));
-        navbar.bindLogoClick(() => {
-            router.redirect("/");
-        });
     }
 
     /**
@@ -63,17 +55,5 @@ export default class MainController implements IController {
      */
     stop() {
         this.mainView.clear();
-    }
-
-    /**
-     * Коллбек для выхода из аккаунта по нажатию на кнопку
-     */
-    async logout() {
-        try {
-            await this.userModel.logout();
-            navbar.setNonAuthUser();
-        } catch (e) {
-            console.log(e);
-        }
     }
 }
