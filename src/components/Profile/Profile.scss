@@ -15,6 +15,14 @@
     align-self: stretch;
 }
 
+.profile__header__username {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
 .profile__control {
     display: flex;
     flex-direction: column;
