@@ -10,6 +10,7 @@ enum ROUTES {
     main = "/main",
     default = "/",
     cart = "/cart",
+    profile = "/me",
 }
 
 export { GENERAL_MESSAGE, ROUTES };

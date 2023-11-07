@@ -158,6 +158,21 @@ const apiConfig: ApiConfig = {
                 500: "Ошибка сервера",
             },
             restrictions: {},
+        },
+        getOrders: {
+            url: "orders",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                }
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
         }
     },
 };

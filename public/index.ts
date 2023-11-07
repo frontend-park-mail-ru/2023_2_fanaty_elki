@@ -23,6 +23,8 @@ import CartController from "../src/controllers/CartController/CartController";
 import CartView from "../src/views/CartView/CartView";
 import CartModel from "../src/models/CartModel/CartModel";
 import OrderModel from "../src/models/OrderModel/OrderModel";
+import ProfileView from "../src/views/ProfileView/ProfileView";
+import ProfileController from "../src/controllers/ProfileController/ProfileController";
 
 const rootElement: HTMLElement = document.querySelector("#root")!;
 
@@ -39,10 +41,13 @@ const signupView = new SignUpView(rootElement, "Регистрация");
 const loginView = new LoginView(rootElement, "Войти");
 const restaurantView = new RestaurantView(rootElement, "Рестораны");
 const cartView = new CartView(rootElement, "Корзина");
+const profileView = new ProfileView(rootElement, "Профиль");
+
 const restaurantModel = new RestaurantModel();
 const dishModel = new DishModel();
 const cartModel = new CartModel(dishModel);
 const orderModel = new OrderModel();
+
 const mainController = new MainController(mainView, restaurantModel, userModel);
 const restaurantController = new RestaurantController(
     restaurantView,
@@ -54,6 +59,8 @@ const restaurantController = new RestaurantController(
 const signup_controller = new SignUpController(signupView, userModel);
 const login_controller = new LoginController(loginView, userModel);
 const cartController = new CartController(cartView, cartModel, dishModel, orderModel, userModel);
+const profileController = new ProfileController(userModel, orderModel, profileView);
+
 globalThis.router = new Router({
     [ROUTES.signup]: signup_controller,
     [ROUTES.login]: login_controller,
@@ -61,6 +68,7 @@ globalThis.router = new Router({
     [ROUTES.restaurants]: restaurantController,
     [ROUTES.default]: mainController,
     [ROUTES.cart]: cartController,
+    [ROUTES.profile]: profileController,
 });
 
 window.onpopstate = (event) => {

@@ -196,6 +196,17 @@ const Api = {
         checkResponse(response, config);
         const json = await response.json();
         return json.Body;
+    },
+
+    async getUserOrders() {
+        const config = apiConfig.api.getOrders;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
     }
 };
 
