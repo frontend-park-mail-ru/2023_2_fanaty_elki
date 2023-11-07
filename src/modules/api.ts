@@ -190,6 +190,16 @@ const Api = {
         return json.Body;
     },
 
+    async clearCart() {
+        const config = apiConfig.api.cartClear;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        return;
+    },
+
     async addDishToCart(dishId: number) {
         const config = apiConfig.api.cartAdd;
         const response = await ajax(

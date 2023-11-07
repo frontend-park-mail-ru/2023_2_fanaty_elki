@@ -48,6 +48,8 @@ export default class CartController implements IController {
         this.cartView.bindOrderClick(() => {
             const dishesId = this.cartModel.getDishesId();
             this.orderModel.createOrder(dishesId);
+            this.cartModel.clearCart();
+            router.redirect("/");
         });
     }
 

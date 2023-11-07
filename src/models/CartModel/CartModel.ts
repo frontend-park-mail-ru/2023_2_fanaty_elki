@@ -87,10 +87,14 @@ export default class CartModel {
     }
 
     async addDishToCart(dishId: number) {
-        Api.addDishToCart(dishId);
+        return Api.addDishToCart(dishId);
     }
 
     async removeDishFromCart(dishId: number) {
-        Api.removeDishFromCart(dishId);
+        return Api.removeDishFromCart(dishId);
+    }
+
+    async clearCart() {
+        return Api.clearCart();
     }
 }

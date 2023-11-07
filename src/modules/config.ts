@@ -185,6 +185,22 @@ const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
+        cartClear: {
+            url: "/cart/clear",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.POST,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
         dishGetById: {
             url: "/product",
             params: () => {
