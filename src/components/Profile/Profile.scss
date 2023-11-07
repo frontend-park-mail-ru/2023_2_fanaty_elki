@@ -1,0 +1,43 @@
+@use '../Button/Button.scss' as button;
+@use '../../../public/index.scss' as index;
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 41px;
+}
+
+.profile__header {
+    display: flex;
+    align-items: center;
+    gap: 55px;
+    align-self: stretch;
+}
+
+.profile__control {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+}
+
+.profile__control__field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+}
+
+.button_primary-green {
+    display: flex;
+    height: 65px;
+    padding: 10px 15px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    border-radius: 17px;
+    @include button.button-style($color: index.$gray, $background-color: index.$green, $border: none);
+}
