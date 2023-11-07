@@ -13,12 +13,8 @@
         "typeRoots": [
             "./types",
             "./node_modules/@types",
-            "./node_modules/handlebars/types",
-        ],
+            "./node_modules/handlebars/types"
+        ]
     },
-    "include": [
-        "public/index.ts",
-        "types/global.d.ts",
-        "src/**/*.ts"
-    ]
+    "include": ["public/index.ts", "types/global.d.ts", "src/**/*.ts"]
 }

@@ -60,8 +60,8 @@ export default class RestaurantController implements IController {
             console.log(e);
         }
         this.restaurantView.render();
-        this.restaurantView.getButtons().forEach(button => {
-            button.addEventListener('click', () => {
+        this.restaurantView.getButtons().forEach((button) => {
+            button.addEventListener("click", () => {
                 this.cartModel.addDish(Number(button.id));
             });
         });

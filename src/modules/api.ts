@@ -172,7 +172,7 @@ const Api = {
         const response = await ajax(
             `${apiConfig.backend}${config.url}`,
             config.params(String(dishId)),
-        )
+        );
         checkResponse(response, config);
         return;
     },
@@ -182,7 +182,7 @@ const Api = {
         const response = await ajax(
             `${apiConfig.backend}${config.url}`,
             config.params(String(dishId)),
-        )
+        );
         checkResponse(response, config);
         return;
     },

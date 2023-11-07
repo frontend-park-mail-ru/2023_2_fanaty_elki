@@ -28,7 +28,7 @@ export default class Router {
      * @param {string} path - путь на новую страницу
      */
     redirect(path: string, search?: string) {
-        window.history.pushState({}, "", path);
+        window.history.pushState({}, "", path + search);
         this.route(path, search);
     }
 

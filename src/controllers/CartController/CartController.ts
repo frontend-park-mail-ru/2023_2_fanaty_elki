@@ -5,7 +5,6 @@ import UserModel from "../../models/UserModel/UserModel";
 import CartView from "../../views/CartView/CartView";
 import IController from "../IController";
 
-
 export default class CartController implements IController {
     private cartModel: CartModel;
     private dishModel: DishModel;

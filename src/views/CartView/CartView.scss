@@ -1,5 +1,5 @@
 @use "../../components/Button/Button.scss" as button;
-@use '../../../public/index.scss' as index;
+@use "../../../public/index.scss" as index;
 
 .cart {
     display: flex;
@@ -55,5 +55,9 @@
     gap: 10px;
     align-self: stretch;
 
-    @include button.button-style($color: index.$gray, $background-color: index.$green, $border: none);
+    @include button.button-style(
+        $color: index.$gray,
+        $background-color: index.$green,
+        $border: none
+    );
 }

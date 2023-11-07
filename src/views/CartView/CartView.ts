@@ -19,13 +19,12 @@ export default class CartView extends IView {
     private addressChooser: Element;
     private paymentChooser: Element;
 
-    constructor(
-        parent_: HTMLElement,
-        title_: string,
-    ) {
+    constructor(parent_: HTMLElement, title_: string) {
         super(parent_, title_);
         const parser = new DOMParser();
-        this.element = parser.parseFromString(cartTemplate(0), "text/html").querySelector("#main")!;
+        this.element = parser
+            .parseFromString(cartTemplate(0), "text/html")
+            .querySelector("#main")!;
         this.cartList = this.element.querySelector(".cart__content__goods")!;
         this.addressChooser = this.element.querySelector(".address-chooser")!;
         this.paymentChooser = this.element.querySelector(".payment-chooser")!;
@@ -36,7 +35,9 @@ export default class CartView extends IView {
     }
 
     setCartSum(cartSum: number) {
-        this.element.querySelector(".cart__content__control__payment-approve__title")!.innerHTML = `Сумма заказа ${cartSum}₽`;
+        this.element.querySelector(
+            ".cart__content__control__payment-approve__title",
+        )!.innerHTML = `Сумма заказа ${cartSum}₽`;
     }
 
     updateCartList(list: any) {
@@ -44,6 +45,10 @@ export default class CartView extends IView {
     }
 
     updateAddress(address: string) {
-        (this.addressChooser!.querySelector(".address-chooser__control__input") as any).value = address;
+        (
+            this.addressChooser!.querySelector(
+                ".address-chooser__control__input",
+            ) as any
+        ).value = address;
     }
 }

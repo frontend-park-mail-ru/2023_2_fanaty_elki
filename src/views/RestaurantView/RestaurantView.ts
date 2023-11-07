@@ -52,11 +52,10 @@ export default class RestaurantView extends IView {
     }
 
     setRestaurantTitle(title: string) {
-        this.element.querySelector("#title")!.innerHTML =
-            title;
+        this.element.querySelector("#title")!.innerHTML = title;
     }
 
     getButtons() {
-        return this.element.querySelectorAll('.button_primary-green');
+        return this.element.querySelectorAll(".button_primary-green");
     }
 }
