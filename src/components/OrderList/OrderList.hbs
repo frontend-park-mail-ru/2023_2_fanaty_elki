@@ -1,0 +1,12 @@
+<div class="order-list">
+    <h2 class="order-list__title">Текущие заказы</h2>
+    {{#each items}}
+    <div class="order-list__item">
+        <div class="order-list__item__order-info">
+            <h2 class="order-list__item__order-info__order-num">Заказ {{ orderNum }}</h2>
+            <h2 class="order-list__item__order-info__order-sum">{{ orderSum }}₽</h2>
+        </div>
+        <h2 class="order-list__item__order-status">{{ orderStatus}}</h2>
+    </div>
+    {{/each}}
+</div>
