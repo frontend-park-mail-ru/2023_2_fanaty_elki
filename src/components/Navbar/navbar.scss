@@ -89,7 +89,6 @@
     border-radius: 44px;
     background-color: index.$green;
     border-width: 0;
-    cursor: not-allowed;
 }
 
 .navbar__fields__backet__icon {
@@ -127,6 +126,7 @@
     font-weight: 700;
     word-wrap: break-word;
     font-family: index.$font-family;
+    cursor: pointer;
 }
 
 .navbar__name-container__exit {

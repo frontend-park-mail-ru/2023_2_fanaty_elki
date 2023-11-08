@@ -115,6 +115,12 @@ export default class Navbar {
         this.bindLogoClick(() => {
             router.redirect("/");
         });
+        this.bindCartHandler(() => {
+            router.redirect("/cart");
+        })
+        this.bindUsernameHandler(() => {
+            router.redirect("/me");
+        })
         this.setNonAuthUser();
     }
 
@@ -184,6 +190,14 @@ export default class Navbar {
             ".navbar__fields__address__title",
         )!.innerHTML = pc;
         this.address.setAddress(pc);
+    }
+
+    bindCartHandler(handler: () => void) {
+        this.element.querySelector("#cart")?.addEventListener('click', handler);
+    }
+
+    bindUsernameHandler(handler: () => void) {
+        this.element.querySelector("#me")?.addEventListener('click', handler);
     }
 
     /**
