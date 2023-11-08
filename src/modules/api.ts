@@ -130,6 +130,7 @@ const Api = {
             Password: signup_data.password,
             Email: signup_data.email,
             PhoneNumber: Math.floor(Math.random() * 10000000) + "",
+            Icon: "img/defaultIcon.png",
         });
         const response = await ajax(
             `${apiConfig.backend}${signup_config.url}`,

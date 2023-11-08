@@ -16,6 +16,12 @@
     align-self: stretch;
 }
 
+.profile-info__header__image {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+}
+
 .profile-info__header__username {
     display: flex;
     align-items: center;
