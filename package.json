@@ -16,6 +16,7 @@
         "build-prod": "npm run build:types && npm run build:js-prod",
         "build-dev-tcs": "npm run build:types && npm run build:js-dev",
         "server": "node server/index.js",
+        "prod": "npm run build:js-prod && npm run server",
         "start": "npm run build:js-dev && npm run server"
     },
     "keywords": [],
