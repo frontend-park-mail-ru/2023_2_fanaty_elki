@@ -34,22 +34,18 @@ export class RestaurantModel extends IObservable {
 
     /**
      * Получение списка ресторанов
-     * @async
      * @returns {Restaurant[] | null} - список ресторанов
      */
-    async getRestaurants(): Promise<Restaurant[] | null> {
-        if (!this.restaurants) {
-            this.setRestaurantList(await Api.getRestaurants());
-        }
+    getRestaurants(): Restaurant[] | null {
         return this.restaurants;
     }
 
     /**
      * Установка списка ресторанов
-     * @param {Restaurant[]} restautants - список ресторанов
+     * @async
      */
-    setRestaurantList(restautants: Restaurant[]) {
-        this.restaurants = restautants;
+    async setRestaurantList() {
+        this.restaurants = await Api.getRestaurants();
         this.notifyObservers();
     }
 }
