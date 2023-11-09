@@ -1,4 +1,4 @@
-import RestaurantModel from "../../models/RestaurantModel/RestaurantModel";
+import RestaurantModel from "../../models/RestaurantModel";
 import UserModel from "../../models/UserModel/UserModel";
 import MainView from "../../views/MainView/MainView";
 import IController from "../IController";

@@ -9,7 +9,7 @@ import "../../components/RestaurantCard/RestaurantCard.scss";
 import restaurantsCategoryTemplate from "../../components/RestaurantsCategory/RestaurantsCategory.hbs";
 import "../../components/RestaurantsCategory/RestaurantsCategory.scss";
 
-import { RestaurantCategoryListObject } from "../../models/RestaurantModel/RestaurantModel";
+import { RestaurantCategoryListObject } from "../../models/RestaurantModel";
 
 /**
  * Представление главной страницы

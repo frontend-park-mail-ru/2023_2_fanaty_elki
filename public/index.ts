@@ -10,7 +10,7 @@ import SignUpView from "../src/views/SignUpView/SignUpView";
 import LoginView from "../src/views/LoginView/LoginView";
 import RestaurantView from "../src/views/RestaurantView/RestaurantView";
 
-import RestaurantModel from "../src/models/RestaurantModel/RestaurantModel";
+import RestaurantModel from "../src/models/RestaurantModel";
 import UserModel from "../src/models/UserModel/UserModel";
 import DishModel from "../src/models/DishModel/DishModel";
 

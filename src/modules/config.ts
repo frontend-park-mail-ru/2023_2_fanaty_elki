@@ -105,7 +105,7 @@ const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
-        restaurants_all: {
+        getRestaurants: {
             url: "/restaurants",
             params: () => {
                 return {
