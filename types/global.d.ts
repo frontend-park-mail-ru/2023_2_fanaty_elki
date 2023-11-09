@@ -1,11 +1,11 @@
-import { Router } from "../src/controllers/Router/Router";
-import Navbar from "../src/components/Navbar/Navbar";
-import UserModel from "../src/models/UserModel/UserModel";
+import { Model } from "../src/Model/Model";
+import { View } from "../src/View/app";
+
 declare global {
     module "*.hbs";
     module "*.ico";
-    var router: Router;
-    var navbar: Navbar;
-    var userModel: UserModel;
+    var model: Model;
+    var view: View;
+    var controller: Controller;
     const ymaps;
 }
