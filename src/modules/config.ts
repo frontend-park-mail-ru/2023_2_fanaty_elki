@@ -58,7 +58,7 @@ const apiConfig: ApiConfig = {
                 return {
                     method: REQUEST_METHOD.GET,
                     credentials: "include",
-                }
+                };
             },
             success: {
                 200: "OK",
@@ -256,7 +256,7 @@ const apiConfig: ApiConfig = {
                 return {
                     method: REQUEST_METHOD.GET,
                     credentials: "include",
-                }
+                };
             },
             success: {
                 200: "OK",
@@ -273,7 +273,7 @@ const apiConfig: ApiConfig = {
                     method: REQUEST_METHOD.POST,
                     credentials: "include",
                     body,
-                }
+                };
             },
             success: {
                 201: "OK",

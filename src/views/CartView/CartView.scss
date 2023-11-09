@@ -58,9 +58,11 @@
     align-self: stretch;
 
     border-radius: 17px;
-    @include button.button-style($color: index.$gray,
+    @include button.button-style(
+        $color: index.$gray,
         $background-color: index.$green,
-        $border: none);
+        $border: none
+    );
 
     $font-family: "Comfortaa";
     $font-size: 15px;

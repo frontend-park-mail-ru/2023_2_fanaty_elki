@@ -272,7 +272,7 @@ const Api = {
         checkResponse(response, config);
         const json = await response.json();
         return json.Body;
-    }
+    },
 };
 
 export { Api, ERROR_TYPE };

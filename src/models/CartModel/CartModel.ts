@@ -80,7 +80,7 @@ export default class CartModel {
                 Count: element.ItemCount,
                 incBtnId: `${element.Product.ID}-inc`,
                 Price: element.Product.Price,
-            })
+            });
         });
 
         return data;

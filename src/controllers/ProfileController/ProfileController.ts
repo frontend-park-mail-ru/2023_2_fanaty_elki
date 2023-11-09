@@ -22,7 +22,7 @@ export default class ProfileController implements IController {
     async start(params?: URLSearchParams | undefined) {
         this.profileView.mountNavbar();
         try {
-            const orders = await this.orderModel.getUserOrders() || {};
+            const orders = (await this.orderModel.getUserOrders()) || {};
             const user = await this.userModel.getCurrentUser();
 
             this.profileView.setUser(user);
