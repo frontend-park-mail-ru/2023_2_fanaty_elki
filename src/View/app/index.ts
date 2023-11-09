@@ -1,0 +1,1 @@
+export { initiateView } from "./View";
