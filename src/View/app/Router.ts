@@ -10,11 +10,15 @@ export class Router implements IObserver {
     }
     update() {
         const url = model.url;
+        this.route(url);
+    }
+    route(url: string) {
         const page = this.pages.get(url);
         if (!page) {
             console.log("wrong url");
             return;
         }
+        window.history.pushState({}, "", url);
         this.root.innerHTML = "";
         this.root.appendChild(page.element);
     }
