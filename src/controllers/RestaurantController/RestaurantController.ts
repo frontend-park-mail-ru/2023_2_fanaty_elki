@@ -4,7 +4,7 @@ import IController from "../IController";
 import UserModel from "../../models/UserModel/UserModel";
 import RestaurantModel, {
     Restaurant,
-} from "../../models/RestaurantModel/RestaurantModel";
+} from "../../models/RestaurantModel";
 import CartModel from "../../models/CartModel/CartModel";
 
 export default class RestaurantController implements IController {
