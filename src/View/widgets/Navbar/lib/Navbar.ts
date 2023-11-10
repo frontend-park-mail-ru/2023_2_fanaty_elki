@@ -8,8 +8,8 @@ export class Navbar extends IWidget {
     private userNameElement: HTMLElement;
     private signInButton: HTMLElement;
 
-    constructor(placeHolders: { search_ph: string; address: string }) {
-        super(navbarTemplate(placeHolders), ".navbar");
+    constructor() {
+        super(navbarTemplate(), ".navbar");
 
         model.userModel.addObserver(this);
 

@@ -13,10 +13,7 @@ export class MainPage extends Page {
     constructor() {
         super(MainTemplate(), "#main_page");
 
-        this.navbar = new Navbar({
-            search_ph: "Крошка-картошка",
-            address: "Укажите адрес",
-        });
+        this.navbar = new Navbar();
         this.r_list = new RestaurantsList();
         this.loginModal = new LoginModal();
 
