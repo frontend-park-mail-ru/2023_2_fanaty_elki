@@ -19,6 +19,7 @@ export class UserModel extends IObservable {
      * Пользователь
      */
     private user: User | null;
+    private errorMsg: string | null;
 
     /**
      * Конструктор
@@ -37,6 +38,13 @@ export class UserModel extends IObservable {
     }
 
     /**
+     * Получение сообщения об ошибке
+     */
+    getErrorMsg(): string | null {
+        return this.errorMsg;
+    }
+
+    /**
      * Авторизация по cookie
      * @async
      */
@@ -52,10 +60,15 @@ export class UserModel extends IObservable {
      * @param password - пароль
      */
     async login(username: string, password: string) {
-        this.user = await Api.loginUser({
-            username,
-            password,
-        });
+        try {
+            this.user = await Api.loginUser({
+                username,
+                password,
+            });
+            this.errorMsg = null;
+        } catch (e) {
+            this.errorMsg = (e as Error).message;
+        }
         this.notifyObservers();
     }
 
@@ -64,8 +77,13 @@ export class UserModel extends IObservable {
      * @async
      */
     async logout() {
-        await Api.logoutUser();
-        this.user = null;
+        try {
+            await Api.logoutUser();
+            this.user = null;
+            this.errorMsg = null;
+        } catch (e) {
+            this.errorMsg = (e as Error).message;
+        }
         this.notifyObservers;
     }
 }
