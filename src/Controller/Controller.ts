@@ -30,6 +30,13 @@ export class Controller {
                         .password,
                 );
                 break;
+            case VIEW_EVENT_TYPE.MODAL_CHANGE:
+                if ((event.data as string) === "open") {
+                    model.modalModel.open();
+                } else {
+                    model.modalModel.close();
+                }
+                break;
         }
     }
 }

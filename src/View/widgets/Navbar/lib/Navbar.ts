@@ -24,6 +24,7 @@ export class Navbar extends IWidget {
 
         this.bindLogoClick();
         this.bindAdressClick();
+        this.bindSingInClick();
     }
 
     update() {
@@ -57,6 +58,17 @@ export class Navbar extends IWidget {
                 data: ROUTES.main,
             });
         });
+    }
+
+    private bindSingInClick() {
+        this.element
+            .querySelector("#signin-button")!
+            .addEventListener("click", () => {
+                controller.handleEvent({
+                    type: VIEW_EVENT_TYPE.MODAL_CHANGE,
+                    data: "open",
+                });
+            });
     }
 
     private bindAdressClick() {

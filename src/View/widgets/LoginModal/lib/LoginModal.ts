@@ -19,9 +19,10 @@ export class LoginModal extends IWidget {
     private passwordInput: HTMLInputElement;
 
     constructor() {
-        super(loginModalTemplate(), ".login-form");
+        super(loginModalTemplate(), ".modal");
 
         model.userModel.addObserver(this);
+        model.modalModel.addObserver(this);
 
         this.submitButton = <HTMLElement>this.element.querySelector("#submit");
         this.registrationButton = <HTMLElement>(
@@ -40,11 +41,17 @@ export class LoginModal extends IWidget {
         this.bindSubmitClick();
         this.bindRegistrationButtonClick();
         this.bindCloseClick();
+        this.bindOuterModalClick();
     }
 
     update() {
         if (model.userModel.getErrorMsg()) {
             this.messageBox.innerText = model.userModel.getErrorMsg() as string;
+        }
+        if (model.modalModel.getIsOpened()) {
+            this.element.classList.add("open");
+        } else {
+            this.element.classList.remove("open");
         }
     }
 
@@ -74,12 +81,30 @@ export class LoginModal extends IWidget {
 
     bindRegistrationButtonClick() {
         this.registrationButton.addEventListener("click", () => {
-            controller.handleEvent({});
+            controller.handleEvent({
+                type: VIEW_EVENT_TYPE.MODAL_CHANGE,
+                data: "close",
+            });
         });
     }
 
     bindCloseClick() {
         this.element.querySelector("#close")!.addEventListener("click", () => {
+            controller.handleEvent({
+                type: VIEW_EVENT_TYPE.MODAL_CHANGE,
+                data: "close",
+            });
+        });
+    }
+
+    bindOuterModalClick() {
+        this.element
+            .querySelector(".modal__box")!
+            .addEventListener("click", (event: any) => {
+                event._isClickWithInModal = true;
+            });
+        this.element.addEventListener("click", (event: any) => {
+            if (event._isClickWithInModal) return;
             controller.handleEvent({
                 type: VIEW_EVENT_TYPE.MODAL_CHANGE,
                 data: "close",
