@@ -8,17 +8,18 @@ export class Router implements IObserver {
     ) {
         model.URLModel.addObserver(this);
     }
+
     update() {
         const url = model.URLModel.getURL();
         this.route(url);
     }
+
     route(url: string) {
         const page = this.pages.get(url);
         if (!page) {
             console.log("wrong url");
             return;
         }
-        console.log(page.element.innerHTML);
         window.history.pushState({}, "", url);
         this.root.innerHTML = "";
         this.root.appendChild(page.element);

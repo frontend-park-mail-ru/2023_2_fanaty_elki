@@ -11,11 +11,14 @@ export class View extends IObservable {
     constructor() {
         super();
         this.root = <HTMLElement>document.querySelector("#root")!;
+
         this.mainPage = new MainPage();
+
         const routes = new Map<string, Page>([
             [ROUTES.main, this.mainPage],
             [ROUTES.default, this.mainPage],
         ]);
+
         this.router = new Router(routes, this.root);
         window.onpopstate = (event) => {
             event.preventDefault();

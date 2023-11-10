@@ -10,25 +10,31 @@ export class Navbar extends IWidget {
 
     constructor(placeHolders: { search_ph: string; address: string }) {
         super(navbarTemplate(placeHolders), ".navbar");
+
+        model.userModel.addObserver(this);
+
         this.userNameElement = <HTMLElement>(
             this.element.querySelector("#name-container")
         );
         this.signInButton = <HTMLElement>(
             this.element.querySelector("#signin-button")
         );
-        this.bindLogoClick(() => {
-            controller.handleEvent({
-                type: ViewEventType.URL_CHANGE,
-                data: ROUTES.main,
-            });
-        });
+
+        this.bindLogoClick();
         this.setNonAuthUser();
     }
 
-    update() {}
+    update() {
+        const user = model.userModel.getUser();
+        if (user) {
+            this.setAuthUser(user.Username);
+        } else {
+            this.setNonAuthUser();
+        }
+    }
 
-    private setAuthUser(userName: string) {
-        this.userNameElement.firstElementChild!.innerHTML = userName;
+    private setAuthUser(username: string) {
+        this.userNameElement.firstElementChild!.innerHTML = username;
         this.element.appendChild(this.userNameElement);
         if (this.signInButton.parentNode) {
             this.element.removeChild(this.signInButton);
@@ -42,7 +48,12 @@ export class Navbar extends IWidget {
         }
     }
 
-    private bindLogoClick(handler: () => void) {
-        this.element.querySelector("#logo")!.addEventListener("click", handler);
+    private bindLogoClick() {
+        this.element.querySelector("#logo")!.addEventListener("click", () => {
+            controller.handleEvent({
+                type: ViewEventType.URL_CHANGE,
+                data: ROUTES.main,
+            });
+        });
     }
 }
