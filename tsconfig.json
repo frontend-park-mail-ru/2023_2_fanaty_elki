@@ -16,5 +16,6 @@
             "./node_modules/handlebars/types"
         ]
     },
-    "include": ["public/index.ts", "types/global.d.ts", "src/**/*.ts"]
+    "include": ["public/index.ts", "types/global.d.ts", "src/**/*.ts"],
+    "exclude": ["src/views", "src/components", "src/controllers", "src/models"]
 }

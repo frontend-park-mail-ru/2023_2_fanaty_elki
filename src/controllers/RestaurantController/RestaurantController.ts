@@ -2,9 +2,7 @@ import DishModel from "../../models/DishModel/DishModel";
 import RestaurantView from "../../views/RestaurantView/RestaurantView";
 import IController from "../IController";
 import UserModel from "../../models/UserModel/UserModel";
-import RestaurantModel, {
-    Restaurant,
-} from "../../models/RestaurantModel";
+import RestaurantModel, { Restaurant } from "../../models/RestaurantModel";
 import CartModel from "../../models/CartModel/CartModel";
 
 export default class RestaurantController implements IController {

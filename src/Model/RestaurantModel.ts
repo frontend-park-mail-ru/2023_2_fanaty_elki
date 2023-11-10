@@ -45,7 +45,9 @@ export class RestaurantModel extends IObservable {
      * @async
      */
     async setRestaurantList() {
-        this.restaurants = await Api.getRestaurants();
+        const response = await Api.getRestaurants();
+        console.log(response);
+        this.restaurants = response.restaurants;
         this.notifyObservers();
     }
 }

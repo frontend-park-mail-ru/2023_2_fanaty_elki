@@ -1,3 +1,4 @@
+import { Controller } from "../src/Controller/Controller";
 import { Model } from "../src/Model/Model";
 import { View } from "../src/View/app";
 

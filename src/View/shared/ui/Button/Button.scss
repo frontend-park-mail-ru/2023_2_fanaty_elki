@@ -1,6 +1,10 @@
-@use '../../../public/index.scss' as index;
+@use "../../../public/index.scss" as index;
 
-@mixin button-style($color: index.$white, $background-color: index.$gray, $border: none) {
+@mixin button-style(
+    $color: index.$white,
+    $background-color: index.$gray,
+    $border: none
+) {
     color: $color;
     background-color: $background-color;
     border: $border;
@@ -29,11 +33,19 @@
 
     &_secondary {
         @extend .button;
-        @include button-style($color: index.$gray, $background-color: index.$white, $border: 1px solid #333);
+        @include button-style(
+            $color: index.$gray,
+            $background-color: index.$white,
+            $border: 1px solid #333
+        );
     }
 
     &_primary-green {
         @extend .button;
-        @include button-style($color: index.$gray, $background-color: index.$green, $border: none);
+        @include button-style(
+            $color: index.$gray,
+            $background-color: index.$green,
+            $border: none
+        );
     }
 }

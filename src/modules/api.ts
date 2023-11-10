@@ -1,4 +1,3 @@
-import { Restaurant } from "../models/RestaurantModel";
 import apiConfig from "./config";
 
 enum ERROR_TYPE {
@@ -159,7 +158,7 @@ const Api = {
      * Отправляет на сервер запрос на получение списка ресторанов
      * @async
      */
-    async getRestaurants(): Promise<Restaurant[]> {
+    async getRestaurants() {
         const config = apiConfig.api.getRestaurants;
         const response = await ajax(
             `${apiConfig.backend}${config.url}`,

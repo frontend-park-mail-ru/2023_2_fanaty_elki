@@ -5,15 +5,10 @@ export abstract class IHTMLElement {
     get element() {
         return this.element_;
     }
-}
-
-export abstract class IWidget extends IHTMLElement implements IObserver {}
-
-export abstract class Page extends IHTMLElement {
     constructor(template: string, element_id: string) {
         const parser = new DOMParser();
         const element: HTMLElement | null = parser
-            .parseFromString(MainTemplate(), "text/html")
+            .parseFromString(template, "text/html")
             .querySelector(element_id);
 
         if (!element) {
@@ -23,6 +18,10 @@ export abstract class Page extends IHTMLElement {
         this.element_ = element;
     }
 }
+
+export abstract class IWidget extends IHTMLElement implements IObserver {}
+
+export abstract class Page extends IHTMLElement {}
 
 export enum EventType {
     REDIRECT = "REDIRECT",

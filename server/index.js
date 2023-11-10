@@ -21,7 +21,7 @@ const users = [];
 const sessions = new Map();
 
 app.get('/main', (req, res) => {
-    return res.status(200).end();
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
 });
 
 app.get('/', (req, res) => {

@@ -1,0 +1,26 @@
+<div class="navbar">
+    <img class="navbar__logo" id="logo" src="img/logo.svg" alt="Logo">
+    <div class="navbar__fields">
+        <form class="navbar__fields__search">
+            <input class="navbar__fields__search__input" type="search" placeholder="{{search_ph}}" disabled>
+        </form>
+        <button class="navbar__fields__address" id="address-button" type="button" value="">
+            <img class="navbar__fields__address__icon" src="img/navigate.svg" alt="">
+            <p class="navbar__fields__address__title">{{address}}</p>
+        </button>
+        <button id="cart" class="navbar__fields__backet" type="button" value="">
+            <img class="navbar__fields__backet__icon" src="img/shop_basket.svg" alt="">
+        </button>
+    </div>
+    <button class="navbar__signin" id="signin-button" type="button" value="">
+        <p class="navbar__signin__title">Войти</p>
+    </button>
+    <div class="navbar__name-container" id="name-container">
+        <p id="me" class="navbar__name-container__name">{{name}}</p>
+        <button class="navbar__name-container__exit" id="exit-button" type="button" value="">
+            <img class="navbar__name-container__exit__icon" src="img/door-exit.svg" alt="">
+        </button>
+    </div>
+    <div class="modal" id="address-modal">
+    </div>
+</div>

@@ -15,4 +15,8 @@ export class Model extends IObservable {
         this.restaurantModel_ = new RestaurantModel();
         this.url_ = "/";
     }
+    updateUrl(url: string) {
+        this.url_ = url;
+        this.notifyObservers();
+    }
 }

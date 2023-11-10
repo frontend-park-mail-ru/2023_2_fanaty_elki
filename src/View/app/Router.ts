@@ -18,6 +18,7 @@ export class Router implements IObserver {
             console.log("wrong url");
             return;
         }
+        console.log(page.element.innerHTML);
         window.history.pushState({}, "", url);
         this.root.innerHTML = "";
         this.root.appendChild(page.element);
