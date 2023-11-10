@@ -11,12 +11,12 @@ export type ViewEvent = {
 
 export class Controller {
     handleEvent(event: ViewEvent) {
-        console.log("controller", event.data);
+        console.log("Сontroller event", event);
         if (event.type == ViewEventType.URL_CHANGE) {
             if (event.data == ROUTES.main) {
                 model.restaurantModel.setRestaurantList();
             }
-            model.updateUrl(event.data);
+            model.URLModel.setURL(event.data);
         }
     }
 }

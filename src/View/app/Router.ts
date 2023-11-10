@@ -6,10 +6,10 @@ export class Router implements IObserver {
         private pages: Map<string, Page>,
         private root: HTMLElement,
     ) {
-        model.addObserver(this);
+        model.URLModel.addObserver(this);
     }
     update() {
-        const url = model.url;
+        const url = model.URLModel.getURL();
         this.route(url);
     }
     route(url: string) {

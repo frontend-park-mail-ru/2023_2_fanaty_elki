@@ -1,22 +1,21 @@
 import { RestaurantModel } from "./RestaurantModel";
 import { IObservable } from "../modules/observer";
+import { URLModel } from "./UrlModel";
 
 export class Model extends IObservable {
     private restaurantModel_: RestaurantModel;
-    private url_: string;
+    private URLModel_: URLModel;
+
     get restaurantModel() {
         return this.restaurantModel_;
     }
-    get url() {
-        return this.url_;
+    get URLModel() {
+        return this.URLModel_;
     }
+
     constructor() {
         super();
         this.restaurantModel_ = new RestaurantModel();
-        this.url_ = "/";
-    }
-    updateUrl(url: string) {
-        this.url_ = url;
-        this.notifyObservers();
+        this.URLModel_ = new URLModel();
     }
 }
