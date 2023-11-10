@@ -5,11 +5,11 @@ export abstract class IHTMLElement {
     get element() {
         return this.element_;
     }
-    constructor(template: string, element_id: string) {
+    constructor(template: string, selector: string) {
         const parser = new DOMParser();
         const element: HTMLElement | null = parser
             .parseFromString(template, "text/html")
-            .querySelector(element_id);
+            .querySelector(selector);
 
         if (!element) {
             console.log("error");
