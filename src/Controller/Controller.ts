@@ -13,7 +13,7 @@ export class Controller {
     handleEvent(event: ViewEvent) {
         console.log("Сontroller event", event);
         if (event.type == ViewEventType.URL_CHANGE) {
-            if (event.data == ROUTES.main) {
+            if (event.data == ROUTES.main || event.data == ROUTES.default) {
                 model.restaurantModel.setRestaurantList();
             }
             model.URLModel.setURL(event.data);
