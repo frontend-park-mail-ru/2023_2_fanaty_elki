@@ -25,6 +25,11 @@ export class RestaurantModel extends IObservable {
     private restaurants: Restaurant[] | null;
 
     /**
+     * Сообщение об ошибке
+     */
+    private errorMsg: string | null;
+
+    /**
      * Конструктор
      */
     constructor() {
@@ -45,9 +50,12 @@ export class RestaurantModel extends IObservable {
      * @async
      */
     async setRestaurantList() {
-        const response = await Api.getRestaurants();
-        console.log("Список ресторанов", response);
-        this.restaurants = response.restaurants;
+        try {
+            this.restaurants = await Api.getRestaurants();
+            this.errorMsg = null;
+        } catch (e) {
+            this.errorMsg = (e as Error).message;
+        }
         this.notifyObservers();
     }
 }
