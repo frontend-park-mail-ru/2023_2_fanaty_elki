@@ -1,18 +1,19 @@
 import { ROUTES } from "../config";
 
-export enum ViewEventType {
+export enum VIEW_EVENT_TYPE {
     URL_CHANGE = "URL_CHANGE",
+    MODAL_CHANGE = "MODAL_CHANGE",
 }
 
 export type ViewEvent = {
-    type: ViewEventType;
+    type: VIEW_EVENT_TYPE;
     data: string;
 };
 
 export class Controller {
     handleEvent(event: ViewEvent) {
         console.log("Сontroller event", event);
-        if (event.type == ViewEventType.URL_CHANGE) {
+        if (event.type == VIEW_EVENT_TYPE.URL_CHANGE) {
             if (event.data == ROUTES.main || event.data == ROUTES.default) {
                 model.restaurantModel.setRestaurantList();
             }
