@@ -1,7 +1,7 @@
 import { IWidget } from "../../../types";
 import navbarTemplate from "../ui/Navbar.hbs";
 import "../ui/Navbar.scss";
-import { ViewEventType } from "../../../../Controller/Controller";
+import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { ROUTES } from "../../../../config";
 
 export class Navbar extends IWidget {
@@ -20,8 +20,10 @@ export class Navbar extends IWidget {
             this.element.querySelector("#signin-button")
         );
 
-        this.bindLogoClick();
         this.setNonAuthUser();
+
+        this.bindLogoClick();
+        this.bindAdressClick();
     }
 
     update() {
@@ -51,9 +53,20 @@ export class Navbar extends IWidget {
     private bindLogoClick() {
         this.element.querySelector("#logo")!.addEventListener("click", () => {
             controller.handleEvent({
-                type: ViewEventType.URL_CHANGE,
+                type: VIEW_EVENT_TYPE.URL_CHANGE,
                 data: ROUTES.main,
             });
         });
+    }
+
+    private bindAdressClick() {
+        this.element
+            .querySelector("#address-modal")!
+            .addEventListener("click", () => {
+                controller.handleEvent({
+                    type: VIEW_EVENT_TYPE.MODAL_CHANGE,
+                    data: "open",
+                });
+            });
     }
 }
