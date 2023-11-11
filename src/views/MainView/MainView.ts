@@ -78,7 +78,7 @@ export class MainView extends IView {
      * Обновляет содержимое списка ресторанов
      * @param {Object} list  - новый список ресторанов
      */
-    updateList(list: Restaurant[]) {
+    updateList(list: any) {
         this.element.querySelector("#categories")!.innerHTML =
             categoryTemplate(list);
     }

@@ -29,7 +29,7 @@ type Config = {
 
 export const config: Config = {
     // backend: "http://84.23.53.216:8001",
-    backend: "http://127.0.0.1:3000",
+    backend: "http://localhost:8080/api",
     api: {
         auth: {
             url: "/auth",
@@ -109,7 +109,6 @@ export const config: Config = {
             params: () => {
                 return {
                     method: REQUEST_METHOD.GET,
-                    credentials: "include",
                 };
             },
             success: {

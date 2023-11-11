@@ -79,7 +79,14 @@ export async function loginUser(login_data: LoginData) {
  */
 export async function createUser(signup_data: SignUpData) {
     const signup_config: ApiElement = config.api.signup;
-    const body = JSON.stringify(signup_data);
+    const body = JSON.stringify({
+        Username: signup_data.username,
+        Password: signup_data.password,
+        Email: signup_data.email,
+        PhoneNumber: "+79991230011",
+        Birthday: "2023-12-12",
+        Icon: "deficon",
+    });
     const response = await ajax(
         `${config.backend}${signup_config.url}`,
         signup_config.params(body),

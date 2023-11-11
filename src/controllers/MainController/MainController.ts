@@ -58,10 +58,8 @@ export class MainController extends IController {
         }
         try {
             const list = await this.restaurantModel.getAll();
-            list.restaurants.forEach((element: Restaurant) => {
-                element.DeliveryTimeMax = element.DeliveryTime + 10; // грязый хак
-            });
-            this.mainView.updateList(list);
+            console.log(list);
+            this.mainView.updateList({ restaurants: list });
         } catch (e) {
             console.log(e);
         }
