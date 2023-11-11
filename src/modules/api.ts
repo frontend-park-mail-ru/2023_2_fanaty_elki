@@ -78,12 +78,22 @@ export async function loginUser(login_data: LoginData) {
  * @param {Object} signup_data - данные пользователя
  */
 export async function createUser(signup_data: SignUpData) {
+    const getRandomInt = (max) => {
+        return Math.floor(Math.random() * max);
+    };
+    const randTelNum = () => {
+        let telNum = "+79";
+        for (let i = 0; i < 9; i++) {
+            telNum += String(getRandomInt(10));
+        }
+        return telNum;
+    };
     const signup_config: ApiElement = config.api.signup;
     const body = JSON.stringify({
         Username: signup_data.username,
         Password: signup_data.password,
         Email: signup_data.email,
-        PhoneNumber: "+79991230011",
+        PhoneNumber: randTelNum(),
         Birthday: "2023-12-12",
         Icon: "deficon",
     });
