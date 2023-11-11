@@ -17,7 +17,17 @@
     background: index.$white;
 }
 
-.login-form__close {
+.login-form__control__back {
+    position: relative;
+    top: 5px;
+    left: -140px;
+    height: 15px;
+    width: 15px;
+
+    cursor: pointer;
+}
+
+.login-form__control__close {
     position: relative;
     top: 5px;
     left: 160px;

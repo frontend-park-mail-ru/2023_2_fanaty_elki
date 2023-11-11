@@ -1,10 +1,13 @@
-<div class="signup-form" id="signup">
-    <img class="signup-form__close" id="close" src="img/Cross.svg" alt="" srcset="">
-    <div class="signup-form__header">
-        <img class="signup-form__header__logo" src="img/Принеси&Подай.svg" alt="Закрыть" srcset="">
-        <div class="signup-form__header__title">Создайте аккаунт</div>
+<div id="reg-user-page">
+    <div class="login-form__control">
+        <img class="login-form__control__back" id="back" src="img/ArrowBack.svg" alt="" srcset="">
+        <img class="login-form__control__close" id="close" src="img/Cross.svg" alt="" srcset="">
     </div>
-    <form class="signup-form__form" id="form">
+    <div class="login-form__header">
+        <img class="login-form__header__logo" src="img/Принеси&Подай.svg" alt="Закрыть" srcset="">
+        <div id="form-title" class="login-form__header__title">Создайте аккаунт</div>
+    </div>
+    <form class="login-form__form" id="form">
         <div class="signup-form__form__input-container" id="input-container">
             <div class="signup-form__form__input-container__msg" id="msg"></div>
             <div class="input-with-msg" id="input-div-email">
@@ -15,22 +18,22 @@
             <div class="input-with-msg" id="input-div-username">
                 <div class="input-with-msg__msg_default"></div>
                 <input class="input-with-msg__input_default" type="text" name="username" id="username"
-                    placeholder="имя пользователя" value="" autocomplete="username">
+                    placeholder="имя пользователя" value="" autocomplete="off">
             </div>
             <div class="input-with-msg" id="input-div-password">
                 <div class="input-with-msg__msg_default"></div>
                 <input class="input-with-msg__input_default" type="password" name="password" id="password"
-                    placeholder="пароль" value="" autocomplete="new-password">
+                    placeholder="пароль" value="" autocomplete="on">
             </div>
             <div class="input-with-msg" id="input-div-passwordconfirm">
                 <div class="input-with-msg__msg_default"></div>
                 <input class="input-with-msg__input_default" type="password" name="passwordconfirm" id="passwordconfirm"
-                    placeholder="повторите пароль" value="" autocomplete="new-password">
+                    placeholder="повторите пароль" value="" autocomplete="on">
             </div>
         </div>
         <div class="signup-form__form__button-container" id="button-container">
-            <button class="button_primary" type="button" id="next">Далее</button><button
-                class="button_secondary" type="button" id="auth">Уже есть аккаунт?</button>
+            <button class="button_primary" type="button" id="next">Далее</button><button class="button_secondary"
+                type="button" id="auth">Уже есть аккаунт?</button>
         </div>
     </form>
 </div>
