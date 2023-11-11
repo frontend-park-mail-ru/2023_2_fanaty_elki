@@ -1,16 +1,12 @@
 import type { Page } from "../types.d";
-import type { IObserver } from "../../modules/observer";
 
-export class Router implements IObserver {
+export class Router {
     constructor(
         private pages: Map<string, Page>,
         private root: HTMLElement,
-    ) {
-        model.URLModel.addObserver(this);
-    }
+    ) {}
 
-    update() {
-        const url = model.URLModel.getURL();
+    redirect(url: string) {
         window.history.pushState({}, "", url);
         this.route(url);
     }
@@ -21,6 +17,7 @@ export class Router implements IObserver {
             console.log("wrong url");
             return;
         }
+        page.load();
         this.root.innerHTML = "";
         this.root.appendChild(page.element);
     }

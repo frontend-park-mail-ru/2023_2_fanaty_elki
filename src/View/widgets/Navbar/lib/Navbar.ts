@@ -1,17 +1,23 @@
+import { UIEvent, UIEventType } from "../../../../config";
+import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { IWidget } from "../../../types";
 import navbarTemplate from "../ui/Navbar.hbs";
 import "../ui/Navbar.scss";
-import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
-import { ROUTES } from "../../../../config";
 
-export class Navbar extends IWidget {
+export class Navbar extends IWidget implements Listenable<UIEvent> {
     private userNameElement: HTMLElement;
     private signInButton: HTMLElement;
 
+    private events_: EventDispatcher<UIEvent>;
+    get events(): EventDispatcher<UIEvent> {
+        return this.events_;
+    }
+
     constructor() {
         super(navbarTemplate(), ".navbar");
+        this.events_ = new EventDispatcher<UIEvent>();
 
-        model.userModel.addObserver(this);
+        model.userModel.events.subscribe(this.update.bind(this));
 
         this.userNameElement = <HTMLElement>(
             this.element.querySelector("#name-container")
@@ -20,11 +26,35 @@ export class Navbar extends IWidget {
             this.element.querySelector("#signin-button")
         );
 
+        this.bindEvents();
         this.setNonAuthUser();
+    }
 
-        this.bindLogoClick();
-        this.bindAdressClick();
-        this.bindSingInClick();
+    private bindEvents() {
+        this.element.querySelector("#logo")!.addEventListener("click", () => {
+            this.events.notify({ type: UIEventType.NAVBAR_LOGO_CLICK });
+        });
+        this.element
+            .querySelector("#address-button")!
+            .addEventListener("click", () => {
+                this.events.notify({ type: UIEventType.NAVBAR_ADDRESS_CLICK });
+            });
+        this.element.querySelector("#cart")!.addEventListener("click", () => {
+            this.events.notify({ type: UIEventType.NAVBAR_CART_CLICK });
+        });
+        this.element
+            .querySelector("#signin-button")!
+            .addEventListener("click", () => {
+                this.events.notify({ type: UIEventType.NAVBAR_SIGNIN_CLICK });
+            });
+        this.element.querySelector("#me")!.addEventListener("click", () => {
+            this.events.notify({ type: UIEventType.NAVBAR_NAME_CLICK });
+        });
+        this.element
+            .querySelector("#exit-button")!
+            .addEventListener("click", () => {
+                this.events.notify({ type: UIEventType.NAVBAR_EXIT_CLICK });
+            });
     }
 
     update() {
@@ -51,34 +81,5 @@ export class Navbar extends IWidget {
         }
     }
 
-    private bindLogoClick() {
-        this.element.querySelector("#logo")!.addEventListener("click", () => {
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.URL_CHANGE,
-                data: ROUTES.main,
-            });
-        });
-    }
-
-    private bindSingInClick() {
-        this.element
-            .querySelector("#signin-button")!
-            .addEventListener("click", () => {
-                controller.handleEvent({
-                    type: VIEW_EVENT_TYPE.MODAL_CHANGE,
-                    data: "open",
-                });
-            });
-    }
-
-    private bindAdressClick() {
-        this.element
-            .querySelector("#address-modal")!
-            .addEventListener("click", () => {
-                controller.handleEvent({
-                    type: VIEW_EVENT_TYPE.MODAL_CHANGE,
-                    data: "open",
-                });
-            });
-    }
+    load() {}
 }
