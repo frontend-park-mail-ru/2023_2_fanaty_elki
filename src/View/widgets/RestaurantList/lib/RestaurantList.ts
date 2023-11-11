@@ -11,6 +11,6 @@ export class RestaurantsList extends IWidget {
 
     update() {
         const r_list = model.restaurantModel.getRestaurants()!;
-        this.element.outerHTML = restaurantsTemplate(r_list);
+        this.element.innerHTML = restaurantsTemplate(r_list);
     }
 }

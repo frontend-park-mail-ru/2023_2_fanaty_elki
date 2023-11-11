@@ -19,8 +19,11 @@ export class View extends IObservable {
             [ROUTES.default, this.mainPage],
         ]);
 
+        console.log(routes.get(ROUTES.main) === routes.get(ROUTES.default));
+
         this.router = new Router(routes, this.root);
         window.onpopstate = (event) => {
+            console.log(11);
             event.preventDefault();
             this.router.route(window.location.pathname);
         };

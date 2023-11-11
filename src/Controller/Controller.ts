@@ -16,8 +16,14 @@ export class Controller {
         console.log("Сontroller event", event);
         switch (event.type) {
             case VIEW_EVENT_TYPE.URL_CHANGE:
-                if (event.data == ROUTES.main || event.data == ROUTES.default) {
-                    model.restaurantModel.setRestaurantList();
+                switch (event.data) {
+                    case ROUTES.default:
+                    case ROUTES.main:
+                        model.restaurantModel.setRestaurantList();
+                        break;
+
+                    default:
+                        break;
                 }
                 model.URLModel.setURL(event.data as string);
                 break;

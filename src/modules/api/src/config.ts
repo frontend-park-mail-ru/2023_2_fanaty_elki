@@ -7,7 +7,7 @@ enum REQUEST_METHOD {
     PATCH = "PATCH",
 }
 
-const apiConfig: ApiConfig = {
+export const apiConfig: ApiConfig = {
     // backend: "http://84.23.53.216:8080/api",
     backend: "http://127.0.0.1:8080/api",
     api: {
@@ -286,5 +286,3 @@ const apiConfig: ApiConfig = {
         },
     },
 };
-
-export default apiConfig;

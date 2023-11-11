@@ -1,4 +1,4 @@
-import apiConfig from "./config";
+import { apiConfig } from "./config";
 
 enum ERROR_TYPE {
     FAILURE,

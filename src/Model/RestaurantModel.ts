@@ -1,4 +1,4 @@
-import { Api } from "../modules/api";
+import { Api } from "../modules/api/src/api";
 import { IObservable } from "../modules/observer";
 
 export type Restaurant = {

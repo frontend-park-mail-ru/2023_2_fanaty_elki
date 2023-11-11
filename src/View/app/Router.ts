@@ -11,6 +11,7 @@ export class Router implements IObserver {
 
     update() {
         const url = model.URLModel.getURL();
+        window.history.pushState({}, "", url);
         this.route(url);
     }
 
@@ -20,7 +21,6 @@ export class Router implements IObserver {
             console.log("wrong url");
             return;
         }
-        window.history.pushState({}, "", url);
         this.root.innerHTML = "";
         this.root.appendChild(page.element);
     }
