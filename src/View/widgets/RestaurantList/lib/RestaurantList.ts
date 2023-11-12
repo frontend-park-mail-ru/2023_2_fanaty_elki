@@ -32,15 +32,13 @@ export class RestaurantsList extends IWidget implements Listenable<UIEvent> {
     }
 
     update() {
-        console.log(this);
-        console.log(this.element);
         const r_list = model.restaurantModel.getRestaurants()!;
         this.element.innerHTML = restaurantsTemplate(r_list);
         this.element.querySelectorAll(".restaurant-card").forEach((element) =>
-            element.addEventListener("click", (event) => {
+            element.addEventListener("click", () => {
                 this.events.notify({
                     type: UIEventType.RESTAURANT_CLICK,
-                    data: (<HTMLElement>event.currentTarget).id,
+                    data: element.id,
                 });
             }),
         );

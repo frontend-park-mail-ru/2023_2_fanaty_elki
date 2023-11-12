@@ -175,6 +175,17 @@ const Api = {
         return json.Body;
     },
 
+    async getDishes(restaurantId: number) {
+        const config = apiConfig.api.dishes;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}/${restaurantId}/products`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
     async getCart() {
         const config = apiConfig.api.getCart;
         const response = await ajax(

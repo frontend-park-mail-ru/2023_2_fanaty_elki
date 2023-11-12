@@ -12,6 +12,7 @@ export type User = {
 
 export const enum UserEvent {
     USER_CHANGE = "USER_CHANGE",
+    ADDRESS_CHANGE = "ADDRESS_CHANGE",
 }
 
 /**
@@ -23,7 +24,9 @@ export class UserModel implements Listenable<UserEvent> {
      * Пользователь
      */
     private user: User | null;
+    private address: string;
     private errorMsg: string | null;
+
     private events_: EventDispatcher<UserEvent>;
     get events(): EventDispatcher<UserEvent> {
         return this.events_;
@@ -102,5 +105,14 @@ export class UserModel implements Listenable<UserEvent> {
             this.errorMsg = (e as Error).message;
         }
         this.events.notify();
+    }
+
+    setAddress(address: string) {
+        this.address = address;
+        this.events.notify(UserEvent.ADDRESS_CHANGE);
+    }
+
+    getAddress() {
+        return this.address;
     }
 }
