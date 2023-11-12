@@ -136,6 +136,21 @@ export const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
+        dishes: {
+            url: "/restaurants",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
         getCart: {
             url: "/cart",
             params: () => {

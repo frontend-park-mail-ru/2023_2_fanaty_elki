@@ -1,6 +1,8 @@
 export enum VIEW_EVENT_TYPE {
     LOGIN = "LOGIN",
     RESTAURANTS_UPDATE = "RESTAURANTS_UPDATE",
+    ADD_DISH = "ADD_DISH",
+    RESTAURANT_UPDATE = "RESTAURANT_UPDATE",
 }
 
 export type ViewEvent = {
@@ -14,6 +16,9 @@ export class Controller {
         switch (event.type) {
             case VIEW_EVENT_TYPE.RESTAURANTS_UPDATE:
                 model.restaurantModel.setRestaurantList();
+                break;
+            case VIEW_EVENT_TYPE.RESTAURANT_UPDATE:
+                model.restaurantModel.setRestaurant(<number>event.data);
                 break;
             case VIEW_EVENT_TYPE.LOGIN:
                 model.userModel.login(

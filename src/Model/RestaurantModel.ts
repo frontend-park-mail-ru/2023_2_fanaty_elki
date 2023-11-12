@@ -13,8 +13,33 @@ export type Restaurant = {
     CommentsCount: number;
 };
 
+export type Dish = {
+    ID: number;
+    Name: string;
+    Price: number;
+    CookingTime: number;
+    Portion: string;
+    Description: string;
+    Icon: string;
+};
+
+export type Category = {
+    MenuType: {
+        ID: number;
+        Name: string;
+        RestaurantID: number;
+    };
+    Products: Dish[];
+};
+
+export type RestaurantWithCategories = {
+    RestaurantInfo: Restaurant;
+    Categories: Category[];
+};
+
 export enum RestaurantEvent {
-    LOADED = "LOADED",
+    LOADED_LIST = "LOADED_LIST",
+    LOADED_REST = "LOADED_REST",
 }
 
 /**
@@ -31,6 +56,7 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
      * Список ресторанов
      */
     private restaurants: Restaurant[] | null;
+    private currentRestaurant: RestaurantWithCategories;
 
     /**
      * Сообщение об ошибке
@@ -53,6 +79,24 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
         return this.restaurants;
     }
 
+    getRestaurant(): RestaurantWithCategories {
+        return this.currentRestaurant;
+    }
+
+    async setRestaurant(id: number) {
+        try {
+            const restaurant = await Api.getRestaurant(id);
+            const dishes = await Api.getDishes(id);
+            this.currentRestaurant = {
+                RestaurantInfo: restaurant,
+                Categories: dishes,
+            };
+            this.errorMsg = null;
+        } catch (e) {
+            this.errorMsg = (e as Error).message;
+        }
+        this.events.notify(RestaurantEvent.LOADED_REST);
+    }
     /**
      * Установка списка ресторанов
      * @async
@@ -64,6 +108,6 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
         } catch (e) {
             this.errorMsg = (e as Error).message;
         }
-        this.events.notify();
+        this.events.notify(RestaurantEvent.LOADED_LIST);
     }
 }

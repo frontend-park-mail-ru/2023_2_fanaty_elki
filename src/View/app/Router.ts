@@ -6,18 +6,19 @@ export class Router {
         private root: HTMLElement,
     ) {}
 
-    redirect(url: string) {
-        window.history.pushState({}, "", url);
-        this.route(url);
+    redirect(url: string, search?: string) {
+        window.history.pushState({}, "", search ? url + search : url);
+        this.route(url, search);
     }
 
-    route(url: string) {
+    route(url: string, search?: string) {
+        console.log(url, search);
         const page = this.pages.get(url);
         if (!page) {
             console.log("wrong url");
             return;
         }
-        page.load();
+        page.load(search ? new URLSearchParams(search) : undefined);
         this.root.innerHTML = "";
         this.root.appendChild(page.element);
     }

@@ -1,14 +1,15 @@
-import { Navbar } from "../../../widgets/Navbar/index";
-import { RestaurantsList } from "../../../widgets/RestaurantList/index";
-import { LoginModal } from "../../../widgets/LoginModal";
-import MainTemplate from "../ui/MainView.hbs";
-import "../ui/MainView.scss";
-import { Page } from "../../..//types.d";
-import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { UIEvent, UIEventType } from "../../../../config";
-export class MainPage extends Page implements Listenable<UIEvent> {
+import { EventDispatcher, Listenable } from "../../../../modules/observer";
+import { Page } from "../../../types";
+import { DishList } from "../../../widgets/DishList";
+import { LoginModal } from "../../../widgets/LoginModal";
+import { Navbar } from "../../../widgets/Navbar";
+import RestaurantPageTemplate from "../ui/RestaurantView.hbs";
+import "../ui/RestaurantView.scss";
+
+export class RestaurantPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
-    private r_list: RestaurantsList;
+    private d_list: DishList;
     private login: LoginModal;
     private events_: EventDispatcher<UIEvent>;
 
@@ -16,29 +17,24 @@ export class MainPage extends Page implements Listenable<UIEvent> {
         return this.events_;
     }
     constructor() {
-        super(MainTemplate(), "#main_page");
+        super(RestaurantPageTemplate(), "#main");
         this.events_ = new EventDispatcher<UIEvent>();
 
         this.navbar = new Navbar();
         this.element.querySelector("#navbar")!.appendChild(this.navbar.element);
-
-        this.r_list = new RestaurantsList();
-        this.element
-            .querySelector("#restaurant_list")!
-            .appendChild(this.r_list.element);
 
         this.login = new LoginModal();
         this.element
             .querySelector("#login_modal")!
             .appendChild(this.login.element);
 
-        this.navbar.events.subscribe(this.update.bind(this));
-        this.r_list.events.subscribe(this.update.bind(this));
-        this.login.events.subscribe(this.update.bind(this));
+        this.d_list = new DishList();
+        this.element
+            .querySelector("#categories")!
+            .appendChild(this.d_list.element);
 
-        // this.element
-        //     .querySelector("#login_modal")!
-        //     .appendChild(this.loginModal.element);
+        this.navbar.events.subscribe(this.update.bind(this));
+        this.login.events.subscribe(this.update.bind(this));
     }
 
     update(event?: UIEvent) {
@@ -53,8 +49,16 @@ export class MainPage extends Page implements Listenable<UIEvent> {
         this.events_.notify(event);
     }
 
-    load() {
+    load(params?: URLSearchParams) {
         this.navbar.load();
-        this.r_list.load();
+        if (!params || !params.get("id")) {
+            console.log("no id");
+            return;
+        }
+        const id = Number(params.get("id")!);
+        if (isNaN(id)) {
+            console.log("id is NAN");
+        }
+        this.d_list.load(id);
     }
 }

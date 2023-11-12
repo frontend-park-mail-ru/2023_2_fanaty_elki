@@ -1,0 +1,60 @@
+@use '../../../shared/ui/Button/Button.scss' as button;
+@use '../../../../../public/index.scss' as index;
+
+.dish-card {
+    display: flex;
+    width: 253px;
+    min-height: 190px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 11px;
+    flex-shrink: 0;
+}
+
+.dish-card__image {
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.dish-card__info {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+}
+
+.dish-card__info__text {
+    display: flex;
+    padding-left: 0px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    flex: 1 0 0;
+}
+
+.dish-card__info__text__price {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+}
+
+.dish-card__info__text__dish-name {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 9px;
+    align-self: stretch;
+}
+
+.button_primary-green {
+    display: flex;
+    height: 44px;
+    width: 138px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    border-radius: 17px;
+    @include button.button-style($color: index.$gray, $background-color: index.$green, $border: none);
+}

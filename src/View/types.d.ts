@@ -20,7 +20,7 @@ export abstract class IHTMLElement {
 export abstract class IWidget extends IHTMLElement {}
 
 export abstract class Page extends IHTMLElement {
-    load();
+    load(params?: URLSearchParams);
 }
 
 export enum EventType {
