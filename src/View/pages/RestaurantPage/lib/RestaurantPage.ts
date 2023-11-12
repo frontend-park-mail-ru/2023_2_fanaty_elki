@@ -3,7 +3,7 @@ import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { Page } from "../../../types";
 import { AddressChooser } from "../../../widgets/AddressChooser";
 import { DishList } from "../../../widgets/DishList";
-import { LoginModal } from "../../../widgets/LoginModal";
+import { LoginSignUpModal } from "../../../widgets/LoginSignUpModal";
 import { Navbar } from "../../../widgets/Navbar";
 import RestaurantPageTemplate from "../ui/RestaurantView.hbs";
 import "../ui/RestaurantView.scss";
@@ -11,7 +11,7 @@ import "../ui/RestaurantView.scss";
 export class RestaurantPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
     private d_list: DishList;
-    private login: LoginModal;
+    private login: LoginSignUpModal;
     private address: AddressChooser;
 
     private events_: EventDispatcher<UIEvent>;
@@ -31,7 +31,7 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
             .querySelector("#address_modal")!
             .appendChild(this.address.element);
 
-        this.login = new LoginModal();
+        this.login = new LoginSignUpModal();
         this.element
             .querySelector("#login_modal")!
             .appendChild(this.login.element);
