@@ -1,6 +1,7 @@
 {
     "extends": "@tsconfig/recommended/tsconfig.json",
     "compilerOptions": {
+        "noImplicitAny": false,
         "module": "ESNext",
         "target": "ESNext",
         "outDir": "./dist/",

@@ -1,0 +1,65 @@
+@use '../../../../../public/index.scss' as index;
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    min-width: 600px;
+}
+
+.cart-item__info {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.cart-item__info__icon {
+    width: 145px; // TODO: Пофиксить числа
+    height: 145px; // TODO: Пофиксить числа
+    flex-shrink: 0;
+}
+
+.cart-item__info__name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.cart-item__info__count-control {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    align-self: stretch;
+}
+
+.cart-item__info__count-control__button {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+
+    border-radius: 17px;
+    background: index.$gray;
+}
+
+.cart-item__info__count-control__count {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.cart-item__price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;
+    align-self: stretch;
+}

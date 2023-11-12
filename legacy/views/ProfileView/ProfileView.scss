@@ -1,0 +1,29 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 51px;
+
+    margin: 0 115px;
+}
+
+.profile__title {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+}
+
+.profile__content {
+    display: flex;
+    align-items: flex-start;
+    gap: 121px;
+}
+
+.profile__content__user-data {
+    display: flex;
+    width: 827px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 41px;
+}
