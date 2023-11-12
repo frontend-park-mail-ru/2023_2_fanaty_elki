@@ -8,8 +8,11 @@ import "../ui/LoginModal.scss";
 import "../ui/inputWithMsg.scss";
 
 import "../ui/Button.scss";
+import { UIEvent, UIEventType } from "../../../../config";
+import { UserEvent } from "../../../../Model/UserModel";
+import { EventDispatcher, Listenable } from "../../../../modules/observer";
 
-export class LoginModal extends IWidget {
+export class LoginModal extends IWidget implements Listenable<UIEvent> {
     private submitButton: HTMLElement;
     private registrationButton: HTMLElement;
 
@@ -18,10 +21,17 @@ export class LoginModal extends IWidget {
     private usernameInput: HTMLInputElement;
     private passwordInput: HTMLInputElement;
 
+    private events_: EventDispatcher<UIEvent>;
+
+    get events(): EventDispatcher<UIEvent> {
+        return this.events_;
+    }
+
     constructor() {
         super(loginModalTemplate(), ".modal");
+        this.events_ = new EventDispatcher<UIEvent>();
 
-        model.userModel.addObserver(this);
+        model.userModel.events.subscribe(this.update.bind(this));
 
         this.submitButton = <HTMLElement>this.element.querySelector("#submit");
         this.registrationButton = <HTMLElement>(
@@ -37,10 +47,7 @@ export class LoginModal extends IWidget {
             this.element.querySelector("#password")
         );
 
-        // this.bindSubmitClick();
-        // this.bindRegistrationButtonClick();
-        // this.bindCloseClick();
-        // this.bindOuterModalClick();
+        this.bindEvents();
     }
 
     open() {
@@ -51,7 +58,7 @@ export class LoginModal extends IWidget {
         this.element.classList.remove("open");
     }
 
-    update() {
+    update(event?: UserEvent) {
         // if (model.userModel.getErrorMsg()) {
         //     this.messageBox.innerText = model.userModel.getErrorMsg() as string;
         // }
@@ -62,60 +69,41 @@ export class LoginModal extends IWidget {
         // }
     }
 
-    // bindUsernameInput() {
-    //     this.usernameInput.addEventListener("input", () => {
-    //         this.messageBox.innerText = "";
-    //     });
-    // }
-
-    // bindPasswordInput() {
-    //     this.passwordInput.addEventListener("input", () => {
-    //         this.messageBox.innerText = "";
-    //     });
-    // }
-
-    // bindSubmitClick() {
-    //     this.submitButton.addEventListener("click", () => {
-    //         controller.handleEvent({
-    //             type: VIEW_EVENT_TYPE.LOGIN,
-    //             data: {
-    //                 username: this.usernameInput.value,
-    //                 password: this.passwordInput.value,
-    //             },
-    //         });
-    //     });
-    // }
-
-    // bindRegistrationButtonClick() {
-    //     this.registrationButton.addEventListener("click", () => {
-    //         controller.handleEvent({
-    //             type: VIEW_EVENT_TYPE.MODAL_CHANGE,
-    //             data: "close",
-    //         });
-    //     });
-    // }
-
-    // bindCloseClick() {
-    //     this.element.querySelector("#close")!.addEventListener("click", () => {
-    //         controller.handleEvent({
-    //             type: VIEW_EVENT_TYPE.MODAL_CHANGE,
-    //             data: "close",
-    //         });
-    //     });
-    // }
-
-    // bindOuterModalClick() {
-    //     this.element
-    //         .querySelector(".modal__box")!
-    //         .addEventListener("click", (event: any) => {
-    //             event._isClickWithInModal = true;
-    //         });
-    //     this.element.addEventListener("click", (event: any) => {
-    //         if (event._isClickWithInModal) return;
-    //         controller.handleEvent({
-    //             type: VIEW_EVENT_TYPE.MODAL_CHANGE,
-    //             data: "close",
-    //         });
-    //     });
-    // }
+    private bindEvents() {
+        this.usernameInput.addEventListener("input", () => {
+            this.messageBox.innerText = "";
+        });
+        this.usernameInput.addEventListener("input", () => {
+            this.messageBox.innerText = "";
+        });
+        this.passwordInput.addEventListener("input", () => {
+            this.messageBox.innerText = "";
+        });
+        this.submitButton.addEventListener("click", () => {
+            controller.handleEvent({
+                type: VIEW_EVENT_TYPE.LOGIN,
+                data: {
+                    username: this.usernameInput.value,
+                    password: this.passwordInput.value,
+                },
+            });
+        });
+        this.registrationButton.addEventListener("click", () => {
+            this.events.notify({ type: UIEventType.LMODAL_SIGNUP_CLICK });
+        });
+        this.element.querySelector("#close")!.addEventListener("click", () => {
+            this.close();
+            this.events.notify({ type: UIEventType.LMODAL_CLOSE_CLICK });
+        });
+        this.element
+            .querySelector(".modal__box")!
+            .addEventListener("click", (event: any) => {
+                event._isClickWithInModal = true;
+            });
+        this.element.addEventListener("click", (event: any) => {
+            if (event._isClickWithInModal) return;
+            this.close();
+            this.events.notify({ type: UIEventType.LMODAL_CLOSE_CLICK });
+        });
+    }
 }
