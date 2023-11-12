@@ -15,25 +15,19 @@ export class RestaurantsList extends IWidget implements Listenable<UIEvent> {
         super(restaurantsTemplate(), ".restaurants-categories");
         this.events_ = new EventDispatcher<UIEvent>();
         model.restaurantModel.events.subscribe(this.update.bind(this));
-        // this.bindEvents();
     }
 
     private bindEvents() {
         this.element
-            .querySelector(".restaurant-card")!
-            .addEventListener("click", (event: any) => {
-                event.click = true;
-                event.id = ((event as Event).currentTarget as HTMLElement).id;
-            });
-        this.element
             .querySelector(".restaurants-categories__categories__items")!
-            .addEventListener("click", (event: any) => {
-                if (event.click) {
-                    this.events.notify({
-                        type: UIEventType.RESTAURANT_CLICK,
-                        data: <number>event.id,
-                    });
-                }
+            .addEventListener("click", (event) => {
+                console.log(event);
+                // if (event.click) {
+                //     this.events.notify({
+                //         type: UIEventType.RESTAURANT_CLICK,
+                //         data: <number>event.id,
+                //     });
+                // }
             });
     }
 
@@ -42,6 +36,14 @@ export class RestaurantsList extends IWidget implements Listenable<UIEvent> {
         console.log(this.element);
         const r_list = model.restaurantModel.getRestaurants()!;
         this.element.innerHTML = restaurantsTemplate(r_list);
+        this.element.querySelectorAll(".restaurant-card").forEach((element) =>
+            element.addEventListener("click", (event) => {
+                this.events.notify({
+                    type: UIEventType.RESTAURANT_CLICK,
+                    data: (<HTMLElement>event.currentTarget).id,
+                });
+            }),
+        );
     }
 
     load() {

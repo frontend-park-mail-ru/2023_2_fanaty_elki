@@ -38,7 +38,7 @@ export class MainPage extends Page implements Listenable<UIEvent> {
 
     update(event?: UIEvent) {
         console.log(event);
-        this.events_.notify();
+        this.events_.notify(event);
     }
 
     load() {
