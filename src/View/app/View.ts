@@ -34,8 +34,20 @@ export class View {
             [ROUTES.profile, this.profilePage],
         ]);
 
+        model.userModel.auth();
+
         this.router_ = new Router(routes, this.root);
-        this.router_.route(window.location.pathname, window.location.search);
+        if (
+            window.location.pathname === ROUTES.profile &&
+            !model.userModel.getUser()
+        ) {
+            this.router_.route(ROUTES.main);
+        } else {
+            this.router_.route(
+                window.location.pathname,
+                window.location.search,
+            );
+        }
         window.onpopstate = (event: Event) => {
             event.preventDefault();
             this.router_.route(
