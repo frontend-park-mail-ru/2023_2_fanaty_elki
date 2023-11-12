@@ -1,0 +1,372 @@
+import { IWidget } from "../../../types";
+
+import loginSignInModalTemplate from "../ui/LoginSignInModal.hbs";
+import "../ui/LoginSignInModal.scss";
+import "../ui/inputWithMsg.scss";
+import "../ui/Button.scss";
+
+import { EventDispatcher, Listenable } from "../../../../modules/observer";
+import { UIEvent } from "../../../../config";
+import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
+
+export class LoginSignInModal extends IWidget implements Listenable<UIEvent> {
+    private page: HTMLElement;
+
+    private loginPage: HTMLElement;
+    private regUserPage: HTMLElement;
+    private regExtraInfoPage: HTMLElement;
+
+    private events_: EventDispatcher<UIEvent>;
+    get events(): EventDispatcher<UIEvent> {
+        return this.events_;
+    }
+
+    constructor() {
+        super(loginSignInModalTemplate(), ".modal");
+
+        model.userModel.events.subscribe(this.update.bind(this));
+
+        this.loginPage = <HTMLElement>this.element.querySelector("#login-page");
+        this.loginPage = <HTMLElement>(
+            this.element.querySelector("#reg-user-page")
+        );
+        this.loginPage = <HTMLElement>(
+            this.element.querySelector("#reg-extra-info-page")
+        );
+
+        this.bindLoginPageEvents();
+        this.bindRegUserPageEvents();
+        this.bindRegExtraInfoPage();
+    }
+
+    update() {}
+
+    open() {
+        this.element.classList.add("open");
+    }
+
+    close() {
+        this.element.classList.remove("open");
+    }
+
+    bindLoginPageEvents() {
+        const closeButton = <HTMLElement>(
+            this.loginPage.querySelector("#login-page__close")
+        );
+
+        const messageBox = <HTMLElement>(
+            this.loginPage.querySelector("#login-page__msg")
+        );
+
+        const usernameInput = <HTMLInputElement>(
+            this.loginPage.querySelector("#login-page__username")
+        );
+        const passwordInput = <HTMLInputElement>(
+            this.loginPage.querySelector("#login-page__password")
+        );
+
+        const submitButton = <HTMLElement>(
+            this.loginPage.querySelector("#login-page__submit")
+        );
+        const regButton = <HTMLElement>(
+            this.loginPage.querySelector("#login-page__reg")
+        );
+
+        usernameInput.addEventListener("input", () => {
+            messageBox.innerText = "";
+        });
+        passwordInput.addEventListener("input", () => {
+            messageBox.innerText = "";
+        });
+
+        closeButton.addEventListener("click", () => {
+            this.close();
+        });
+        submitButton.addEventListener("click", () => {
+            controller.handleEvent({
+                type: VIEW_EVENT_TYPE.LOGIN,
+                data: {
+                    username: usernameInput.value,
+                    password: passwordInput.value,
+                },
+            });
+        });
+        regButton.addEventListener("click", () => {
+            this.loginPage.classList.add("display-none");
+            this.regUserPage.classList.remove("display-none");
+        });
+    }
+
+    bindRegUserPageEvents() {
+        const closeButton = <HTMLElement>(
+            this.regUserPage.querySelector("#reg-user-page__close")
+        );
+        const backButton = <HTMLElement>(
+            this.regUserPage.querySelector("#reg-user-page__back")
+        );
+
+        // const messageBox = <HTMLElement>(
+        //     this.regUserPage.querySelector("#reg-user-page__msg")
+        // );
+
+        const emailMessageBox = <HTMLElement>(
+            this.regUserPage.querySelector("#reg-user-page__email__msg")
+        );
+        const emailInput = <HTMLInputElement>(
+            this.regUserPage.querySelector("#reg-user-page__email")
+        );
+
+        const usernameMessageBox = <HTMLElement>(
+            this.regUserPage.querySelector("#reg-user-page__username__msg")
+        );
+        const usernameInput = <HTMLInputElement>(
+            this.regUserPage.querySelector("#reg-user-page__username")
+        );
+
+        const passwordMessageBox = <HTMLElement>(
+            this.regUserPage.querySelector("#reg-user-page__password__msg")
+        );
+        const passwordInput = <HTMLInputElement>(
+            this.regUserPage.querySelector("#reg-user-page__password")
+        );
+
+        const passwordConfirmMessageBox = <HTMLElement>(
+            this.regUserPage.querySelector(
+                "#reg-user-page__passwordconfirm__msg",
+            )
+        );
+        const passwordConfirmInput = <HTMLInputElement>(
+            this.regUserPage.querySelector("#reg-user-page__passwordconfirm")
+        );
+
+        const nextButton = <HTMLElement>(
+            this.regUserPage.querySelector("#reg-user-page__next")
+        );
+        const authButton = <HTMLElement>(
+            this.regUserPage.querySelector("#reg-user-page__auth")
+        );
+
+        closeButton.addEventListener("click", () => {
+            this.close();
+        });
+        backButton.addEventListener("click", () => {
+            this.regUserPage.classList.add("display-none");
+            this.loginPage.classList.remove("display-none");
+        });
+
+        emailInput.addEventListener("input", () => {
+            emailMessageBox.innerText = "";
+        });
+        usernameInput.addEventListener("input", () => {
+            usernameMessageBox.innerText = "";
+        });
+        passwordInput.addEventListener("input", () => {
+            passwordMessageBox.innerText = "";
+        });
+        passwordConfirmInput.addEventListener("input", () => {
+            passwordConfirmMessageBox.innerText = "";
+        });
+
+        nextButton.addEventListener("click", () => {
+            const emailValidation = this.validateEmail(emailInput.value);
+            const usernameValidation = this.validateUsername(
+                usernameInput.value,
+            );
+            const passwordValidation = this.validatePassword(
+                passwordInput.value,
+            );
+            const passwordConfirmValidation = this.validatePasswordConfirm(
+                passwordInput.value,
+                passwordConfirmInput.value,
+            );
+
+            if (
+                !emailValidation &&
+                !usernameValidation &&
+                !passwordValidation &&
+                !passwordConfirmValidation
+            ) {
+                this.regUserPage.classList.add("display-none");
+                this.regExtraInfoPage.classList.remove("display-none");
+                return;
+            } else {
+                emailMessageBox.innerText = emailValidation;
+                usernameMessageBox.innerText = usernameValidation;
+                passwordMessageBox.innerText = passwordValidation;
+                passwordConfirmMessageBox.innerText = passwordConfirmValidation;
+            }
+        });
+        authButton.addEventListener("click", () => {
+            this.regUserPage.classList.add("display-none");
+            this.loginPage.classList.remove("display-none");
+        });
+    }
+
+    bindRegExtraInfoPage() {
+        const closeButton = <HTMLElement>(
+            this.regExtraInfoPage.querySelector("#reg-extra-info-page__close")
+        );
+        const backButton = <HTMLElement>(
+            this.regExtraInfoPage.querySelector("#reg-extra-info-page__back")
+        );
+
+        // const messageBox = <HTMLElement>(
+        //     this.regExtraInfoPage.querySelector("#reg-extra-info-page__msg")
+        // );
+
+        const birthdayMessageBox = <HTMLElement>(
+            this.regExtraInfoPage.querySelector(
+                "#reg-extra-info-page__birthday__msg",
+            )
+        );
+        const birthdayInput = <HTMLInputElement>(
+            this.regExtraInfoPage.querySelector(
+                "#reg-extra-info-page__birthday",
+            )
+        );
+        const phoneNumberMessageBox = <HTMLElement>(
+            this.regExtraInfoPage.querySelector(
+                "#reg-extra-info-page__phone-number__msg",
+            )
+        );
+        const phoneNumberInput = <HTMLInputElement>(
+            this.regExtraInfoPage.querySelector(
+                "#reg-extra-info-page__phone-number",
+            )
+        );
+
+        const emailInput = <HTMLInputElement>(
+            this.regUserPage.querySelector("#reg-user-page__email")
+        );
+        const usernameInput = <HTMLInputElement>(
+            this.regUserPage.querySelector("#reg-user-page__username")
+        );
+        const passwordInput = <HTMLInputElement>(
+            this.regUserPage.querySelector("#reg-user-page__password")
+        );
+
+        const submitButton = <HTMLElement>(
+            this.regExtraInfoPage.querySelector("#reg-extra-info-page__submit")
+        );
+        const authButton = <HTMLElement>(
+            this.regExtraInfoPage.querySelector("#reg-extra-info-page__auth")
+        );
+
+        backButton.addEventListener("click", () => {
+            this.regExtraInfoPage.classList.add("display-none");
+            this.regUserPage.classList.remove("display-none");
+        });
+        closeButton.addEventListener("click", () => {
+            this.close();
+        });
+
+        birthdayInput.addEventListener("input", () => {
+            birthdayMessageBox.innerText = "";
+        });
+        phoneNumberInput.addEventListener("input", () => {
+            phoneNumberMessageBox.innerText = "";
+        });
+
+        submitButton.addEventListener("click", () => {
+            const birthdayValidation = this.validateBirthday(
+                birthdayInput.value,
+            );
+            const phoneNumberValidation = this.validatePhoneNumber(
+                phoneNumberInput.value,
+            );
+
+            if (!birthdayValidation && !phoneNumberValidation) {
+                controller.handleEvent({
+                    type: VIEW_EVENT_TYPE.REGISTRATION,
+                    data: {
+                        email: emailInput.value,
+                        username: usernameInput.value,
+                        password: passwordInput.value,
+                        birthday: birthdayInput.value,
+                        phoneNumber: phoneNumberInput.value,
+                        icon: "deficon",
+                    },
+                });
+            } else {
+                birthdayMessageBox.innerText = birthdayValidation;
+                phoneNumberMessageBox.innerText = phoneNumberValidation;
+            }
+        });
+        authButton.addEventListener("click", () => {
+            this.regExtraInfoPage.classList.add("display-none");
+            this.loginPage.classList.remove("display-none");
+        });
+    }
+
+    validateEmail(email: string): string {
+        if (!email) {
+            return "Email не может быть пустым";
+        }
+
+        if (!email.match(/^[\x00-\x7F]*@[\x00-\x7F]*$/)) {
+            return "Невалидный email";
+        }
+
+        return "";
+    }
+
+    validateUsername(username: string): string {
+        if (!username) {
+            return "Имя пользователя не может быть пустым";
+        }
+
+        if (!username.match(/^[a-zA-Z0-9_-]*$/)) {
+            return 'Имя пользователя должно состоять из латинских букв, цифр, символов "-", "_"';
+        }
+
+        if (!String(username).match(/^.{4,29}$/)) {
+            return "Имя пользователя должно иметь длину от 4 до 29 символов";
+        }
+
+        return "";
+    }
+
+    validatePassword(password: string): string {
+        if (!password) {
+            return "Пароль не может быть пустым";
+        }
+
+        if (password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+            return "Пароль должен быть длиннее 8 символов и содержать хотя бы одну букву и цифру";
+        }
+
+        return "";
+    }
+
+    validatePasswordConfirm(password: string, passwordConfirm: string): string {
+        if (!passwordConfirm) {
+            return "Подтвердите пароль";
+        }
+
+        if (password !== passwordConfirm) {
+            return "Пароли не совпадают";
+        }
+
+        return "";
+    }
+
+    validateBirthday(birthday: string): string {
+        if (!birthday) {
+            return "Укажите дату рождения";
+        }
+
+        return "";
+    }
+
+    validatePhoneNumber(phoneNumber: string): string {
+        if (!phoneNumber) {
+            return "Укажите номер телефона";
+        }
+
+        if (!phoneNumber.match(/^\+7[0-9]{10}$/)) {
+            return "Невалидный номер телефона";
+        }
+
+        return "";
+    }
+}

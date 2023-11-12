@@ -17,6 +17,5 @@
             "./node_modules/handlebars/types"
         ]
     },
-    "include": ["public/index.ts", "types/global.d.ts", "src/**/*.ts"],
-    "exclude": ["src/View/widgets/LoginModal"]
+    "include": ["public/index.ts", "types/global.d.ts", "src/**/*.ts"]
 }

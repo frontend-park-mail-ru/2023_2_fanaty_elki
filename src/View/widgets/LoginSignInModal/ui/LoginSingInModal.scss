@@ -1,6 +1,6 @@
 @use "../../../../../public/index.scss" as index;
 
-.login-form {
+.login-signin-form {
     width: 400px;
     margin: 0 auto;
     margin-top: 65px;
@@ -17,27 +17,27 @@
     background: index.$white;
 }
 
-.login-form__control__back {
+.login-signin-form__control__back {
     position: relative;
     top: 5px;
-    left: -140px;
+    left: 5px;
     height: 15px;
     width: 15px;
 
     cursor: pointer;
 }
 
-.login-form__control__close {
+.login-signin-form__control__close {
     position: relative;
     top: 5px;
-    left: 160px;
+    left: 300px;
     height: 15px;
     width: 15px;
 
     cursor: pointer;
 }
 
-.login-form__header {
+.login-signin-form__header {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -46,7 +46,7 @@
     align-self: stretch;
 }
 
-.login-form__header__title {
+.login-signin-form__header__title {
     color: index.$gray;
     font-size: 15px;
     font-weight: 400;
@@ -54,7 +54,7 @@
     text-align: center;
 }
 
-.login-form__form {
+.login-signin-form__form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -63,7 +63,7 @@
     align-self: stretch;
 }
 
-.login-form__form__input-container {
+.login-signin-form__form__input-container {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -72,7 +72,7 @@
     gap: 15px;
 }
 
-.login-form__form__input-container__msg {
+.login-signin-form__form__input-container__msg {
     color: index.$red;
     font-size: 17px;
     font-style: normal;
@@ -81,7 +81,7 @@
     text-align: center;
 }
 
-.login-form__form__button-container {
+.login-signin-form__form__button-container {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -89,6 +89,14 @@
     align-items: center;
     gap: 20px;
     align-self: stretch;
+}
+
+.display-none {
+    display: none;
+}
+
+.visibility-hidden {
+    visibility: hidden;
 }
 
 #reg {
