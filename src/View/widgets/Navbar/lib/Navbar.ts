@@ -1,3 +1,4 @@
+import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { UserEvent } from "../../../../Model/UserModel";
 import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
@@ -55,6 +56,10 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
             .querySelector("#exit-button")!
             .addEventListener("click", () => {
                 this.events.notify({ type: UIEventType.NAVBAR_EXIT_CLICK });
+                controller.handleEvent({
+                    type: VIEW_EVENT_TYPE.LOGOUT,
+                    data: null,
+                });
             });
     }
 

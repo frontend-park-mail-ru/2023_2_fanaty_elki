@@ -61,7 +61,7 @@ export class UserModel implements Listenable<UserEvent> {
      */
     async auth() {
         this.user = await Api.authUser();
-        this.events.notify();
+        this.events.notify(UserEvent.USER_CHANGE);
     }
 
     async createUser(user: User) {
@@ -70,7 +70,7 @@ export class UserModel implements Listenable<UserEvent> {
         } catch (e) {
             this.errorMsg = (e as Error).message;
         }
-        this.events.notify();
+        this.events.notify(UserEvent.USER_CHANGE);
     }
 
     /**
@@ -89,7 +89,7 @@ export class UserModel implements Listenable<UserEvent> {
         } catch (e) {
             this.errorMsg = (e as Error).message;
         }
-        this.events.notify();
+        this.events.notify(UserEvent.USER_CHANGE);
     }
 
     /**
@@ -104,7 +104,7 @@ export class UserModel implements Listenable<UserEvent> {
         } catch (e) {
             this.errorMsg = (e as Error).message;
         }
-        this.events.notify();
+        this.events.notify(UserEvent.USER_CHANGE);
     }
 
     setAddress(address: string) {
