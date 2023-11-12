@@ -61,6 +61,15 @@ export class UserModel implements Listenable<UserEvent> {
         this.events.notify();
     }
 
+    async createUser(user: User) {
+        try {
+            await Api.createUser(user);
+        } catch (e) {
+            this.errorMsg = (e as Error).message;
+        }
+        this.events.notify();
+    }
+
     /**
      * Авторизация по имени пользователя и паролю
      * @async

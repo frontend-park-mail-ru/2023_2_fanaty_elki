@@ -1,3 +1,4 @@
+import { User } from "../../../Model/UserModel";
 import { apiConfig } from "./config";
 
 enum ERROR_TYPE {
@@ -121,22 +122,16 @@ const Api = {
     /**
      * Отправляет на сервер запрос о создании пользователя
      * @async
-     * @param {Object} signup_data - данные пользователя
+     * @param {User} user - данные пользователя
      */
-    async createUser(signup_data: SignUpData) {
-        const signup_config: ApiElementConfig = apiConfig.api.signup;
-        const body = JSON.stringify({
-            Username: signup_data.username,
-            Password: signup_data.password,
-            Email: signup_data.email,
-            PhoneNumber: Math.floor(Math.random() * 10000000) + "",
-            Icon: "img/defaultIcon.png",
-        });
+    async createUser(user: User) {
+        const signupConfig: ApiElementConfig = apiConfig.api.signup;
+        const body = JSON.stringify(user);
         const response = await ajax(
-            `${apiConfig.backend}${signup_config.url}`,
-            signup_config.params(body),
+            `${apiConfig.backend}${signupConfig.url}`,
+            signupConfig.params(body),
         );
-        checkResponse(response, signup_config);
+        checkResponse(response, signupConfig);
         return;
     },
 

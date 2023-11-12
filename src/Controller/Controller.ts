@@ -1,3 +1,5 @@
+import { User } from "../Model/UserModel";
+
 export enum VIEW_EVENT_TYPE {
     LOGIN = "LOGIN",
     REGISTRATION = "REGISTRATION",
@@ -23,6 +25,14 @@ export class Controller {
                     (<{ username: string; password: string }>event.data)
                         .password,
                 );
+                break;
+            case VIEW_EVENT_TYPE.REGISTRATION:
+                model.userModel.createUser(event.data as User).then(() => {
+                    model.userModel.login(
+                        (<User>event.data).Username,
+                        (<User>event.data).Password,
+                    );
+                });
                 break;
         }
     }

@@ -45,12 +45,15 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
     update() {
         if (model.userModel.getUser()) {
             this.close();
-        } else if (model.userModel.getErrorMsg()) {
+        } else {
             (
                 this.regExtraInfoPage.querySelector(
                     "#reg-extra-info-page__msg",
                 ) as HTMLElement
-            ).innerText = model.userModel.getErrorMsg()!;
+            ).innerText = model.userModel.getErrorMsg() || "";
+            (
+                this.loginPage.querySelector("#login-page__msg") as HTMLElement
+            ).innerText = model.userModel.getErrorMsg() || "";
         }
     }
 
@@ -307,12 +310,12 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
                 controller.handleEvent({
                     type: VIEW_EVENT_TYPE.REGISTRATION,
                     data: {
-                        email: emailInput.value,
-                        username: usernameInput.value,
-                        password: passwordInput.value,
-                        birthday: birthdayInput.value,
-                        phoneNumber: phoneNumberInput.value,
-                        icon: "deficon",
+                        Email: emailInput.value,
+                        Username: usernameInput.value,
+                        Password: passwordInput.value,
+                        Birthday: birthdayInput.value,
+                        PhoneNumber: phoneNumberInput.value,
+                        Icon: "img/defaultIcon.png",
                     },
                 });
             } else {
