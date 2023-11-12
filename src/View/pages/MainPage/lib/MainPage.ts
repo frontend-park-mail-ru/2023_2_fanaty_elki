@@ -67,6 +67,7 @@ export class MainPage extends Page implements Listenable<UIEvent> {
 
     load() {
         this.navbar.load();
+        this.address.load();
         this.r_list.load();
     }
 }

@@ -7,8 +7,12 @@ export enum VIEW_EVENT_TYPE {
     ADD_DISH = "ADD_DISH",
     RESTAURANT_UPDATE = "RESTAURANT_UPDATE",
     ADDRESS_UPDATE = "ADDRESS_UPDATE",
+    INCREASE_CART = "INCREASE_UPDATE",
+    DECREASE_CART = "DECREASE_UPDATE",
     LOGOUT = "LOGOUT",
     ORDER_UPDATE = "ORDER_UPDATE",
+    AUTH = "AUTH",
+    LOAD_CART = "LOAD_CART",
 }
 
 export type ViewEvent = {
@@ -34,6 +38,9 @@ export class Controller {
                         .password,
                 );
                 break;
+            case VIEW_EVENT_TYPE.AUTH:
+                model.userModel.auth();
+                break;
             case VIEW_EVENT_TYPE.LOGOUT:
                 model.userModel.logout();
                 break;
@@ -51,6 +58,14 @@ export class Controller {
             case VIEW_EVENT_TYPE.ORDER_UPDATE:
                 model.orderModel.setOrders();
                 break;
+            case VIEW_EVENT_TYPE.DECREASE_CART:
+                model.cartModel.decrease(<number>event!.data);
+                break;
+            case VIEW_EVENT_TYPE.INCREASE_CART:
+                model.cartModel.increase(<number>event!.data);
+                break;
+            case VIEW_EVENT_TYPE.LOAD_CART:
+                model.cartModel.setCart();
         }
     }
 }

@@ -13,6 +13,7 @@ export type User = {
 
 export const enum UserEvent {
     USER_CHANGE = "USER_CHANGE",
+    AUTH = "AUTH",
     ADDRESS_CHANGE = "ADDRESS_CHANGE",
 }
 
@@ -46,6 +47,7 @@ export class UserModel implements Listenable<UserEvent> {
     constructor() {
         this.events_ = new EventDispatcher<UserEvent>();
         this.user = null;
+        this.address = "";
     }
 
     /**
@@ -68,9 +70,15 @@ export class UserModel implements Listenable<UserEvent> {
      * @async
      */
     async auth() {
-        this.user = await Api.authUser();
-        this.errorMsg = null;
-        this.events.notify(UserEvent.USER_CHANGE);
+        try {
+            this.user = await Api.authUser();
+            this.errorMsg = null;
+            this.events.notify(UserEvent.AUTH);
+            this.events.notify(UserEvent.USER_CHANGE);
+        } catch {
+            this.events.notify(UserEvent.AUTH);
+            console.log("Неудачная авторизация");
+        }
     }
 
     async createUser(user: User) {
