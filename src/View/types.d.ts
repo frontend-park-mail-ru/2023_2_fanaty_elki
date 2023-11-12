@@ -1,5 +1,3 @@
-import type { IObserver } from "../modules/observer";
-
 export abstract class IHTMLElement {
     private element_: HTMLElement;
     get element() {
@@ -19,9 +17,11 @@ export abstract class IHTMLElement {
     }
 }
 
-export abstract class IWidget extends IHTMLElement implements IObserver {}
+export abstract class IWidget extends IHTMLElement {}
 
-export abstract class Page extends IHTMLElement {}
+export abstract class Page extends IHTMLElement {
+    load();
+}
 
 export enum EventType {
     REDIRECT = "REDIRECT",

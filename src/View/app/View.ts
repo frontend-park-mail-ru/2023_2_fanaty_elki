@@ -2,14 +2,12 @@ import { Router } from "./Router";
 import { MainPage } from "../pages/MainPage/index";
 import { ROUTES } from "../types.d";
 import { Page } from "../types.d";
-import { IObservable } from "../../modules/observer";
 
-export class View extends IObservable {
+export class View {
     private root: HTMLElement;
     private mainPage: Page;
-    private router: Router;
+    private router_: Router;
     constructor() {
-        super();
         this.root = <HTMLElement>document.querySelector("#root")!;
 
         this.mainPage = new MainPage();
@@ -19,10 +17,11 @@ export class View extends IObservable {
             [ROUTES.default, this.mainPage],
         ]);
 
-        this.router = new Router(routes, this.root);
+        this.router_ = new Router(routes, this.root);
+        this.router_.route(window.location.pathname);
         window.onpopstate = (event) => {
             event.preventDefault();
-            this.router.route(window.location.pathname);
+            this.router_.route(window.location.pathname);
         };
     }
 }

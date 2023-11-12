@@ -1,5 +1,5 @@
-import { Api } from "../modules/api";
-import { IObservable } from "../modules/observer";
+import { Api } from "../modules/api/src/api";
+import { EventDispatcher, Listenable } from "../modules/observer";
 
 export type Restaurant = {
     Id: number;
@@ -13,12 +13,20 @@ export type Restaurant = {
     CommentsCount: number;
 };
 
+export enum RestaurantEvent {
+    LOADED = "LOADED",
+}
+
 /**
  * Модель ресторана
  * @class
  */
 
-export class RestaurantModel extends IObservable {
+export class RestaurantModel implements Listenable<RestaurantEvent> {
+    private events_: EventDispatcher<RestaurantEvent>;
+    get events(): EventDispatcher<RestaurantEvent> {
+        return this.events_;
+    }
     /**
      * Список ресторанов
      */
@@ -33,7 +41,7 @@ export class RestaurantModel extends IObservable {
      * Конструктор
      */
     constructor() {
-        super();
+        this.events_ = new EventDispatcher<RestaurantEvent>();
         this.restaurants = null;
     }
 
@@ -56,6 +64,6 @@ export class RestaurantModel extends IObservable {
         } catch (e) {
             this.errorMsg = (e as Error).message;
         }
-        this.notifyObservers();
+        this.events.notify();
     }
 }

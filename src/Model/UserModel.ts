@@ -1,5 +1,5 @@
-import { Api } from "../modules/api";
-import { IObservable } from "../modules/observer";
+import { Api } from "../modules/api/src/api";
+import { EventDispatcher, Listenable } from "../modules/observer";
 
 export type User = {
     Username: string;
@@ -10,22 +10,30 @@ export type User = {
     Icon: string;
 };
 
+export const enum UserEvent {
+    USER_CHANGE = "USER_CHANGE",
+}
+
 /**
  * Модель пользователя
  * @class
  */
-export class UserModel extends IObservable {
+export class UserModel implements Listenable<UserEvent> {
     /**
      * Пользователь
      */
     private user: User | null;
     private errorMsg: string | null;
+    private events_: EventDispatcher<UserEvent>;
+    get events(): EventDispatcher<UserEvent> {
+        return this.events_;
+    }
 
     /**
      * Конструктор
      */
     constructor() {
-        super();
+        this.events_ = new EventDispatcher<UserEvent>();
         this.user = null;
     }
 
@@ -50,7 +58,7 @@ export class UserModel extends IObservable {
      */
     async auth() {
         this.user = await Api.authUser();
-        this.notifyObservers();
+        this.events.notify();
     }
 
     /**
@@ -69,7 +77,7 @@ export class UserModel extends IObservable {
         } catch (e) {
             this.errorMsg = (e as Error).message;
         }
-        this.notifyObservers();
+        this.events.notify();
     }
 
     /**
@@ -84,6 +92,6 @@ export class UserModel extends IObservable {
         } catch (e) {
             this.errorMsg = (e as Error).message;
         }
-        this.notifyObservers;
+        this.events.notify();
     }
 }

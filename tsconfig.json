@@ -1,6 +1,7 @@
 {
     "extends": "@tsconfig/recommended/tsconfig.json",
     "compilerOptions": {
+        "noImplicitAny": false,
         "module": "ESNext",
         "target": "ESNext",
         "outDir": "./dist/",
@@ -17,5 +18,5 @@
         ]
     },
     "include": ["public/index.ts", "types/global.d.ts", "src/**/*.ts"],
-    "exclude": ["src/views", "src/components", "src/controllers", "src/models"]
+    "exclude": ["src/View/widgets/LoginModal"]
 }

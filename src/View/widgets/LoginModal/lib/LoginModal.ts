@@ -23,16 +23,10 @@ export class LoginModal extends IWidget {
         super(loginModalTemplate(), ".modal");
 
         model.userModel.addObserver(this);
-        model.modalModel.addObserver(this);
-        model.registrationModel.addObserver(this);
 
-        this.page = <HTMLElement>this.element.querySelector("#login");
-
-        const parser = new DOMParser();
-        this.login = <HTMLElement>(
-            parser
-                .parseFromString(loginPage(), "text/html")
-                .querySelector("#login-page")
+        this.submitButton = <HTMLElement>this.element.querySelector("#submit");
+        this.registrationButton = <HTMLElement>(
+            this.element.querySelector("#reg")
         );
         this.regUser = <HTMLElement>(
             parser
@@ -45,201 +39,85 @@ export class LoginModal extends IWidget {
                 .querySelector("#reg-extra-info-page")
         );
 
-        this.bindLoginPage();
-        this.bindRegUserPage();
-        this.bindRegExtraInfoPage();
+        // this.bindSubmitClick();
+        // this.bindRegistrationButtonClick();
+        // this.bindCloseClick();
+        // this.bindOuterModalClick();
+    }
 
-        this.bindOuterModalClick();
-        this.page.appendChild(this.login);
+    open() {
+        this.element.classList.add("open");
+    }
+
+    close() {
+        this.element.classList.remove("open");
     }
 
     update() {
-        if (model.modalModel.getIsOpened()) {
-            this.element.classList.add("open");
-        } else {
-            this.element.classList.remove("open");
-        }
-
-        switch (model.registrationModel.getRegState()) {
-            case REG_STATE.LOGIN:
-                this.page.innerHTML = "";
-                this.page.appendChild(this.login);
-                break;
-            case REG_STATE.REG_USER:
-                this.page.innerHTML = "";
-                this.page.appendChild(this.regUser);
-                break;
-            case REG_STATE.REG_EXTRA_INFO:
-                this.page.innerHTML = "";
-                this.page.appendChild(this.regExtraInfo);
-                break;
-        }
+        // if (model.userModel.getErrorMsg()) {
+        //     this.messageBox.innerText = model.userModel.getErrorMsg() as string;
+        // }
+        // if (model.modalModel.getIsOpened()) {
+        //     this.element.classList.add("open");
+        // } else {
+        //     this.element.classList.remove("open");
+        // }
     }
 
-    bindOuterModalClick() {
-        this.element
-            .querySelector(".modal__box")!
-            .addEventListener("click", (event: any) => {
-                event._isClickWithInModal = true;
-            });
-        this.element.addEventListener("click", (event: any) => {
-            if (event._isClickWithInModal) return;
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.MODAL_CHANGE,
-                data: "close",
-            });
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.REG_STATE_CHANGE,
-                data: 0,
-            });
-        });
-    }
+    // bindUsernameInput() {
+    //     this.usernameInput.addEventListener("input", () => {
+    //         this.messageBox.innerText = "";
+    //     });
+    // }
 
-    bindLoginPage() {
-        const usernameInput = <HTMLInputElement>(
-            this.login.querySelector("#username")
-        );
-        const passwordInput = <HTMLInputElement>(
-            this.login.querySelector("#password")
-        );
-        const messageBox = <HTMLElement>this.login.querySelector("#msg");
+    // bindPasswordInput() {
+    //     this.passwordInput.addEventListener("input", () => {
+    //         this.messageBox.innerText = "";
+    //     });
+    // }
 
-        usernameInput.addEventListener("input", () => {
-            messageBox.innerText = "";
-        });
+    // bindSubmitClick() {
+    //     this.submitButton.addEventListener("click", () => {
+    //         controller.handleEvent({
+    //             type: VIEW_EVENT_TYPE.LOGIN,
+    //             data: {
+    //                 username: this.usernameInput.value,
+    //                 password: this.passwordInput.value,
+    //             },
+    //         });
+    //     });
+    // }
 
-        passwordInput.addEventListener("input", () => {
-            messageBox.innerText = "";
-        });
+    // bindRegistrationButtonClick() {
+    //     this.registrationButton.addEventListener("click", () => {
+    //         controller.handleEvent({
+    //             type: VIEW_EVENT_TYPE.MODAL_CHANGE,
+    //             data: "close",
+    //         });
+    //     });
+    // }
 
-        this.login.querySelector("#submit")!.addEventListener("click", () => {
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.LOGIN,
-                data: {
-                    username: usernameInput.value,
-                    password: passwordInput.value,
-                },
-            });
-        });
+    // bindCloseClick() {
+    //     this.element.querySelector("#close")!.addEventListener("click", () => {
+    //         controller.handleEvent({
+    //             type: VIEW_EVENT_TYPE.MODAL_CHANGE,
+    //             data: "close",
+    //         });
+    //     });
+    // }
 
-        this.login.querySelector("#reg")!.addEventListener("click", () => {
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.REG_STATE_CHANGE,
-                data: "next",
-            });
-        });
-
-        this.login.querySelector("#close")!.addEventListener("click", () => {
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.MODAL_CHANGE,
-                data: "close",
-            });
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.REG_STATE_CHANGE,
-                data: 0,
-            });
-        });
-    }
-
-    bindRegUserPage() {
-        const usernameInput = <HTMLInputElement>(
-            this.regUser.querySelector("#username")
-        );
-        const emailInput = <HTMLInputElement>(
-            this.regUser.querySelector("#email")
-        );
-        const passwordInput = <HTMLInputElement>(
-            this.regUser.querySelector("#password")
-        );
-        const passwordConfirmInput = <HTMLInputElement>(
-            this.regUser.querySelector("#passwordconfirm")
-        );
-        const messageBox = <HTMLElement>this.regUser.querySelector("#msg");
-
-        usernameInput.addEventListener("input", () => {
-            messageBox.innerText = "";
-        });
-        emailInput.addEventListener("input", () => {
-            messageBox.innerText = "";
-        });
-        passwordInput.addEventListener("input", () => {
-            messageBox.innerText = "";
-        });
-        passwordConfirmInput.addEventListener("input", () => {
-            messageBox.innerText = "";
-        });
-
-        this.regUser.querySelector("#next")!.addEventListener("click", () => {
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.REG_STATE_CHANGE,
-                data: "next",
-            });
-        });
-        this.regUser.querySelector("#back")!.addEventListener("click", () => {
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.REG_STATE_CHANGE,
-                data: "prev",
-            });
-        });
-        this.regUser.querySelector("#auth")!.addEventListener("click", () => {
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.REG_STATE_CHANGE,
-                data: 0,
-            });
-        });
-        this.regUser.querySelector("#close")!.addEventListener("click", () => {
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.MODAL_CHANGE,
-                data: "close",
-            });
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.REG_STATE_CHANGE,
-                data: 0,
-            });
-        });
-    }
-
-    bindRegExtraInfoPage() {
-        const birthdayInput = <HTMLInputElement>(
-            this.regExtraInfo.querySelector("#birthday")
-        );
-        const dateInput = <HTMLInputElement>(
-            this.regExtraInfo.querySelector("#phone-number")
-        );
-        const messageBox = <HTMLElement>this.regUser.querySelector("#msg");
-
-        birthdayInput.addEventListener("input", () => {
-            messageBox.innerText = "";
-        });
-        dateInput.addEventListener("input", () => {
-            messageBox.innerText = "";
-        });
-
-        this.regExtraInfo
-            .querySelector("#submit")!
-            .addEventListener("click", () => {
-                controller.handleEvent({});
-            });
-        this.regExtraInfo
-            .querySelector("#back")!
-            .addEventListener("click", () => {
-                controller.handleEvent({
-                    type: VIEW_EVENT_TYPE.REG_STATE_CHANGE,
-                    data: "prev",
-                });
-            });
-
-        this.regExtraInfo
-            .querySelector("#close")!
-            .addEventListener("click", () => {
-                controller.handleEvent({
-                    type: VIEW_EVENT_TYPE.MODAL_CHANGE,
-                    data: "close",
-                });
-                controller.handleEvent({
-                    type: VIEW_EVENT_TYPE.REG_STATE_CHANGE,
-                    data: 0,
-                });
-            });
-    }
+    // bindOuterModalClick() {
+    //     this.element
+    //         .querySelector(".modal__box")!
+    //         .addEventListener("click", (event: any) => {
+    //             event._isClickWithInModal = true;
+    //         });
+    //     this.element.addEventListener("click", (event: any) => {
+    //         if (event._isClickWithInModal) return;
+    //         controller.handleEvent({
+    //             type: VIEW_EVENT_TYPE.MODAL_CHANGE,
+    //             data: "close",
+    //         });
+    //     });
+    // }
 }

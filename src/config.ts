@@ -1,8 +1,3 @@
-enum GENERAL_MESSAGE {
-    NETWORK_ERROR = "Ошибка сети",
-    UNEXPECTED = "Неожиданная ошибка",
-}
-
 enum ROUTES {
     signup = "/signup",
     restaurants = "/restaurants",
@@ -12,5 +7,19 @@ enum ROUTES {
     cart = "/cart",
     profile = "/me",
 }
+export { ROUTES };
 
-export { GENERAL_MESSAGE, ROUTES };
+export const enum UIEventType {
+    RESTAURANT_CLICK = "RESTAURANT_CLICK",
+    NAVBAR_LOGO_CLICK = "NAVBAR_LOGO_CLICK",
+    NAVBAR_ADDRESS_CLICK = "NAVBAR_ADDRESS_CLICK",
+    NAVBAR_SIGNIN_CLICK = "NAVBAR_SIGNIN_CLICK",
+    NAVBAR_EXIT_CLICK = "NAVBAR_EXIT_CLICK",
+    NAVBAR_NAME_CLICK = "NAVBAR_NAME_CLICK",
+    NAVBAR_CART_CLICK = "NAVBAR_CART_CLICK",
+}
+
+export type UIEvent = {
+    type: UIEventType;
+    data?: unknown;
+};
