@@ -19,7 +19,7 @@ export class DishList extends IWidget {
         this.element.querySelectorAll(".dish-card__button").forEach((element) =>
             element.addEventListener("click", () => {
                 controller.handleEvent({
-                    type: VIEW_EVENT_TYPE.ADD_DISH,
+                    type: VIEW_EVENT_TYPE.INCREASE_CART,
                     data: element.id,
                 });
             }),

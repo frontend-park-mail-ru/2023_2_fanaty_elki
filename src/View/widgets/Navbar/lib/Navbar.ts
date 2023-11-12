@@ -8,6 +8,7 @@ import "../ui/Navbar.scss";
 export class Navbar extends IWidget implements Listenable<UIEvent> {
     private userNameElement: HTMLElement;
     private signInButton: HTMLElement;
+    private cartButton: HTMLElement;
 
     private events_: EventDispatcher<UIEvent>;
     get events(): EventDispatcher<UIEvent> {
@@ -26,6 +27,7 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
         this.signInButton = <HTMLElement>(
             this.element.querySelector("#signin-button")
         );
+        this.cartButton = <HTMLElement>this.element.querySelector("#cart");
 
         this.bindEvents();
         this.setNonAuthUser();
@@ -82,6 +84,9 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
     private setAuthUser(username: string) {
         this.userNameElement.firstElementChild!.innerHTML = username;
         this.element.appendChild(this.userNameElement);
+        this.element
+            .querySelector(".navbar__fields")!
+            .appendChild(this.cartButton);
         if (this.signInButton.parentNode) {
             this.element.removeChild(this.signInButton);
         }
@@ -92,6 +97,11 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
         if (this.userNameElement.parentNode) {
             this.element.removeChild(this.userNameElement);
         }
+        // if (this.cartButton.parentNode) {
+        //     this.element
+        //         .querySelector(".navbar__fields")!
+        //         .removeChild(this.cartButton);
+        // }
     }
 
     load() {}

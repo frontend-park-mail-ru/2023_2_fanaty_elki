@@ -7,6 +7,8 @@ export enum VIEW_EVENT_TYPE {
     ADD_DISH = "ADD_DISH",
     RESTAURANT_UPDATE = "RESTAURANT_UPDATE",
     ADDRESS_UPDATE = "ADDRESS_UPDATE",
+    INCREASE_CART = "INCREASE_UPDATE",
+    DECREASE_CART = "DECREASE_UPDATE",
 }
 
 export type ViewEvent = {
@@ -42,6 +44,12 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.ADDRESS_UPDATE:
                 model.userModel.setAddress(<string>event!.data);
+                break;
+            case VIEW_EVENT_TYPE.DECREASE_CART:
+                model.cartModel.decrease(<number>event!.data);
+                break;
+            case VIEW_EVENT_TYPE.INCREASE_CART:
+                model.cartModel.increase(<number>event!.data);
                 break;
         }
     }

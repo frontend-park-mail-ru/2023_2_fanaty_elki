@@ -38,6 +38,7 @@ export class UserModel implements Listenable<UserEvent> {
     constructor() {
         this.events_ = new EventDispatcher<UserEvent>();
         this.user = null;
+        this.address = "";
     }
 
     /**

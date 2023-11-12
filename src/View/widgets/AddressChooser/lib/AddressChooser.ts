@@ -63,6 +63,10 @@ export class AddressChooser extends IWidget {
         });
     }
 
+    load() {
+        this.value = model.userModel.getAddress();
+    }
+
     update(event?: UserEvent) {
         if (event === UserEvent.ADDRESS_CHANGE) {
             this.value = model.userModel.getAddress();

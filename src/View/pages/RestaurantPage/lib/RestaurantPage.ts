@@ -62,6 +62,7 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
 
     load(params?: URLSearchParams) {
         this.navbar.load();
+        this.address.load();
         if (!params || !params.get("id")) {
             console.log("no id");
             return;

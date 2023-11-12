@@ -187,7 +187,7 @@ const Api = {
     },
 
     async getCart() {
-        const config = apiConfig.api.getCart;
+        const config = apiConfig.api.cart;
         const response = await ajax(
             `${apiConfig.backend}${config.url}`,
             config.params(""),
@@ -220,8 +220,8 @@ const Api = {
     async removeDishFromCart(dishId: number) {
         const config = apiConfig.api.cartDelete;
         const response = await ajax(
-            `${apiConfig.backend}${config.url}`,
-            config.params(String(dishId)),
+            `${apiConfig.backend}${config.url}/${dishId}`,
+            config.params(""),
         );
         checkResponse(response, config);
         return;

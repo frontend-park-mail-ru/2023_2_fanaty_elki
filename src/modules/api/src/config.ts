@@ -9,7 +9,7 @@ enum REQUEST_METHOD {
 
 export const apiConfig: ApiConfig = {
     // backend: "http://84.23.53.216:8080/api",
-    backend: "http://localhost:8080/api",
+    backend: "http://127.0.0.1:8080/api",
     api: {
         auth: {
             url: "/auth",
@@ -154,7 +154,7 @@ export const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
-        getCart: {
+        cart: {
             url: "/cart",
             params: () => {
                 return {
@@ -166,21 +166,22 @@ export const apiConfig: ApiConfig = {
                 200: "OK",
             },
             failure: {
+                401: "Отсутствует авторизация",
                 500: "Ошибка сервера",
             },
             restrictions: {},
         },
         cartAdd: {
-            url: "/cart/add",
+            url: "/cart",
             params: (id) => {
                 return {
                     method: REQUEST_METHOD.POST,
-                    body: `{ "ProductID" : ${id} }`,
+                    body: id,
                     credentials: "include",
                 };
             },
             success: {
-                200: "OK",
+                201: "OK",
             },
             failure: {
                 500: "Ошибка сервера",
@@ -188,11 +189,11 @@ export const apiConfig: ApiConfig = {
             restrictions: {},
         },
         cartDelete: {
-            url: "/cart/delete",
+            url: "/cart",
             params: (id) => {
                 return {
-                    method: REQUEST_METHOD.POST,
-                    body: `{ "ProductID" : ${id} }`,
+                    method: REQUEST_METHOD.DELETE,
+                    body: id,
                     credentials: "include",
                 };
             },
