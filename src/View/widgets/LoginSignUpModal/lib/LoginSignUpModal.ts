@@ -1,7 +1,7 @@
 import { IWidget } from "../../../types";
 
-import loginSignInModalTemplate from "../ui/LoginSignInModal.hbs";
-import "../ui/LoginSignInModal.scss";
+import loginSignUpModalTemplate from "../ui/LoginSignUpModal.hbs";
+import "../ui/LoginSignUpModal.scss";
 import "../ui/inputWithMsg.scss";
 import "../ui/Button.scss";
 
@@ -9,7 +9,7 @@ import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { UIEvent } from "../../../../config";
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 
-export class LoginSignInModal extends IWidget implements Listenable<UIEvent> {
+export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
     private page: HTMLElement;
 
     private loginPage: HTMLElement;
@@ -22,24 +22,37 @@ export class LoginSignInModal extends IWidget implements Listenable<UIEvent> {
     }
 
     constructor() {
-        super(loginSignInModalTemplate(), ".modal");
+        super(loginSignUpModalTemplate(), ".modal");
+        this.events_ = new EventDispatcher<UIEvent>();
 
         model.userModel.events.subscribe(this.update.bind(this));
 
         this.loginPage = <HTMLElement>this.element.querySelector("#login-page");
-        this.loginPage = <HTMLElement>(
+        this.regUserPage = <HTMLElement>(
             this.element.querySelector("#reg-user-page")
         );
-        this.loginPage = <HTMLElement>(
+        this.regExtraInfoPage = <HTMLElement>(
             this.element.querySelector("#reg-extra-info-page")
         );
 
         this.bindLoginPageEvents();
         this.bindRegUserPageEvents();
         this.bindRegExtraInfoPage();
+
+        this.bindEvents();
     }
 
-    update() {}
+    update() {
+        if (model.userModel.getUser()) {
+            this.close();
+        } else if (model.userModel.getErrorMsg()) {
+            (
+                this.regExtraInfoPage.querySelector(
+                    "#reg-extra-info-page__msg",
+                ) as HTMLElement
+            ).innerText = model.userModel.getErrorMsg()!;
+        }
+    }
 
     open() {
         this.element.classList.add("open");
@@ -49,7 +62,22 @@ export class LoginSignInModal extends IWidget implements Listenable<UIEvent> {
         this.element.classList.remove("open");
     }
 
+    bindEvents() {
+        this.element
+            .querySelector(".modal__box")!
+            .addEventListener("click", (event: any) => {
+                event._isClickWithInModal = true;
+            });
+        this.element.addEventListener("click", (event: any) => {
+            if (event._isClickWithInModal) return;
+            this.close();
+        });
+    }
+
     bindLoginPageEvents() {
+        console.log(this.element);
+        console.log(this.loginPage);
+
         const closeButton = <HTMLElement>(
             this.loginPage.querySelector("#login-page__close")
         );
@@ -331,7 +359,7 @@ export class LoginSignInModal extends IWidget implements Listenable<UIEvent> {
             return "Пароль не может быть пустым";
         }
 
-        if (password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+        if (!password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
             return "Пароль должен быть длиннее 8 символов и содержать хотя бы одну букву и цифру";
         }
 

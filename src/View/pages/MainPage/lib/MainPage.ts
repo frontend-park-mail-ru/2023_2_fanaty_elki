@@ -1,6 +1,6 @@
 import { Navbar } from "../../../widgets/Navbar/index";
 import { RestaurantsList } from "../../../widgets/RestaurantList/index";
-import { LoginModal } from "../../../widgets/LoginModal";
+import { LoginSignUpModal } from "../../../widgets/LoginSignUpModal";
 import MainTemplate from "../ui/MainView.hbs";
 import "../ui/MainView.scss";
 import { Page } from "../../..//types.d";
@@ -9,7 +9,7 @@ import { UIEvent, UIEventType } from "../../../../config";
 export class MainPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
     private r_list: RestaurantsList;
-    private login: LoginModal;
+    private login: LoginSignUpModal;
     private events_: EventDispatcher<UIEvent>;
 
     get events(): EventDispatcher<UIEvent> {
@@ -21,7 +21,7 @@ export class MainPage extends Page implements Listenable<UIEvent> {
 
         this.navbar = new Navbar();
         this.r_list = new RestaurantsList();
-        this.login = new LoginModal();
+        this.login = new LoginSignUpModal();
 
         this.navbar.events.subscribe(this.update.bind(this));
         this.r_list.events.subscribe(this.update.bind(this));
