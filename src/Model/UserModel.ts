@@ -1,3 +1,4 @@
+import { apiConfig } from "../modules/api";
 import { Api } from "../modules/api/src/api";
 import { EventDispatcher, Listenable } from "../modules/observer";
 
@@ -61,15 +62,18 @@ export class UserModel implements Listenable<UserEvent> {
      */
     async auth() {
         this.user = await Api.authUser();
+        this.errorMsg = null;
         this.events.notify(UserEvent.USER_CHANGE);
     }
 
     async createUser(user: User) {
         try {
             await Api.createUser(user);
-        } catch (e) {
-            this.errorMsg = (e as Error).message;
+            this.errorMsg = null;
+        } catch (e: any) {
+            this.errorMsg = apiConfig.api.signup.failure[e.status];
         }
+        console.log(this.errorMsg);
         this.events.notify(UserEvent.USER_CHANGE);
     }
 
@@ -86,8 +90,8 @@ export class UserModel implements Listenable<UserEvent> {
                 password,
             });
             this.errorMsg = null;
-        } catch (e) {
-            this.errorMsg = (e as Error).message;
+        } catch (e: any) {
+            this.errorMsg = apiConfig.api.login.failure[e.status];
         }
         this.events.notify(UserEvent.USER_CHANGE);
     }
@@ -101,8 +105,8 @@ export class UserModel implements Listenable<UserEvent> {
             await Api.logoutUser();
             this.user = null;
             this.errorMsg = null;
-        } catch (e) {
-            this.errorMsg = (e as Error).message;
+        } catch (e: any) {
+            this.errorMsg = apiConfig.api.logout.failure[e.status];
         }
         this.events.notify(UserEvent.USER_CHANGE);
     }
