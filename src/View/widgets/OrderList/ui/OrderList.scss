@@ -1,0 +1,48 @@
+@use "../../../../../public/index.scss" as index;
+
+.order-list {
+    display: flex;
+    width: 400px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 43px;
+    flex-shrink: 0;
+    align-self: stretch;
+}
+
+.order-list__title {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+}
+
+.order-list__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1 0 0;
+}
+
+.order-list__item__order-info {
+    display: flex;
+    width: 305px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-list__item__order-status {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+    color: index.$green;
+}
+
+.order-list__item__order-info__order-num {
+    display: flex;
+    align-items: center;
+}
+
+.order-list__item__order-info__order-sum {
+    display: flex;
+    align-items: center;
+}

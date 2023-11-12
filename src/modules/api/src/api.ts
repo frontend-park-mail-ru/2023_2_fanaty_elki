@@ -1,4 +1,4 @@
-import { User } from "../../../Model/UserModel";
+import { User, Address } from "../../../Model/UserModel";
 import { apiConfig } from "./config";
 
 enum ERROR_TYPE {
@@ -269,11 +269,12 @@ const Api = {
         return json.Body;
     },
 
-    async createOrder(dishesId: string) {
+    async createOrder(Products: number[], Address: Address) {
         const config = apiConfig.api.createOrder;
+        const body = JSON.stringify({ Products, Address });
         const response = await ajax(
             `${apiConfig.backend}${config.url}`,
-            config.params(dishesId),
+            config.params(body),
         );
         checkResponse(response, config);
         const json = await response.json();

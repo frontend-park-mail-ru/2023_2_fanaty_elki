@@ -8,6 +8,7 @@ export enum VIEW_EVENT_TYPE {
     RESTAURANT_UPDATE = "RESTAURANT_UPDATE",
     ADDRESS_UPDATE = "ADDRESS_UPDATE",
     LOGOUT = "LOGOUT",
+    ORDER_UPDATE = "ORDER_UPDATE",
 }
 
 export type ViewEvent = {
@@ -46,6 +47,9 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.ADDRESS_UPDATE:
                 model.userModel.setAddress(<string>event!.data);
+                break;
+            case VIEW_EVENT_TYPE.ORDER_UPDATE:
+                model.orderModel.setOrders();
                 break;
         }
     }

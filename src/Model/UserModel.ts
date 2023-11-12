@@ -16,6 +16,13 @@ export const enum UserEvent {
     ADDRESS_CHANGE = "ADDRESS_CHANGE",
 }
 
+export type Address = {
+    City: string;
+    Street: string;
+    House: string;
+    Flat: number;
+};
+
 /**
  * Модель пользователя
  * @class

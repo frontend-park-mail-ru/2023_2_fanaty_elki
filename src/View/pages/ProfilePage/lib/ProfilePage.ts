@@ -2,6 +2,7 @@ import { UIEvent } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { Page } from "../../../types";
 import { Navbar } from "../../../widgets/Navbar";
+import { OrderList } from "../../../widgets/OrderList";
 import { ProfileWidget } from "../../../widgets/ProfileWidget";
 
 import profilePageTemplate from "../ui/ProfilePage.hbs";
@@ -9,6 +10,7 @@ import "../ui/ProfilePage.scss";
 
 export class ProfilePage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
+    private orderList: OrderList;
     private profile: ProfileWidget;
 
     private events_: EventDispatcher<UIEvent>;
@@ -28,6 +30,11 @@ export class ProfilePage extends Page implements Listenable<UIEvent> {
         this.element
             .querySelector(".profile__content__user-data")!
             .appendChild(this.profile.element);
+
+        this.orderList = new OrderList();
+        this.element
+            .querySelector(".profile__content__orders")!
+            .appendChild(this.orderList.element);
     }
 
     update(event?: UIEvent) {
@@ -38,5 +45,6 @@ export class ProfilePage extends Page implements Listenable<UIEvent> {
     load() {
         this.navbar.load();
         this.profile.load();
+        this.orderList.load();
     }
 }
