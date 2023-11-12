@@ -102,11 +102,11 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
         if (this.userNameElement.parentNode) {
             this.element.removeChild(this.userNameElement);
         }
-        // if (this.cartButton.parentNode) {
-        //     this.element
-        //         .querySelector(".navbar__fields")!
-        //         .removeChild(this.cartButton);
-        // }
+        if (this.cartButton.parentNode) {
+            this.element
+                .querySelector(".navbar__fields")!
+                .removeChild(this.cartButton);
+        }
     }
 
     load() {}

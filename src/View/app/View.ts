@@ -7,6 +7,7 @@ import { RestaurantPage } from "../pages/RestaurantPage";
 import { CartPage } from "../pages/CartPage/lib/CartPage";
 import { ProfilePage } from "../pages/ProfilePage";
 import { UserEvent } from "../../Model/UserModel";
+import { VIEW_EVENT_TYPE } from "../../Controller/Controller";
 
 export class View {
     private root: HTMLElement;
@@ -40,27 +41,8 @@ export class View {
             [ROUTES.profile, this.profilePage],
         ]);
 
-        model.userModel.auth();
-
         this.router_ = new Router(routes, this.root);
-        if (
-            window.location.pathname === ROUTES.cart &&
-            !model.userModel.getUser()
-        ) {
-            this.router_.redirect(ROUTES.main);
-            alert("Нужно залогиниться");
-        } else if (
-            window.location.pathname === ROUTES.profile &&
-            !model.userModel.getUser()
-        ) {
-            this.router_.route(ROUTES.main);
-            alert("Нужно залогиниться");
-        } else {
-            this.router_.route(
-                window.location.pathname,
-                window.location.search,
-            );
-        }
+
         window.onpopstate = (event: Event) => {
             event.preventDefault();
             this.router_.route(
@@ -68,6 +50,11 @@ export class View {
                 window.location.search,
             );
         };
+
+        controller.handleEvent({
+            type: VIEW_EVENT_TYPE.AUTH,
+            data: null,
+        });
     }
 
     updateUIEvent(event?: UIEvent) {
@@ -94,11 +81,46 @@ export class View {
 
     updateUserEvent(event?: UserEvent) {
         console.log(event);
-        if (
-            !model.userModel.getUser() &&
-            window.location.pathname === ROUTES.profile
-        ) {
-            this.router_.redirect(ROUTES.main);
+        switch (event) {
+            case UserEvent.AUTH:
+                {
+                    if (
+                        window.location.pathname === ROUTES.cart &&
+                        !model.userModel.getUser()
+                    ) {
+                        this.router_.redirect(ROUTES.main);
+                        alert("Нужно залогиниться");
+                    } else if (
+                        window.location.pathname === ROUTES.profile &&
+                        !model.userModel.getUser()
+                    ) {
+                        this.router_.route(ROUTES.main);
+                        alert("Нужно залогиниться");
+                    } else {
+                        this.router_.route(
+                            window.location.pathname,
+                            window.location.search,
+                        );
+                    }
+                }
+                break;
+            case UserEvent.USER_CHANGE:
+                {
+                    if (
+                        window.location.pathname === ROUTES.cart &&
+                        !model.userModel.getUser()
+                    ) {
+                        this.router_.redirect(ROUTES.main);
+                    } else if (
+                        window.location.pathname === ROUTES.profile &&
+                        !model.userModel.getUser()
+                    ) {
+                        this.router_.redirect(ROUTES.main);
+                    }
+                }
+                break;
+            default:
+                break;
         }
     }
 }

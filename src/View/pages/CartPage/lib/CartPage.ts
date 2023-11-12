@@ -10,6 +10,7 @@ import "../ui/CartView.scss";
 import "../ui/CartItem.scss";
 import "../ui/PaymentChooser.scss";
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
+import { control } from "yandex-maps";
 
 export class CartPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
@@ -41,10 +42,12 @@ export class CartPage extends Page implements Listenable<UIEvent> {
 
     updateCart() {
         const cart = model.cartModel.getCart();
-        console.log(cart);
-        cart.sort((a, b) => {
-            return a.Product.ID - b.Product.ID;
-        });
+        console.log("cart", cart);
+        if (cart) {
+            cart.sort((a, b) => {
+                return a.Product.ID - b.Product.ID;
+            });
+        }
         this.element.querySelector(".cart__content__goods")!.innerHTML =
             cartListTemplate(cart);
         this.element
@@ -84,6 +87,9 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     load() {
         this.navbar.load();
         this.address.load();
-        this.updateCart();
+        controller.handleEvent({
+            type: VIEW_EVENT_TYPE.LOAD_CART,
+            data: null,
+        });
     }
 }
