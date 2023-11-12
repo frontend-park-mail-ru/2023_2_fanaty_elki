@@ -62,7 +62,54 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
     }
 
     close() {
+        this.clearInputs();
+        this.clearMessages();
         this.element.classList.remove("open");
+    }
+
+    clearInputs() {
+        (<HTMLInputElement>(
+            this.loginPage.querySelector("#login-page__username")
+        )).value = "";
+        (<HTMLInputElement>(
+            this.loginPage.querySelector("#login-page__password")
+        )).value = "";
+
+        (<HTMLInputElement>(
+            this.regUserPage.querySelector("#reg-user-page__email")
+        )).value = "";
+        (<HTMLInputElement>(
+            this.regUserPage.querySelector("#reg-user-page__username")
+        )).value = "";
+        (<HTMLInputElement>(
+            this.regUserPage.querySelector("#reg-user-page__password")
+        )).value = "";
+        (<HTMLInputElement>(
+            this.regUserPage.querySelector("#reg-user-page__passwordconfirm")
+        )).value = "";
+
+        (<HTMLInputElement>(
+            this.regExtraInfoPage.querySelector(
+                "#reg-extra-info-page__birthday",
+            )
+        )).value = "";
+        (<HTMLInputElement>(
+            this.regExtraInfoPage.querySelector(
+                "#reg-extra-info-page__phone-number",
+            )
+        )).value = "";
+    }
+
+    clearMessages() {
+        (<HTMLElement>(
+            this.loginPage.querySelector("#login-page__msg")
+        )).innerText = "";
+        (<HTMLElement>(
+            this.regUserPage.querySelector("#reg-user-page__msg")
+        )).innerText = "";
+        (<HTMLElement>(
+            this.regExtraInfoPage.querySelector("#reg-extra-info-page__msg")
+        )).innerText = "";
     }
 
     bindEvents() {
@@ -124,6 +171,8 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
         });
         regButton.addEventListener("click", () => {
             this.loginPage.classList.add("display-none");
+            usernameInput.value = "";
+            passwordInput.value = "";
             this.regUserPage.classList.remove("display-none");
         });
     }
@@ -182,6 +231,7 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
         });
         backButton.addEventListener("click", () => {
             this.regUserPage.classList.add("display-none");
+            this.clearMessages();
             this.loginPage.classList.remove("display-none");
         });
 
@@ -218,8 +268,8 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
                 !passwordConfirmValidation
             ) {
                 this.regUserPage.classList.add("display-none");
+                this.clearMessages();
                 this.regExtraInfoPage.classList.remove("display-none");
-                return;
             } else {
                 emailMessageBox.innerText = emailValidation;
                 usernameMessageBox.innerText = usernameValidation;
@@ -229,6 +279,7 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
         });
         authButton.addEventListener("click", () => {
             this.regUserPage.classList.add("display-none");
+            this.clearMessages();
             this.loginPage.classList.remove("display-none");
         });
     }
@@ -241,9 +292,9 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
             this.regExtraInfoPage.querySelector("#reg-extra-info-page__back")
         );
 
-        // const messageBox = <HTMLElement>(
-        //     this.regExtraInfoPage.querySelector("#reg-extra-info-page__msg")
-        // );
+        const messageBox = <HTMLElement>(
+            this.regExtraInfoPage.querySelector("#reg-extra-info-page__msg")
+        );
 
         const birthdayMessageBox = <HTMLElement>(
             this.regExtraInfoPage.querySelector(
@@ -285,6 +336,7 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
 
         backButton.addEventListener("click", () => {
             this.regExtraInfoPage.classList.add("display-none");
+            this.clearMessages();
             this.regUserPage.classList.remove("display-none");
         });
         closeButton.addEventListener("click", () => {
@@ -292,9 +344,11 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
         });
 
         birthdayInput.addEventListener("input", () => {
+            messageBox.innerText = "";
             birthdayMessageBox.innerText = "";
         });
         phoneNumberInput.addEventListener("input", () => {
+            messageBox.innerText = "";
             phoneNumberMessageBox.innerText = "";
         });
 
@@ -325,6 +379,7 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
         });
         authButton.addEventListener("click", () => {
             this.regExtraInfoPage.classList.add("display-none");
+            this.clearMessages();
             this.loginPage.classList.remove("display-none");
         });
     }

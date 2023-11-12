@@ -1,3 +1,4 @@
+import { RestaurantEvent } from "../../../../Model/RestaurantModel";
 import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { Page } from "../../../types";
@@ -22,6 +23,9 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
     constructor() {
         super(RestaurantPageTemplate(), "#main");
         this.events_ = new EventDispatcher<UIEvent>();
+        model.restaurantModel.events.subscribe(
+            this.updateRestaurantEvent.bind(this),
+        );
 
         this.navbar = new Navbar();
         this.element.querySelector("#navbar")!.appendChild(this.navbar.element);
@@ -41,11 +45,11 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
             .querySelector("#categories")!
             .appendChild(this.d_list.element);
 
-        this.navbar.events.subscribe(this.update.bind(this));
-        this.login.events.subscribe(this.update.bind(this));
+        this.navbar.events.subscribe(this.updateUIEvent.bind(this));
+        this.login.events.subscribe(this.updateUIEvent.bind(this));
     }
 
-    update(event?: UIEvent) {
+    updateUIEvent(event?: UIEvent) {
         console.log(event);
         switch (event!.type) {
             case UIEventType.NAVBAR_SIGNIN_CLICK:
@@ -58,6 +62,13 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
                 break;
         }
         this.events_.notify(event);
+    }
+
+    updateRestaurantEvent(event?: RestaurantEvent) {
+        if (event === RestaurantEvent.LOADED_REST) {
+            (<HTMLElement>this.element.querySelector("#title")).innerText =
+                model.restaurantModel.getRestaurant().RestaurantInfo.Name;
+        }
     }
 
     load(params?: URLSearchParams) {

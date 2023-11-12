@@ -9,6 +9,7 @@ export enum VIEW_EVENT_TYPE {
     ADDRESS_UPDATE = "ADDRESS_UPDATE",
     INCREASE_CART = "INCREASE_UPDATE",
     DECREASE_CART = "DECREASE_UPDATE",
+    LOGOUT = "LOGOUT",
 }
 
 export type ViewEvent = {
@@ -33,6 +34,9 @@ export class Controller {
                     (<{ username: string; password: string }>event.data)
                         .password,
                 );
+                break;
+            case VIEW_EVENT_TYPE.LOGOUT:
+                model.userModel.logout();
                 break;
             case VIEW_EVENT_TYPE.REGISTRATION:
                 model.userModel.createUser(event.data as User).then(() => {
