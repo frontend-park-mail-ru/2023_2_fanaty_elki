@@ -1,3 +1,4 @@
+import { UserEvent } from "../../../../Model/UserModel";
 import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { IWidget } from "../../../types";
@@ -57,12 +58,24 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
             });
     }
 
-    update() {
-        const user = model.userModel.getUser();
-        if (user) {
-            this.setAuthUser(user.Username);
-        } else {
-            this.setNonAuthUser();
+    update(event?: UserEvent) {
+        switch (event) {
+            case UserEvent.USER_CHANGE: {
+                const user = model.userModel.getUser();
+                if (user) {
+                    this.setAuthUser(user.Username);
+                } else {
+                    this.setNonAuthUser();
+                }
+                break;
+            }
+            case UserEvent.ADDRESS_CHANGE:
+                this.element.querySelector(
+                    ".navbar__fields__address__title",
+                )!.innerHTML = model.userModel.getAddress();
+                break;
+            default:
+                break;
         }
     }
 

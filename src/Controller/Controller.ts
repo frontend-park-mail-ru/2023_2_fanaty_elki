@@ -3,6 +3,7 @@ export enum VIEW_EVENT_TYPE {
     RESTAURANTS_UPDATE = "RESTAURANTS_UPDATE",
     ADD_DISH = "ADD_DISH",
     RESTAURANT_UPDATE = "RESTAURANT_UPDATE",
+    ADDRESS_UPDATE = "ADDRESS_UPDATE",
 }
 
 export type ViewEvent = {
@@ -27,6 +28,9 @@ export class Controller {
                     (<{ username: string; password: string }>event.data)
                         .password,
                 );
+                break;
+            case VIEW_EVENT_TYPE.ADDRESS_UPDATE:
+                model.userModel.setAddress(<string>event!.data);
                 break;
         }
     }

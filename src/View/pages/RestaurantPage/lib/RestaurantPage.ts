@@ -1,6 +1,7 @@
 import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { Page } from "../../../types";
+import { AddressChooser } from "../../../widgets/AddressChooser";
 import { DishList } from "../../../widgets/DishList";
 import { LoginModal } from "../../../widgets/LoginModal";
 import { Navbar } from "../../../widgets/Navbar";
@@ -11,6 +12,8 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
     private d_list: DishList;
     private login: LoginModal;
+    private address: AddressChooser;
+
     private events_: EventDispatcher<UIEvent>;
 
     get events(): EventDispatcher<UIEvent> {
@@ -22,6 +25,11 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
 
         this.navbar = new Navbar();
         this.element.querySelector("#navbar")!.appendChild(this.navbar.element);
+
+        this.address = new AddressChooser("Укажите адрес");
+        this.element
+            .querySelector("#address_modal")!
+            .appendChild(this.address.element);
 
         this.login = new LoginModal();
         this.element
@@ -42,6 +50,9 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
         switch (event!.type) {
             case UIEventType.NAVBAR_SIGNIN_CLICK:
                 this.login.open();
+                break;
+            case UIEventType.NAVBAR_ADDRESS_CLICK:
+                this.address.open();
                 break;
             default:
                 break;
