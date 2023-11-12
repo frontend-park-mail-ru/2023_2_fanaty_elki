@@ -1,6 +1,7 @@
-import { UIEvent } from "../../../../config";
+import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { Page } from "../../../types";
+import { AddressChooser } from "../../../widgets/AddressChooser";
 import { Navbar } from "../../../widgets/Navbar";
 import { ProfileWidget } from "../../../widgets/ProfileWidget";
 
@@ -10,6 +11,7 @@ import "../ui/ProfilePage.scss";
 export class ProfilePage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
     private profile: ProfileWidget;
+    private addressChooser: AddressChooser;
 
     private events_: EventDispatcher<UIEvent>;
     get events(): EventDispatcher<UIEvent> {
@@ -28,10 +30,20 @@ export class ProfilePage extends Page implements Listenable<UIEvent> {
         this.element
             .querySelector(".profile__content__user-data")!
             .appendChild(this.profile.element);
+
+        this.addressChooser = new AddressChooser("Укажите адрес");
+        this.element
+            .querySelector("#address_chooser")!
+            .appendChild(this.addressChooser.element);
     }
 
     update(event?: UIEvent) {
         console.log(event);
+        if (event) {
+            if (event.type == UIEventType.NAVBAR_ADDRESS_CLICK) {
+                this.addressChooser.open();
+            }
+        }
         this.events.notify(event);
     }
 
