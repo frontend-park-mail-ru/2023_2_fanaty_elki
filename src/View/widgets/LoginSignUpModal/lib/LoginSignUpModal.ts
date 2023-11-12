@@ -362,7 +362,9 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
             return "Пароль не может быть пустым";
         }
 
-        if (!password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+        if (
+            !password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z!@#$%^&-_\d]{8,}$/)
+        ) {
             return "Пароль должен быть длиннее 8 символов и содержать хотя бы одну букву и цифру";
         }
 
