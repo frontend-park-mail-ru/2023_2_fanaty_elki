@@ -34,6 +34,7 @@ export class CartModel implements Listenable<CartEvent> {
     }
 
     async setCart() {
+        console.log("set cart");
         try {
             this.cart = await Api.getCart();
         } catch (e) {

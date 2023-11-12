@@ -13,6 +13,7 @@ export enum VIEW_EVENT_TYPE {
     ORDER_UPDATE = "ORDER_UPDATE",
     AUTH = "AUTH",
     LOAD_CART = "LOAD_CART",
+    CREATE_ORDER = "CREATE_ORDER",
 }
 
 export type ViewEvent = {
@@ -66,6 +67,19 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.LOAD_CART:
                 model.cartModel.setCart();
+                break;
+            case VIEW_EVENT_TYPE.CREATE_ORDER:
+                {
+                    const products = model.cartModel
+                        .getCart()
+                        .map((element) => {
+                            return element.Product.ID;
+                        });
+
+                    const address = model.userModel.getAddress();
+                    model.orderModel.createOrder(products, address);
+                }
+                break;
         }
     }
 }

@@ -3,6 +3,7 @@ import { EventDispatcher, Listenable } from "../modules/observer";
 
 export const enum OrderEvent {
     LOAD_ORDERS = "LOAD_ORDERS",
+    CREATE_ORDER = "CREATE_ORDER",
 }
 
 export type Order = {
@@ -35,13 +36,18 @@ export class OrderModel implements Listenable<OrderEvent> {
     }
 
     async createOrder(Products: number[], Address: string) {
-        const mocAddress = {
-            City: "Moscow",
-            Street: Address,
-            House: "2/73",
-            Flat: 637,
-        };
-        Api.createOrder(Products, mocAddress);
-        this.events.notify(OrderEvent.LOAD_ORDERS);
+        console.log("create");
+        try {
+            const mocAddress = {
+                City: "Moscow",
+                Street: Address + "adsad",
+                House: "2/73",
+                Flat: 637,
+            };
+            this.events.notify(OrderEvent.CREATE_ORDER);
+            Api.createOrder(Products, mocAddress);
+        } catch {
+            console.log("Неудалось создать заказ");
+        }
     }
 }

@@ -11,6 +11,7 @@ import "../ui/CartItem.scss";
 import "../ui/PaymentChooser.scss";
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { control } from "yandex-maps";
+import { OrderEvent } from "../../../../Model/OrderModel";
 
 export class CartPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
@@ -30,6 +31,7 @@ export class CartPage extends Page implements Listenable<UIEvent> {
 
         this.navbar = new Navbar();
         this.element.querySelector("#navbar")!.appendChild(this.navbar.element);
+        model.orderModel.events.subscribe(this.updateControls.bind(this));
 
         this.address = new AddressChooser("Укажите адрес");
         this.element
@@ -38,6 +40,18 @@ export class CartPage extends Page implements Listenable<UIEvent> {
 
         this.navbar.events.subscribe(this.update.bind(this));
         model.cartModel.events.subscribe(this.updateCart.bind(this));
+        this.bindEvents();
+    }
+
+    private bindEvents() {
+        this.element
+            .querySelector(".cart__content__control__payment-approve__approve")!
+            .addEventListener("click", () => {
+                controller.handleEvent({
+                    type: VIEW_EVENT_TYPE.CREATE_ORDER,
+                    data: null,
+                });
+            });
     }
 
     updateCart() {
@@ -82,6 +96,19 @@ export class CartPage extends Page implements Listenable<UIEvent> {
                 break;
         }
         this.events_.notify(event);
+    }
+
+    updateControls(event?: OrderEvent) {
+        if (event === OrderEvent.CREATE_ORDER) {
+            // this.element.querySelector(
+            //     ".cart__content__control__payment-approve",
+            // );
+            alert("заказ создан");
+            controller.handleEvent({
+                type: VIEW_EVENT_TYPE.LOAD_CART,
+                data: null,
+            });
+        }
     }
 
     load() {
