@@ -5,7 +5,7 @@
     width: 400px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 43px;
+    gap: 20px;
     flex-shrink: 0;
     align-self: stretch;
 }
@@ -45,4 +45,9 @@
 .order-list__item__order-info__order-sum {
     display: flex;
     align-items: center;
+}
+
+.order-list__items{
+    height: 390px;
+    overflow: hidden scroll;
 }

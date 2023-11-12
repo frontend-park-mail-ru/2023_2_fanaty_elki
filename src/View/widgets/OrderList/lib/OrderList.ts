@@ -15,12 +15,14 @@ export class OrderList extends IWidget implements Listenable<UIEvent> {
 
     constructor() {
         super(orderListTemplate(), ".order-list");
+        model.orderModel.events.subscribe(this.update.bind(this));
     }
 
     update(event?: OrderEvent) {
         if (event !== OrderEvent.LOAD_ORDERS) return;
         const orders = model.orderModel.getOrders();
-        this.element.innerHTML = orderListTemplate({ orders });
+        console.log(orders);
+        this.element.innerHTML = orderListTemplate(orders);
     }
 
     load() {

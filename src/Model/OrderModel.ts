@@ -44,8 +44,8 @@ export class OrderModel implements Listenable<OrderEvent> {
                 House: "2/73",
                 Flat: 637,
             };
+            await Api.createOrder(Products, mocAddress);
             this.events.notify(OrderEvent.CREATE_ORDER);
-            Api.createOrder(Products, mocAddress);
         } catch {
             console.log("Неудалось создать заказ");
         }
