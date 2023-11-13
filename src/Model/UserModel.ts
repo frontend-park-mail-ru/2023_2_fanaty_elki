@@ -87,6 +87,8 @@ export class UserModel implements Listenable<UserEvent> {
             this.errorMsg = null;
         } catch (e: any) {
             this.errorMsg = apiConfig.api.signup.failure[e.status];
+            this.events.notify(UserEvent.USER_CHANGE); // Грязный хак
+            throw e;
         }
         console.log(this.errorMsg);
         this.events.notify(UserEvent.USER_CHANGE);

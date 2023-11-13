@@ -171,8 +171,6 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
         });
         regButton.addEventListener("click", () => {
             this.loginPage.classList.add("display-none");
-            usernameInput.value = "";
-            passwordInput.value = "";
             this.regUserPage.classList.remove("display-none");
         });
     }
