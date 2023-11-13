@@ -2,7 +2,7 @@ import { IWidget } from "../../../types";
 
 import loginSignUpModalTemplate from "../ui/LoginSignUpModal.hbs";
 import "../ui/LoginSignUpModal.scss";
-import "../ui/inputWithMsg.scss";
+import "../ui/InputWithMsg.scss";
 import "../ui/Button.scss";
 
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
