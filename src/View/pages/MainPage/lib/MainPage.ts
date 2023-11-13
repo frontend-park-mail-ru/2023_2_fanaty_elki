@@ -23,7 +23,7 @@ export class MainPage extends Page implements Listenable<UIEvent> {
         this.events_ = new EventDispatcher<UIEvent>();
 
         this.navbar = new Navbar();
-        this.element.querySelector("#navbar")!.appendChild(this.navbar.element);
+        this.element.appendChild(this.navbar.element);
 
         this.address = new AddressChooser("Укажите адрес");
         this.element
@@ -32,9 +32,7 @@ export class MainPage extends Page implements Listenable<UIEvent> {
 
         this.r_list = new RestaurantsList();
 
-        this.element
-            .querySelector("#restaurant_list")!
-            .appendChild(this.r_list.element);
+        this.element.appendChild(this.r_list.element);
 
         this.login = new LoginSignUpModal();
         this.element

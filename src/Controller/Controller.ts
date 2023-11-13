@@ -71,7 +71,7 @@ export class Controller {
             case VIEW_EVENT_TYPE.CREATE_ORDER:
                 {
                     const products = model.cartModel
-                        .getCart()
+                        .getCart()!
                         .map((element) => {
                             return element.Product.ID;
                         });

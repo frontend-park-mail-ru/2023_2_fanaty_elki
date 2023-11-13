@@ -18,7 +18,7 @@ export const enum CartEvent {
  * @class
  */
 export class CartModel implements Listenable<CartEvent> {
-    private cart: Cart;
+    private cart: Cart | null;
 
     private events_: EventDispatcher<CartEvent>;
     get events(): EventDispatcher<CartEvent> {
@@ -30,7 +30,7 @@ export class CartModel implements Listenable<CartEvent> {
      */
     constructor() {
         this.events_ = new EventDispatcher<CartEvent>();
-        this.cart = [];
+        this.cart = null;
     }
 
     async setCart() {
@@ -67,5 +67,12 @@ export class CartModel implements Listenable<CartEvent> {
 
     getCart() {
         return this.cart;
+    }
+
+    getDishCount(id: number) {
+        const dish = this.cart!.find((element) => {
+            return element.Product.ID === id;
+        });
+        return dish ? dish.ItemCount : 0;
     }
 }

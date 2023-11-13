@@ -1,15 +1,19 @@
 @use '../../../../../public/index.scss' as index;
+$card-size: 250px;
+$list-size: 1070px;
+$list-padding: 1em;
 
 .restaurant-card {
     display: flex;
     flex-direction: column;
-    width: 253px;
+    width: $card-size;
     min-height: 190px;
     justify-content: space-around;
     background-color: index.$light-gray;
     border-radius: 20px;
 
     padding-bottom: 10px;
+    margin-bottom: calc(($list-size - 4*$card-size - 2*$list-padding)/3);
 
     cursor: pointer;
 
@@ -19,14 +23,12 @@
 }
 
 .restaurant-card__image {
-    width: 253px;
-    height: 133px;
+    width: 100%;
+    height: 130px;
 
     border-radius: 20px;
     margin: 0 auto;
 }
-
-
 
 .restaurant-card__info {
     display: flex;

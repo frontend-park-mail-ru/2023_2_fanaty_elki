@@ -1,0 +1,34 @@
+{{#each Categories}}
+    <div class="dishes-category__categories">
+        <h2 class="dishes-category__categories__title">{{MenuType.Name}}</h2>
+        <div class="dishes-category__categories__items">
+            {{#each Products}}
+                <div class="dish-card">
+                    <div class="dish-card__top">
+                        <img
+                            class="dish-card__image"
+                            src="{{Icon}}"
+                            alt=""
+                            srcset=""
+                        />
+                        <div class="dish-card__info__text">
+                            <div
+                                class="dish-card__info__text__price"
+                            >{{Price}}₽</div>
+                            <div
+                                class="dish-card__info__text__dish-name"
+                            >{{Name}}</div>
+                        </div>
+                    </div>
+                    {{#if ../../is_auth}}
+                    <button
+                        class="button_primary-green dish-card__button"
+                        type="button"
+                        id="{{ID}}"
+                    ></button>
+                    {{/if}}
+                </div>
+            {{/each}}
+        </div>
+    </div>
+{{/each}}

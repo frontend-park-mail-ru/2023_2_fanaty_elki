@@ -1,18 +1,29 @@
-@use '../../../shared/ui/Button/Button.scss' as button;
-@use '../../../../../public/index.scss' as index;
+@use "../../../shared/ui/Button/Button.scss" as button;
+@use "../../../../../public/index.scss" as index;
 
 .dish-card {
     display: flex;
-    width: 253px;
-    min-height: 190px;
+    width: 250px;
+    height: fit-content;
     flex-direction: column;
     align-items: flex-start;
     gap: 11px;
     flex-shrink: 0;
+    justify-content: space-between;
+}
+
+.dish-card__top {
+    width: 100%;
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .dish-card__image {
-    flex: 1 0 0;
+    width: 100%;
+    height: 200px;
+
     align-self: stretch;
 }
 
@@ -27,8 +38,6 @@
     padding-left: 0px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 5px;
-    flex: 1 0 0;
 }
 
 .dish-card__info__text__price {
@@ -56,5 +65,13 @@
     gap: 10px;
 
     border-radius: 17px;
-    @include button.button-style($color: index.$gray, $background-color: index.$green, $border: none);
+    @include button.button-style(
+        $color: index.$gray,
+        $background-color: index.$green,
+        $border: none
+    );
+}
+
+.dish-card__button {
+    cursor: pointer;
 }
