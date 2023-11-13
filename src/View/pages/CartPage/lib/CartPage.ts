@@ -8,7 +8,7 @@ import cartListTemplate from "../ui/CartList.hbs";
 import cartControlsTemplate from "../ui/CartControls.hbs";
 import "../ui/CartView.scss";
 import "../ui/CartItem.scss";
-import "../ui/PaymentChooser.scss";
+import "../ui/CartControls.scss";
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { control } from "yandex-maps";
 import { OrderEvent } from "../../../../Model/OrderModel";
@@ -49,6 +49,10 @@ export class CartPage extends Page implements Listenable<UIEvent> {
             .addEventListener("click", () => {
                 controller.handleEvent({
                     type: VIEW_EVENT_TYPE.CREATE_ORDER,
+                    data: null,
+                });
+                controller.handleEvent({
+                    type: VIEW_EVENT_TYPE.CLEAR_CART,
                     data: null,
                 });
             });

@@ -1,10 +1,11 @@
-@use '../../../../../public/index.scss' as index;
+@use "../../../shared/ui/Button/Button.scss" as button;
+@use "../../../../../public/index.scss" as index;
 
 .cart-item {
     display: flex;
     align-items: center;
     gap: 60px;
-    min-width: 600px;
+    width: 100%;
 }
 
 .cart-item__info {
@@ -44,8 +45,11 @@
     gap: 10px;
     flex-shrink: 0;
 
-    border-radius: 17px;
-    background: index.$gray;
+    @include button.button-style(
+        $color: index.$gray,
+        $background-color: index.$green,
+        $border: none
+    );
 }
 
 .cart-item__info__count-control__count {

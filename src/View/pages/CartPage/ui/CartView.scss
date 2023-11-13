@@ -12,7 +12,8 @@
 
 .cart__content {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: space-between;
     gap: 50px;
 }
 
@@ -21,7 +22,7 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 15px;
-    min-width: 600px;
+    width: 100%;
 }
 
 .cart__content__control {
@@ -30,40 +31,4 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-}
-
-.cart__content__control__payment-approve {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    gap: 15px;
-    align-self: stretch;
-}
-
-.cart__content__control__payment-approve__title {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    align-self: stretch;
-}
-
-.cart__content__control__payment-approve__approve {
-    display: flex;
-    height: 50px !important;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    align-self: stretch;
-
-    border-radius: 17px;
-    @include button.button-style(
-        $color: index.$gray,
-        $background-color: index.$green,
-        $border: none
-    );
-
-    $font-family: "Comfortaa";
-    $font-size: 15px;
 }

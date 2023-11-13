@@ -14,6 +14,7 @@ export enum VIEW_EVENT_TYPE {
     AUTH = "AUTH",
     LOAD_CART = "LOAD_CART",
     CREATE_ORDER = "CREATE_ORDER",
+    CLEAR_CART = "CLEAR_CART",
 }
 
 export type ViewEvent = {
@@ -79,6 +80,9 @@ export class Controller {
                     const address = model.userModel.getAddress();
                     model.orderModel.createOrder(products, address);
                 }
+                break;
+            case VIEW_EVENT_TYPE.CLEAR_CART:
+                model.cartModel.clearCart();
                 break;
         }
     }

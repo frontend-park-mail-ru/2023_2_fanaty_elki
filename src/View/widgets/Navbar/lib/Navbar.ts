@@ -111,5 +111,8 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
         }
     }
 
-    load() {}
+    load() {
+        const user = model.userModel.getUser();
+        if (user) this.setAuthUser(user!.Username);
+    }
 }

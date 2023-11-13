@@ -65,6 +65,11 @@ export class CartModel implements Listenable<CartEvent> {
         this.events.notify();
     }
 
+    async clearCart() {
+        await Api.clearCart();
+        this.cart = [];
+        this.events.notify();
+    }
     getCart() {
         return this.cart;
     }
