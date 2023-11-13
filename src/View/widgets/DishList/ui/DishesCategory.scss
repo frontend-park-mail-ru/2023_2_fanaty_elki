@@ -1,13 +1,8 @@
 .dishes-category {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 35px;
-}
-
-.restaurant-widget {
-    width: 1070px;
-    margin: 0 auto;
 }
 
 .dishes-category__categories {
@@ -29,7 +24,7 @@
     display: flex;
     align-items: flex-start;
     align-content: flex-start;
-    gap: 40px 70px;
+    gap: 7%;
     align-self: stretch;
     flex-wrap: wrap;
 }
