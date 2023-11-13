@@ -17,9 +17,7 @@ async function getSuggests(word: string) {
 export class AddressChooser extends IWidget {
     constructor(address_ph: string) {
         super(addressChooserTemplate(), "#address-chooser");
-        (<HTMLInputElement>(
-            this.element.querySelector("#address-value")!
-        )).setAttribute("placeholder", address_ph);
+        this.placeholder = address_ph;
         model.userModel.events.subscribe(this.update.bind(this));
         this.bindEvents();
     }
@@ -70,6 +68,9 @@ export class AddressChooser extends IWidget {
     update(event?: UserEvent) {
         if (event === UserEvent.ADDRESS_CHANGE) {
             this.value = model.userModel.getAddress();
+            if (!this.value) {
+                this.placeholder = "Укажите адрес";
+            }
             this.close();
         }
     }
@@ -105,5 +106,11 @@ export class AddressChooser extends IWidget {
         (<HTMLInputElement>(
             this.element.querySelector("#address-value")!
         )).value = address;
+    }
+
+    set placeholder(hint: string) {
+        (<HTMLInputElement>(
+            this.element.querySelector("#address-value")!
+        )).setAttribute("placeholder", hint);
     }
 }

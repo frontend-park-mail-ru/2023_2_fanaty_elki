@@ -76,11 +76,13 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
                 }
                 break;
             }
-            case UserEvent.ADDRESS_CHANGE:
+            case UserEvent.ADDRESS_CHANGE: {
+                const address = model.userModel.getAddress();
                 this.element.querySelector(
                     ".navbar__fields__address__title",
-                )!.innerHTML = model.userModel.getAddress();
+                )!.innerHTML = address ? address : "Укажите адрес";
                 break;
+            }
             default:
                 break;
         }
