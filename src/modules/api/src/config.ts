@@ -9,7 +9,7 @@ enum REQUEST_METHOD {
 
 export const apiConfig: ApiConfig = {
     // backend: "http://84.23.53.216:8080/api",
-    backend: "http://127.0.0.1:8080/api",
+    backend: "http://localhost:8080/api",
     api: {
         auth: {
             url: "/auth",

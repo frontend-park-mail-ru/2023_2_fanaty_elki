@@ -1,5 +1,5 @@
-@use '../../../../../public/index.scss' as index;
-$card-size: 250px;
+@use "../../../../../public/index.scss" as index;
+$card-size: 19%;
 $list-size: 1070px;
 $list-padding: 1em;
 
@@ -7,13 +7,12 @@ $list-padding: 1em;
     display: flex;
     flex-direction: column;
     width: $card-size;
-    min-height: 190px;
     justify-content: space-around;
     background-color: index.$light-gray;
     border-radius: 20px;
 
     padding-bottom: 10px;
-    margin-bottom: calc(($list-size - 4*$card-size - 2*$list-padding)/3);
+    margin-bottom: 25px; //calc(($list-size - 4*$card-size - 2*$list-padding)/3);
 
     cursor: pointer;
 
@@ -24,7 +23,7 @@ $list-padding: 1em;
 
 .restaurant-card__image {
     width: 100%;
-    height: 130px;
+    aspect-ratio: 2/1;
 
     border-radius: 20px;
     margin: 0 auto;
@@ -36,14 +35,14 @@ $list-padding: 1em;
     justify-content: space-between;
     font-size: 15px;
     font-weight: 700;
-    word-wrap: break-word
+    word-wrap: break-word;
 }
 
 .restaurant-card__info__title {
     display: inline;
     font-size: 15px;
     font-weight: 700;
-    word-wrap: break-word
+    word-wrap: break-word;
 }
 
 .rating {

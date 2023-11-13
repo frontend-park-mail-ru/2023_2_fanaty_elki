@@ -1,8 +1,9 @@
 .restaurants-categories {
     display: block;
     margin: 0 auto;
-    width: 1070px;
-    padding: 0 1em;
+    width: 100%;
+    padding-left: 115px;
+    padding-right: 115px;
 }
 
 .restaurants-categories__title {
@@ -31,5 +32,6 @@
     align-items: flex-start;
     align-content: flex-start;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 7%;
 }
