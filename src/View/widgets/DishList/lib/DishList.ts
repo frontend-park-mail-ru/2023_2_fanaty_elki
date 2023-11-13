@@ -49,10 +49,6 @@ export class DishList extends IWidget {
                 });
             }),
         );
-        this.element.querySelectorAll(".dish-card__button").forEach((card) => {
-            const count = model.cartModel.getDishCount(+(<HTMLElement>card).id);
-            card.innerHTML = `+ В корзину${count ? `(${count})` : ""}`;
-        });
     }
 
     load(restaurant_id: number) {
