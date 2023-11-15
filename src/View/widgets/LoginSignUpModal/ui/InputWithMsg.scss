@@ -1,10 +1,9 @@
 @use "../../../../../public/index.scss" as index;
 
 .input-with-msg {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 100%;
 }
 
 @mixin input-style($border: 1px solid index.$gray) {
@@ -13,11 +12,9 @@
 
 .input-with-msg__input {
     display: flex;
-    width: 100%;
     height: 44px;
     padding: 10px 10px 10px 25px;
     align-items: center;
-    gap: 10px;
 
     border-radius: 17px;
     border: 1px solid index.$gray;

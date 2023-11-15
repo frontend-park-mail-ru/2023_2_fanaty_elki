@@ -2,8 +2,6 @@
 
 .login-signup-form {
     width: 400px;
-    margin: 0 auto;
-    margin-top: 65px;
     display: flex;
     padding: 49px 65px 49px 65px;
     flex-direction: column;
@@ -11,6 +9,7 @@
     align-items: center;
     gap: 56px;
     flex-shrink: 0;
+    min-height: 665px;
 
     border-radius: 45px;
     border: 1px solid index.$black;
@@ -65,11 +64,11 @@
 
 .login-signup-form__form__input-container {
     display: flex;
-    width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 15px;
+    align-self: stretch;
 }
 
 .login-signup-form__form__input-container__msg {
@@ -80,11 +79,11 @@
     line-height: normal;
     text-align: center;
     padding-top: 15px;
+    min-height: 35px;
 }
 
 .login-signup-form__form__button-container {
     display: flex;
-    width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
