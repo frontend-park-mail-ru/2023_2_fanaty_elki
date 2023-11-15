@@ -1,5 +1,9 @@
 @use "../../../../../public/index.scss" as index;
 
+.page {
+    width: 100%;
+}
+
 .login-signup-form {
     width: 400px;
     display: flex;
