@@ -35,7 +35,7 @@ export class AddressChooser extends IWidget {
             .querySelector("#address-value")!
             .addEventListener("input", async (event) => {
                 try {
-                    const input = (<HTMLInputElement>event.target).value;
+                    const input = (<HTMLInputElement>event.target).value.trim();
                     const suggests = await getSuggests(input);
                     this.setSuggests(suggests);
                 } catch {
@@ -99,7 +99,7 @@ export class AddressChooser extends IWidget {
 
     get value() {
         return (<HTMLInputElement>this.element.querySelector("#address-value")!)
-            .value;
+            .value.trim();
     }
 
     set value(address: string) {
