@@ -3,6 +3,13 @@ export abstract class IHTMLElement {
     get element() {
         return this.element_;
     }
+    getChild(selector: string) {
+        return this.element_.querySelector<HTMLElement>(selector)!;
+    }
+
+    getAll(selector: string) {
+        return this.element_.querySelectorAll<HTMLElement>(selector)!;
+    }
     constructor(template: string, selector: string) {
         const parser = new DOMParser();
         const element: HTMLElement | null = parser
