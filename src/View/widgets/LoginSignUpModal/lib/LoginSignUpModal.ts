@@ -125,9 +125,6 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
     }
 
     bindLoginPageEvents() {
-        console.log(this.element);
-        console.log(this.loginPage);
-
         const closeButton = <HTMLElement>(
             this.loginPage.querySelector("#login-page__close")
         );
@@ -164,8 +161,8 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
             controller.handleEvent({
                 type: VIEW_EVENT_TYPE.LOGIN,
                 data: {
-                    username: usernameInput.value,
-                    password: passwordInput.value,
+                    username: usernameInput.value.trim(),
+                    password: passwordInput.value.trim(),
                 },
             });
         });
@@ -247,16 +244,16 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
         });
 
         nextButton.addEventListener("click", () => {
-            const emailValidation = this.validateEmail(emailInput.value);
+            const emailValidation = this.validateEmail(emailInput.value.trim());
             const usernameValidation = this.validateUsername(
-                usernameInput.value,
+                usernameInput.value.trim(),
             );
             const passwordValidation = this.validatePassword(
-                passwordInput.value,
+                passwordInput.value.trim(),
             );
             const passwordConfirmValidation = this.validatePasswordConfirm(
-                passwordInput.value,
-                passwordConfirmInput.value,
+                passwordInput.value.trim(),
+                passwordConfirmInput.value.trim(),
             );
 
             if (
@@ -352,21 +349,21 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
 
         submitButton.addEventListener("click", () => {
             const birthdayValidation = this.validateBirthday(
-                birthdayInput.value,
+                birthdayInput.value.trim(),
             );
             const phoneNumberValidation = this.validatePhoneNumber(
-                phoneNumberInput.value,
+                phoneNumberInput.value.trim(),
             );
 
             if (!birthdayValidation && !phoneNumberValidation) {
                 controller.handleEvent({
                     type: VIEW_EVENT_TYPE.REGISTRATION,
                     data: {
-                        Email: emailInput.value,
-                        Username: usernameInput.value,
-                        Password: passwordInput.value,
-                        Birthday: birthdayInput.value,
-                        PhoneNumber: phoneNumberInput.value,
+                        Email: emailInput.value.trim(),
+                        Username: usernameInput.value.trim(),
+                        Password: passwordInput.value.trim(),
+                        Birthday: birthdayInput.value.trim(),
+                        PhoneNumber: phoneNumberInput.value.trim(),
                         Icon: "img/defaultIcon.png",
                     },
                 });
