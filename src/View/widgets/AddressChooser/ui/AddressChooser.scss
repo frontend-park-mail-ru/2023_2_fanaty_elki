@@ -1,3 +1,5 @@
+@use "../../../../../public/index.scss" as index;
+
 .address-chooser {
     display: flex;
     flex-direction: column;
@@ -26,22 +28,24 @@
     width: 123px;
     height: 44px;
     border-radius: 17px;
-    background-color: #51c35d;
+    background-color: index.$green;
     border-width: 0;
     cursor: pointer;
-}
-
-.address-chooser__control__title {
-    margin: auto;
     font-size: 17px;
     font-weight: 600;
     word-wrap: break-word;
     display: inline;
-    font-family: "Comfortaa";
+    font-family: index.$font-family;
+    transition: all 0.2s ease-out;
+}
+
+.address-chooser__control:disabled {
+    background-color: index.$middle-gray;
+    color: index.$gray;
 }
 
 .address-chooser__control__input {
-    padding: 0 0 0 17px;
+    padding: 0 17px 0 17px;
     border-radius: 17px;
     width: 500px;
     height: 44px;
@@ -49,7 +53,21 @@
     font-weight: 600;
     word-wrap: break-word;
     line-height: 35px;
-    font-family: "Comfortaa";
+    font-family: index.$font-family;
+}
+
+.address-chooser__error_msg {
+    font-family: index.$font-family;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: index.$red;
+    visibility: hidden;
+}
+
+.address-chooser__error_msg.visible {
+    visibility: visible;
 }
 
 .suggest-container {
@@ -64,24 +82,24 @@
 }
 
 .suggest:hover {
-    background-color: gray;
+    background-color: index.$middle-gray;
 }
 
-.suggest__text.display-name {
+.suggest__text.suggest-display-name {
     font-size: 16px;
     font-weight: 600;
     word-wrap: break-word;
     line-height: 20px;
-    font-family: "Comfortaa";
+    font-family: index.$font-family;
     margin: 0;
 }
 
-.suggest__text.value {
+.suggest__text.suggest-value {
     font-size: 14px;
     font-weight: 600;
     word-wrap: break-word;
     line-height: 20px;
-    font-family: "Comfortaa";
+    font-family: index.$font-family;
     margin: 0;
-    color: #333;
+    color: index.$gray;
 }

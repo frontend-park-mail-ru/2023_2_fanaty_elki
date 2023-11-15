@@ -8,53 +8,58 @@ import "../ui/AddressChooser.scss";
 
 import { ISuggestResult } from "yandex-maps";
 import { UserEvent } from "../../../../Model/UserModel";
-
-async function getSuggests(word: string) {
-    const suggests = await ymaps.suggest(word);
-    return suggests;
-}
+import { addressChooserConfig, addressSelectors } from "./config";
 
 export class AddressChooser extends IWidget {
+    message: HTMLElement;
     constructor(address_ph: string) {
-        super(addressChooserTemplate(), "#address-chooser");
+        super(
+            addressChooserTemplate(addressChooserConfig),
+            addressSelectors.ROOT,
+        );
         this.placeholder = address_ph;
         model.userModel.events.subscribe(this.update.bind(this));
+        this.message = this.getChild(addressSelectors.ERROR_MSG);
         this.bindEvents();
     }
 
     private bindEvents() {
-        // window.addEventListener("keydown", (e) => {
-        //     if (e.key === "Escape") {
-        //         this.modal.classList.remove("open");
-        //     }
-        // });
-        // this.element.querySelector("#close")!.addEventListener("click", () => {
-        //     this.close();
-        // });
-        this.element
-            .querySelector("#address-value")!
-            .addEventListener("input", async (event) => {
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                this.close();
+            }
+        });
+        this.getChild(addressSelectors.INPUT_FIELD).addEventListener(
+            "input",
+            async () => {
                 try {
-                    const input = (<HTMLInputElement>event.target).value.trim();
-                    const suggests = await getSuggests(input);
+                    const suggests: ISuggestResult[] = await ymaps.suggest(
+                        this.value,
+                    );
+                    if (this.value !== "" && suggests.length === 0) {
+                        this.disableForm();
+                    } else {
+                        this.enableForm();
+                    }
                     this.setSuggests(suggests);
                 } catch {
                     console.log("error on get suggests");
                 }
-            });
-        this.element
-            .querySelector("#choose-address")!
-            .addEventListener("click", () => {
+            },
+        );
+        this.getChild(addressSelectors.INPUT_FORM).addEventListener(
+            "submit",
+            (event) => {
+                event.preventDefault();
                 controller.handleEvent({
                     type: VIEW_EVENT_TYPE.ADDRESS_UPDATE,
                     data: this.value,
                 });
-            });
-        this.element
-            .querySelector(".modal__box")!
-            .addEventListener("click", (event: any) => {
-                event._isClickWithInModal = true;
-            });
+            },
+        );
+        this.getChild(".modal__box").addEventListener("click", (event: any) => {
+            event._isClickWithInModal = true;
+        });
         this.element.addEventListener("click", (event: any) => {
             if (event._isClickWithInModal) return;
             this.close();
@@ -67,50 +72,66 @@ export class AddressChooser extends IWidget {
 
     update(event?: UserEvent) {
         if (event === UserEvent.ADDRESS_CHANGE) {
-            this.value = model.userModel.getAddress();
-            if (!this.value) {
-                this.placeholder = "Укажите адрес";
-            }
             this.close();
         }
     }
 
     setSuggests(suggests: ISuggestResult[]) {
-        this.element.querySelector(".suggest-container")!.innerHTML =
+        this.getChild(addressSelectors.SUGGESTS).innerHTML =
             suggestsTemplate(suggests);
-        this.element.querySelectorAll(".suggest")!.forEach((x) => {
+        this.getAll(addressSelectors.SUGGEST).forEach((x) => {
             x.addEventListener("click", (event) => {
                 this.value = (<HTMLElement>event.currentTarget).querySelector(
-                    ".value",
+                    addressSelectors.SUGGEST_VALUE,
                 )!.innerHTML;
-                this.element.querySelector(".suggest-container")!.innerHTML =
-                    "";
+                this.getChild(addressSelectors.SUGGESTS).innerHTML = "";
+                this.getChild(addressSelectors.INPUT_FIELD).focus();
             });
         });
     }
 
     open() {
+        this.load();
         this.element.classList.add("open");
     }
 
     close() {
+        console.log("clsose");
+        this.setSuggests([]);
+        this.enableForm();
         this.element.classList.remove("open");
     }
 
+    disableForm() {
+        this.getChild(addressSelectors.SUBMIT_BUTTON).setAttribute(
+            "disabled",
+            "true",
+        );
+        this.message.classList.add("visible");
+    }
+
+    enableForm() {
+        this.getChild(addressSelectors.SUBMIT_BUTTON).removeAttribute(
+            "disabled",
+        );
+        this.message.classList.remove("visible");
+    }
+
     get value() {
-        return (<HTMLInputElement>this.element.querySelector("#address-value")!)
-            .value.trim();
+        return (<HTMLInputElement>(
+            this.element.querySelector(addressSelectors.INPUT_FIELD)!
+        )).value.trim();
     }
 
     set value(address: string) {
         (<HTMLInputElement>(
-            this.element.querySelector("#address-value")!
+            this.element.querySelector(addressSelectors.INPUT_FIELD)!
         )).value = address;
     }
 
     set placeholder(hint: string) {
         (<HTMLInputElement>(
-            this.element.querySelector("#address-value")!
+            this.element.querySelector(addressSelectors.INPUT_FIELD)!
         )).setAttribute("placeholder", hint);
     }
 }
