@@ -104,7 +104,7 @@ export class View {
                     }
                 }
                 break;
-            case UserEvent.USER_CHANGE:
+            case UserEvent.USER_LOGIN:
                 {
                     if (
                         window.location.pathname === ROUTES.cart &&

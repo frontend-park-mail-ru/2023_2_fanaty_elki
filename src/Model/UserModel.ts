@@ -12,7 +12,9 @@ export type User = {
 };
 
 export const enum UserEvent {
-    USER_CHANGE = "USER_CHANGE",
+    USER_LOGIN = "USER_LOGIN",
+    USER_REG = "USER_REG",
+    USER_LOGOUT = "USER_LOGOUT",
     AUTH = "AUTH",
     ADDRESS_CHANGE = "ADDRESS_CHANGE",
 }
@@ -74,7 +76,7 @@ export class UserModel implements Listenable<UserEvent> {
             this.user = await Api.authUser();
             this.errorMsg = null;
             this.events.notify(UserEvent.AUTH);
-            this.events.notify(UserEvent.USER_CHANGE);
+            this.events.notify(UserEvent.USER_LOGIN);
         } catch {
             this.events.notify(UserEvent.AUTH);
             console.log("Неудачная авторизация");
@@ -87,11 +89,11 @@ export class UserModel implements Listenable<UserEvent> {
             this.errorMsg = null;
         } catch (e: any) {
             this.errorMsg = apiConfig.api.signup.failure[e.status];
-            this.events.notify(UserEvent.USER_CHANGE); // Грязный хак
+            this.events.notify(UserEvent.USER_REG); // Грязный хак
             throw e;
         }
         console.log(this.errorMsg);
-        this.events.notify(UserEvent.USER_CHANGE);
+        this.events.notify(UserEvent.USER_REG);
     }
 
     /**
@@ -110,7 +112,7 @@ export class UserModel implements Listenable<UserEvent> {
         } catch (e: any) {
             this.errorMsg = apiConfig.api.login.failure[e.status];
         }
-        this.events.notify(UserEvent.USER_CHANGE);
+        this.events.notify(UserEvent.USER_LOGIN);
     }
 
     /**
@@ -125,7 +127,7 @@ export class UserModel implements Listenable<UserEvent> {
         } catch (e: any) {
             this.errorMsg = apiConfig.api.logout.failure[e.status];
         }
-        this.events.notify(UserEvent.USER_CHANGE);
+        this.events.notify(UserEvent.USER_LOGOUT);
     }
 
     setAddress(address: string) {

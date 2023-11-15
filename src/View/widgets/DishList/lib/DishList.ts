@@ -21,7 +21,7 @@ export class DishList extends IWidget {
     }
 
     updateOnLogin(event?: UserEvent) {
-        if (event !== UserEvent.USER_CHANGE) return;
+        if (event !== UserEvent.USER_LOGIN) return;
         this.setList();
     }
 

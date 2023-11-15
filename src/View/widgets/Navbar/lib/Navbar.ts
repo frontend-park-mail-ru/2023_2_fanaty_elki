@@ -67,7 +67,7 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
 
     update(event?: UserEvent) {
         switch (event) {
-            case UserEvent.USER_CHANGE: {
+            case UserEvent.USER_LOGIN: {
                 const user = model.userModel.getUser();
                 if (user) {
                     this.setAuthUser(user.Username);
