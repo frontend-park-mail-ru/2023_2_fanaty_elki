@@ -1,5 +1,6 @@
 .restaurants-categories {
-    display: block;
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
     width: 100%;
     padding-left: 115px;
@@ -33,5 +34,5 @@
     align-content: flex-start;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 7%;
+    gap: 2%;
 }
