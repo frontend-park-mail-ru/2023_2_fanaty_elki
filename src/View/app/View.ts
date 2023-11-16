@@ -90,40 +90,32 @@ export class View {
         console.log(event);
         switch (event) {
             case UserEvent.AUTH:
-                {
-                    if (
-                        window.location.pathname === ROUTES.cart &&
-                        !model.userModel.getUser()
-                    ) {
-                        this.router_.redirect(ROUTES.main);
-                        alert("Нужно залогиниться");
-                    } else if (
-                        window.location.pathname === ROUTES.profile &&
-                        !model.userModel.getUser()
-                    ) {
-                        this.router_.route(ROUTES.main);
-                        alert("Нужно залогиниться");
-                    } else {
-                        this.router_.route(
-                            window.location.pathname,
-                            window.location.search,
-                        );
-                    }
+                if (
+                    !model.userModel.getUser() &&
+                    (window.location.pathname == ROUTES.profile ||
+                        window.location.pathname == ROUTES.cart)
+                ) {
+                    this.router_.redirect(ROUTES.main);
+                    alert("Нужно залогиниться");
+                } else {
+                    this.router_.route(
+                        window.location.pathname,
+                        window.location.search,
+                    );
                 }
                 break;
-            case UserEvent.USER_LOGIN:
-                {
-                    if (
-                        window.location.pathname === ROUTES.cart &&
-                        !model.userModel.getUser()
-                    ) {
-                        this.router_.redirect(ROUTES.main);
-                    } else if (
-                        window.location.pathname === ROUTES.profile &&
-                        !model.userModel.getUser()
-                    ) {
-                        this.router_.redirect(ROUTES.main);
-                    }
+            case UserEvent.USER_LOGOUT:
+                if (
+                    !model.userModel.getUser() &&
+                    (window.location.pathname == ROUTES.profile ||
+                        window.location.pathname == ROUTES.cart)
+                ) {
+                    this.router_.redirect(ROUTES.main);
+                } else {
+                    this.router_.route(
+                        window.location.pathname,
+                        window.location.search,
+                    );
                 }
                 break;
             default:
