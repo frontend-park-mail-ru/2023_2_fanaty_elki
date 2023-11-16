@@ -119,6 +119,7 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     load() {
         this.navbar.load();
         this.address.load();
+        this.updateCart();
     }
 
     set summ(total: number) {
