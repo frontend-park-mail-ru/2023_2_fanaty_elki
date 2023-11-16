@@ -24,7 +24,7 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
     private passwordInput: HTMLInputElement;
     private passwordConfirmInput: HTMLInputElement;
 
-    private nextButton: HTMLElement;
+    private form: HTMLFormElement;
     private authButton: HTMLElement;
 
     constructor() {
@@ -57,8 +57,8 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
             this.element.querySelector("#reg-user-page__passwordconfirm")
         );
 
-        this.nextButton = <HTMLElement>(
-            this.element.querySelector("#reg-user-page__next")
+        this.form = <HTMLFormElement>(
+            this.element.querySelector("#login-signup-form")
         );
         this.authButton = <HTMLElement>(
             this.element.querySelector("#reg-user-page__auth")
@@ -112,7 +112,8 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
             passwordConfirmMessageBox.innerText = "";
         });
 
-        this.nextButton.addEventListener("click", () => {
+        this.form.addEventListener("submit", (event: Event) => {
+            event.preventDefault();
             const emailValidation = this.validateEmail(
                 this.emailInput.value.trim(),
             );

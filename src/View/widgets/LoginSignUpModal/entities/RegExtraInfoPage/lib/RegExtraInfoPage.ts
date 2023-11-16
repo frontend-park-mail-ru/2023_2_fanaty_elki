@@ -25,7 +25,7 @@ export class RegExtraInfoPage
     private birthdayInput: HTMLInputElement;
     private phoneNumberInput: HTMLInputElement;
 
-    private submitButton: HTMLElement;
+    private form: HTMLFormElement;
     private authButton: HTMLElement;
 
     constructor() {
@@ -52,8 +52,8 @@ export class RegExtraInfoPage
             this.element.querySelector("#reg-extra-info-page__phone-number")
         );
 
-        this.submitButton = <HTMLElement>(
-            this.element.querySelector("#reg-extra-info-page__submit")
+        this.form = <HTMLFormElement>(
+            this.element.querySelector("#login-signup-form")
         );
         this.authButton = <HTMLElement>(
             this.element.querySelector("#reg-extra-info-page__auth")
@@ -104,7 +104,8 @@ export class RegExtraInfoPage
             phoneNumberMessageBox.innerText = "";
         });
 
-        this.submitButton.addEventListener("click", () => {
+        this.form.addEventListener("submit", (event: Event) => {
+            event.preventDefault();
             const birthdayValidation = this.validateBirthday(
                 this.birthdayInput.value.trim(),
             );
