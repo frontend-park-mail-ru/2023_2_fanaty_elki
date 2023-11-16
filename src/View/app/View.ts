@@ -9,6 +9,8 @@ import { ProfilePage } from "../pages/ProfilePage";
 import { UserEvent } from "../../Model/UserModel";
 import { VIEW_EVENT_TYPE } from "../../Controller/Controller";
 
+import favIconImg from "../../../public/favicon.ico";
+
 export class View {
     private root: HTMLElement;
     private mainPage: MainPage;
@@ -18,6 +20,11 @@ export class View {
     private router_: Router;
     constructor() {
         this.root = <HTMLElement>document.querySelector("#root")!;
+        const favicon = document.createElement("link");
+        favicon.setAttribute("rel", "icon");
+        favicon.setAttribute("href", favIconImg);
+        favicon.setAttribute("type", "image/x-icon");
+        document.querySelector("head")!.appendChild(favicon);
 
         this.mainPage = new MainPage();
         this.mainPage.events.subscribe(this.updateUIEvent.bind(this));
