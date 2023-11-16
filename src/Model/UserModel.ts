@@ -15,6 +15,7 @@ export const enum UserEvent {
     USER_LOGIN = "USER_LOGIN",
     USER_REG = "USER_REG",
     USER_LOGOUT = "USER_LOGOUT",
+    USER_UPDATE = "USER_UPDATE",
     AUTH = "AUTH",
     ADDRESS_CHANGE = "ADDRESS_CHANGE",
 }
@@ -158,13 +159,15 @@ export class UserModel implements Listenable<UserEvent> {
         try {
             await Api.updateUser(userFields);
             this.user = await Api.authUser();
+            this.user!.Birthday =
+                this.user?.Birthday.slice(0, 10) || this.user!.Birthday;
             this.errorMsg = null;
         } catch (e: any) {
             this.errorMsg = apiConfig.api.updateUser.failure[e.status];
             console.error("Неудачное обновление пользователя");
             console.error(e);
         }
-        this.events.notify(UserEvent.USER_LOGIN);
+        this.events.notify(UserEvent.USER_UPDATE);
     }
 
     setAddress(address: string) {

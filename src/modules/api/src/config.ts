@@ -115,6 +115,9 @@ export const apiConfig: ApiConfig = {
                 return {
                     method: REQUEST_METHOD.PATCH,
                     body,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                     credentials: "include",
                 };
             },
