@@ -64,6 +64,11 @@ export class AddressChooser extends IWidget {
             if (event._isClickWithInModal) return;
             this.close();
         });
+        this.element
+            .querySelector("#address-chooser__close")
+            ?.addEventListener("click", () => {
+                this.close();
+            });
     }
 
     load() {
