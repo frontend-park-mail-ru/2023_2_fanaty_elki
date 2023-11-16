@@ -1,22 +1,32 @@
-{{#each this}}
-    <div class="cart-item">
-        <div class="cart-item__info">
-            <img class="cart-item__info__icon" src="{{Product.Icon}}" alt="" />
-            <div class="cart-item__info__name">{{Product.Name}}</div>
-            <div class="cart-item__info__count-control">
-                <button
-                    class="cart-item__info__count-control__button down"
-                    data="{{Product.ID}}"
-                >-</button>
-                <div
-                    class="cart-item__info__count-control__count"
-                >{{ItemCount}}</div>
-                <button
-                    class="cart-item__info__count-control__button up"
-                    data="{{Product.ID}}"
-                >+</button>
+{{#if this}}
+    {{#each this}}
+        <div class="cart-item">
+            <div class="cart-item__info">
+                <img
+                    class="cart-item__info__icon"
+                    src="{{Product.Icon}}"
+                    alt=""
+                />
+                <div class="cart-item__info__name">{{Product.Name}}</div>
+                <div class="cart-item__info__count-control">
+                    <button
+                        class="cart-item__info__count-control__button down"
+                        data="{{Product.ID}}"
+                    >-</button>
+                    <div
+                        class="cart-item__info__count-control__count"
+                    >{{ItemCount}}</div>
+                    <button
+                        class="cart-item__info__count-control__button up"
+                        data="{{Product.ID}}"
+                    >+</button>
+                </div>
             </div>
+            <div class="cart-item__price">{{Product.Price}}₽</div>
         </div>
-        <div class="cart-item__price">{{Product.Price}}₽</div>
-    </div>
-{{/each}}
+    {{/each}}
+{{else}}
+    <p class="empty-cart__title">
+        Ваша корзина сейчас пуста
+    </p>
+{{/if}}

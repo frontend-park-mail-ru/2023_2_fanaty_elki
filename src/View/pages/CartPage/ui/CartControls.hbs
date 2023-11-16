@@ -2,38 +2,73 @@
     <form class="payment-chooser">
         <h2 class="payment-chooser__title">Способ оплаты</h2>
         <div class="payment-chooser__courier-cash radio-chooser">
-            <input class="radio-chooser__radio" type="radio" name="payment-type" id="courier-cash"
-                value="courier-cash" />
+            <input
+                class="radio-chooser__radio"
+                type="radio"
+                name="payment-type"
+                id="courier-cash"
+                value="courier-cash"
+            />
             <label class="radio-chooser__label" for="courier-cash">Наличными
                 курьеру</label>
         </div>
         <div class="payment-chooser__courier-card radio-chooser">
-            <input class="radio-chooser__radio" type="radio" name="payment-type" id="courier-card"
-                value="courier-card" />
+            <input
+                class="radio-chooser__radio"
+                type="radio"
+                name="payment-type"
+                id="courier-card"
+                value="courier-card"
+            />
             <label class="radio-chooser__label" for="courier-card">Картой
                 курьеру</label>
         </div>
         <div class="payment-chooser__online-card">
             <div class="radio-chooser">
-                <input class="radio-chooser__radio" type="radio" name="payment-type" id="online-card"
-                    value="online-card" />
+                <input
+                    class="radio-chooser__radio"
+                    type="radio"
+                    name="payment-type"
+                    id="online-card"
+                    value="online-card"
+                />
                 <label class="radio-chooser__label" for="online-card">Картой
                     онлайн</label>
             </div>
             <div class="payment-chooser__online-card__card-data">
-                <input class="payment-chooser__online-card__card-data__card-number" type="text" name="card-nubmer"
-                    id="card-nubmer" placeholder="Номер карты" />
+                <input
+                    class="payment-chooser__online-card__card-data__card-number"
+                    type="text"
+                    name="card-nubmer"
+                    id="card-nubmer"
+                    placeholder="Номер карты"
+                />
                 <div class="payment-chooser__online-card__card-valid-thru-cvv">
-                    <input class="payment-chooser__online-card__card-data__card-valid-thru" type="text"
-                        name="card-valid-thru" id="card-valid-thru" placeholder="Срок действия" />
-                    <input class="payment-chooser__online-card__card-data__card-cvv" type="password" name="card-cvv"
-                        id="card-cvv" placeholder="CVV" />
+                    <input
+                        class="payment-chooser__online-card__card-data__card-valid-thru"
+                        type="text"
+                        name="card-valid-thru"
+                        id="card-valid-thru"
+                        placeholder="Срок действия"
+                    />
+                    <input
+                        class="payment-chooser__online-card__card-data__card-cvv"
+                        type="password"
+                        name="card-cvv"
+                        id="card-cvv"
+                        placeholder="CVV"
+                    />
                 </div>
             </div>
         </div>
+        <div class="cart__content__control__payment-approve">
+            <h2 class="cart__content__control__payment-approve__title">Сумма
+                заказа:</h2>
+            <input
+                class="cart__content__control__payment-approve__approve"
+                value="Оформить заказ"
+                type="submit"
+            />
+        </div>
     </form>
-</div>
-<div class="cart__content__control__payment-approve">
-    <h2 class="cart__content__control__payment-approve__title">Сумма заказа ₽</h2>
-    <button class="cart__content__control__payment-approve__approve" type="button">Оформить заказ</button>
 </div>

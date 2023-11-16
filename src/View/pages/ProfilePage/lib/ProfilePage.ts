@@ -38,7 +38,7 @@ export class ProfilePage extends Page implements Listenable<UIEvent> {
             .querySelector(".profile__content__orders")!
             .appendChild(this.orderList.element);
 
-        this.addressChooser = new AddressChooser("Укажите адрес");
+        this.addressChooser = new AddressChooser();
         this.element
             .querySelector("#address_chooser")!
             .appendChild(this.addressChooser.element);

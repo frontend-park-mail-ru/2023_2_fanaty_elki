@@ -66,7 +66,6 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
                         data: element.id,
                     });
                 } else {
-                    console.log("click");
                     this.events.notify({
                         type: UIEventType.NAVBAR_SIGNIN_CLICK,
                     });

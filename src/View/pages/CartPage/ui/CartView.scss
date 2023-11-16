@@ -13,16 +13,18 @@
 .cart__content {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 50px;
 }
 
 .cart__content__goods {
     display: flex;
+    overflow: hidden scroll;
     flex-direction: column;
     align-items: flex-end;
     gap: 15px;
     width: 100%;
+    height: 80vh;
 }
 
 .cart__content__control {

@@ -12,12 +12,11 @@ import { addressChooserConfig, addressSelectors } from "./config";
 
 export class AddressChooser extends IWidget {
     message: HTMLElement;
-    constructor(address_ph: string) {
+    constructor() {
         super(
             addressChooserTemplate(addressChooserConfig),
             addressSelectors.ROOT,
         );
-        this.placeholder = address_ph;
         model.userModel.events.subscribe(this.update.bind(this));
         this.message = this.getChild(addressSelectors.ERROR_MSG);
         this.bindEvents();
@@ -127,11 +126,5 @@ export class AddressChooser extends IWidget {
         (<HTMLInputElement>(
             this.element.querySelector(addressSelectors.INPUT_FIELD)!
         )).value = address;
-    }
-
-    set placeholder(hint: string) {
-        (<HTMLInputElement>(
-            this.element.querySelector(addressSelectors.INPUT_FIELD)!
-        )).setAttribute("placeholder", hint);
     }
 }

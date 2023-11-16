@@ -34,7 +34,6 @@ export class CartModel implements Listenable<CartEvent> {
     }
 
     async setCart() {
-        console.log("set cart");
         try {
             this.cart = await Api.getCart();
         } catch (e) {
@@ -47,7 +46,6 @@ export class CartModel implements Listenable<CartEvent> {
         try {
             await Api.addDishToCart(id);
             this.cart = await Api.getCart();
-            console.log(this.cart);
         } catch (e) {
             console.log("Неудачное добавление");
         }
@@ -58,7 +56,6 @@ export class CartModel implements Listenable<CartEvent> {
         try {
             await Api.removeDishFromCart(id);
             this.cart = await Api.getCart();
-            console.log(this.cart);
         } catch (e) {
             console.log("Неудачное удаление");
         }
@@ -81,9 +78,23 @@ export class CartModel implements Listenable<CartEvent> {
     }
 
     getDishCount(id: number) {
+        if (!this.cart) {
+            return 0;
+        }
         const dish = this.cart!.find((element) => {
             return element.Product.ID === id;
         });
         return dish ? dish.ItemCount : 0;
+    }
+
+    getSumm() {
+        if (!this.cart) {
+            return 0;
+        }
+        let summ = 0;
+        for (const product of this.cart) {
+            summ += product.Product.Price * product.ItemCount;
+        }
+        return Math.round(summ);
     }
 }

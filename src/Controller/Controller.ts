@@ -24,7 +24,6 @@ export type ViewEvent = {
 
 export class Controller {
     async handleEvent(event: ViewEvent) {
-        console.log("Controller event", event);
         switch (event.type) {
             case VIEW_EVENT_TYPE.RESTAURANTS_UPDATE:
                 model.restaurantModel.setRestaurantList();
@@ -54,12 +53,11 @@ export class Controller {
                 model.cartModel.clearLocalCart();
                 break;
             case VIEW_EVENT_TYPE.REGISTRATION:
-                model.userModel.createUser(event.data as User).then(() => {
-                    model.userModel.login(
-                        (<User>event.data).Username,
-                        (<User>event.data).Password,
-                    );
-                });
+                await model.userModel.createUser(event.data as User);
+                model.userModel.login(
+                    (<User>event.data).Username,
+                    (<User>event.data).Password,
+                );
                 break;
             case VIEW_EVENT_TYPE.ADDRESS_UPDATE:
                 model.userModel.setAddress(<string>event!.data);

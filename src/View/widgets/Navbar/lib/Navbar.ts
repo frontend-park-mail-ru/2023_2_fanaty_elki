@@ -21,6 +21,7 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
         this.events_ = new EventDispatcher<UIEvent>();
 
         model.userModel.events.subscribe(this.update.bind(this));
+        model.cartModel.events.subscribe(this.updateCartIcon.bind(this));
 
         this.userNameElement = <HTMLElement>(
             this.element.querySelector("#name-container")
@@ -65,6 +66,12 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
             });
     }
 
+    updateCartIcon() {
+        this.cartButton.querySelector(
+            ".navbar__fields__backet__title",
+        )!.innerHTML = model.cartModel.getSumm() + "₽";
+    }
+
     update(event?: UserEvent) {
         switch (event) {
             case UserEvent.USER_LOGIN: {
@@ -101,6 +108,7 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
         this.element
             .querySelector(".navbar__fields")!
             .appendChild(this.cartButton);
+        this.updateCartIcon();
         if (this.signInButton.parentNode) {
             this.element.removeChild(this.signInButton);
         }

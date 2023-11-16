@@ -30,7 +30,7 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
         this.navbar = new Navbar();
         this.element.querySelector("#navbar")!.appendChild(this.navbar.element);
 
-        this.address = new AddressChooser("Укажите адрес");
+        this.address = new AddressChooser();
         this.element
             .querySelector("#address_modal")!
             .appendChild(this.address.element);
