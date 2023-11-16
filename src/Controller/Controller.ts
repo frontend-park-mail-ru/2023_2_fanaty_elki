@@ -23,7 +23,7 @@ export type ViewEvent = {
 };
 
 export class Controller {
-    handleEvent(event: ViewEvent) {
+    async handleEvent(event: ViewEvent) {
         console.log("Controller event", event);
         switch (event.type) {
             case VIEW_EVENT_TYPE.RESTAURANTS_UPDATE:
@@ -33,18 +33,25 @@ export class Controller {
                 model.restaurantModel.setRestaurant(<number>event.data);
                 break;
             case VIEW_EVENT_TYPE.LOGIN:
-                model.userModel.login(
+                await model.userModel.login(
                     (<{ username: string; password: string }>event.data)
                         .username,
                     (<{ username: string; password: string }>event.data)
                         .password,
                 );
+                if (model.userModel.getUser()) {
+                    model.cartModel.setCart();
+                }
                 break;
             case VIEW_EVENT_TYPE.AUTH:
-                model.userModel.auth();
+                await model.userModel.auth();
+                if (model.userModel.getUser()) {
+                    model.cartModel.setCart();
+                }
                 break;
             case VIEW_EVENT_TYPE.LOGOUT:
-                model.userModel.logout();
+                await model.userModel.logout();
+                model.cartModel.clearLocalCart();
                 break;
             case VIEW_EVENT_TYPE.REGISTRATION:
                 model.userModel.createUser(event.data as User).then(() => {
