@@ -76,6 +76,13 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
                 }
                 break;
             }
+            case UserEvent.USER_LOGOUT: {
+                const user = model.userModel.getUser();
+                if (!user) {
+                    this.setNonAuthUser();
+                }
+                break;
+            }
             case UserEvent.ADDRESS_CHANGE: {
                 const address = model.userModel.getAddress();
                 this.element.querySelector(

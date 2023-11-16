@@ -46,6 +46,7 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
             .appendChild(this.d_list.element);
 
         this.navbar.events.subscribe(this.updateUIEvent.bind(this));
+        this.d_list.events.subscribe(this.updateUIEvent.bind(this));
         this.login.events.subscribe(this.updateUIEvent.bind(this));
     }
 

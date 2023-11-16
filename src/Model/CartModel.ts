@@ -70,6 +70,12 @@ export class CartModel implements Listenable<CartEvent> {
         this.cart = [];
         this.events.notify();
     }
+
+    clearLocalCart() {
+        this.cart = [];
+        this.events.notify();
+    }
+
     getCart() {
         return this.cart;
     }
