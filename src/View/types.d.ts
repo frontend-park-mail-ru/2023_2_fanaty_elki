@@ -17,7 +17,7 @@ export abstract class IHTMLElement {
             .querySelector(selector);
 
         if (!element) {
-            console.log("Error: cannot parse template");
+            console.error("Error: cannot parse template");
             return;
         }
         this.element_ = element;

@@ -89,7 +89,6 @@ export class View {
     }
 
     updateUserEvent(event?: UserEvent) {
-        console.log(event);
         switch (event) {
             case UserEvent.AUTH:
                 if (

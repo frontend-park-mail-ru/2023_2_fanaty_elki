@@ -51,7 +51,6 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
     }
 
     updateUIEvent(event?: UIEvent) {
-        console.log(event);
         switch (event!.type) {
             case UIEventType.NAVBAR_SIGNIN_CLICK:
                 this.login.open();
@@ -76,12 +75,12 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
         this.navbar.load();
         this.address.load();
         if (!params || !params.get("id")) {
-            console.log("no id");
+            console.error("No id to get restaurant");
             return;
         }
         const id = Number(params.get("id")!);
         if (isNaN(id)) {
-            console.log("id is NAN");
+            console.error("Restaurant id is NAN");
         }
         this.d_list.load(id);
     }

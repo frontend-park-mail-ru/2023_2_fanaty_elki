@@ -115,7 +115,6 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        console.log(json.Body);
         return json.Body;
     },
 

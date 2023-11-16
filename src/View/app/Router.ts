@@ -12,10 +12,9 @@ export class Router {
     }
 
     route(url: string, search?: string) {
-        console.log(url, search);
         const page = this.pages.get(url);
         if (!page) {
-            console.log("wrong url");
+            console.error("Wrong url", url);
             return;
         }
         page.load(search ? new URLSearchParams(search) : undefined);

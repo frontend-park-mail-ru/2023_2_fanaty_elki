@@ -49,7 +49,6 @@ export class MainPage extends Page implements Listenable<UIEvent> {
     }
 
     update(event?: UIEvent) {
-        console.log(event);
         switch (event!.type) {
             case UIEventType.NAVBAR_SIGNIN_CLICK:
                 this.login.open();

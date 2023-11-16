@@ -31,12 +31,16 @@ export class OrderModel implements Listenable<OrderEvent> {
     }
 
     async setOrders() {
-        this.orders = await Api.getUserOrders();
-        this.events.notify(OrderEvent.LOAD_ORDERS);
+        try {
+            this.orders = await Api.getUserOrders();
+            this.events.notify(OrderEvent.LOAD_ORDERS);
+        } catch (e) {
+            console.error("Неудалось загрузить заказы");
+            console.error(e);
+        }
     }
 
     async createOrder(Products: number[], Address: string) {
-        console.log("create");
         try {
             const mocAddress = {
                 City: "Moscow",
@@ -46,8 +50,9 @@ export class OrderModel implements Listenable<OrderEvent> {
             };
             await Api.createOrder(Products, mocAddress);
             this.events.notify(OrderEvent.CREATE_ORDER);
-        } catch {
-            console.log("Неудалось создать заказ");
+        } catch (e) {
+            console.error("Неудалось создать заказ");
+            console.error(e);
         }
     }
 }

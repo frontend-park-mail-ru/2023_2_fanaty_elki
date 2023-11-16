@@ -43,7 +43,8 @@ export class CartModel implements Listenable<CartEvent> {
                 );
             });
         } catch (e) {
-            console.log("Неудачный запрос корзины");
+            console.error("Неудачный запрос корзины");
+            console.error(e);
         }
         this.events.notify();
     }
@@ -58,7 +59,8 @@ export class CartModel implements Listenable<CartEvent> {
                 );
             });
         } catch (e) {
-            console.log("Неудачное добавление");
+            console.error("Неудачное добавление");
+            console.error(e);
         }
         this.events.notify();
     }
@@ -73,7 +75,8 @@ export class CartModel implements Listenable<CartEvent> {
                 );
             });
         } catch (e) {
-            console.log("Неудачное удаление");
+            console.error("Неудачное удаление");
+            console.error(e);
         }
         this.events.notify();
     }

@@ -92,9 +92,10 @@ export class UserModel implements Listenable<UserEvent> {
             this.errorMsg = null;
             this.events.notify(UserEvent.AUTH);
             this.events.notify(UserEvent.USER_LOGIN);
-        } catch {
+        } catch (e) {
             this.events.notify(UserEvent.AUTH);
-            console.log("Неудачная авторизация");
+            console.error("Неудачная авторизация");
+            console.error(e);
         }
     }
 
@@ -107,7 +108,6 @@ export class UserModel implements Listenable<UserEvent> {
             this.events.notify(UserEvent.USER_REG); // Грязный хак
             throw e;
         }
-        console.log(this.errorMsg);
         this.events.notify(UserEvent.USER_REG);
     }
 
@@ -143,6 +143,8 @@ export class UserModel implements Listenable<UserEvent> {
             this.errorMsg = null;
         } catch (e: any) {
             this.errorMsg = apiConfig.api.logout.failure[e.status];
+            console.error("Неудачный логаут");
+            console.error(e);
         }
         this.events.notify(UserEvent.USER_LOGOUT);
     }
@@ -159,6 +161,8 @@ export class UserModel implements Listenable<UserEvent> {
             this.errorMsg = null;
         } catch (e: any) {
             this.errorMsg = apiConfig.api.updateUser.failure[e.status];
+            console.error("Неудачное обновление пользователя");
+            console.error(e);
         }
         this.events.notify(UserEvent.USER_LOGIN);
     }

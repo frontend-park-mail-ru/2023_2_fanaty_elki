@@ -59,11 +59,16 @@ export class Controller {
                 );
                 break;
             case VIEW_EVENT_TYPE.REGISTRATION:
-                await model.userModel.createUser(event.data as User);
-                model.userModel.login(
-                    (<User>event.data).Username,
-                    (<User>event.data).Password,
-                );
+                try {
+                    await model.userModel.createUser(event.data as User);
+                    model.userModel.login(
+                        (<User>event.data).Username,
+                        (<User>event.data).Password,
+                    );
+                } catch (e) {
+                    console.error("Неудачная регистрация");
+                    console.error(e);
+                }
                 break;
             case VIEW_EVENT_TYPE.ADDRESS_UPDATE:
                 model.userModel.setAddress(<string>event!.data);
@@ -82,11 +87,10 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.CREATE_ORDER:
                 {
-                    const products = model.cartModel
-                        .getCart()!
-                        .map((element) => {
+                    const products =
+                        model.cartModel.getCart()?.map((element) => {
                             return element.Product.ID;
-                        });
+                        }) || [];
 
                     if (products.length === 0) return;
 

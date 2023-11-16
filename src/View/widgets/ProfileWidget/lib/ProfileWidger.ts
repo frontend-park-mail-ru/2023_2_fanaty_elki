@@ -63,8 +63,6 @@ export class ProfileWidget extends IWidget implements Listenable<UIEvent> {
     load() {
         const user = model.userModel.getUser();
         if (user) {
-            console.log(user);
-
             this.username.innerText = user.Username;
             this.birthday.value = user.Birthday;
             this.email.value = user.Email;

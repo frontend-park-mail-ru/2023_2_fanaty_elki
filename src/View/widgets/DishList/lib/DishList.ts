@@ -17,7 +17,6 @@ Handlebars.registerHelper("itemcount", (id) => {
 });
 
 Handlebars.registerHelper("is_auth", () => {
-    console.log("helper");
     return model.userModel.getUser();
 });
 

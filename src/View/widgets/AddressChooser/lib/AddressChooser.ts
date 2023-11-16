@@ -41,8 +41,9 @@ export class AddressChooser extends IWidget {
                         this.enableForm();
                     }
                     this.setSuggests(suggests);
-                } catch {
-                    console.log("error on get suggests");
+                } catch (e) {
+                    console.error("Error on get suggests");
+                    console.error(e);
                 }
             },
         );
@@ -100,7 +101,6 @@ export class AddressChooser extends IWidget {
     }
 
     close() {
-        console.log("clsose");
         this.setSuggests([]);
         this.enableForm();
         this.element.classList.remove("open");

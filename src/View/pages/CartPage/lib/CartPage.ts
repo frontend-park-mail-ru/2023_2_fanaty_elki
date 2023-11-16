@@ -64,7 +64,6 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     }
 
     enableCardInputs() {
-        console.log(this.element);
         (this.getChild("#card-number") as HTMLInputElement).disabled = false;
         (this.getChild("#card-valid-thru") as HTMLInputElement).disabled =
             false;
@@ -103,7 +102,6 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     }
 
     update(event?: UIEvent) {
-        console.log(event);
         switch (event!.type) {
             case UIEventType.NAVBAR_ADDRESS_CLICK:
                 this.address.open();

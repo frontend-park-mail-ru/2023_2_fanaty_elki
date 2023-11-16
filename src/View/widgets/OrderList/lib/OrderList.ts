@@ -21,7 +21,6 @@ export class OrderList extends IWidget implements Listenable<UIEvent> {
     update(event?: OrderEvent) {
         if (event !== OrderEvent.LOAD_ORDERS) return;
         const orders = model.orderModel.getOrders();
-        console.log(orders);
         this.element.innerHTML = orderListTemplate(orders);
     }
 

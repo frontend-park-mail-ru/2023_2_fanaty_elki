@@ -45,7 +45,6 @@ export class ProfilePage extends Page implements Listenable<UIEvent> {
     }
 
     update(event?: UIEvent) {
-        console.log(event);
         if (event) {
             if (event.type == UIEventType.NAVBAR_ADDRESS_CLICK) {
                 this.addressChooser.open();

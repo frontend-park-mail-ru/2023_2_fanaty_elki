@@ -94,6 +94,8 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
             this.errorMsg = null;
         } catch (e) {
             this.errorMsg = (e as Error).message;
+            console.error("Не удалось загрузить блюда ресторана", id);
+            console.error(e);
         }
         this.events.notify(RestaurantEvent.LOADED_REST);
     }
@@ -107,6 +109,8 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
             this.errorMsg = null;
         } catch (e) {
             this.errorMsg = (e as Error).message;
+            console.error("Не удалось загрузить рестораны");
+            console.error(e);
         }
         this.events.notify(RestaurantEvent.LOADED_LIST);
     }
