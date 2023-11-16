@@ -1,3 +1,4 @@
+import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { UIEvent } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { IWidget } from "../../../types";
@@ -36,6 +37,23 @@ export class ProfileWidget extends IWidget implements Listenable<UIEvent> {
         this.icon = <HTMLImageElement>(
             this.element.querySelector(".profile-info__header__image")
         );
+
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        this.element.addEventListener("submit", (event: Event) => {
+            event.preventDefault();
+
+            controller.handleEvent({
+                type: VIEW_EVENT_TYPE.USER_UPDATE,
+                data: {
+                    Birthday: this.birthday.value.trim(),
+                    Email: this.email.value.trim(),
+                    PhoneNumber: this.phoneNumber.value.trim(),
+                },
+            });
+        });
     }
 
     update() {
@@ -48,7 +66,7 @@ export class ProfileWidget extends IWidget implements Listenable<UIEvent> {
             console.log(user);
 
             this.username.innerText = user.Username;
-            this.birthday.value = user.Birthday.slice(0, 10);
+            this.birthday.value = user.Birthday;
             this.email.value = user.Email;
             this.phoneNumber.value = user.PhoneNumber;
             this.icon.src = user.Icon;

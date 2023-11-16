@@ -109,6 +109,28 @@ export const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
+        updateUser: {
+            url: "/users/me",
+            params: (body) => {
+                return {
+                    method: REQUEST_METHOD.PATCH,
+                    body,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                400: "Таких полей у пользователя не существует",
+                401: "Отсутствует авторизация",
+                491: "Совпадает имя",
+                492: "Совпадает почта",
+                493: "Совпадает телефон",
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
         getRestaurants: {
             url: "/restaurants",
             params: () => {

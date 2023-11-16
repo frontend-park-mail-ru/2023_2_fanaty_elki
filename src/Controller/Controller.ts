@@ -15,6 +15,7 @@ export enum VIEW_EVENT_TYPE {
     LOAD_CART = "LOAD_CART",
     CREATE_ORDER = "CREATE_ORDER",
     CLEAR_CART = "CLEAR_CART",
+    USER_UPDATE = "USER_UPDATE",
 }
 
 export type ViewEvent = {
@@ -51,6 +52,11 @@ export class Controller {
             case VIEW_EVENT_TYPE.LOGOUT:
                 await model.userModel.logout();
                 model.cartModel.clearLocalCart();
+                break;
+            case VIEW_EVENT_TYPE.USER_UPDATE:
+                model.userModel.updateUser(
+                    event.data as { [index: string]: string },
+                );
                 break;
             case VIEW_EVENT_TYPE.REGISTRATION:
                 await model.userModel.createUser(event.data as User);

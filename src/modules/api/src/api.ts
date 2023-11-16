@@ -149,6 +149,17 @@ const Api = {
         return;
     },
 
+    async updateUser(userFields: { [index: string]: string }) {
+        const config = apiConfig.api.updateUser;
+        const body = JSON.stringify(userFields);
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(body),
+        );
+        checkResponse(response, config);
+        return;
+    },
+
     /**
      * Отправляет на сервер запрос на получение списка ресторанов
      * @async

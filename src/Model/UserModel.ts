@@ -52,6 +52,19 @@ export class UserModel implements Listenable<UserEvent> {
         this.address = "";
     }
 
+    usersDiff(newUserData: { [index: string]: string }, oldUser: User | null) {
+        const userDiff = {};
+        if (oldUser) {
+            for (const [key, value] of Object.entries(oldUser)) {
+                if (newUserData[key] && newUserData[key] !== value) {
+                    userDiff[key] = newUserData[key];
+                }
+            }
+        }
+
+        return userDiff;
+    }
+
     /**
      * Получение пользователя
      * @returns {User} - пользователь
@@ -74,6 +87,8 @@ export class UserModel implements Listenable<UserEvent> {
     async auth() {
         try {
             this.user = await Api.authUser();
+            this.user!.Birthday =
+                this.user?.Birthday.slice(0, 10) || this.user!.Birthday;
             this.errorMsg = null;
             this.events.notify(UserEvent.AUTH);
             this.events.notify(UserEvent.USER_LOGIN);
@@ -108,6 +123,8 @@ export class UserModel implements Listenable<UserEvent> {
                 username,
                 password,
             });
+            this.user!.Birthday =
+                this.user?.Birthday.slice(0, 10) || this.user!.Birthday;
             this.errorMsg = null;
         } catch (e: any) {
             this.errorMsg = apiConfig.api.login.failure[e.status];
@@ -128,6 +145,22 @@ export class UserModel implements Listenable<UserEvent> {
             this.errorMsg = apiConfig.api.logout.failure[e.status];
         }
         this.events.notify(UserEvent.USER_LOGOUT);
+    }
+
+    /**
+     * Обновление данных пользователя
+     * @async
+     */
+    async updateUser(newUserData: { [index: string]: string }) {
+        const userFields = this.usersDiff(newUserData, this.user);
+        try {
+            await Api.updateUser(userFields);
+            this.user = await Api.authUser();
+            this.errorMsg = null;
+        } catch (e: any) {
+            this.errorMsg = apiConfig.api.updateUser.failure[e.status];
+        }
+        this.events.notify(UserEvent.USER_LOGIN);
     }
 
     setAddress(address: string) {
