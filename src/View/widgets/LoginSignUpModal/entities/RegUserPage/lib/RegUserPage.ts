@@ -19,9 +19,13 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
 
     private messageBox: HTMLElement;
 
+    private emailMessageBox: HTMLElement;
     private emailInput: HTMLInputElement;
+    private usernameMessageBox: HTMLElement;
     private usernameInput: HTMLInputElement;
+    private passwordMessageBox: HTMLElement;
     private passwordInput: HTMLInputElement;
+    private passwordConfirmMessageBox: HTMLElement;
     private passwordConfirmInput: HTMLInputElement;
 
     private form: HTMLFormElement;
@@ -44,14 +48,26 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
             this.element.querySelector("#reg-user-page__msg")
         );
 
+        this.emailMessageBox = <HTMLElement>(
+            this.element.querySelector("#reg-user-page__email__msg")
+        );
         this.emailInput = <HTMLInputElement>(
             this.element.querySelector("#reg-user-page__email")
+        );
+        this.usernameMessageBox = <HTMLElement>(
+            this.element.querySelector("#reg-user-page__username__msg")
         );
         this.usernameInput = <HTMLInputElement>(
             this.element.querySelector("#reg-user-page__username")
         );
+        this.passwordMessageBox = <HTMLElement>(
+            this.element.querySelector("#reg-user-page__password__msg")
+        );
         this.passwordInput = <HTMLInputElement>(
             this.element.querySelector("#reg-user-page__password")
+        );
+        this.passwordConfirmMessageBox = <HTMLElement>(
+            this.element.querySelector("#reg-user-page__passwordconfirm__msg")
         );
         this.passwordConfirmInput = <HTMLInputElement>(
             this.element.querySelector("#reg-user-page__passwordconfirm")
@@ -72,19 +88,6 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
     }
 
     bindEvents() {
-        const emailMessageBox = <HTMLElement>(
-            this.element.querySelector("#reg-user-page__email__msg")
-        );
-        const usernameMessageBox = <HTMLElement>(
-            this.element.querySelector("#reg-user-page__username__msg")
-        );
-        const passwordMessageBox = <HTMLElement>(
-            this.element.querySelector("#reg-user-page__password__msg")
-        );
-        const passwordConfirmMessageBox = <HTMLElement>(
-            this.element.querySelector("#reg-user-page__passwordconfirm__msg")
-        );
-
         this.closeButton.addEventListener("click", () => {
             this.events_.notify({
                 type: UIEventType.LMODAL_CLOSE_CLICK,
@@ -100,16 +103,16 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
         });
 
         this.emailInput.addEventListener("input", () => {
-            emailMessageBox.innerText = "";
+            this.emailMessageBox.innerText = "";
         });
         this.usernameInput.addEventListener("input", () => {
-            usernameMessageBox.innerText = "";
+            this.usernameMessageBox.innerText = "";
         });
         this.passwordInput.addEventListener("input", () => {
-            passwordMessageBox.innerText = "";
+            this.passwordMessageBox.innerText = "";
         });
         this.passwordConfirmInput.addEventListener("input", () => {
-            passwordConfirmMessageBox.innerText = "";
+            this.passwordConfirmMessageBox.innerText = "";
         });
 
         this.form.addEventListener("submit", (event: Event) => {
@@ -139,10 +142,11 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
                     data: null,
                 });
             } else {
-                emailMessageBox.innerText = emailValidation;
-                usernameMessageBox.innerText = usernameValidation;
-                passwordMessageBox.innerText = passwordValidation;
-                passwordConfirmMessageBox.innerText = passwordConfirmValidation;
+                this.emailMessageBox.innerText = emailValidation;
+                this.usernameMessageBox.innerText = usernameValidation;
+                this.passwordMessageBox.innerText = passwordValidation;
+                this.passwordConfirmMessageBox.innerText =
+                    passwordConfirmValidation;
             }
         });
 
@@ -217,6 +221,10 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
 
     clearMessage() {
         this.messageBox.innerText = "";
+        this.emailMessageBox.innerText = "";
+        this.usernameMessageBox.innerText = "";
+        this.passwordMessageBox.innerText = "";
+        this.passwordConfirmMessageBox.innerText = "";
     }
 
     getEmail(): string {
