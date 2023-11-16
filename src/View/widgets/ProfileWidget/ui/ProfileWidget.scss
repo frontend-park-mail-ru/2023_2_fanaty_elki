@@ -4,55 +4,54 @@
 .profile-info {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 41px;
 
-    min-width: 600px;
+    width: 100%;
 }
 
 .profile-info__header {
     display: flex;
-    align-items: center;
     gap: 55px;
-    align-self: stretch;
+    width: 100%;
 }
 
 .profile-info__header__image {
-    width: 80px;
-    height: 80px;
-    flex-shrink: 0;
+    width: 20%;
+    aspect-ratio: 1/1;
 }
 
 .profile-info__header__username {
     display: flex;
     align-items: center;
-    gap: 10px;
-    flex: 1 0 0;
-    align-self: stretch;
+    margin: 0;
 }
 
 .profile-info__control {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 20px;
-    align-self: stretch;
+    width: 100%;
 }
 
 .profile-info__control__field {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    align-self: stretch;
+    width: 100%;
+}
+
+.profile-info__control__field__name{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    width: 45%;
 }
 
 .profile-info__control__field__value {
     display: flex;
-    width: 300px;
+    width: 45%;
     height: 44px;
     padding: 10px 10px 10px 25px;
-    align-items: center;
-    gap: 10px;
 
     border-radius: 17px;
     border: 1px solid index.$gray;
@@ -60,18 +59,12 @@
     color: index.$gray;
     font-family: Comfortaa;
     font-size: 17px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }
 
 .button_primary-green {
     display: flex;
     height: 50px;
-    padding: 10px 15px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+    width: 100%;
 
     border-radius: 17px;
     @include button.button-style(
