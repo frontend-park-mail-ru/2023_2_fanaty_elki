@@ -1,38 +1,44 @@
-<div id="reg-user-page">
-    <div class="login-signup-form__control">
-        <img class="login-signup-form__control__back" id="reg-user-page__back" src="img/ArrowBack.svg" alt="" srcset="">
-        <img class="login-signup-form__control__close" id="reg-user-page__close" src="img/Cross.svg" alt="" srcset="">
-    </div>
+<div class="page" id="reg-user-page">
+    <button class="login-signup-form__back" type="button">
+        <img class="login-signup-form__back__img" id="reg-user-page__back" src="img/ArrowBack.svg" alt="" srcset="">
+    </button>
+    <button class="login-signup-form__close" type="button">
+        <img class="login-signup-form__close__img" id="reg-user-page__close" src="img/Cross.svg" alt="" srcset="">
+    </button>
     <div class="login-signup-form__header">
         <img class="login-signup-form__header__logo" src="img/Принеси&Подай.svg" alt="Закрыть" srcset="">
         <div class="login-signup-form__header__title">Создайте аккаунт</div>
     </div>
-    <form class="login-signup-form__form">
+    <form class="login-signup-form__form" id="login-signup-form">
         <div class="login-signup-form__form__input-container">
             <div class="login-signup-form__form__input-container__msg" id="reg-user-page__msg"></div>
             <div class="input-with-msg">
                 <input class="input-with-msg__input_default" type="email" name="email" id="reg-user-page__email"
                     placeholder="email" value="" autocomplete="email">
-                <div class="input-with-msg__msg_error" id="reg-user-page__email__msg"></div>
+                <div class="input-with-msg__msg_error login-signup-form__form__input-container__input-with-msg__msg"
+                    id="reg-user-page__email__msg"></div>
             </div>
             <div class="input-with-msg">
                 <input class="input-with-msg__input_default" type="text" name="username" id="reg-user-page__username"
                     placeholder="имя пользователя" value="" autocomplete="username">
-                <div class="input-with-msg__msg_error" id="reg-user-page__username__msg"></div>
+                <div class="input-with-msg__msg_error login-signup-form__form__input-container__input-with-msg__msg"
+                    id="reg-user-page__username__msg"></div>
             </div>
             <div class="input-with-msg">
                 <input class="input-with-msg__input_default" type="password" name="password"
                     id="reg-user-page__password" placeholder="пароль" value="" autocomplete="password">
-                <div class="input-with-msg__msg_error" id="reg-user-page__password__msg"></div>
+                <div class="input-with-msg__msg_error login-signup-form__form__input-container__input-with-msg__msg"
+                    id="reg-user-page__password__msg"></div>
             </div>
             <div class="input-with-msg">
                 <input class="input-with-msg__input_default" type="password" name="passwordconfirm"
                     id="reg-user-page__passwordconfirm" placeholder="повторите пароль" value="" autocomplete="password">
-                <div class="input-with-msg__msg_error" id="reg-user-page__passwordconfirm__msg"></div>
+                <div class="input-with-msg__msg_error login-signup-form__form__input-container__input-with-msg__msg"
+                    id="reg-user-page__passwordconfirm__msg"></div>
             </div>
         </div>
         <div class="login-signup-form__form__button-container">
-            <button class="button_primary" type="button" id="reg-user-page__next">Далее</button>
+            <button class="button_primary" type="submit" id="reg-user-page__next">Далее</button>
             <button class="button_secondary" type="button" id="reg-user-page__auth">Уже есть аккаунт?</button>
         </div>
     </form>

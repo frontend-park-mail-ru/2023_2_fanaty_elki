@@ -22,10 +22,12 @@ export class RegExtraInfoPage
 
     private messageBox: HTMLElement;
 
+    private birthdayMessageBox: HTMLElement;
     private birthdayInput: HTMLInputElement;
+    private phoneNumberMessageBox: HTMLElement;
     private phoneNumberInput: HTMLInputElement;
 
-    private submitButton: HTMLElement;
+    private form: HTMLFormElement;
     private authButton: HTMLElement;
 
     constructor() {
@@ -45,15 +47,24 @@ export class RegExtraInfoPage
             this.element.querySelector("#reg-extra-info-page__msg")
         );
 
+        this.birthdayMessageBox = <HTMLElement>(
+            this.element.querySelector("#reg-extra-info-page__birthday__msg")
+        );
+
         this.birthdayInput = <HTMLInputElement>(
             this.element.querySelector("#reg-extra-info-page__birthday")
+        );
+        this.phoneNumberMessageBox = <HTMLElement>(
+            this.element.querySelector(
+                "#reg-extra-info-page__phone-number__msg",
+            )
         );
         this.phoneNumberInput = <HTMLInputElement>(
             this.element.querySelector("#reg-extra-info-page__phone-number")
         );
 
-        this.submitButton = <HTMLElement>(
-            this.element.querySelector("#reg-extra-info-page__submit")
+        this.form = <HTMLFormElement>(
+            this.element.querySelector("#login-signup-form")
         );
         this.authButton = <HTMLElement>(
             this.element.querySelector("#reg-extra-info-page__auth")
@@ -71,15 +82,6 @@ export class RegExtraInfoPage
     }
 
     bindEvents() {
-        const birthdayMessageBox = <HTMLElement>(
-            this.element.querySelector("#reg-extra-info-page__birthday__msg")
-        );
-        const phoneNumberMessageBox = <HTMLElement>(
-            this.element.querySelector(
-                "#reg-extra-info-page__phone-number__msg",
-            )
-        );
-
         this.backButton.addEventListener("click", () => {
             this.events_.notify({
                 type: UIEventType.LMODAL_BACK_CLICK,
@@ -96,15 +98,16 @@ export class RegExtraInfoPage
 
         this.birthdayInput.addEventListener("input", () => {
             this.messageBox.innerText = "";
-            birthdayMessageBox.innerText = "";
+            this.birthdayMessageBox.innerText = "";
         });
 
         this.phoneNumberInput.addEventListener("input", () => {
             this.messageBox.innerText = "";
-            phoneNumberMessageBox.innerText = "";
+            this.phoneNumberMessageBox.innerText = "";
         });
 
-        this.submitButton.addEventListener("click", () => {
+        this.form.addEventListener("submit", (event: Event) => {
+            event.preventDefault();
             const birthdayValidation = this.validateBirthday(
                 this.birthdayInput.value.trim(),
             );
@@ -118,8 +121,8 @@ export class RegExtraInfoPage
                     data: null,
                 });
             } else {
-                birthdayMessageBox.innerText = birthdayValidation;
-                phoneNumberMessageBox.innerText = phoneNumberValidation;
+                this.birthdayMessageBox.innerText = birthdayValidation;
+                this.phoneNumberMessageBox.innerText = phoneNumberValidation;
             }
         });
         this.authButton.addEventListener("click", () => {
@@ -161,6 +164,8 @@ export class RegExtraInfoPage
 
     clearMessage() {
         this.messageBox.innerText = "";
+        this.birthdayMessageBox.innerText = "";
+        this.phoneNumberMessageBox.innerText = "";
     }
 
     getBirthday(): string {

@@ -19,7 +19,7 @@ export class LoginPage extends IHTMLElement implements Listenable<UIEvent> {
     private messageBox: HTMLElement;
     private usernameInput: HTMLInputElement;
     private passwordInput: HTMLInputElement;
-    private submitButton: HTMLElement;
+    private form: HTMLFormElement;
     private regButton: HTMLElement;
 
     constructor() {
@@ -43,8 +43,8 @@ export class LoginPage extends IHTMLElement implements Listenable<UIEvent> {
             this.element.querySelector("#login-page__password")
         );
 
-        this.submitButton = <HTMLElement>(
-            this.element.querySelector("#login-page__submit")
+        this.form = <HTMLFormElement>(
+            this.element.querySelector("#login-signup-form")
         );
         this.regButton = <HTMLElement>(
             this.element.querySelector("#login-page__reg")
@@ -76,7 +76,8 @@ export class LoginPage extends IHTMLElement implements Listenable<UIEvent> {
             });
         });
 
-        this.submitButton.addEventListener("click", () => {
+        this.form.addEventListener("submit", (event: Event) => {
+            event.preventDefault();
             controller.handleEvent({
                 type: VIEW_EVENT_TYPE.LOGIN,
                 data: {

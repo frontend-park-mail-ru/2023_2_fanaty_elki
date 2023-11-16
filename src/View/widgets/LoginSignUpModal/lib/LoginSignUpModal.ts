@@ -90,7 +90,17 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
         }
     }
 
-    bindEvents() {}
+    bindEvents() {
+        this.element
+            .querySelector(".modal__box")!
+            .addEventListener("click", (event: any) => {
+                event._isClickWithInModal = true;
+            });
+        this.element.addEventListener("click", (event: any) => {
+            if (event._isClickWithInModal) return;
+            event.currentTarget!.classList.remove("open");
+        });
+    }
 
     open() {
         this.element.classList.add("open");

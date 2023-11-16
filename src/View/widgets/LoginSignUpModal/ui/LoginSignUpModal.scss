@@ -1,5 +1,9 @@
 @use "../../../../../public/index.scss" as index;
 
+.page {
+    width: 100%;
+}
+
 .login-signup-form {
     width: 400px;
     display: flex;
@@ -16,24 +20,30 @@
     background: index.$white;
 }
 
-.login-signup-form__control__back {
-    position: relative;
-    top: -11px;
-    left: -26px;
+.login-signup-form__back, .login-signup-form__close {
+    position: absolute;
     height: 15px;
     width: 15px;
+
+    background:none;
+    border: none;
 
     cursor: pointer;
 }
 
-.login-signup-form__control__close {
-    position: relative;
-    top: -11px;
-    left: 266px;
-    height: 15px;
-    width: 15px;
+.login-signup-form__back {
+    top: 25px;
+    left: 30px;
+}
 
-    cursor: pointer;
+.login-signup-form__close {
+    top: 25px;
+    left: 350px;
+}
+
+.login-signup-form__back__img, .login-signup-form__close__img {
+    height: 100%;
+    object-fit: contain;
 }
 
 .login-signup-form__header {
@@ -67,7 +77,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 15px;
     align-self: stretch;
 }
 
@@ -80,6 +89,10 @@
     text-align: center;
     padding-top: 15px;
     min-height: 35px;
+}
+
+.login-signup-form__form__input-container__input-with-msg__msg {
+    min-height: 26px;
 }
 
 .login-signup-form__form__button-container {
