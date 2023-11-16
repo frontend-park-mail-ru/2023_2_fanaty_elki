@@ -82,6 +82,8 @@ export class Controller {
                             return element.Product.ID;
                         });
 
+                    if (products.length === 0) return;
+
                     const address = model.userModel.getAddress();
                     model.orderModel.createOrder(products, address);
                 }

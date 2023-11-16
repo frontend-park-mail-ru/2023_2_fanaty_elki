@@ -10,6 +10,7 @@ import { UserEvent } from "../../Model/UserModel";
 import { VIEW_EVENT_TYPE } from "../../Controller/Controller";
 
 import favIconImg from "../../../public/favicon.ico";
+import { OrderEvent } from "../../Model/OrderModel";
 
 export class View {
     private root: HTMLElement;
@@ -26,6 +27,9 @@ export class View {
         favicon.setAttribute("type", "image/x-icon");
         document.querySelector("head")!.appendChild(favicon);
 
+        model.userModel.events.subscribe(this.updateUserEvent.bind(this));
+        model.orderModel.events.subscribe(this.updateOrderEvent.bind(this));
+
         this.mainPage = new MainPage();
         this.mainPage.events.subscribe(this.updateUIEvent.bind(this));
 
@@ -34,8 +38,6 @@ export class View {
 
         this.profilePage = new ProfilePage();
         this.profilePage.events.subscribe(this.updateUIEvent.bind(this));
-
-        model.userModel.events.subscribe(this.updateUserEvent.bind(this));
 
         this.cartPage = new CartPage();
         this.cartPage.events.subscribe(this.updateUIEvent.bind(this));
@@ -120,6 +122,12 @@ export class View {
                 break;
             default:
                 break;
+        }
+    }
+
+    updateOrderEvent(event?: OrderEvent) {
+        if (event === OrderEvent.CREATE_ORDER) {
+            this.router_.redirect(ROUTES.profile);
         }
     }
 }

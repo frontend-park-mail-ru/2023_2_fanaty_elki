@@ -41,19 +41,17 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     }
 
     private bindEvents() {
-        this.getChild(cartElement.ORDER_SUBMIT).addEventListener(
-            "click",
-            () => {
-                controller.handleEvent({
-                    type: VIEW_EVENT_TYPE.CREATE_ORDER,
-                    data: null,
-                });
-                controller.handleEvent({
-                    type: VIEW_EVENT_TYPE.CLEAR_CART,
-                    data: null,
-                });
-            },
-        );
+        this.getChild("#form").addEventListener("submit", (event: Event) => {
+            event.preventDefault();
+            controller.handleEvent({
+                type: VIEW_EVENT_TYPE.CREATE_ORDER,
+                data: null,
+            });
+            controller.handleEvent({
+                type: VIEW_EVENT_TYPE.CLEAR_CART,
+                data: null,
+            });
+        });
         this.getChild("#courier-cash").addEventListener("input", () => {
             this.disableCardInputs();
         });
@@ -116,11 +114,7 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         this.events_.notify(event);
     }
 
-    updateControls(event?: OrderEvent) {
-        if (event === OrderEvent.CREATE_ORDER) {
-            alert("заказ создан");
-        }
-    }
+    updateControls(event?: OrderEvent) {}
 
     load() {
         this.navbar.load();

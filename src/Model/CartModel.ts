@@ -31,7 +31,7 @@ export class CartModel implements Listenable<CartEvent> {
      */
     constructor() {
         this.events_ = new EventDispatcher<CartEvent>();
-        this.cart = null;
+        this.cart = [];
     }
 
     async setCart() {
@@ -66,7 +66,7 @@ export class CartModel implements Listenable<CartEvent> {
     async decrease(id: number) {
         try {
             await Api.removeDishFromCart(id);
-            this.cart = await Api.getCart();
+            this.cart = (await Api.getCart()) || [];
             this.cart?.forEach((cartPos) => {
                 cartPos.Sum = Math.round(
                     cartPos.Product.Price * cartPos.ItemCount,
