@@ -14,6 +14,12 @@
     height: 35vh;
     overflow-y: scroll;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.order-list__items__empty-message {
+    margin: auto;
 }
 
 .order-list__item {

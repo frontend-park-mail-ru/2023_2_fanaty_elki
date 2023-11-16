@@ -1,14 +1,20 @@
 <div class="order-list">
     <h2 class="order-list__title">Текущие заказы</h2>
     <div class="order-list__items">
+        {{#if this}}
         {{#each this}}
-            <div class="order-list__item">
-                <div class="order-list__item__order-info">
-                    <h2 class="order-list__item__order-info__order-num">Заказ
-                        {{Id}}</h2>
-                </div>
-                <h2 class="order-list__item__order-status">{{Status}}</h2>
+        <div class="order-list__item">
+            <div class="order-list__item__order-info">
+                <h2 class="order-list__item__order-info__order-num">Заказ
+                    {{Id}}</h2>
             </div>
+            <h2 class="order-list__item__order-status">{{Status}}</h2>
+        </div>
         {{/each}}
+        {{else}}
+        <h2 class="order-list__items__empty-message">
+            У вас нет заказов :(
+        </h2>
+        {{/if}}
     </div>
 </div>
