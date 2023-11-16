@@ -31,15 +31,26 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
         super(DishCategoryTemplate(), ".dishes-category");
         this.events_ = new EventDispatcher<UIEvent>();
 
-        model.restaurantModel.events.subscribe(this.update.bind(this));
+        model.restaurantModel.events.subscribe(
+            this.updateRestaurantEvent.bind(this),
+        );
         model.cartModel.events.subscribe(() => {
             this.setList(model.restaurantModel.getRestaurant());
         });
+        model.userModel.events.subscribe(this.updateUserEvent.bind(this));
     }
 
-    update(event?: RestaurantEvent) {
+    updateRestaurantEvent(event?: RestaurantEvent) {
         if (event! !== RestaurantEvent.LOADED_REST) return;
         this.setList(model.restaurantModel.getRestaurant());
+    }
+
+    updateUserEvent(event?: UserEvent) {
+        if (model.userModel.getUser()) {
+            this.getAll(".dish-card__button").forEach((x) =>
+                x.classList.toggle("active"),
+            );
+        }
     }
 
     setList(rest: RestaurantWithCategories) {
