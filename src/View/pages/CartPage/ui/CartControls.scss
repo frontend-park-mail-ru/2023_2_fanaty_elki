@@ -1,22 +1,23 @@
 @use "../../../../../public/index.scss" as index;
 @use "../../../shared/ui/Button/Button.scss" as button;
 
+.cart__content__control__payment{
+    width: 100%;
+}
+
 .payment-chooser {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 10px;
-}
+    width: 100%;
 
-.payment-chooser__title {
-    flex: 1 0 0;
+    font-family: "Comfortaa";
 }
 
 .radio-chooser {
     display: flex;
-    align-items: center;
     gap: 20px;
-    align-self: stretch;
+    width: 100%;
 }
 
 .payment-chooser__online-card {
@@ -30,17 +31,15 @@
 .payment-chooser__online-card__card-data {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 15px;
+    width: 100%;
 }
 
 .payment-chooser__online-card__card-data__card-number {
     display: flex;
     height: 65px;
+    width: 100%;
     padding: 10px 10px 10px 25px;
-    align-items: center;
-    gap: 10px;
-    align-self: stretch;
     border-radius: 17px;
 
     font-family: "Comfortaa";
@@ -49,22 +48,16 @@
 
 .payment-chooser__online-card__card-valid-thru-cvv {
     display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    align-self: stretch;
+    width: 100%;
     border-radius: 17px;
-
-    font-family: "Comfortaa";
-    font-size: 17px;
+    justify-content: space-between;
 }
 
 .payment-chooser__online-card__card-data__card-valid-thru {
     display: flex;
-    width: 493px;
+    width: 70%;
     height: 65px;
     padding: 10px 10px 10px 25px;
-    align-items: center;
-    gap: 10px;
     border-radius: 17px;
 
     font-family: "Comfortaa";
@@ -74,10 +67,8 @@
 .payment-chooser__online-card__card-data__card-cvv {
     display: flex;
     height: 65px;
+    width: 25%;
     padding: 10px 10px 10px 25px;
-    align-items: center;
-    gap: 10px;
-    flex: 1 0 0;
     border-radius: 17px;
 
     font-family: "Comfortaa";
@@ -109,7 +100,6 @@
     gap: 10px;
     align-self: stretch;
 
-    
     @include button.button-style(
         $color: index.$gray,
         $background-color: index.$green,

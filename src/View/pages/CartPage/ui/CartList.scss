@@ -3,36 +3,38 @@
 
 .cart-item {
     display: flex;
-    align-items: center;
-    gap: 60px;
+    justify-content: space-between;
     width: 100%;
 }
 
 .cart-item__info {
     display: flex;
     align-items: center;
-    gap: 30px;
+    width: 80%;
+    justify-content: space-between;
 }
 
 .cart-item__info__icon {
-    width: 145px; // TODO: Пофиксить числа
-    height: 145px; // TODO: Пофиксить числа
-    flex-shrink: 0;
+    width: 20%;
+    aspect-ratio: 1/1;
+
+    object-fit: contain;
 }
 
 .cart-item__info__name {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1 0 0;
-    align-self: stretch;
+    width: 40%;
+    justify-content: flex-start;
+    font-size: 17px;
+    font-weight: 700;
 }
 
 .cart-item__info__count-control {
     display: flex;
     align-items: center;
     gap: 20px;
-    align-self: stretch;
+    width: 30%;
+    justify-content: center;
 }
 
 .cart-item__info__count-control__button {
@@ -42,30 +44,30 @@
     padding: 10px;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
 
     @include button.button-style(
         $color: index.$gray,
         $background-color: index.$green,
         $border: none
     );
+
+    border-radius: 17px;
 }
 
 .cart-item__info__count-control__count {
     display: flex;
     align-items: center;
-    gap: 10px;
-    flex: 1 0 0;
-    align-self: stretch;
+    font-size: 17px;
+    font-weight: 700;
 }
 
 .cart-item__price {
     display: flex;
     align-items: center;
-    gap: 10px;
-    flex: 1 0 0;
-    align-self: stretch;
+    justify-content: center;
+    width: 15%;
+    font-size: 17px;
+    font-weight: 700;
 }
 
 .empty-cart__title {
