@@ -5,6 +5,7 @@ import { Dish } from "./RestaurantModel";
 export type CartPosition = {
     Product: Dish;
     ItemCount: number;
+    Sum: number;
 };
 
 export type Cart = CartPosition[];
@@ -36,6 +37,11 @@ export class CartModel implements Listenable<CartEvent> {
     async setCart() {
         try {
             this.cart = await Api.getCart();
+            this.cart?.forEach((cartPos) => {
+                cartPos.Sum = Math.round(
+                    cartPos.Product.Price * cartPos.ItemCount,
+                );
+            });
         } catch (e) {
             console.log("Неудачный запрос корзины");
         }
@@ -46,6 +52,11 @@ export class CartModel implements Listenable<CartEvent> {
         try {
             await Api.addDishToCart(id);
             this.cart = await Api.getCart();
+            this.cart?.forEach((cartPos) => {
+                cartPos.Sum = Math.round(
+                    cartPos.Product.Price * cartPos.ItemCount,
+                );
+            });
         } catch (e) {
             console.log("Неудачное добавление");
         }
@@ -56,6 +67,11 @@ export class CartModel implements Listenable<CartEvent> {
         try {
             await Api.removeDishFromCart(id);
             this.cart = await Api.getCart();
+            this.cart?.forEach((cartPos) => {
+                cartPos.Sum = Math.round(
+                    cartPos.Product.Price * cartPos.ItemCount,
+                );
+            });
         } catch (e) {
             console.log("Неудачное удаление");
         }
