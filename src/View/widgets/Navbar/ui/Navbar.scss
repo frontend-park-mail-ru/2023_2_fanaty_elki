@@ -85,6 +85,15 @@
 }
 
 .navbar__fields__backet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding-top: 15px;
+    cursor: pointer;
+}
+
+.navbar__fields__backet__button {
     width: 44px;
     height: 44px;
     border-radius: 44px;
@@ -93,9 +102,16 @@
     cursor: pointer;
 }
 
-.navbar__fields__backet__icon {
+.navbar__fields__backet__button__icon {
     width: 25px;
     height: 28px;
+}
+
+.navbar__fields__backet__sum {
+    font-size: 13px;
+    font-weight: 700;
+    font-family: "Comfortaa";
+    margin: 0;
 }
 
 .navbar__signin {

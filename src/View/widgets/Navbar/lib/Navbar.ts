@@ -67,9 +67,8 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
     }
 
     updateCartIcon() {
-        this.cartButton.querySelector(
-            ".navbar__fields__backet__title",
-        )!.innerHTML = model.cartModel.getSumm() + "₽";
+        this.cartButton.querySelector("#sum")!.innerHTML =
+            model.cartModel.getSumm() + "₽";
     }
 
     update(event?: UserEvent) {
