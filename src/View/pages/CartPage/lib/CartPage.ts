@@ -54,6 +54,29 @@ export class CartPage extends Page implements Listenable<UIEvent> {
                 });
             },
         );
+        this.getChild("#courier-cash").addEventListener("input", () => {
+            this.disableCardInputs();
+        });
+        this.getChild("#courier-card").addEventListener("input", () => {
+            this.disableCardInputs();
+        });
+        this.getChild("#online-card").addEventListener("input", () => {
+            this.enableCardInputs();
+        });
+    }
+
+    enableCardInputs() {
+        console.log(this.element);
+        (this.getChild("#card-number") as HTMLInputElement).disabled = false;
+        (this.getChild("#card-valid-thru") as HTMLInputElement).disabled =
+            false;
+        (this.getChild("#card-cvv") as HTMLInputElement).disabled = false;
+    }
+
+    disableCardInputs() {
+        (this.getChild("#card-number") as HTMLInputElement).disabled = true;
+        (this.getChild("#card-valid-thru") as HTMLInputElement).disabled = true;
+        (this.getChild("#card-cvv") as HTMLInputElement).disabled = true;
     }
 
     updateCart() {
