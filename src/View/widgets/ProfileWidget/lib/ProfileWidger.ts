@@ -11,6 +11,7 @@ export class ProfileWidget extends IWidget implements Listenable<UIEvent> {
     private email: HTMLInputElement;
     private birthday: HTMLInputElement;
     private phoneNumber: HTMLInputElement;
+    private iconInput: HTMLInputElement;
     private icon: HTMLImageElement;
 
     private events_: EventDispatcher<UIEvent>;
@@ -34,9 +35,10 @@ export class ProfileWidget extends IWidget implements Listenable<UIEvent> {
         this.phoneNumber = <HTMLInputElement>(
             this.element.querySelector("#phone-number")
         );
-        this.icon = <HTMLImageElement>(
-            this.element.querySelector(".profile-info__header__image")
+        this.iconInput = <HTMLInputElement>(
+            this.element.querySelector("#icon-input")
         );
+        this.icon = <HTMLImageElement>this.element.querySelector("#icon");
 
         this.bindEvents();
     }
@@ -48,9 +50,12 @@ export class ProfileWidget extends IWidget implements Listenable<UIEvent> {
             controller.handleEvent({
                 type: VIEW_EVENT_TYPE.USER_UPDATE,
                 data: {
-                    Birthday: this.birthday.value.trim(),
-                    Email: this.email.value.trim(),
-                    PhoneNumber: this.phoneNumber.value.trim(),
+                    userFields: {
+                        Birthday: this.birthday.value.trim(),
+                        Email: this.email.value.trim(),
+                        PhoneNumber: this.phoneNumber.value.trim(),
+                    },
+                    icon: this.iconInput.files![0],
                 },
             });
         });

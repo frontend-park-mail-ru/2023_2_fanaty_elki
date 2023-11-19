@@ -170,6 +170,22 @@ export class UserModel implements Listenable<UserEvent> {
         this.events.notify(UserEvent.USER_UPDATE);
     }
 
+    async updateUserIcon(icon: File) {
+        console.log(icon);
+        try {
+            await Api.updateUserIcon(icon);
+            this.user = await Api.authUser();
+            this.user!.Birthday =
+                this.user?.Birthday.slice(0, 10) || this.user!.Birthday;
+            this.errorMsg = null;
+        } catch (e: any) {
+            this.errorMsg = apiConfig.api.updateUser.failure[e.status];
+            console.error("Неудачное обновление фотографии пользователя");
+            console.error(e);
+        }
+        this.events.notify(UserEvent.USER_UPDATE);
+    }
+
     setAddress(address: string) {
         this.address = address;
         this.events.notify(UserEvent.ADDRESS_CHANGE);
