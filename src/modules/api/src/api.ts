@@ -1,5 +1,6 @@
 import { User, Address } from "../../../Model/UserModel";
 import { apiConfig } from "./config";
+import { REQUEST_METHOD } from "./config";
 
 enum ERROR_TYPE {
     FAILURE,
@@ -65,6 +66,21 @@ function checkResponse(
  * @async
  */
 async function ajax(url: string, params: RequestInit) {
+    if (params.method !== REQUEST_METHOD.GET) {
+        const csrf_config: ApiElementConfig = apiConfig.api.csrf;
+        const csrfResponse = await fetch(
+            `${apiConfig.backend}${csrf_config.url}`,
+            csrf_config.params(""),
+        );
+
+        const csrfToken = csrfResponse.headers.get("X-CSRF-Token");
+        if (csrfToken !== null) {
+            if (!params.headers) {
+                params.headers = {};
+            }
+            params.headers["X-Csrf-Token"] = csrfToken;
+        }
+    }
     try {
         return await fetch(url, params);
     } catch {

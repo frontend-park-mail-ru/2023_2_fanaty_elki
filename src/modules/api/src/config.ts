@@ -1,6 +1,6 @@
 import type { ApiConfig } from "./api";
 
-enum REQUEST_METHOD {
+export enum REQUEST_METHOD {
     POST = "POST",
     GET = "GET",
     DELETE = "DELETE",
@@ -327,6 +327,23 @@ export const apiConfig: ApiConfig = {
                 201: "OK",
             },
             failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        csrf: {
+            url: "/csrf",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.POST,
+                    credentials: "include",
+                };
+            },
+            success: {
+                201: "OK",
+            },
+            failure: {
+                401: "Не авторизован",
                 500: "Ошибка сервера",
             },
             restrictions: {},

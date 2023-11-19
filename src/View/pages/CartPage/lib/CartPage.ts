@@ -47,10 +47,6 @@ export class CartPage extends Page implements Listenable<UIEvent> {
                 type: VIEW_EVENT_TYPE.CREATE_ORDER,
                 data: null,
             });
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.CLEAR_CART,
-                data: null,
-            });
         });
         this.getChild("#courier-cash").addEventListener("input", () => {
             this.disableCardInputs();

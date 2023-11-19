@@ -51,7 +51,7 @@ export class OrderModel implements Listenable<OrderEvent> {
             await Api.createOrder(Products, mocAddress);
             this.events.notify(OrderEvent.CREATE_ORDER);
         } catch (e) {
-            console.error("Неудалось создать заказ");
+            console.error("Не удалось создать заказ");
             console.error(e);
         }
     }

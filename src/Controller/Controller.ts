@@ -95,7 +95,8 @@ export class Controller {
                     if (products.length === 0) return;
 
                     const address = model.userModel.getAddress();
-                    model.orderModel.createOrder(products, address);
+                    await model.orderModel.createOrder(products, address);
+                    model.cartModel.clearCart();
                 }
                 break;
             case VIEW_EVENT_TYPE.CLEAR_CART:
