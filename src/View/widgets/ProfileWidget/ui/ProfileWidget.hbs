@@ -1,11 +1,14 @@
 <form class="profile-info" id="form">
     <div class="profile-info__header">
-        <img class="profile-info__header__image" id="icon" src="img/defIcon.png" alt="" srcset="">
-        <label class="profile-info__header__image-chooser-label" for="icon">
-            <input class="profile-info__header__image-chooser" type="file" name="icon" id="icon-input">
-            Пенис
-        </label>
-
+        <div class="profile-info__header__image">
+            <img class="profile-info__header__image__image" id="icon" src="img/defIcon.png" alt="" srcset="">
+            <div class="profile-info__header__image__container">
+                <label class="profile-info__header__image__image-chooser-label">
+                    <input class="profile-info__header__image__image-chooser" type="file" name="icon" id="icon-input">
+                    <div>Изменить</div>
+                </label>
+            </div>
+        </div>
         <h1 class="profile-info__header__username"></h1>
     </div>
     <div class="profile-info__control">
