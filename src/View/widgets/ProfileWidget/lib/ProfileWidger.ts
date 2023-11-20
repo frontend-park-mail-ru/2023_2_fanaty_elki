@@ -100,9 +100,7 @@ export class ProfileWidget extends IWidget implements Listenable<UIEvent> {
 
     update() {
         this.load();
-        if (model.userModel.getErrorMsg()) {
-            this.msg.innerText = model.userModel.getErrorMsg()!;
-        }
+        this.msg.innerText = model.userModel.getErrorMsg() || "";
     }
 
     load() {
