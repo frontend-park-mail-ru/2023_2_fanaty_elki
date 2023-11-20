@@ -40,12 +40,45 @@
     background-color: index.$middle-gray;
 }
 
+.dish-card__base-button.dish-card__controls__signin-button:hover {
+    background-color: index.$darker-middle-gray;
+}
+
+.dish-card__base-button.dish-card__controls__signin-button:active {
+    background-color: index.$darkest-middle-gray;
+}
+
+.dish-card__base-button.dish-card__controls__up-button:hover {
+    background-color: index.$darker-green;
+}
+
+.dish-card__base-button.dish-card__controls__up-button:active {
+    background-color: index.$darkest-green;
+}
+
 .dish-card__controls__buttons .dish-card__controls__button {
     width: 40%;
     height: 100%;
     background-color: transparent;
     border: none;
     font-size: 32px;
+    font-family: index.$font-family;
+}
+
+.dish-card__controls__buttons .dish-card__controls__up-button:hover {
+    background: linear-gradient(to left, index.$darker-green, 20%, index.$green);
+}
+
+.dish-card__controls__buttons .dish-card__controls__up-button:active {
+    background: linear-gradient(to left, index.$darkest-green, 20%, index.$green);
+}
+
+.dish-card__controls__buttons .dish-card__controls__down-button:hover {
+    background: linear-gradient(to right, index.$darker-green, 20%, index.$green);
+}
+
+.dish-card__controls__buttons .dish-card__controls__down-button:active {
+    background: linear-gradient(to right, index.$darkest-green, 20%, index.$green);
 }
 
 .dish-card__controls__button {
