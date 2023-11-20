@@ -59,6 +59,10 @@ export class ProfileWidget extends IWidget implements Listenable<UIEvent> {
                 },
             });
         });
+
+        this.iconInput.addEventListener("change", () => {
+            this.icon.src = URL.createObjectURL(this.iconInput.files![0]);
+        });
     }
 
     update() {

@@ -18,6 +18,7 @@ export const enum UserEvent {
     USER_UPDATE = "USER_UPDATE",
     AUTH = "AUTH",
     ADDRESS_CHANGE = "ADDRESS_CHANGE",
+    USER_ICON_UPDATE = "USER_ICON_UPDATE",
 }
 
 export type Address = {
@@ -183,6 +184,7 @@ export class UserModel implements Listenable<UserEvent> {
             console.error("Неудачное обновление фотографии пользователя");
             console.error(e);
         }
+        this.events.notify(UserEvent.USER_ICON_UPDATE);
     }
 
     setAddress(address: string) {
