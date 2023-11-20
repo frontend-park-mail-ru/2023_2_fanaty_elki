@@ -27,6 +27,13 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+
+    border-radius: 17px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #ededed;
+    }
 }
 
 .order-list__item__order-info {
