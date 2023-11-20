@@ -112,11 +112,6 @@ export class View {
                         window.location.pathname == ROUTES.cart)
                 ) {
                     this.router_.redirect(ROUTES.main);
-                } else {
-                    this.router_.route(
-                        window.location.pathname,
-                        window.location.search,
-                    );
                 }
                 break;
             default:

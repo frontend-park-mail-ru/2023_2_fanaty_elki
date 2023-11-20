@@ -6,11 +6,14 @@ import {
 import { IWidget } from "../../../types";
 import DishCategoryTemplate from "../ui/DishesCategory.hbs";
 import DishListTemplate from "../ui/DishList.hbs";
+import DishButtonTemplate from "../ui/DishButton.hbs";
 import "../ui/DishCard.scss";
 import "../ui/DishesCategory.scss";
+import "../ui/DishButton.scss";
 import { UserEvent } from "../../../../Model/UserModel";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { UIEvent, UIEventType } from "../../../../config";
+import { dishListSelectors } from "./config";
 
 Handlebars.registerHelper("itemcount", (id) => {
     return model.cartModel.getDishCount(id);
@@ -27,7 +30,7 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
     }
 
     constructor() {
-        super(DishCategoryTemplate(), ".dishes-category");
+        super(DishCategoryTemplate(), dishListSelectors.ROOT);
         this.events_ = new EventDispatcher<UIEvent>();
 
         model.restaurantModel.events.subscribe(
@@ -40,42 +43,57 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
     }
 
     updateRestaurantEvent(event?: RestaurantEvent) {
-        if (event! !== RestaurantEvent.LOADED_REST) return;
+        if (event !== RestaurantEvent.LOADED_REST) return;
         this.setList(model.restaurantModel.getRestaurant());
     }
 
     updateUserEvent(event?: UserEvent) {
-        if (model.userModel.getUser()) {
-            this.getAll(".dish-card__button").forEach((x) =>
-                x.classList.toggle("active"),
-            );
+        if (
+            event === UserEvent.USER_LOGIN ||
+            event === UserEvent.USER_LOGOUT ||
+            event === UserEvent.AUTH
+        ) {
+            this.setList(model.restaurantModel.getRestaurant());
         }
     }
 
     setList(rest: RestaurantWithCategories) {
         this.element.innerHTML = DishListTemplate(rest);
         if (!model.userModel.getUser()) {
-            this.getAll(".dish-card__button").forEach((x) =>
-                x.classList.toggle("active"),
+            this.getAll(dishListSelectors.CONTROLS).forEach(
+                (element) =>
+                    (element.innerHTML = DishButtonTemplate({ isAuth: false })),
             );
         } else {
-            this.getAll(".dish-card__button").forEach((element) => {
-                const itemCount = model.cartModel.getDishCount(+element.id);
-                if (itemCount === 0) {
-                    element.innerHTML = "";
-                } else {
-                    element.innerHTML = `(${itemCount})`;
-                }
+            this.getAll(dishListSelectors.CARD).forEach((element) => {
+                const itemCount = model.cartModel.getDishCount(
+                    +element.getAttribute("data-product-id")!,
+                );
+                element.querySelector(dishListSelectors.CONTROLS)!.innerHTML =
+                    DishButtonTemplate({ isAuth: true, itemCount: itemCount });
             });
         }
-        this.getAll(".dish-card__button").forEach((element) => {
+        this.getAll(dishListSelectors.BUTTON).forEach((element) => {
             element.addEventListener("click", (event) => {
-                if ((<HTMLElement>event.target).classList.contains("active")) {
+                const target = <HTMLElement>event.target!;
+                const productId = target
+                    .closest(dishListSelectors.CARD)!
+                    .getAttribute("data-product-id");
+                if (target.classList.contains(dishListSelectors.UP_BUTTON)) {
                     controller.handleEvent({
                         type: VIEW_EVENT_TYPE.INCREASE_CART,
-                        data: element.id,
+                        data: productId,
                     });
-                } else {
+                } else if (
+                    target.classList.contains(dishListSelectors.DOWN_BUTTON)
+                ) {
+                    controller.handleEvent({
+                        type: VIEW_EVENT_TYPE.DECREASE_CART,
+                        data: productId,
+                    });
+                } else if (
+                    target.classList.contains(dishListSelectors.SIGNIN_BUTTON)
+                ) {
                     this.events.notify({
                         type: UIEventType.NAVBAR_SIGNIN_CLICK,
                     });

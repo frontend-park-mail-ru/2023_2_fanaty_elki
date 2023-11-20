@@ -3,7 +3,7 @@
     <h2 class="dishes-category__categories__title">{{MenuType.Name}}</h2>
     <div class="dishes-category__categories__items">
         {{#each Products}}
-        <div class="dish-card">
+        <div class="dish-card" data-product-id="{{ID}}">
             <div class="dish-card__top">
                 <img class="dish-card__image" src="{{Icon}}" alt="" srcset="" />
                 <div class="dish-card__info__text">
@@ -11,7 +11,7 @@
                     <div class="dish-card__info__text__price">{{Price}}₽</div>
                 </div>
             </div>
-            <button class="button_primary-green dish-card__button active" type="button" id="{{ID}}"></button>
+            <div class="dish-card__controls"></div>
         </div>
         {{/each}}
     </div>
