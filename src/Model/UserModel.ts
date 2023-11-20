@@ -183,7 +183,6 @@ export class UserModel implements Listenable<UserEvent> {
             console.error("Неудачное обновление фотографии пользователя");
             console.error(e);
         }
-        this.events.notify(UserEvent.USER_UPDATE);
     }
 
     setAddress(address: string) {
