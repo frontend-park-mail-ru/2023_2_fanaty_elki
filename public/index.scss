@@ -1,0 +1,38 @@
+$gray: #333;
+$darkest-middle-gray: #737373;
+$darker-middle-gray: #808080;
+$middle-gray: #8c8c8c;
+$light-gray: #f6f6f6;
+$yellow: #ff9900;
+$white: #fff;
+$green: #54c45f;
+$darker-green: #41be4e;
+$darkest-green: #3bab46;
+$red: #da4747;
+$black: #000;
+
+$font-family: "Comfortaa";
+$font-size: 15px;
+
+html {
+    box-sizing: border-box;
+}
+
+.container {
+    padding-left: 50px;
+    padding-right: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    font-family: $font-family;
+    font-weight: 300;
+}

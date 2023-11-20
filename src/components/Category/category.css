@@ -1,8 +1,0 @@
-.grid_items {
-    display: flex;
-    row-gap: 40px;
-    column-gap: 2.5%;
-    margin-left: 5px;
-    margin-right: 5px;
-    flex-wrap: wrap;
-}

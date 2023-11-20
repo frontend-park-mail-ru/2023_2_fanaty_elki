@@ -1,3 +1,7 @@
 components
 *.css
 *.hbs
+webpack.config.js
+dist
+node_modules
+server

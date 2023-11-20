@@ -1,0 +1,51 @@
+<form class="profile-info" id="form">
+    <div class="profile-info__header">
+        <div class="profile-info__header__image">
+            <img class="profile-info__header__image__image" id="icon" src="img/defIcon.png" alt="" srcset="">
+            <div class="profile-info__header__image__container">
+                <label class="profile-info__header__image__image-chooser-label">
+                    <input class="profile-info__header__image__image-chooser" type="file" name="icon" id="icon-input"
+                        accept=".jpg, .jpeg, .png">
+                    <div>Изменить</div>
+                </label>
+            </div>
+        </div>
+        <h1 class="profile-info__header__username"></h1>
+    </div>
+    <div class="profile-info__control">
+        <div class="profile-info__control__field">
+            <h2 class="profile-info__control__field__name">Дата рождения</h2>
+            {{!-- <input class="profile-info__control__field__value" type="date" name="birthday" id="birthday" value=""
+                placeholder="" disabled> --}}
+            <div class="input-with-msg profile-info__control__field__value">
+                <input class="input-with-msg__input_default" type="date" name="birthday" id="birthday" placeholder=""
+                    disabled>
+                <div class="input-with-msg__msg_error profile-info__control__field__value__msg" id="birthday__msg">
+                </div>
+            </div>
+        </div>
+        <div class="profile-info__control__field">
+            <h2 class="profile-info__control__field__name">Email</h2>
+            {{!-- <input class="profile-info__control__field__value" type="email" name="email" id="email" value=""
+                placeholder=""> --}}
+            <div class="input-with-msg profile-info__control__field__value">
+                <input class="input-with-msg__input_default" type="email" name="email" id="email" placeholder=""
+                    value="" autocomplete="email">
+                <div class="input-with-msg__msg_error profile-info__control__field__value__msg" id="email__msg"></div>
+            </div>
+        </div>
+        <div class="profile-info__control__field">
+            <h2 class="profile-info__control__field__name">Номер телефон</h2>
+            {{!-- <input class="profile-info__control__field__value" type="tel" name="phone-number" id="phone-number"
+                value="" placeholder=""> --}}
+            <div class="input-with-msg profile-info__control__field__value">
+                <input class="input-with-msg__input_default" type="tel" name="phone-number" id="phone-number"
+                    placeholder="" value="" autocomplete="tel">
+                <div class="input-with-msg__msg_error profile-info__control__field__value__msg" id="phone-number__msg">
+                </div>
+            </div>
+        </div>
+        <div class="profile-info__control__msg" id="msg"></div>
+    </div>
+    <button class="button_primary-green" type="submit">Сохранить</button>
+</form>

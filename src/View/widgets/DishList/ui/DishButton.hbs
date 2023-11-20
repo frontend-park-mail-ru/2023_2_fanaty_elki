@@ -1,0 +1,21 @@
+{{#if isAuth}}
+    {{#if itemCount}}
+        <div class="dish-card__base-button dish-card__controls__buttons">
+            <button
+                class="dish-card__controls__button dish-card__controls__down-button"
+            >-</button>
+            <span class="dish-card__controls__item-counter">{{itemCount}}</span>
+            <button
+                class="dish-card__controls__button dish-card__controls__up-button"
+            >+</button>
+        </div>
+    {{else}}
+        <button
+            class="dish-card__base-button dish-card__controls__button dish-card__controls__up-button"
+        >В корзину</button>
+    {{/if}}
+{{else}}
+    <button class="dish-card__base-button dish-card__controls__button dish-card__controls__signin-button">
+        Войдите, чтобы заказать
+    </button>
+{{/if}}

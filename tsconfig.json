@@ -1,0 +1,21 @@
+{
+    "extends": "@tsconfig/recommended/tsconfig.json",
+    "compilerOptions": {
+        "noImplicitAny": false,
+        "module": "ESNext",
+        "target": "ESNext",
+        "outDir": "./dist/",
+        "allowJs": true,
+        "noEmitOnError": true,
+        "declaration": true,
+        "isolatedModules": true,
+        "moduleResolution": "node",
+        "strictPropertyInitialization": false,
+        "typeRoots": [
+            "./types",
+            "./node_modules/@types",
+            "./node_modules/handlebars/types"
+        ]
+    },
+    "include": ["public/index.ts", "types/global.d.ts", "src/**/*.ts"]
+}

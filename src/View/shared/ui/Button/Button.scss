@@ -1,0 +1,52 @@
+@use "../../../../../public/index.scss" as index;
+
+@mixin button-style(
+    $color: index.$white,
+    $background-color: index.$gray,
+    $border: none
+) {
+    color: $color;
+    background-color: $background-color;
+    border: $border;
+    cursor: pointer;
+}
+
+.button {
+    display: inline-flex;
+    height: 44px;
+    width: 100%;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 17px;
+
+    font-family: Comfortaa;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+    // Styles
+    &_primary {
+        @extend .button;
+        @include button-style;
+    }
+
+    &_secondary {
+        @extend .button;
+        @include button-style(
+            $color: index.$gray,
+            $background-color: index.$white,
+            $border: 1px solid #333
+        );
+    }
+
+    &_primary-green {
+        @extend .button;
+        @include button-style(
+            $color: index.$gray,
+            $background-color: index.$green,
+            $border: none
+        );
+    }
+}

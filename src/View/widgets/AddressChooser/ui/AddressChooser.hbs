@@ -1,0 +1,21 @@
+<div id="address-chooser" class="modal">
+    <div class="address-chooser modal__box">
+        <button class="address-chooser__close" id="address-chooser__close" type="button">
+            <img class="address-chooser__close__img" src="img/Cross.svg" alt="" srcset="">
+        </button>
+        <h2 class="address-chooser__title">{{title}}</h2>
+        <form class="address-chooser__form">
+            <div class="address-chooser__input">
+                <input class="address-chooser__control__input" id="address-value" type="text" name="address-value"
+                    placeholder="{{input_ph}}" />
+                <div class="address-chooser__error_msg">
+                    <p style="margin: 5px 0 0 25px;">{{error_message}}</p>
+                </div>
+            </div>
+            <input class="address-chooser__control button__primary" id="choose-address" type="submit"
+                value="{{button_text}}" />
+        </form>
+        <div class="suggest-container">
+        </div>
+    </div>
+</div>
