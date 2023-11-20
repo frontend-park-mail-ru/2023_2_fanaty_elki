@@ -23,13 +23,14 @@
 .profile-info__header__image__image {
     width: 100%;
     aspect-ratio: 1/1;
+    border-radius: 50%;
 }
 
 .profile-info__header__image__container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100%;
+    min-width: 100%;
 
     position: relative;
     left: -100%;
@@ -37,6 +38,8 @@
     opacity: 0;
     transition-property: opacity;
     transition-duration: 175ms;
+
+    border-radius: 50%;
 
     &:hover {
         opacity: 1;
