@@ -4,6 +4,10 @@ import {
     EventDispatcher,
     Listenable,
 } from "../../../../../../modules/observer";
+import {
+    validateBirthday,
+    validatePhoneNumber,
+} from "../../../../../../modules/validations";
 import { IHTMLElement } from "../../../../../types";
 
 import regExtraInfoPageTemplate from "../ui/RegExtraInfoPage.hbs";
@@ -108,10 +112,10 @@ export class RegExtraInfoPage
 
         this.form.addEventListener("submit", (event: Event) => {
             event.preventDefault();
-            const birthdayValidation = this.validateBirthday(
+            const birthdayValidation = validateBirthday(
                 this.birthdayInput.value.trim(),
             );
-            const phoneNumberValidation = this.validatePhoneNumber(
+            const phoneNumberValidation = validatePhoneNumber(
                 this.phoneNumberInput.value.trim(),
             );
 
@@ -131,30 +135,6 @@ export class RegExtraInfoPage
                 data: null,
             });
         });
-    }
-
-    validateBirthday(birthday: string): string {
-        if (!birthday) {
-            return "Укажите дату рождения";
-        }
-
-        return "";
-    }
-
-    validatePhoneNumber(phoneNumber: string): string {
-        if (!phoneNumber) {
-            return "Укажите номер телефона";
-        }
-
-        if (
-            !phoneNumber.match(
-                /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{6,10}$/,
-            )
-        ) {
-            return "Невалидный номер телефона";
-        }
-
-        return "";
     }
 
     clearInputs() {

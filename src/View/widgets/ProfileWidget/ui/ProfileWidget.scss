@@ -82,29 +82,32 @@
 .profile-info__control__field {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
 }
 
 .profile-info__control__field__name {
-    display: flex;
-    align-items: center;
     margin: 0;
     width: 45%;
 }
 
 .profile-info__control__field__value {
     display: flex;
-    width: 45%;
-    height: 44px;
-    padding: 10px 10px 10px 25px;
+    width: 45% !important;
+}
 
-    border-radius: 17px;
-    border: 1px solid index.$gray;
+.profile-info__control__field__value__msg {
+    min-height: 13px;
+}
 
-    color: index.$gray;
-    font-family: Comfortaa;
+.profile-info__control__msg {
+    color: index.$red;
     font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+    padding-top: 15px;
+    min-height: 35px;
 }
 
 .button_primary-green {

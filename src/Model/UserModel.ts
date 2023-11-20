@@ -172,7 +172,6 @@ export class UserModel implements Listenable<UserEvent> {
     }
 
     async updateUserIcon(icon: File) {
-        console.log(icon);
         try {
             await Api.updateUserIcon(icon);
             this.user = await Api.authUser();

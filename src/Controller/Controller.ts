@@ -63,14 +63,23 @@ export class Controller {
                     ).userFields,
                 );
 
-                model.userModel.updateUserIcon(
+                if (
                     (
                         event.data as {
                             userFields: { [index: string]: string };
                             icon: File;
                         }
-                    ).icon,
-                );
+                    ).icon !== undefined
+                ) {
+                    model.userModel.updateUserIcon(
+                        (
+                            event.data as {
+                                userFields: { [index: string]: string };
+                                icon: File;
+                            }
+                        ).icon,
+                    );
+                }
                 break;
             case VIEW_EVENT_TYPE.REGISTRATION:
                 try {
