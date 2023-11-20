@@ -134,6 +134,26 @@ export const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
+        updateUserIcon: {
+            url: "/users/me/icon",
+            params: (body) => {
+                return {
+                    method: REQUEST_METHOD.PATCH,
+                    "Content-Type": "multipart/form-data",
+                    body: body,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                400: "Таких полей у пользователя не существует",
+                401: "Отсутствует авторизация",
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
         getRestaurants: {
             url: "/restaurants",
             params: () => {

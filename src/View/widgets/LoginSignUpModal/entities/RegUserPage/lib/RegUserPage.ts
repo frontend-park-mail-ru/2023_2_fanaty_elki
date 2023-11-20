@@ -4,6 +4,12 @@ import {
     EventDispatcher,
     Listenable,
 } from "../../../../../../modules/observer";
+import {
+    validateEmail,
+    validatePassword,
+    validatePasswordConfirm,
+    validateUsername,
+} from "../../../../../../modules/validations";
 import { IHTMLElement } from "../../../../../types";
 
 import regUserPageTemplate from "../ui/RegUserPage.hbs";
@@ -117,16 +123,14 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
 
         this.form.addEventListener("submit", (event: Event) => {
             event.preventDefault();
-            const emailValidation = this.validateEmail(
-                this.emailInput.value.trim(),
-            );
-            const usernameValidation = this.validateUsername(
+            const emailValidation = validateEmail(this.emailInput.value.trim());
+            const usernameValidation = validateUsername(
                 this.usernameInput.value.trim(),
             );
-            const passwordValidation = this.validatePassword(
+            const passwordValidation = validatePassword(
                 this.passwordInput.value.trim(),
             );
-            const passwordConfirmValidation = this.validatePasswordConfirm(
+            const passwordConfirmValidation = validatePasswordConfirm(
                 this.passwordInput.value.trim(),
                 this.passwordConfirmInput.value.trim(),
             );
@@ -156,60 +160,6 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
                 data: null,
             });
         });
-    }
-
-    validateEmail(email: string): string {
-        if (!email) {
-            return "Email не может быть пустым";
-        }
-
-        if (!email.match(/^[\x00-\x7F]*@[\x00-\x7F]*$/)) {
-            return "Невалидный email";
-        }
-
-        return "";
-    }
-
-    validateUsername(username: string): string {
-        if (!username) {
-            return "Имя пользователя не может быть пустым";
-        }
-
-        if (!username.match(/^[a-zA-Z0-9_-]*$/)) {
-            return 'Имя пользователя должно состоять из латинских букв, цифр, символов "-", "_"';
-        }
-
-        if (!String(username).match(/^.{4,29}$/)) {
-            return "Имя пользователя должно иметь длину от 4 до 29 символов";
-        }
-
-        return "";
-    }
-
-    validatePassword(password: string): string {
-        if (!password) {
-            return "Пароль не может быть пустым";
-        }
-
-        if (
-            !password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z!@#$%^&-_\d]{8,}$/)
-        ) {
-            return "Пароль должен быть длиннее 8 символов и содержать хотя бы одну букву и цифру";
-        }
-
-        return "";
-    }
-
-    validatePasswordConfirm(password: string, passwordConfirm: string): string {
-        if (!passwordConfirm) {
-            return "Подтвердите пароль";
-        }
-
-        if (password !== passwordConfirm) {
-            return "Пароли не совпадают";
-        }
-
-        return "";
     }
 
     clearInputs() {

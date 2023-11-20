@@ -10,7 +10,7 @@ enum ERROR_TYPE {
 
 type ApiElementConfig = {
     url: string;
-    params: (body: string) => RequestInit;
+    params: (body: string | FormData) => RequestInit;
     success: { [index: number]: string };
     failure: { [index: number]: string };
     restrictions: { [index: string]: string };
@@ -167,6 +167,18 @@ const Api = {
     async updateUser(userFields: { [index: string]: string }) {
         const config = apiConfig.api.updateUser;
         const body = JSON.stringify(userFields);
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(body),
+        );
+        checkResponse(response, config);
+        return;
+    },
+
+    async updateUserIcon(icon: File) {
+        const config = apiConfig.api.updateUserIcon;
+        const body = new FormData();
+        body.append("image", icon);
         const response = await ajax(
             `${apiConfig.backend}${config.url}`,
             config.params(body),

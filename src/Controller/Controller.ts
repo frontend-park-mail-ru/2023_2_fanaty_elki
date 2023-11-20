@@ -54,9 +54,32 @@ export class Controller {
                 model.cartModel.clearLocalCart();
                 break;
             case VIEW_EVENT_TYPE.USER_UPDATE:
-                model.userModel.updateUser(
-                    event.data as { [index: string]: string },
+                await model.userModel.updateUser(
+                    (
+                        event.data as {
+                            userFields: { [index: string]: string };
+                            icon: File;
+                        }
+                    ).userFields,
                 );
+
+                if (
+                    (
+                        event.data as {
+                            userFields: { [index: string]: string };
+                            icon: File;
+                        }
+                    ).icon !== undefined
+                ) {
+                    model.userModel.updateUserIcon(
+                        (
+                            event.data as {
+                                userFields: { [index: string]: string };
+                                icon: File;
+                            }
+                        ).icon,
+                    );
+                }
                 break;
             case VIEW_EVENT_TYPE.REGISTRATION:
                 try {
