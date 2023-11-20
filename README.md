@@ -10,7 +10,7 @@
 
 -   Backend — [Prinesy_Poday_Backend](https://github.com/go-park-mail-ru/2023_2_fanaty_elki)
 
--   API Documentation — [Prinesy_Poday_API](https://www.notion.so/API-7706593e1f0f4432b89cb5785547521b?pvs=4)
+-   API Documentation — [Prinesy_Poday_API](https://water-rodent-93a.notion.site/API-7706593e1f0f4432b89cb5785547521b?pvs=4)
 
 ## Авторы
 
