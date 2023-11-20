@@ -10,7 +10,7 @@
 
 -   Backend — [Prinesy_Poday_Backend](https://github.com/go-park-mail-ru/2023_2_fanaty_elki)
 
--   Swagger — [Prinesy_Poday_API](https://app.swaggerhub.com/apis/ULTOMSKAYA/prinesy-api/1.0.1)
+-   API Documentation — [Prinesy_Poday_API](https://www.notion.so/API-7706593e1f0f4432b89cb5785547521b?pvs=4)
 
 ## Авторы
 
