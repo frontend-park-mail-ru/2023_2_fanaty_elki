@@ -1,4 +1,3 @@
-import { RestaurantEvent } from "../../../../Model/RestaurantModel";
 import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { Page } from "../../../types";
@@ -6,6 +5,7 @@ import { AddressChooser } from "../../../widgets/AddressChooser";
 import { DishList } from "../../../widgets/DishList";
 import { LoginSignUpModal } from "../../../widgets/LoginSignUpModal";
 import { Navbar } from "../../../widgets/Navbar";
+import { RestaurantHeader } from "../../../widgets/RestaurantHeader";
 import RestaurantPageTemplate from "../ui/RestaurantView.hbs";
 import "../ui/RestaurantView.scss";
 
@@ -14,6 +14,7 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
     private d_list: DishList;
     private login: LoginSignUpModal;
     private address: AddressChooser;
+    private restaurantHeader: RestaurantHeader;
 
     private events_: EventDispatcher<UIEvent>;
 
@@ -23,9 +24,6 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
     constructor() {
         super(RestaurantPageTemplate(), "#main");
         this.events_ = new EventDispatcher<UIEvent>();
-        model.restaurantModel.events.subscribe(
-            this.updateRestaurantEvent.bind(this),
-        );
 
         this.navbar = new Navbar();
         this.element.querySelector("#navbar")!.appendChild(this.navbar.element);
@@ -45,9 +43,15 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
             .querySelector("#categories")!
             .appendChild(this.d_list.element);
 
+        this.restaurantHeader = new RestaurantHeader();
+        this.getChild("#restaurant-header").appendChild(
+            this.restaurantHeader.element,
+        );
+
         this.navbar.events.subscribe(this.updateUIEvent.bind(this));
         this.d_list.events.subscribe(this.updateUIEvent.bind(this));
         this.login.events.subscribe(this.updateUIEvent.bind(this));
+        this.restaurantHeader.events.subscribe(this.updateUIEvent.bind(this));
     }
 
     updateUIEvent(event?: UIEvent) {
@@ -62,13 +66,6 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
                 break;
         }
         this.events_.notify(event);
-    }
-
-    updateRestaurantEvent(event?: RestaurantEvent) {
-        if (event === RestaurantEvent.LOADED_REST) {
-            (<HTMLElement>this.element.querySelector("#title")).innerText =
-                model.restaurantModel.getRestaurant().RestaurantInfo.Name;
-        }
     }
 
     load(params?: URLSearchParams) {

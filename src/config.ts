@@ -27,6 +27,8 @@ export const enum UIEventType {
     LMODAL_REG_CLICK = "LMODAL_REG_CLICK",
 
     ORDER_CLICK = "ORDER_CLICK",
+
+    BACK_TO_RESTAUTANTS_CLICK = "BACK_TO_RESTAUTANTS_CLICK",
 }
 
 export type UIEvent = {
