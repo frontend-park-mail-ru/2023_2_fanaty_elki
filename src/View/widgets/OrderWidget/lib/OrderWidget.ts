@@ -69,7 +69,7 @@ export class OrderWidget extends IWidget implements Listenable<UIEvent> {
                 order.DeliveryTime,
             )}`;
             this.orderStatus.innerText = `${order.Status}`;
-            this.sum.innerText = `Сумма заказа ${order.Sum}₽`;
+            this.sum.innerText = `Сумма заказа ${order.Sum} ₽`;
 
             this.orderProducts.innerHTML = orderProductsTemplate(
                 order.OrderItems,

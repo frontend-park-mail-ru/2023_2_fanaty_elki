@@ -27,6 +27,8 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
 
     border-radius: 17px;
     cursor: pointer;
@@ -38,7 +40,7 @@
 
 .order-list__item__order-info {
     display: flex;
-    width: 80%;
+    width: 20%;
     justify-content: space-between;
     align-items: center;
 }
@@ -55,8 +57,8 @@
 
 .order-list__item__order-status {
     display: flex;
-    width: 15%;
-    justify-content: center;
+    width: 70%;
+    justify-content: flex-end;
     margin: 0;
     color: index.$green;
 }
