@@ -1,3 +1,4 @@
+import { Comment } from "../Model/CommentModel";
 import { User } from "../Model/UserModel";
 
 export enum VIEW_EVENT_TYPE {
@@ -16,6 +17,8 @@ export enum VIEW_EVENT_TYPE {
     CREATE_ORDER = "CREATE_ORDER",
     CLEAR_CART = "CLEAR_CART",
     USER_UPDATE = "USER_UPDATE",
+    CREATE_COMMENT = "CREATE_COMMENT",
+    LOAD_COMMENTS = "LOAD_COMMENTS",
 }
 
 export type ViewEvent = {
@@ -31,6 +34,7 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.RESTAURANT_UPDATE:
                 model.restaurantModel.setRestaurant(<number>event.data);
+                model.commentModel.setComments(<number>event.data);
                 break;
             case VIEW_EVENT_TYPE.LOGIN:
                 await model.userModel.login(
@@ -124,6 +128,17 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.CLEAR_CART:
                 model.cartModel.clearCart();
+                break;
+            case VIEW_EVENT_TYPE.CREATE_COMMENT:
+                model.commentModel.createComment(
+                    model.restaurantModel.getRestaurant().RestaurantInfo.Id,
+                    event.data as Comment,
+                );
+                break;
+            case VIEW_EVENT_TYPE.LOAD_COMMENTS:
+                model.commentModel.setComments(
+                    model.restaurantModel.getRestaurant().RestaurantInfo.Id,
+                );
                 break;
         }
     }

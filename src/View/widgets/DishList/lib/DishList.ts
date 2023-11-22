@@ -101,11 +101,4 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
             });
         });
     }
-
-    load(restaurant_id: number) {
-        controller.handleEvent({
-            type: VIEW_EVENT_TYPE.RESTAURANT_UPDATE,
-            data: restaurant_id,
-        });
-    }
 }

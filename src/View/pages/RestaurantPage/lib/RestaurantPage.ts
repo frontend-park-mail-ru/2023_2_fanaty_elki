@@ -1,3 +1,4 @@
+import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { Page } from "../../../types";
@@ -5,6 +6,7 @@ import { AddressChooser } from "../../../widgets/AddressChooser";
 import { DishList } from "../../../widgets/DishList";
 import { LoginSignUpModal } from "../../../widgets/LoginSignUpModal";
 import { Navbar } from "../../../widgets/Navbar";
+import { RestaurantComments } from "../../../widgets/RestaurantComments";
 import { RestaurantHeader } from "../../../widgets/RestaurantHeader";
 import RestaurantPageTemplate from "../ui/RestaurantView.hbs";
 import "../ui/RestaurantView.scss";
@@ -15,6 +17,7 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
     private login: LoginSignUpModal;
     private address: AddressChooser;
     private restaurantHeader: RestaurantHeader;
+    private restaurantComments: RestaurantComments;
 
     private events_: EventDispatcher<UIEvent>;
 
@@ -48,10 +51,16 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
             this.restaurantHeader.element,
         );
 
+        this.restaurantComments = new RestaurantComments();
+        this.getChild("#restaurant_comments").appendChild(
+            this.restaurantComments.element,
+        );
+
         this.navbar.events.subscribe(this.updateUIEvent.bind(this));
         this.d_list.events.subscribe(this.updateUIEvent.bind(this));
         this.login.events.subscribe(this.updateUIEvent.bind(this));
         this.restaurantHeader.events.subscribe(this.updateUIEvent.bind(this));
+        this.restaurantComments.events.subscribe(this.updateUIEvent.bind(this));
     }
 
     updateUIEvent(event?: UIEvent) {
@@ -61,6 +70,9 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
                 break;
             case UIEventType.NAVBAR_ADDRESS_CLICK:
                 this.address.open();
+                break;
+            case UIEventType.RESTAURANT_COMMENTS_CLICK:
+                this.restaurantComments.open();
                 break;
             default:
                 break;
@@ -79,6 +91,10 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
         if (isNaN(id)) {
             console.error("Restaurant id is NAN");
         }
-        this.d_list.load(id);
+
+        controller.handleEvent({
+            type: VIEW_EVENT_TYPE.RESTAURANT_UPDATE,
+            data: id,
+        });
     }
 }
