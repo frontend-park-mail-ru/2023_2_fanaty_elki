@@ -28,7 +28,7 @@ export class OrderWidget extends IWidget implements Listenable<UIEvent> {
 
         model.orderModel.events.subscribe(this.updateOrderEvent.bind(this));
 
-        this.closeButton = <HTMLElement>this.getChild("#close");
+        this.closeButton = <HTMLElement>this.getChild("#order-widget__close");
         this.orderNum = <HTMLElement>this.getChild("#order-number");
         this.deliveryTime = <HTMLElement>this.getChild("#delivery-time");
         this.orderStatus = <HTMLElement>this.getChild("#order-status");
