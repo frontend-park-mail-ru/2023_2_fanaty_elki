@@ -6,8 +6,8 @@ import orderWidgetTemplate from "../ui/OrderWidget.hbs";
 import "../ui/OrderWidget.scss";
 import "../ui/Modal.scss";
 
-import orderProductsTemplate from "../ui/orderProducts.hbs";
-import "../ui/orderProducts.scss";
+import orderProductsTemplate from "../ui/OrderProducts.hbs";
+import "../ui/OrderProducts.scss";
 import { OrderEvent } from "../../../../Model/OrderModel";
 
 export class OrderWidget extends IWidget implements Listenable<UIEvent> {
