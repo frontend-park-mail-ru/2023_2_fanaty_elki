@@ -42,4 +42,5 @@ export enum ROUTES {
     default = "/",
     cart = "/cart",
     profile = "/me",
+    search = "/search",
 }
