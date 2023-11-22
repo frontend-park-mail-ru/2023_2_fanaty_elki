@@ -8,9 +8,9 @@ export const enum OrderEvent {
 }
 
 export const enum OrderStatus {
-    MAKING = "MAKING",
-    DRIVING = "DRIVING",
-    DONE = "DONE",
+    MAKING = "Готовиться",
+    DRIVING = "Курьер в пути",
+    DONE = "Доставлен",
 }
 
 export type Order = {
@@ -55,10 +55,14 @@ export class OrderModel implements Listenable<OrderEvent> {
         this.currentOrder = null;
     }
 
-    private statusMapper(status: string) {
+    private statusMapper(status: number) {
         switch (status) {
-            case "1":
+            case 0:
                 return OrderStatus.MAKING;
+            case 1:
+                return OrderStatus.DRIVING;
+            case 2:
+                return OrderStatus.DONE;
         }
         return OrderStatus.MAKING;
     }
@@ -69,7 +73,11 @@ export class OrderModel implements Listenable<OrderEvent> {
 
     async setOrders() {
         try {
-            this.orders = await Api.getUserOrders();
+            const orders = await Api.getUserOrders();
+            orders.forEach((order) => {
+                order.Status = this.statusMapper(order.Status);
+            });
+            this.orders = orders;
             this.events.notify(OrderEvent.LOAD_ORDERS);
         } catch (e) {
             console.error("Неудалось загрузить заказы");
@@ -94,80 +102,23 @@ export class OrderModel implements Listenable<OrderEvent> {
     }
 
     async setCurrentOrder(orderId: number) {
-        this.currentOrder = {
-            Id: orderId,
-            Status: this.statusMapper("1"),
-            Date: new Date("December 17, 1995 03:24:00"),
-            Address: {
-                City: "Москва",
-                Street: "6-я парковая улица",
-                House: "2/73",
-                Flat: 637,
-            },
-            OrderItems: [
-                {
-                    RestaurantName: "Бургер-Кинг",
-                    Products: [
-                        {
-                            Id: 1,
-                            Name: "Борщ",
-                            Price: 199,
-                            Icon: "img/borsh.png",
-                            Count: 1,
-                            Sum: 199,
-                        },
-                        {
-                            Id: 1,
-                            Name: "Борщ",
-                            Price: 199,
-                            Icon: "img/borsh.png",
-                            Count: 1,
-                            Sum: 199,
-                        },
-                        {
-                            Id: 1,
-                            Name: "Борщ",
-                            Price: 199,
-                            Icon: "img/borsh.png",
-                            Count: 1,
-                            Sum: 199,
-                        },
-                    ],
-                },
-                {
-                    RestaurantName: "Бургер-Кинг",
-                    Products: [
-                        {
-                            Id: 1,
-                            Name: "Борщ",
-                            Price: 199,
-                            Icon: "img/borsh.png",
-                            Count: 1,
-                            Sum: 199,
-                        },
-                        {
-                            Id: 1,
-                            Name: "Борщ",
-                            Price: 199,
-                            Icon: "img/borsh.png",
-                            Count: 1,
-                            Sum: 199,
-                        },
-                        {
-                            Id: 1,
-                            Name: "Борщ",
-                            Price: 199,
-                            Icon: "img/borsh.png",
-                            Count: 1,
-                            Sum: 199,
-                        },
-                    ],
-                },
-            ],
-            Sum: 19999,
-            DeliveryTime: 35, // в минутах
-        };
-        this.events.notify(OrderEvent.LOAD_CURRENT_ORDER);
+        try {
+            const order = await Api.getOrder(orderId);
+
+            order.Status = this.statusMapper(order.Status);
+            order.Date = new Date(order.Date);
+            order.OrderItems.forEach((item) => {
+                item.Products.forEach((product) => {
+                    product.Sum = product.Price * product.Count;
+                });
+            });
+
+            this.currentOrder = order;
+            this.events.notify(OrderEvent.LOAD_CURRENT_ORDER);
+        } catch (e) {
+            console.error("Не удалось загрузить заказ");
+            console.error(e);
+        }
     }
 
     getCurrentOrder() {
