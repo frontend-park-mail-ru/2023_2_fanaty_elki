@@ -83,6 +83,9 @@ export class View {
             case UIEventType.NAVBAR_CART_CLICK:
                 this.router_.redirect(ROUTES.cart);
                 break;
+            case UIEventType.BACK_TO_RESTAUTANTS_CLICK:
+                this.router_.redirect(ROUTES.main);
+                break;
             default:
                 break;
         }
