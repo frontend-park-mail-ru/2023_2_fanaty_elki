@@ -202,6 +202,17 @@ const Api = {
         return json.Body;
     },
 
+    async getSearchResults(query: string) {
+        const config = apiConfig.api.search;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}?search=${query}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
     async getRestaurant(restaurantId: number) {
         const config = apiConfig.api.restaurants_get;
         const response = await ajax(

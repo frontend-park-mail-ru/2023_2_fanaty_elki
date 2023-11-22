@@ -2,18 +2,21 @@ import { OrderModel } from "./OrderModel";
 import { CartModel } from "./CartModel";
 import { RestaurantModel } from "./RestaurantModel";
 import { UserModel } from "./UserModel";
+import { SearchModel } from "./SearchModel";
 
 export class Model {
     private restaurantModel_: RestaurantModel;
     private userModel_: UserModel;
     private orderModel_: OrderModel;
     private cartModel_: CartModel;
+    private searchModel_: SearchModel;
 
     constructor() {
         this.restaurantModel_ = new RestaurantModel();
         this.userModel_ = new UserModel();
         this.orderModel_ = new OrderModel();
         this.cartModel_ = new CartModel();
+        this.searchModel_ = new SearchModel();
     }
 
     get restaurantModel() {
@@ -29,5 +32,9 @@ export class Model {
 
     get cartModel() {
         return this.cartModel_;
+    }
+
+    get searchModel() {
+        return this.searchModel_;
     }
 }

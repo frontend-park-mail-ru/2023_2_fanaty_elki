@@ -1,3 +1,8 @@
+import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
+import {
+    SearchEvent,
+    SearchModelEventType,
+} from "../../../../Model/SearchModel";
 import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { Page } from "../../../types";
@@ -36,7 +41,14 @@ export class SearchPage extends Page implements Listenable<UIEvent> {
 
         this.navbar.events.subscribe(this.update.bind(this));
         this.login.events.subscribe(this.update.bind(this));
+        model.searchModel.events.subscribe(this.updateResults.bind(this));
         // this.bindEvents();
+    }
+
+    updateResults(event?: SearchEvent) {
+        if (event!.type === SearchModelEventType.UPDATED) {
+            console.log("get results: ");
+        }
     }
 
     update(event?: UIEvent) {
@@ -53,8 +65,21 @@ export class SearchPage extends Page implements Listenable<UIEvent> {
         this.events_.notify(event);
     }
 
-    load() {
+    load(params?: URLSearchParams) {
         this.navbar.load();
         this.address.load();
+        if (!params || !params.get("query")) {
+            console.error("No query");
+            return;
+        }
+        const query = params.get("query")!;
+        if (query.length === 0) {
+            console.error("Empty query");
+        }
+        this.navbar.searchValue = query;
+        controller.handleEvent({
+            type: VIEW_EVENT_TYPE.SEARCH,
+            data: query,
+        });
     }
 }

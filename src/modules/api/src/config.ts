@@ -368,5 +368,20 @@ export const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
+        search: {
+            url: "/restaurants",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
     },
 };

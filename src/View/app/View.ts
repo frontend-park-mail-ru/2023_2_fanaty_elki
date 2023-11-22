@@ -89,6 +89,10 @@ export class View {
             case UIEventType.NAVBAR_CART_CLICK:
                 this.router_.redirect(ROUTES.cart);
                 break;
+
+            case UIEventType.NAVBAR_SEARCH_SUBMIT:
+                this.router_.redirect(ROUTES.search, `?query=${event!.data!}`);
+                break;
             default:
                 break;
         }
