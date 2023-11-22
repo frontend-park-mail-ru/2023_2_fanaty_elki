@@ -111,15 +111,10 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.CREATE_ORDER:
                 {
-                    const products =
-                        model.cartModel.getCart()?.map((element) => {
-                            return element.Product.ID;
-                        }) || [];
-
-                    if (products.length === 0) return;
+                    if (!model.cartModel.getCart()) return;
 
                     const address = model.userModel.getAddress();
-                    await model.orderModel.createOrder(products, address);
+                    await model.orderModel.createOrder(address);
                     model.cartModel.clearCart();
                 }
                 break;

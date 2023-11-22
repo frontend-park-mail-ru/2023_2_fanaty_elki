@@ -85,7 +85,7 @@ export class OrderModel implements Listenable<OrderEvent> {
         }
     }
 
-    async createOrder(Products: number[], Address: string) {
+    async createOrder(Address: string) {
         try {
             const mocAddress = {
                 City: "Moscow",
@@ -93,7 +93,7 @@ export class OrderModel implements Listenable<OrderEvent> {
                 House: "2/73",
                 Flat: 637,
             };
-            await Api.createOrder(Products, mocAddress);
+            await Api.createOrder(mocAddress);
             this.events.notify(OrderEvent.CREATE_ORDER);
         } catch (e) {
             console.error("Не удалось создать заказ");
