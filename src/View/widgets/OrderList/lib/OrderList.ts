@@ -1,4 +1,4 @@
-import { UIEvent } from "../../../../config";
+import { UIEvent, UIEventType } from "../../../../config";
 import { IWidget } from "../../../types";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 
@@ -14,14 +14,33 @@ export class OrderList extends IWidget implements Listenable<UIEvent> {
     }
 
     constructor() {
-        super(orderListTemplate(), ".order-list");
+        super(orderListTemplate(), "#order-list");
+        this.events_ = new EventDispatcher<UIEvent>();
         model.orderModel.events.subscribe(this.update.bind(this));
+
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        this.bindOrderClick();
+    }
+
+    bindOrderClick() {
+        this.getAll(".order-list__item").forEach((item) => {
+            item.addEventListener("click", () => {
+                this.events.notify({
+                    type: UIEventType.ORDER_CLICK,
+                    data: item.dataset.orderId,
+                });
+            });
+        });
     }
 
     update(event?: OrderEvent) {
         if (event !== OrderEvent.LOAD_ORDERS) return;
         const orders = model.orderModel.getOrders();
         this.element.innerHTML = orderListTemplate(orders);
+        this.bindOrderClick();
     }
 
     load() {
