@@ -41,8 +41,15 @@ export class OrderWidget extends IWidget implements Listenable<UIEvent> {
 
     private presentDeliveryTime(orderDate: Date, deliveryTime: number) {
         const deliveryDate = orderDate;
+
+        const fmtTime = (time: number) => {
+            return String(time).padStart(2, "0");
+        };
+
         deliveryDate.setMinutes(deliveryDate.getMinutes() + deliveryTime);
-        return `${deliveryDate.getHours()}:${deliveryDate.getMinutes()}`;
+        return `${fmtTime(deliveryDate.getHours())}:${fmtTime(
+            deliveryDate.getMinutes(),
+        )}`;
     }
 
     bindEvents() {
