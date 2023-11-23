@@ -2,6 +2,7 @@ import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import {
     SearchEvent,
     SearchModelEventType,
+    SearchResult,
 } from "../../../../Model/SearchModel";
 import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
@@ -10,7 +11,7 @@ import { AddressChooser } from "../../../widgets/AddressChooser";
 import { LoginSignUpModal } from "../../../widgets/LoginSignUpModal";
 import { Navbar } from "../../../widgets/Navbar";
 import searchPageTemplate from "../ui/SearchPage.hbs";
-// import searchResultsTemplate from "../ui/SearchResults.hbs";
+import searchResultsTemplate from "../ui/SearchResults.hbs";
 import "../ui/SearchPage.scss";
 import "../ui/SearchResults.scss";
 import { searchElement } from "./config";
@@ -45,9 +46,38 @@ export class SearchPage extends Page implements Listenable<UIEvent> {
         // this.bindEvents();
     }
 
+    setResultList(list: SearchResult[]) {
+        this.getChild(searchElement.SEARCH_RESULTS).innerHTML =
+            searchResultsTemplate(list.length === 0 ? null : list);
+        this.getAll(searchElement.RESULT).forEach((result) => {
+            const restaurantCard = result.querySelector(
+                searchElement.RESTAURANT,
+            )!;
+            const restaurantId =
+                restaurantCard.getAttribute("data-restaurant-id");
+            restaurantCard.addEventListener("click", () => {
+                this.events.notify({
+                    type: UIEventType.RESTAURANT_CLICK,
+                    data: restaurantId,
+                });
+            });
+            result.querySelectorAll(searchElement.CARD).forEach((card) => {
+                card.addEventListener("click", () => {
+                    this.events.notify({
+                        type: UIEventType.DISH_CARD_CLICK,
+                        data: [
+                            restaurantId,
+                            card.getAttribute("data-product-id"),
+                        ],
+                    });
+                });
+            });
+        });
+    }
+
     updateResults(event?: SearchEvent) {
         if (event!.type === SearchModelEventType.UPDATED) {
-            console.log("get results: ");
+            this.setResultList(event!.data!);
         }
     }
 
@@ -60,9 +90,13 @@ export class SearchPage extends Page implements Listenable<UIEvent> {
                 this.address.open();
                 break;
             default:
+                this.events_.notify(event);
                 break;
         }
-        this.events_.notify(event);
+    }
+
+    unload() {
+        this.getChild(searchElement.SEARCH_RESULTS).innerHTML = "";
     }
 
     load(params?: URLSearchParams) {

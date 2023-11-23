@@ -25,6 +25,8 @@ Handlebars.registerHelper("is_auth", () => {
 
 export class DishList extends IWidget implements Listenable<UIEvent> {
     private events_: EventDispatcher<UIEvent>;
+    private item_id: number | null;
+
     get events(): EventDispatcher<UIEvent> {
         return this.events_;
     }
@@ -45,6 +47,15 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
     updateRestaurantEvent(event?: RestaurantEvent) {
         if (event !== RestaurantEvent.LOADED_REST) return;
         this.setList(model.restaurantModel.getRestaurant());
+        if (this.item_id) {
+            const dish = this.getChild(`[data-product-id="${this.item_id}"`);
+            console.log(dish);
+            if (dish) {
+                console.log("scroll");
+                dish.scrollIntoView();
+                return;
+            }
+        }
     }
 
     updateUserEvent(event?: UserEvent) {
@@ -102,7 +113,12 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
         });
     }
 
-    load(restaurant_id: number) {
+    unload() {
+        this.element.innerHTML = "";
+    }
+
+    load(restaurant_id: number, item_id: number | null) {
+        this.item_id = item_id;
         controller.handleEvent({
             type: VIEW_EVENT_TYPE.RESTAURANT_UPDATE,
             data: restaurant_id,

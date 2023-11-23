@@ -71,6 +71,10 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
         }
     }
 
+    unload() {
+        this.d_list.unload();
+    }
+
     load(params?: URLSearchParams) {
         this.navbar.load();
         this.address.load();
@@ -82,6 +86,14 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
         if (isNaN(id)) {
             console.error("Restaurant id is NAN");
         }
-        this.d_list.load(id);
+        let item_id: number | null = null;
+        if (params) {
+            const item_param = Number(params.get("item"));
+            if (!isNaN(item_param)) {
+                item_id = item_param;
+            }
+        }
+        this.d_list.load(id, item_id);
+        window.scrollTo(0, 0);
     }
 }

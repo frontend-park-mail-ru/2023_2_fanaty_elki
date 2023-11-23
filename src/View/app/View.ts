@@ -93,6 +93,12 @@ export class View {
             case UIEventType.NAVBAR_SEARCH_SUBMIT:
                 this.router_.redirect(ROUTES.search, `?query=${event!.data!}`);
                 break;
+            case UIEventType.DISH_CARD_CLICK:
+                this.router_.redirect(
+                    ROUTES.restaurants,
+                    `?id=${event!.data![0]}&item=${event!.data![1]}`,
+                );
+                break;
             default:
                 break;
         }

@@ -369,7 +369,7 @@ export const apiConfig: ApiConfig = {
             restrictions: {},
         },
         search: {
-            url: "/restaurants",
+            url: "/restaurants/",
             params: () => {
                 return {
                     method: REQUEST_METHOD.GET,
