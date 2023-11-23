@@ -331,6 +331,24 @@ export const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
+        getOrder: {
+            url: "/orders",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                401: "Не авторизован",
+                404: "Не найден заказ",
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
         createOrder: {
             url: "/orders",
             params: (body) => {

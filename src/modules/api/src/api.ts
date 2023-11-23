@@ -318,9 +318,20 @@ const Api = {
         return json.Body;
     },
 
-    async createOrder(Products: number[], Address: Address) {
+    async getOrder(orderId: number) {
+        const config = apiConfig.api.getOrder;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}/${orderId}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
+    async createOrder(Address: Address) {
         const config = apiConfig.api.createOrder;
-        const body = JSON.stringify({ Products, Address });
+        const body = JSON.stringify({ Address });
         const response = await ajax(
             `${apiConfig.backend}${config.url}`,
             config.params(body),
