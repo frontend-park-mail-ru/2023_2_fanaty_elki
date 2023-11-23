@@ -8,8 +8,8 @@ export enum REQUEST_METHOD {
 }
 
 export const apiConfig: ApiConfig = {
-    backend: "http://84.23.53.216:8080/api",
-    //backend: "http://localhost:8080/api",
+    //backend: "http://84.23.53.216:8080/api",
+    backend: "http://localhost:8080/api",
     api: {
         auth: {
             url: "/auth",
@@ -327,6 +327,24 @@ export const apiConfig: ApiConfig = {
                 200: "OK",
             },
             failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        getOrder: {
+            url: "/orders",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                401: "Не авторизован",
+                404: "Не найден заказ",
                 500: "Ошибка сервера",
             },
             restrictions: {},

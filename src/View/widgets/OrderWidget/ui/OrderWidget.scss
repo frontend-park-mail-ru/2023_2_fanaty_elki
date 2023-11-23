@@ -1,0 +1,89 @@
+.order-widget {
+    width: 740px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+
+    gap: 10px;
+}
+
+.order-widget__close {
+    position: absolute;
+    top: 25px;
+    left: 690px;
+    height: 15px;
+    width: 15px;
+
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
+
+.order-widget__close__img {
+    height: 100%;
+    object-fit: contain;
+}
+
+.order-widget__header {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+
+    gap: 10px;
+
+    width: 100%;
+}
+
+@mixin header-label($color: #333) {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 0;
+    width: 100%;
+    color: $color;
+}
+
+.order-widget__header__title {
+    @include header-label;
+}
+
+.order-widget__header__delivery-time {
+    @include header-label;
+}
+
+.order-widget__header__status {
+    @include header-label($color: #54c45f);
+}
+
+.order-widget__order {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 20px;
+
+    width: 100%;
+}
+
+.order-widget__order__products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    height: 50vh;
+    overflow-y: scroll;
+
+    gap: 25px;
+
+    width: 100%;
+}
+
+.order-widget__order__sum {
+    display: flex;
+    justify-content: flex-end;
+
+    margin: 0;
+
+    width: 100%;
+}

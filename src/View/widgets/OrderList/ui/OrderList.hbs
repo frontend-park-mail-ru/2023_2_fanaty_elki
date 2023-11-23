@@ -1,9 +1,9 @@
-<div class="order-list">
+<div class="order-list" id="order-list">
     <h2 class="order-list__title">Текущие заказы</h2>
     <div class="order-list__items">
         {{#if this}}
         {{#each this}}
-        <div class="order-list__item">
+        <div class="order-list__item" data-order-id="{{ Id }}">
             <div class="order-list__item__order-info">
                 <h2 class="order-list__item__order-info__order-num">Заказ
                     {{Id}}</h2>

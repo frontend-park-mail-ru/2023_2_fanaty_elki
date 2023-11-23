@@ -16,6 +16,7 @@ export enum VIEW_EVENT_TYPE {
     CREATE_ORDER = "CREATE_ORDER",
     CLEAR_CART = "CLEAR_CART",
     USER_UPDATE = "USER_UPDATE",
+    LOAD_ORDER = "LOAD_ORDER",
 }
 
 export type ViewEvent = {
@@ -110,20 +111,18 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.CREATE_ORDER:
                 {
-                    const products =
-                        model.cartModel.getCart()?.map((element) => {
-                            return element.Product.ID;
-                        }) || [];
-
-                    if (products.length === 0) return;
+                    if (!model.cartModel.getCart()) return;
 
                     const address = model.userModel.getAddress();
-                    await model.orderModel.createOrder(products, address);
+                    await model.orderModel.createOrder(address);
                     model.cartModel.clearCart();
                 }
                 break;
             case VIEW_EVENT_TYPE.CLEAR_CART:
                 model.cartModel.clearCart();
+                break;
+            case VIEW_EVENT_TYPE.LOAD_ORDER:
+                model.orderModel.setCurrentOrder(event.data as number);
                 break;
         }
     }
