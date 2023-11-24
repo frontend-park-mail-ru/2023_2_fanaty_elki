@@ -1,17 +1,23 @@
 {{#if this}}
 {{#each this}}
-<div class="restaurant-comments__comments-list__comment">
-    <div class="restaurant-comments__comments-list__comment__info">
-        <div class="restaurant-comments__comments-list__comment__info__profile">
-            <img class="restaurant-comments__comments-list__comment__info__profile__icon" src="{{ Icon }}" alt="">
-            <div class="restaurant-comments__comments-list__comment__info__profile__name">{{ Username }}</div>
+<div class="restaurant-comments__comments-list__comments-list__comment">
+    <div class="restaurant-comments__comments-list__comments-list__comment__info">
+        <div class="restaurant-comments__comments-list__comments-list__comment__info__profile">
+            <img class="restaurant-comments__comments-list__comments-list__comment__info__profile__icon"
+                src="{{ Icon }}" alt="">
+            <div class="restaurant-comments__comments-list__comments-list__comment__info__profile__name">
+                {{ Username }}
+            </div>
         </div>
-        <div class="restaurant-comments__comments-list__comment__info__rating">
-            <img class="restaurant-comments__comments-list__comment__info__rating__star" src="img/gold_star.svg" alt="">
-            <div class="restaurant-comments__comments-list__comment__info__rating__value">{{ Rating }}</div>
+        <div class="restaurant-comments__comments-list__comments-list__comment__info__rating">
+            <img class="restaurant-comments__comments-list__comments-list__comment__info__rating__star"
+                src="img/gold_star.svg" alt="">
+            <div class="restaurant-comments__comments-list__comments-list__comment__info__rating__value">
+                {{ Rating }}
+            </div>
         </div>
     </div>
-    <div class="restaurant-comments__comments-list__comment__text">
+    <div class="restaurant-comments__comments-list__comments-list__comment__text">
         {{ Text }}
     </div>
 </div>

@@ -16,6 +16,7 @@ export class CommentForm extends IHTMLElement implements Listenable<UIEvent> {
 
     private backButton: HTMLElement;
     private closeButton: HTMLElement;
+    private stars: NodeListOf<HTMLElement>;
 
     constructor() {
         super(commentForm(), "#comment-from");
@@ -23,6 +24,10 @@ export class CommentForm extends IHTMLElement implements Listenable<UIEvent> {
 
         this.backButton = this.getChild("#comments-list__back");
         this.closeButton = this.getChild("#comments-list__close");
+
+        this.stars = this.getAll(
+            ".restaurant-comments__comment-form__rating__stars__star",
+        );
 
         this.bindEvents();
     }
@@ -34,13 +39,28 @@ export class CommentForm extends IHTMLElement implements Listenable<UIEvent> {
                 data: null,
             });
         });
+        this.closeButton.addEventListener("click", () => {
+            this.events_.notify({
+                type: UIEventType.CMODAL_CLOSE_CLICK,
+                data: null,
+            });
+        });
         this.element.addEventListener("submit", () => {
+            const formData = new FormData(this.element as HTMLFormElement);
             controller.handleEvent({
                 type: VIEW_EVENT_TYPE.CREATE_COMMENT,
                 data: {
-                    // И тут магическим образом надо подтянуть данные рейтинга и id ресторана
-                }
-            })
-        })
+                    rating: parseInt(formData.get("rating") as string),
+                    text: formData.get("comment"),
+                },
+            });
+        });
+    }
+
+    clearField() {
+        this.getAll("input[type=radio]").forEach((radio) => {
+            (<HTMLInputElement>radio).checked = false;
+        });
+        (<HTMLInputElement>this.getChild("#comment")).value = "";
     }
 }

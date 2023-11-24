@@ -40,6 +40,54 @@ export class CommentModel implements Listenable<CommentEvent> {
                 Text: "Этот ресторан просто имба",
                 Rating: 5,
             },
+            {
+                Username: "shysh",
+                Icon: "img/defaultIcon.png",
+                Text: "Этот ресторан просто имба",
+                Rating: 5,
+            },
+            {
+                Username: "shysh",
+                Icon: "img/defaultIcon.png",
+                Text: "Этот ресторан просто имба",
+                Rating: 5,
+            },
+            {
+                Username: "shysh",
+                Icon: "img/defaultIcon.png",
+                Text: "Этот ресторан просто имба",
+                Rating: 5,
+            },
+            {
+                Username: "shysh",
+                Icon: "img/defaultIcon.png",
+                Text: "Этот ресторан просто имба",
+                Rating: 5,
+            },
+            {
+                Username: "shysh",
+                Icon: "img/defaultIcon.png",
+                Text: "Этот ресторан просто имба",
+                Rating: 5,
+            },
+            {
+                Username: "shysh",
+                Icon: "img/defaultIcon.png",
+                Text: "Этот ресторан просто имба",
+                Rating: 5,
+            },
+            {
+                Username: "shysh",
+                Icon: "img/defaultIcon.png",
+                Text: "Этот ресторан просто имба",
+                Rating: 5,
+            },
+            {
+                Username: "shysh",
+                Icon: "img/defaultIcon.png",
+                Text: "Этот ресторан просто имба",
+                Rating: 5,
+            },
         ];
         this.events_.notify(CommentEvent.LOAD_COMMENTS);
     }

@@ -66,11 +66,10 @@ export class RestaurantComments extends IWidget implements Listenable<UIEvent> {
         }
     }
 
-    
-
     updateCommentEvent(event?: CommentEvent) {
         if (event == CommentEvent.CREATE_COMMENT) {
             this.setCommentsList();
+            this.commentForm.clearField();
         }
     }
 
