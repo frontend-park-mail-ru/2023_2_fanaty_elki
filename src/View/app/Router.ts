@@ -1,6 +1,7 @@
 import type { Page } from "../types.d";
 
 export class Router {
+    private current?: Page;
     constructor(
         private pages: Map<string, Page>,
         private root: HTMLElement,
@@ -17,6 +18,7 @@ export class Router {
             console.error("Wrong url", url);
             return;
         }
+        this.current?.unload();
         page.load(search ? new URLSearchParams(search) : undefined);
         this.root.innerHTML = "";
         this.root.appendChild(page.element);

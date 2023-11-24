@@ -17,6 +17,7 @@ export enum VIEW_EVENT_TYPE {
     CREATE_ORDER = "CREATE_ORDER",
     CLEAR_CART = "CLEAR_CART",
     USER_UPDATE = "USER_UPDATE",
+    SEARCH = "SEARCH",
     LOAD_ORDER = "LOAD_ORDER",
     CREATE_COMMENT = "CREATE_COMMENT",
     LOAD_COMMENTS = "LOAD_COMMENTS",
@@ -124,6 +125,9 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.CLEAR_CART:
                 model.cartModel.clearCart();
+                break;
+            case VIEW_EVENT_TYPE.SEARCH:
+                model.searchModel.getResults(<string>event.data);
                 break;
             case VIEW_EVENT_TYPE.LOAD_ORDER:
                 model.orderModel.setCurrentOrder(event.data as number);

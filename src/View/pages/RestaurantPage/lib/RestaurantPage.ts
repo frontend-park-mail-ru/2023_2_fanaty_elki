@@ -1,4 +1,4 @@
-import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
+// import { RestaurantEvent } from "../../../../Model/RestaurantModel";
 import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { Page } from "../../../types";
@@ -80,6 +80,17 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
         this.events_.notify(event);
     }
 
+    // updateRestaurantEvent(event?: RestaurantEvent) {
+    //     if (event === RestaurantEvent.LOADED_REST) {
+    //         (<HTMLElement>this.element.querySelector("#title")).innerText =
+    //             model.restaurantModel.getRestaurant().RestaurantInfo.Name;
+    //     }
+    // }
+
+    unload() {
+        this.d_list.unload();
+    }
+
     load(params?: URLSearchParams) {
         this.navbar.load();
         this.address.load();
@@ -91,10 +102,14 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
         if (isNaN(id)) {
             console.error("Restaurant id is NAN");
         }
-
-        controller.handleEvent({
-            type: VIEW_EVENT_TYPE.RESTAURANT_UPDATE,
-            data: id,
-        });
+        let item_id: number | null = null;
+        if (params) {
+            const item_param = Number(params.get("item"));
+            if (!isNaN(item_param)) {
+                item_id = item_param;
+            }
+        }
+        this.d_list.load(id, item_id);
+        window.scrollTo(0, 0);
     }
 }

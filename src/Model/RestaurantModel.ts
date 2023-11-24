@@ -9,7 +9,7 @@ export type Restaurant = {
     DeliveryPrice: number;
     MinDeliveryTime: number;
     MaxDeliveryTime: number;
-    Category: string;
+    Categories: string[];
     CommentsCount: number;
 };
 

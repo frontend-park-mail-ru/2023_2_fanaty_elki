@@ -48,6 +48,10 @@ app.get('/me', (req, res) => {
     return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
 });
 
+app.get('/search', (req, res) => {
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+});
+
 const port = process.env.PORT || 4000;
 
 app.listen(port, function () {

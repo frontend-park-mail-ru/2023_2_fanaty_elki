@@ -35,7 +35,29 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
         this.setNonAuthUser();
     }
 
+    get searchValue() {
+        return (<HTMLInputElement>(
+            (<HTMLFormElement>this.getChild(".js_search-input"))[0]
+        )).value.trim();
+    }
+
+    set searchValue(value: string) {
+        (<HTMLInputElement>(
+            (<HTMLFormElement>this.getChild(".js_search-input"))[0]
+        )).value = value;
+    }
+
     private bindEvents() {
+        const search_form = this.getChild(".js_search-input");
+        search_form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const query = this.searchValue;
+            this.searchValue = "";
+            this.events.notify({
+                type: UIEventType.NAVBAR_SEARCH_SUBMIT,
+                data: query,
+            });
+        });
         this.element.querySelector("#logo")!.addEventListener("click", () => {
             this.events.notify({ type: UIEventType.NAVBAR_LOGO_CLICK });
         });

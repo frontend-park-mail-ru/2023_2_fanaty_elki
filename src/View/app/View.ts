@@ -4,11 +4,11 @@ import { ROUTES } from "../types.d";
 import { Page } from "../types.d";
 import { UIEvent, UIEventType } from "../../config";
 import { RestaurantPage } from "../pages/RestaurantPage";
-import { CartPage } from "../pages/CartPage/lib/CartPage";
+import { CartPage } from "../pages/CartPage";
 import { ProfilePage } from "../pages/ProfilePage";
+import { SearchPage } from "../pages/SearchPage";
 import { UserEvent } from "../../Model/UserModel";
 import { VIEW_EVENT_TYPE } from "../../Controller/Controller";
-
 import favIconImg from "../../../public/favicon.ico";
 import { OrderEvent } from "../../Model/OrderModel";
 
@@ -18,6 +18,7 @@ export class View {
     private restaurantPage: RestaurantPage;
     private cartPage: CartPage;
     private profilePage: ProfilePage;
+    private searchPage: SearchPage;
     private router_: Router;
     constructor() {
         this.root = <HTMLElement>document.querySelector("#root")!;
@@ -42,12 +43,16 @@ export class View {
         this.cartPage = new CartPage();
         this.cartPage.events.subscribe(this.updateUIEvent.bind(this));
 
+        this.searchPage = new SearchPage();
+        this.searchPage.events.subscribe(this.updateUIEvent.bind(this));
+
         const routes = new Map<string, Page>([
             [ROUTES.main, this.mainPage],
             [ROUTES.default, this.mainPage],
             [ROUTES.restaurants, this.restaurantPage],
             [ROUTES.cart, this.cartPage],
             [ROUTES.profile, this.profilePage],
+            [ROUTES.search, this.searchPage],
         ]);
 
         this.router_ = new Router(routes, this.root);
@@ -85,6 +90,15 @@ export class View {
                 break;
             case UIEventType.BACK_TO_RESTAUTANTS_CLICK:
                 this.router_.redirect(ROUTES.main);
+                break;
+            case UIEventType.NAVBAR_SEARCH_SUBMIT:
+                this.router_.redirect(ROUTES.search, `?query=${event!.data!}`);
+                break;
+            case UIEventType.DISH_CARD_CLICK:
+                this.router_.redirect(
+                    ROUTES.restaurants,
+                    `?id=${event!.data![0]}&item=${event!.data![1]}`,
+                );
                 break;
             default:
                 break;
