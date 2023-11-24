@@ -30,7 +30,10 @@ export class RestaurantHeader extends IWidget implements Listenable<UIEvent> {
         this.back = this.getChild("#back");
 
         this.commentsLabel.addEventListener("click", () => {
-            alert("Скоро тут будут отзывы");
+            this.events_.notify({
+                type: UIEventType.RESTAURANT_COMMENTS_CLICK,
+                data: null,
+            });
         });
 
         this.back.addEventListener("click", () => {
