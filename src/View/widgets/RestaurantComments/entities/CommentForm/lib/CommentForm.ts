@@ -22,9 +22,9 @@ export class CommentForm extends IHTMLElement implements Listenable<UIEvent> {
         super(commentForm(), "#comment-from");
         this.events_ = new EventDispatcher<UIEvent>();
 
-        this.backButton = this.getChild("#comments-list__back");
-        this.closeButton = this.getChild("#comments-list__close");
-        this.errorMsg = this.getChild("#error");
+        this.backButton = this.getChild("#comment-form__back");
+        this.closeButton = this.getChild("#comment-form__close");
+        this.errorMsg = this.getChild("#comment-form__error");
 
         this.bindEvents();
     }

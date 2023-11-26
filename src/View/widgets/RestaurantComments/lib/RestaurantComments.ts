@@ -53,6 +53,7 @@ export class RestaurantComments extends IWidget implements Listenable<UIEvent> {
 
     updateUIEvent(event?: UIEvent) {
         if (!event) return;
+        this.commentsList.clearFields();
         switch (event!.type) {
             case UIEventType.CMODAL_CLOSE_CLICK:
                 this.close();
