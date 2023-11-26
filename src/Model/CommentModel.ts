@@ -1,3 +1,4 @@
+import { Api } from "../modules/api/src/api";
 import { EventDispatcher, Listenable } from "../modules/observer";
 
 export const enum CommentEvent {
@@ -8,7 +9,7 @@ export const enum CommentEvent {
 export type Comment = {
     Text: string;
     Rating: number;
-    Date: string;
+    Date?: string;
 };
 
 export type UserComment = Comment & {
@@ -34,75 +35,22 @@ export class CommentModel implements Listenable<CommentEvent> {
     }
 
     async setComments(restaurantId: number) {
-        this.comments = [
-            {
-                Username: "shysh",
-                Icon: "img/defaultIcon.png",
-                Text: "Этот ресторан просто имба",
-                Rating: 5,
-                Date: "12-12-2023",
-            },
-            {
-                Username: "shysh",
-                Icon: "img/defaultIcon.png",
-                Text: "Этот ресторан просто имба",
-                Rating: 5,
-                Date: "12-12-2023",
-            },
-            {
-                Username: "shysh",
-                Icon: "img/defaultIcon.png",
-                Text: "Этот ресторан просто имба",
-                Rating: 5,
-                Date: "12-12-2023",
-            },
-            {
-                Username: "shysh",
-                Icon: "img/defaultIcon.png",
-                Text: "Этот ресторан просто имба",
-                Rating: 5,
-                Date: "12-12-2023",
-            },
-            {
-                Username: "shysh",
-                Icon: "img/defaultIcon.png",
-                Text: "Этот ресторан просто имба",
-                Rating: 5,
-                Date: "12-12-2023",
-            },
-            {
-                Username: "shysh",
-                Icon: "img/defaultIcon.png",
-                Text: "Этот ресторан просто имба",
-                Rating: 5,
-                Date: "12-12-2023",
-            },
-            {
-                Username: "shysh",
-                Icon: "img/defaultIcon.png",
-                Text: "Этот ресторан просто имба",
-                Rating: 5,
-                Date: "12-12-2023",
-            },
-            {
-                Username: "shysh",
-                Icon: "img/defaultIcon.png",
-                Text: "Этот ресторан просто имба",
-                Rating: 5,
-                Date: "12-12-2023",
-            },
-            {
-                Username: "shysh",
-                Icon: "img/defaultIcon.png",
-                Text: "Этот ресторан просто имба",
-                Rating: 5,
-                Date: "12-12-2023",
-            },
-        ];
-        this.events_.notify(CommentEvent.LOAD_COMMENTS);
+        try {
+            this.comments = await Api.getCommentsByRestaurantId(restaurantId);
+            this.events_.notify(CommentEvent.LOAD_COMMENTS);
+        } catch (e) {
+            console.error("Неудалось загрузить отзывы");
+            console.error(e);
+        }
     }
 
     async createComment(restaurantId: number, comment: Comment) {
-        this.events_.notify(CommentEvent.CREATE_COMMENT);
+        try {
+            await Api.createComment(restaurantId, comment);
+            this.events_.notify(CommentEvent.CREATE_COMMENT);
+        } catch (e) {
+            console.error("Неудалось создать отзыв");
+            console.error(e);
+        }
     }
 }

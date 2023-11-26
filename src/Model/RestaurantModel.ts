@@ -2,7 +2,7 @@ import { Api } from "../modules/api/src/api";
 import { EventDispatcher, Listenable } from "../modules/observer";
 
 export type Restaurant = {
-    Id: number;
+    ID: number;
     Name: string;
     Rating: number;
     Icon: string;

@@ -1,4 +1,5 @@
 import { User, Address } from "../../../Model/UserModel";
+import { Comment } from "../../../Model/CommentModel";
 import { apiConfig } from "./config";
 import { REQUEST_METHOD } from "./config";
 
@@ -334,6 +335,29 @@ const Api = {
         const body = JSON.stringify({ Address });
         const response = await ajax(
             `${apiConfig.backend}${config.url}`,
+            config.params(body),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
+    async getCommentsByRestaurantId(restaurantId: number) {
+        const config = apiConfig.api.getCommentsByRestaurantId;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}/${restaurantId}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
+    async createComment(restaurantId: number, comment: Comment) {
+        const config = apiConfig.api.createComment;
+        const body = JSON.stringify(comment);
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}/${restaurantId}`,
             config.params(body),
         );
         checkResponse(response, config);
