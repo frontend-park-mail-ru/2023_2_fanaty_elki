@@ -108,9 +108,11 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
 
     close() {
         this.element.classList.remove("open");
-        this.clearInputs();
-        this.clearMessages();
-        this.setLoginPage();
+        setTimeout(() => {
+            this.clearInputs();
+            this.clearMessages();
+            this.setLoginPage();
+        }, 200);
     }
 
     clearInputs() {
