@@ -8,7 +8,7 @@ export const enum OrderEvent {
 }
 
 export const enum OrderStatus {
-    MAKING = "Готовиться",
+    MAKING = "Готовится",
     DRIVING = "Курьер в пути",
     DONE = "Доставлен",
 }
