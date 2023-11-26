@@ -8,6 +8,7 @@ export const enum CommentEvent {
 export type Comment = {
     Text: string;
     Rating: number;
+    Date: string;
 };
 
 export type UserComment = Comment & {
@@ -39,54 +40,63 @@ export class CommentModel implements Listenable<CommentEvent> {
                 Icon: "img/defaultIcon.png",
                 Text: "Этот ресторан просто имба",
                 Rating: 5,
+                Date: "12-12-2023",
             },
             {
                 Username: "shysh",
                 Icon: "img/defaultIcon.png",
                 Text: "Этот ресторан просто имба",
                 Rating: 5,
+                Date: "12-12-2023",
             },
             {
                 Username: "shysh",
                 Icon: "img/defaultIcon.png",
                 Text: "Этот ресторан просто имба",
                 Rating: 5,
+                Date: "12-12-2023",
             },
             {
                 Username: "shysh",
                 Icon: "img/defaultIcon.png",
                 Text: "Этот ресторан просто имба",
                 Rating: 5,
+                Date: "12-12-2023",
             },
             {
                 Username: "shysh",
                 Icon: "img/defaultIcon.png",
                 Text: "Этот ресторан просто имба",
                 Rating: 5,
+                Date: "12-12-2023",
             },
             {
                 Username: "shysh",
                 Icon: "img/defaultIcon.png",
                 Text: "Этот ресторан просто имба",
                 Rating: 5,
+                Date: "12-12-2023",
             },
             {
                 Username: "shysh",
                 Icon: "img/defaultIcon.png",
                 Text: "Этот ресторан просто имба",
                 Rating: 5,
+                Date: "12-12-2023",
             },
             {
                 Username: "shysh",
                 Icon: "img/defaultIcon.png",
                 Text: "Этот ресторан просто имба",
                 Rating: 5,
+                Date: "12-12-2023",
             },
             {
                 Username: "shysh",
                 Icon: "img/defaultIcon.png",
                 Text: "Этот ресторан просто имба",
                 Rating: 5,
+                Date: "12-12-2023",
             },
         ];
         this.events_.notify(CommentEvent.LOAD_COMMENTS);
