@@ -16,6 +16,7 @@ export enum VIEW_EVENT_TYPE {
     CREATE_ORDER = "CREATE_ORDER",
     CLEAR_CART = "CLEAR_CART",
     USER_UPDATE = "USER_UPDATE",
+    LOAD_CATEGORIES = "LOAD_CATEGORIES",
 }
 
 export type ViewEvent = {
@@ -124,6 +125,9 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.CLEAR_CART:
                 model.cartModel.clearCart();
+                break;
+            case VIEW_EVENT_TYPE.LOAD_CATEGORIES:
+                model.restaurantModel.setCategories();
                 break;
         }
     }

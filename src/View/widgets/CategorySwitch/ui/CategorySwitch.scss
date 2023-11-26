@@ -1,0 +1,35 @@
+.category-switch {
+    display: flex;
+    justify-content: flex-start !important;
+    gap: 5px;
+
+    height: 44px;
+
+    width: 100%;
+}
+
+.category-switch__switch {
+    display: flex;
+    gap: 5px;
+    width: 65%;
+}
+
+.category-switch__switch__category {
+    font-size: 17px;
+    font-weight: 600;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.category-switch__switch__category_selected {
+    font-size: 17px;
+    font-weight: 600;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+
+    color: white;
+    background-color: #333;
+    border-radius: 17px;
+}
