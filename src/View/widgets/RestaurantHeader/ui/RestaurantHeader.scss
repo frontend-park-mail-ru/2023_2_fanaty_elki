@@ -1,3 +1,5 @@
+@use "../../../../../public/index.scss" as index;
+
 .restaurant-header {
     display: flex;
     justify-content: space-between;
@@ -20,9 +22,20 @@
 .restaurant-header__control__back-containver {
     display: flex;
     gap: 15px;
-    width: 100%;
+    width: 65%;
     align-items: center;
     cursor: pointer;
+    background-color: index.$light-gray;
+    border-radius: 20px;
+    justify-content: center;
+}
+
+.restaurant-header__control__back-containver:hover {
+    background-color: index.$darker-light-gray;
+}
+
+.restaurant-header__control__back-containver:active {
+    background-color: index.$darkest-light-gray;
 }
 
 .restaurant-header__control__back-containver__back {
@@ -31,6 +44,7 @@
 
     background: none;
     border: none;
+    cursor: inherit;
 }
 
 .restaurant-header__control__back-containver__label {
