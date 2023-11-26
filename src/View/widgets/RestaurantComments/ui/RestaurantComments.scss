@@ -211,10 +211,18 @@
     display: flex;
     justify-content: flex-start;
 
+    width: 100%;
+}
+
+.restaurant-comments__comment-form__rating__title__name {
     font-size: 17px;
     font-weight: 700;
+}
 
-    width: 100%;
+.restaurant-comments__comment-form__rating__title__must {
+    font-size: 17px;
+    font-weight: 700;
+    color: red;
 }
 
 .restaurant-comments__comment-form__rating__stars {
