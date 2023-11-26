@@ -225,6 +225,15 @@
     color: red;
 }
 
+.restaurant-comments__comment-form__rating__title__error {
+    display: flex;
+    align-items: center;
+
+    margin-left: 15px;
+    font-size: 13px;
+    color: red;
+}
+
 .restaurant-comments__comment-form__rating__stars {
     display: flex;
     flex-direction: row-reverse;
