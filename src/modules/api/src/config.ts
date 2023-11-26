@@ -401,5 +401,37 @@ export const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
+        getCommentsByRestaurantId: {
+            url: "/comments",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        createComment: {
+            url: "/comments",
+            params: (body) => {
+                return {
+                    method: REQUEST_METHOD.POST,
+                    body,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
     },
 };

@@ -134,13 +134,13 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.CREATE_COMMENT:
                 model.commentModel.createComment(
-                    model.restaurantModel.getRestaurant().RestaurantInfo.Id,
+                    model.restaurantModel.getRestaurant().RestaurantInfo.ID,
                     event.data as Comment,
                 );
                 break;
             case VIEW_EVENT_TYPE.LOAD_COMMENTS:
                 model.commentModel.setComments(
-                    model.restaurantModel.getRestaurant().RestaurantInfo.Id,
+                    model.restaurantModel.getRestaurant().RestaurantInfo.ID,
                 );
                 break;
         }

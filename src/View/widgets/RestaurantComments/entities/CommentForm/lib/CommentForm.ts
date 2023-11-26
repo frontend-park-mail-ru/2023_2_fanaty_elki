@@ -16,18 +16,15 @@ export class CommentForm extends IHTMLElement implements Listenable<UIEvent> {
 
     private backButton: HTMLElement;
     private closeButton: HTMLElement;
-    private stars: NodeListOf<HTMLElement>;
+    private errorMsg: HTMLElement;
 
     constructor() {
         super(commentForm(), "#comment-from");
         this.events_ = new EventDispatcher<UIEvent>();
 
-        this.backButton = this.getChild("#comments-list__back");
-        this.closeButton = this.getChild("#comments-list__close");
-
-        this.stars = this.getAll(
-            ".restaurant-comments__comment-form__rating__stars__star",
-        );
+        this.backButton = this.getChild("#comment-form__back");
+        this.closeButton = this.getChild("#comment-form__close");
+        this.errorMsg = this.getChild("#comment-form__error");
 
         this.bindEvents();
     }
@@ -45,15 +42,23 @@ export class CommentForm extends IHTMLElement implements Listenable<UIEvent> {
                 data: null,
             });
         });
-        this.element.addEventListener("submit", () => {
+        this.element.addEventListener("submit", (event: Event) => {
+            event.preventDefault();
             const formData = new FormData(this.element as HTMLFormElement);
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.CREATE_COMMENT,
-                data: {
-                    rating: parseInt(formData.get("rating") as string),
-                    text: formData.get("comment"),
-                },
-            });
+            const rating = parseInt(formData.get("rating") as string);
+            const text = formData.get("comment") as string;
+
+            if (!rating) {
+                this.errorMsg.innerText = "Поставьте оценку";
+            } else {
+                controller.handleEvent({
+                    type: VIEW_EVENT_TYPE.CREATE_COMMENT,
+                    data: {
+                        rating,
+                        text,
+                    },
+                });
+            }
         });
     }
 
@@ -62,5 +67,6 @@ export class CommentForm extends IHTMLElement implements Listenable<UIEvent> {
             (<HTMLInputElement>radio).checked = false;
         });
         (<HTMLInputElement>this.getChild("#comment")).value = "";
+        this.errorMsg.innerText = "";
     }
 }

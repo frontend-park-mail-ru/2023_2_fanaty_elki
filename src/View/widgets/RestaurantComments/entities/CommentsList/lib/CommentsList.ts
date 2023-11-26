@@ -18,6 +18,7 @@ export class CommentsList extends IHTMLElement implements Listenable<UIEvent> {
     private comments: HTMLElement;
     private commentButton: HTMLElement;
     private closeButton: HTMLElement;
+    private errorMsg: HTMLElement;
 
     constructor() {
         super(commentsList(), "#comments-list");
@@ -26,6 +27,7 @@ export class CommentsList extends IHTMLElement implements Listenable<UIEvent> {
         this.comments = this.getChild("#comments");
         this.commentButton = this.getChild("#make-comment");
         this.closeButton = this.getChild("#comments-list__close");
+        this.errorMsg = this.getChild("#comments-list__error");
 
         model.commentModel.events.subscribe(this.updateCommentEvent.bind(this));
 
@@ -34,10 +36,15 @@ export class CommentsList extends IHTMLElement implements Listenable<UIEvent> {
 
     bindEvents() {
         this.commentButton.addEventListener("click", () => {
-            this.events.notify({
-                type: UIEventType.CMODAL_MAKE_COMMENT_CLICK,
-                data: null,
-            });
+            if (model.userModel.getUser()) {
+                this.events.notify({
+                    type: UIEventType.CMODAL_MAKE_COMMENT_CLICK,
+                    data: null,
+                });
+            } else {
+                this.errorMsg.innerText =
+                    "Комментарии могут оставлять авторизированные пользователи";
+            }
         });
         this.closeButton.addEventListener("click", () => {
             this.events.notify({
@@ -52,5 +59,9 @@ export class CommentsList extends IHTMLElement implements Listenable<UIEvent> {
             const comments = model.commentModel.getComments();
             this.comments.innerHTML = commentsListTemplate(comments);
         }
+    }
+
+    clearFields() {
+        this.errorMsg.innerText = "";
     }
 }

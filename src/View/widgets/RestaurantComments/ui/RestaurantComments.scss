@@ -124,6 +124,14 @@
     font-weight: 600;
 }
 
+.restaurant-comments__comments-list__comments-list__comment__info__date {
+    width: 20%;
+
+    color: #b4b4b4;
+    font-size: 17px;
+    font-weight: 600;
+}
+
 .restaurant-comments__comments-list__comments-list__comment__text {
     display: flex;
     padding-left: 10px;
@@ -136,8 +144,9 @@
 .restaurant-comments__comments-list__comment-button {
     display: flex;
 
+    gap: 5px;
+
     width: 100%;
-    padding-left: 7px;
 }
 
 .restaurant-comments__comments-list__comment-button__button {
@@ -158,6 +167,20 @@
     font-family: "Comfortaa";
     font-size: 15px;
     font-weight: 600;
+}
+
+.restaurant-comments__comments-list__comment-button__error {
+    display: flex;
+    align-items: center;
+
+    width: 60%;
+
+    font-size: 13px;
+    color: red;
+}
+
+.restaurant-comments__comments-list__no-comments {
+    margin: auto;
 }
 
 .restaurant-comments__comment-form {
@@ -211,10 +234,27 @@
     display: flex;
     justify-content: flex-start;
 
+    width: 100%;
+}
+
+.restaurant-comments__comment-form__rating__title__name {
     font-size: 17px;
     font-weight: 700;
+}
 
-    width: 100%;
+.restaurant-comments__comment-form__rating__title__must {
+    font-size: 17px;
+    font-weight: 700;
+    color: red;
+}
+
+.restaurant-comments__comment-form__rating__title__error {
+    display: flex;
+    align-items: center;
+
+    margin-left: 15px;
+    font-size: 13px;
+    color: red;
 }
 
 .restaurant-comments__comment-form__rating__stars {
@@ -246,15 +286,26 @@
 }
 
 .restaurant-comments__comment-form__rating__stars:not(:checked) > label:hover,
-.restaurant-comments__comment-form__rating__stars:not(:checked) > label:hover ~ label {
+.restaurant-comments__comment-form__rating__stars:not(:checked)
+    > label:hover
+    ~ label {
     content: url("http://localhost:4000/img/gold_star.svg");
 }
 
 .restaurant-comments__comment-form__rating__stars > input:checked + label:hover,
-.restaurant-comments__comment-form__rating__stars > input:checked + label:hover ~ label,
+.restaurant-comments__comment-form__rating__stars
+    > input:checked
+    + label:hover
+    ~ label,
 .restaurant-comments__comment-form__rating__stars > input:checked ~ label:hover,
-.restaurant-comments__comment-form__rating__stars > input:checked ~ label:hover ~ label,
-.restaurant-comments__comment-form__rating__stars > label:hover ~ input:checked ~ label {
+.restaurant-comments__comment-form__rating__stars
+    > input:checked
+    ~ label:hover
+    ~ label,
+.restaurant-comments__comment-form__rating__stars
+    > label:hover
+    ~ input:checked
+    ~ label {
     content: url("http://localhost:4000/img/gold_star.svg");
 }
 
@@ -262,9 +313,6 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-
-    background-color: index.$light-gray;
-    border-radius: 17px;
 
     gap: 5px;
 

@@ -47,12 +47,14 @@ export class RestaurantComments extends IWidget implements Listenable<UIEvent> {
             });
         this.element.addEventListener("click", (event: any) => {
             if (event._isClickWithInModal) return;
-            event.currentTarget!.classList.remove("open");
+            this.close();
+            this.clearFields();
         });
     }
 
     updateUIEvent(event?: UIEvent) {
         if (!event) return;
+        this.commentsList.clearFields();
         switch (event!.type) {
             case UIEventType.CMODAL_CLOSE_CLICK:
                 this.close();
@@ -89,5 +91,10 @@ export class RestaurantComments extends IWidget implements Listenable<UIEvent> {
 
     close() {
         this.element.classList.remove("open");
+    }
+
+    clearFields() {
+        this.commentForm.clearField();
+        this.commentsList.clearFields();
     }
 }
