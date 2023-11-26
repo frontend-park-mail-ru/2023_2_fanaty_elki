@@ -52,11 +52,13 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
         search_form.addEventListener("submit", (event) => {
             event.preventDefault();
             const query = this.searchValue;
-            this.searchValue = "";
-            this.events.notify({
-                type: UIEventType.NAVBAR_SEARCH_SUBMIT,
-                data: query,
-            });
+            if (query.length > 2) {
+                this.searchValue = "";
+                this.events.notify({
+                    type: UIEventType.NAVBAR_SEARCH_SUBMIT,
+                    data: query,
+                });
+            }
         });
         this.element.querySelector("#logo")!.addEventListener("click", () => {
             this.events.notify({ type: UIEventType.NAVBAR_LOGO_CLICK });

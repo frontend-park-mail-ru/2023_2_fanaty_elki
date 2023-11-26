@@ -1,5 +1,8 @@
 @use "../../../../../public/index.scss" as index;
 
+$search_button_size: 100px;
+$search_input_size: 350px;
+
 .navbar {
     margin: 0 auto;
     gap: 10px;
@@ -15,7 +18,6 @@
 }
 
 .navbar__fields {
-    width: 712px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -164,4 +166,39 @@
 [type="search"]::-webkit-search-decoration {
     -webkit-appearance: none;
     appearance: none;
+}
+
+.navbar__fields__search-container {
+    border-radius: 12px;
+    overflow: hidden;
+    border: solid 1px;
+    display: inline-flex;
+}
+
+.navbar__fields__search {
+    width: $search_input_size;
+    height: 44px;
+    align-items: center;
+    display: flex;
+    border: none;
+}
+
+.search-button {
+    font-weight: 700;
+    font-family: 'Comfortaa';
+    width: $search_button_size;
+    background-color: index.$green;
+    border-left: 1px solid index.$black;
+    border-top: transparent;
+    border-right: transparent;
+    border-bottom: transparent;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: index.$darker-green;
+}
+
+.search-button:active {
+    background-color: index.$darkest-green;
 }
