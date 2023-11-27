@@ -423,6 +423,9 @@ export const apiConfig: ApiConfig = {
                     method: REQUEST_METHOD.POST,
                     body,
                     credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                 };
             },
             success: {
