@@ -144,9 +144,12 @@ export class Controller {
                 model.orderModel.setCurrentOrder(event.data as number);
                 break;
             case VIEW_EVENT_TYPE.CREATE_COMMENT:
-                model.commentModel.createComment(
+                await model.commentModel.createComment(
                     model.restaurantModel.getRestaurant().RestaurantInfo.ID,
                     event.data as Comment,
+                );
+                await model.commentModel.setComments(
+                    model.restaurantModel.getRestaurant().RestaurantInfo.ID,
                 );
                 break;
             case VIEW_EVENT_TYPE.LOAD_COMMENTS:
