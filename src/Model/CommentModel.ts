@@ -52,6 +52,7 @@ export class CommentModel implements Listenable<CommentEvent> {
             comments.forEach((comment) => {
                 comment.Date = this.presentDate(comment.Date);
             });
+            this.comments = comments;
             this.events_.notify(CommentEvent.LOAD_COMMENTS);
         } catch (e) {
             console.error("Неудалось загрузить отзывы");
