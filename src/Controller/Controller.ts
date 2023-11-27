@@ -17,6 +17,7 @@ export enum VIEW_EVENT_TYPE {
     CLEAR_CART = "CLEAR_CART",
     USER_UPDATE = "USER_UPDATE",
     LOAD_CATEGORIES = "LOAD_CATEGORIES",
+    RESTAURANTS_CATEGORY_UPDATE = "RESTAURANTS_CATEGORY_UPDATE",
 }
 
 export type ViewEvent = {
@@ -32,6 +33,15 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.RESTAURANT_UPDATE:
                 model.restaurantModel.setRestaurant(<number>event.data);
+                break;
+            case VIEW_EVENT_TYPE.RESTAURANTS_CATEGORY_UPDATE:
+                if (<string>event.data == "Рестораны") {
+                    model.restaurantModel.setRestaurantList();
+                    break;
+                }
+                model.restaurantModel.setRestaurantListByCategory(
+                    <string>event.data,
+                );
                 break;
             case VIEW_EVENT_TYPE.LOGIN:
                 await model.userModel.login(

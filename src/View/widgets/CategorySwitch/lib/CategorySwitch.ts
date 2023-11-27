@@ -16,6 +16,7 @@ export class CategorySwitch extends IWidget implements Listenable<UIEvent> {
 
     private switch: HTMLElement;
     private title: HTMLElement;
+    private selectedCategory: HTMLElement;
 
     constructor() {
         super(categorySwitch(), "#category-switch");
@@ -33,7 +34,22 @@ export class CategorySwitch extends IWidget implements Listenable<UIEvent> {
     bindEvents() {
         this.getAll(".category-switch__switch__category").forEach(
             (category) => {
-                category.addEventListener("click", () => {});
+                category.addEventListener("click", (event: any) => {
+                    this.title.innerText = event.target!.id;
+
+                    this.selectedCategory.classList.remove(
+                        "category-switch__switch__category_selected",
+                    );
+                    this.selectedCategory = event.target!;
+                    this.selectedCategory.classList.add(
+                        "category-switch__switch__category_selected",
+                    );
+
+                    controller.handleEvent({
+                        type: VIEW_EVENT_TYPE.RESTAURANTS_CATEGORY_UPDATE,
+                        data: this.selectedCategory.id,
+                    });
+                });
             },
         );
     }
@@ -44,6 +60,7 @@ export class CategorySwitch extends IWidget implements Listenable<UIEvent> {
             this.switch.innerHTML = categorySwitchTemplate(
                 model.restaurantModel.getCategories(),
             );
+            this.selectedCategory = this.getChild("#Рестораны");
             this.bindEvents();
         }
     }

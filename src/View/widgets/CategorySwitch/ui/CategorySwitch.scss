@@ -8,10 +8,17 @@
     width: 100%;
 }
 
+.category-switch__title {
+    display: flex;
+    gap: 5px;
+    width: 30%;
+    margin: 0;
+}
+
 .category-switch__switch {
     display: flex;
     gap: 5px;
-    width: 65%;
+    width: 70%;
 }
 
 .category-switch__switch__category {
