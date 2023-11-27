@@ -56,7 +56,7 @@ export class CategorySwitch extends IWidget implements Listenable<UIEvent> {
 
     updateRestaurantEvent(event?: RestaurantEvent) {
         if (event == RestaurantEvent.LOADED_CATEGORIES) {
-            this.title.innerText = "Все рестораны";
+            this.title.innerText = "Рестораны";
             this.switch.innerHTML = categorySwitchTemplate(
                 model.restaurantModel.getCategories(),
             );
