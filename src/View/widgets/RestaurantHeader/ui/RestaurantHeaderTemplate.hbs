@@ -30,6 +30,9 @@
                 {{ MinDeliveryTime }}-{{ MaxDeliveryTime}} минут
             </div>
         </div>
+        <p class="restaurnt-header__control__info__categories">
+            {{#each Categories}}<span class="restaurnt-header__control__info__categories__category">{{this}}</span>{{/each}}
+        </p>
     </div>
 </div>
 <img src="{{ Icon }}" alt="{{ Name }}" class="restaurant-header__icon">

@@ -121,3 +121,23 @@
     aspect-ratio: 2/1;
     border-radius: 17px;
 }
+
+.restaurnt-header__control__info__categories__category {
+    border: 0;
+    margin: 0px;
+    padding: 0px;
+}
+
+.restaurnt-header__control__info__categories__category::before {
+    width: 5px;
+    height: 2px;
+    margin: 0 8px 2px;
+    content: "";
+    display: inline-block;
+    background: #9E9B98;
+    vertical-align: middle;
+}
+
+.restaurnt-header__control__info__categories {
+    margin: 0;
+}
