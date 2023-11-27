@@ -21,6 +21,8 @@ export enum VIEW_EVENT_TYPE {
     LOAD_ORDER = "LOAD_ORDER",
     CREATE_COMMENT = "CREATE_COMMENT",
     LOAD_COMMENTS = "LOAD_COMMENTS",
+    LOAD_CATEGORIES = "LOAD_CATEGORIES",
+    RESTAURANTS_CATEGORY_UPDATE = "RESTAURANTS_CATEGORY_UPDATE",
 }
 
 export type ViewEvent = {
@@ -37,6 +39,15 @@ export class Controller {
             case VIEW_EVENT_TYPE.RESTAURANT_UPDATE:
                 model.restaurantModel.setRestaurant(<number>event.data);
                 model.commentModel.setComments(<number>event.data);
+                break;
+            case VIEW_EVENT_TYPE.RESTAURANTS_CATEGORY_UPDATE:
+                if (<string>event.data == "Рестораны") {
+                    model.restaurantModel.setRestaurantList();
+                    break;
+                }
+                model.restaurantModel.setRestaurantListByCategory(
+                    <string>event.data,
+                );
                 break;
             case VIEW_EVENT_TYPE.LOGIN:
                 await model.userModel.login(
@@ -142,6 +153,9 @@ export class Controller {
                 model.commentModel.setComments(
                     model.restaurantModel.getRestaurant().RestaurantInfo.ID,
                 );
+                break;
+            case VIEW_EVENT_TYPE.LOAD_CATEGORIES:
+                model.restaurantModel.setCategories();
                 break;
         }
     }

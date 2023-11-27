@@ -7,11 +7,13 @@ import { Page } from "../../..//types.d";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { UIEvent, UIEventType } from "../../../../config";
 import { AddressChooser } from "../../../widgets/AddressChooser";
+import { CategorySwitch } from "../../../widgets/CategorySwitch";
 export class MainPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
     private r_list: RestaurantsList;
     private login: LoginSignUpModal;
     private address: AddressChooser;
+    private categorySwitch: CategorySwitch;
 
     private events_: EventDispatcher<UIEvent>;
 
@@ -23,7 +25,7 @@ export class MainPage extends Page implements Listenable<UIEvent> {
         this.events_ = new EventDispatcher<UIEvent>();
 
         this.navbar = new Navbar();
-        this.element.appendChild(this.navbar.element);
+        this.element.querySelector("#navbar")!.appendChild(this.navbar.element);
 
         this.address = new AddressChooser();
         this.element
@@ -31,13 +33,19 @@ export class MainPage extends Page implements Listenable<UIEvent> {
             .appendChild(this.address.element);
 
         this.r_list = new RestaurantsList();
-
-        this.element.appendChild(this.r_list.element);
+        this.element
+            .querySelector("#restaurant_list")!
+            .appendChild(this.r_list.element);
 
         this.login = new LoginSignUpModal();
         this.element
             .querySelector("#login_modal")!
             .appendChild(this.login.element);
+
+        this.categorySwitch = new CategorySwitch();
+        this.element
+            .querySelector("#category_switch")!
+            .appendChild(this.categorySwitch.element);
 
         this.navbar.events.subscribe(this.update.bind(this));
         this.r_list.events.subscribe(this.update.bind(this));
@@ -66,5 +74,6 @@ export class MainPage extends Page implements Listenable<UIEvent> {
         this.navbar.load();
         this.address.load();
         this.r_list.load();
+        this.categorySwitch.load();
     }
 }

@@ -1,0 +1,45 @@
+.category-switch {
+    display: flex;
+    justify-content: flex-start !important;
+    gap: 25px;
+
+    height: 44px;
+
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.category-switch__title {
+    margin: 0;
+    min-width: 15%;
+}
+
+.category-switch__switch {
+    display: flex;
+    gap: 5px;
+    width: 70%;
+    border: 1px solid #333;
+    padding: 5px;
+    border-radius: 17px;
+}
+
+.category-switch__switch__category {
+    font-size: 17px;
+    font-weight: 600;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.category-switch__switch__category_selected {
+    font-size: 17px;
+    font-weight: 600;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+
+    color: white;
+    background-color: #333;
+    border-radius: 17px;
+}

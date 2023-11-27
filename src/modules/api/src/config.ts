@@ -8,7 +8,7 @@ export enum REQUEST_METHOD {
 }
 
 export const apiConfig: ApiConfig = {
-    // backend: "http://84.23.53.216:8080/api",
+    //backend: "http://84.23.53.216:8080/api",
     backend: "http://localhost:8080/api",
     api: {
         auth: {
@@ -171,6 +171,21 @@ export const apiConfig: ApiConfig = {
         },
         restaurants_get: {
             url: "/restaurants",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        getCategories: {
+            url: "/categories",
             params: () => {
                 return {
                     method: REQUEST_METHOD.GET,

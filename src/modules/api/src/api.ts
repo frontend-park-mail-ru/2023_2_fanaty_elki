@@ -214,6 +214,28 @@ const Api = {
         return json.Body;
     },
 
+    async getCategories() {
+        const config = apiConfig.api.getCategories;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
+    async getRestaurantsByCategory(category: string) {
+        const config = apiConfig.api.getRestaurants;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}/${category}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
     async getRestaurant(restaurantId: number) {
         const config = apiConfig.api.restaurants_get;
         const response = await ajax(
