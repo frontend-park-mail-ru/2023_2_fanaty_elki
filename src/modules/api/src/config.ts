@@ -429,7 +429,7 @@ export const apiConfig: ApiConfig = {
                 };
             },
             success: {
-                200: "OK",
+                201: "OK",
             },
             failure: {
                 500: "Ошибка сервера",
