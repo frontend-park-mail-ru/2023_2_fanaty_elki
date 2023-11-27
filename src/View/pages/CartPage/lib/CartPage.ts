@@ -95,6 +95,8 @@ export class CartPage extends Page implements Listenable<UIEvent> {
             });
         });
         this.summ = model.cartModel.getSumm();
+        this.deliveryPrice =
+            model.cartModel.getCurrentRestaurant()?.DeliveryPrice || 0;
     }
 
     update(event?: UIEvent) {
@@ -119,6 +121,12 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     set summ(total: number) {
         this.getChild(
             cartElement.TOTAL_TITLE,
-        ).innerHTML = `${paymentConfig.summ_phrase}${total}₽`;
+        ).innerHTML = `${paymentConfig.summ_phrase}${total} ₽`;
+    }
+
+    set deliveryPrice(deliveryPrice: number) {
+        this.getChild(
+            cartElement.DELIVERY_PRICE,
+        ).innerHTML = `${paymentConfig.delivery_phrase}${deliveryPrice} ₽`;
     }
 }

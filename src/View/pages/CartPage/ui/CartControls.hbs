@@ -22,19 +22,22 @@
             </div>
             <div class="payment-chooser__online-card__card-data">
                 <input class="payment-chooser__online-card__card-data__card-number" type="text" name="card-nubmer"
-                    id="card-number" placeholder="Номер карты" autocomplete="cc-number" disabled />
+                    id="card-number" placeholder="Номер карты" autocomplete="cc-number" pattern="\d{16,16}" disabled
+                    required />
                 <div class="payment-chooser__online-card__card-valid-thru-cvv">
                     <input class="payment-chooser__online-card__card-data__card-valid-thru" type="text"
                         name="card-valid-thru" id="card-valid-thru" placeholder="Срок действия" autocomplete="cc-exp"
-                        disabled />
+                        pattern="\d{2,2}/\d{2,2}" disabled required />
                     <input class="payment-chooser__online-card__card-data__card-cvv" type="password" name="card-cvv"
-                        id="card-cvv" placeholder="CVV" autocomplete="cc-csc" disabled />
+                        id="card-cvv" placeholder="CVV" autocomplete="cc-csc" pattern="\d{3,3}" disabled required />
                 </div>
             </div>
         </div>
         <div class="cart__content__control__payment-approve">
-            <h2 class="cart__content__control__payment-approve__title">Сумма
+            <h2 class="cart__content__control__payment-approve__sum" id="cart__sum">Сумма
                 заказа:</h2>
+            <h2 class="cart__content__control__payment-approve__delivery" id="cart__delivery">Сумма
+                доставки:</h2>
             <input class="cart__content__control__payment-approve__approve" value="Оформить заказ" type="submit" />
         </div>
     </form>

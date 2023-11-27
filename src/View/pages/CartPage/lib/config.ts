@@ -1,5 +1,6 @@
 export const paymentConfig = {
     summ_phrase: "Сумма заказа: ",
+    delivery_phrase: "Сумма доставки: ",
 };
 
 export enum cartElement {
@@ -10,5 +11,6 @@ export enum cartElement {
     NAVBAR = "#navbar",
     ADDRESS = "#address",
     CONTROLS = ".cart__content__control",
-    TOTAL_TITLE = ".cart__content__control__payment-approve__title",
+    TOTAL_TITLE = "#cart__sum",
+    DELIVERY_PRICE = "#cart__delivery",
 }
