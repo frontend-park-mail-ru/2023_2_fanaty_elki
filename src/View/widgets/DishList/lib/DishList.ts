@@ -91,8 +91,8 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
                     .closest(dishListSelectors.CARD)!
                     .getAttribute("data-product-id");
                 if (target.classList.contains(dishListSelectors.UP_BUTTON)) {
-                    controller.handleEvent({
-                        type: VIEW_EVENT_TYPE.INCREASE_CART,
+                    this.events.notify({
+                        type: UIEventType.BUTTON_UP_CLICK,
                         data: productId,
                     });
                 } else if (

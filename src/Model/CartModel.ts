@@ -1,6 +1,6 @@
 import { Api } from "../modules/api/src/api";
 import { EventDispatcher, Listenable } from "../modules/observer";
-import { Dish } from "./RestaurantModel";
+import { Dish, Restaurant } from "./RestaurantModel";
 
 export type CartPosition = {
     Product: Dish;
@@ -12,6 +12,7 @@ export type Cart = CartPosition[];
 
 export const enum CartEvent {
     UPDATE = "UPDATE",
+    NOT_SAME_RESTAURANT = "NOT_SAME_RESTAURANT",
 }
 
 /**
@@ -26,16 +27,23 @@ export class CartModel implements Listenable<CartEvent> {
         return this.events_;
     }
 
+    private currentRestaurant: Restaurant | null;
+
     /**
      * Конструктор
      */
     constructor() {
         this.events_ = new EventDispatcher<CartEvent>();
+        this.currentRestaurant = null;
         this.cart = [];
     }
 
     async setCart() {
         try {
+            // TODO: Раскоментить как появятся новые даннные с бэка
+            //const cartInfo = await Api.getCart();
+            //this.cart = cartInfo.Products;
+            //this.currentRestaurant = cartInfo.Restaurant;
             this.cart = await Api.getCart();
             this.cart?.forEach((cartPos) => {
                 cartPos.Sum = Math.round(
@@ -69,6 +77,9 @@ export class CartModel implements Listenable<CartEvent> {
         try {
             await Api.removeDishFromCart(id);
             this.cart = (await Api.getCart()) || [];
+
+            if (!this.cart?.length) this.currentRestaurant = null;
+
             this.cart?.forEach((cartPos) => {
                 cartPos.Sum = Math.round(
                     cartPos.Product.Price * cartPos.ItemCount,
@@ -85,6 +96,18 @@ export class CartModel implements Listenable<CartEvent> {
         await Api.clearCart();
         this.cart = [];
         this.events.notify();
+    }
+
+    async setCurrentRestaurant(restaurant: Restaurant) {
+        this.currentRestaurant = restaurant;
+    }
+
+    isSameRestaurant(restaurant: Restaurant) {
+        return !this.currentRestaurant || this.currentRestaurant === restaurant;
+    }
+
+    getCurrentRestaurant() {
+        return this.currentRestaurant;
     }
 
     clearLocalCart() {
