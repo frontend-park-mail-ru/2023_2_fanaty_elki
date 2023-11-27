@@ -45,17 +45,17 @@ export class CommentForm extends IHTMLElement implements Listenable<UIEvent> {
         this.element.addEventListener("submit", (event: Event) => {
             event.preventDefault();
             const formData = new FormData(this.element as HTMLFormElement);
-            const rating = parseInt(formData.get("rating") as string);
-            const text = formData.get("comment") as string;
+            const Rating = parseInt(formData.get("rating") as string);
+            const Text = formData.get("comment") as string;
 
-            if (!rating) {
+            if (!Rating) {
                 this.errorMsg.innerText = "Поставьте оценку";
             } else {
                 controller.handleEvent({
                     type: VIEW_EVENT_TYPE.CREATE_COMMENT,
                     data: {
-                        rating,
-                        text,
+                        Rating,
+                        Text,
                     },
                 });
             }
