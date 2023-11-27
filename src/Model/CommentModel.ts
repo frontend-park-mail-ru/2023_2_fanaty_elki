@@ -30,13 +30,28 @@ export class CommentModel implements Listenable<CommentEvent> {
         this.comments = [];
     }
 
+    private presentDate(commentDate: string) {
+        const date = new Date(commentDate);
+
+        const fmtDate = (date: number) => {
+            return String(date).padStart(2, "0");
+        };
+
+        return `${fmtDate(date.getDate())}.${fmtDate(
+            date.getMonth() + 1,
+        )}.${date.getFullYear()}`;
+    }
+
     getComments() {
         return this.comments;
     }
 
     async setComments(restaurantId: number) {
         try {
-            this.comments = await Api.getCommentsByRestaurantId(restaurantId);
+            const comments = await Api.getCommentsByRestaurantId(restaurantId);
+            comments.forEach((comment) => {
+                comment.Date = this.presentDate(comment.Date);
+            });
             this.events_.notify(CommentEvent.LOAD_COMMENTS);
         } catch (e) {
             console.error("Неудалось загрузить отзывы");
