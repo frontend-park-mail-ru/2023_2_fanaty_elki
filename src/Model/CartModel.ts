@@ -95,6 +95,7 @@ export class CartModel implements Listenable<CartEvent> {
     async clearCart() {
         await Api.clearCart();
         this.cart = [];
+        this.currentRestaurant = null;
         this.events.notify();
     }
 
