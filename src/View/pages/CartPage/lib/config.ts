@@ -13,4 +13,5 @@ export enum cartElement {
     CONTROLS = ".cart__content__control",
     TOTAL_TITLE = "#cart__sum",
     DELIVERY_PRICE = "#cart__delivery",
+    ERROR_BOX = "#cart__error",
 }

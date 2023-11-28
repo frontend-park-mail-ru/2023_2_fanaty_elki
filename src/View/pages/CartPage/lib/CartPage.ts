@@ -43,10 +43,18 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     private bindEvents() {
         this.getChild("#form").addEventListener("submit", (event: Event) => {
             event.preventDefault();
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.CREATE_ORDER,
-                data: null,
-            });
+            if (model.userModel.getAddress()) {
+                controller.handleEvent({
+                    type: VIEW_EVENT_TYPE.CREATE_ORDER,
+                    data: null,
+                });
+            } else {
+                this.getChild(cartElement.ERROR_BOX).innerText =
+                    "Укажите адрес доставки";
+            }
+        });
+        this.element.addEventListener("click", () => {
+            this.getChild(cartElement.ERROR_BOX).innerText = "";
         });
         this.getChild("#courier-cash").addEventListener("input", () => {
             this.disableCardInputs();
