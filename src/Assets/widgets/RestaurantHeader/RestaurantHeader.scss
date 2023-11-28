@@ -1,0 +1,143 @@
+@use "../../../../../public/index.scss" as index;
+
+.restaurant-header {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 14px;
+    margin-bottom: 14px;
+
+    width: 100%;
+    height: 40vh;
+}
+
+.restaurant-header__control {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 30%;
+}
+
+.restaurant-header__control__back-containver {
+    display: flex;
+    gap: 15px;
+    width: 65%;
+    align-items: center;
+    cursor: pointer;
+    background-color: index.$light-gray;
+    border-radius: 20px;
+    justify-content: center;
+}
+
+.restaurant-header__control__back-containver:hover {
+    background-color: index.$darker-light-gray;
+}
+
+.restaurant-header__control__back-containver:active {
+    background-color: index.$darkest-light-gray;
+}
+
+.restaurant-header__control__back-containver__back {
+    height: 25px;
+    width: 25px;
+
+    background: none;
+    border: none;
+    cursor: inherit;
+    padding: 0;
+}
+
+.restaurant-header__control__back-containver__label {
+}
+
+.restaurant-header__control__back-containver__back__img {
+    height: 100%;
+    object-fit: contain;
+}
+
+.restaurant-header__control__info {
+    display: flex;
+    flex-direction: column;
+    gap: 15%;
+
+    height: 70%;
+}
+
+.restaurnt-header__control__info__restaurant {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    width: 100%;
+}
+
+.restaurnt-header__control__info__restaurant__name-rating {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+
+    width: 100%;
+}
+
+.restaurnt-header__control__info__restaurant__name-rating__rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.restaurnt-header__control__info__restaurant__name-rating__rating__gold-star {
+    height: 30px;
+    aspect-ratio: 1/1;
+}
+
+.restaurnt-header__control__info__restaurant__name-rating__rating__value {
+    margin: 0;
+}
+
+.restaurnt-header__control__info__restaurant__name-rating__name {
+    display: flex;
+    margin: 0;
+}
+
+.restaurnt-header__control__info__restaurant__comments {
+    display: flex;
+    width: 100%;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.restaurnt-header__control__info__delivery {
+    display: flex;
+    gap: 25px;
+    width: 100%;
+    font-weight: 700;
+}
+
+.restaurant-header__icon {
+    object-fit: cover;
+    width: 50%;
+    aspect-ratio: 2/1;
+    border-radius: 17px;
+}
+
+.restaurnt-header__control__info__categories__category {
+    border: 0;
+    margin: 0px;
+    padding: 0px;
+}
+
+.restaurnt-header__control__info__categories__category::before {
+    width: 5px;
+    height: 2px;
+    margin: 0 8px 2px;
+    content: "";
+    display: inline-block;
+    background: #9E9B98;
+    vertical-align: middle;
+}
+
+.restaurnt-header__control__info__categories {
+    margin: 0;
+}

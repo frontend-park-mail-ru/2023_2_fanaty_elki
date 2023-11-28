@@ -1,0 +1,27 @@
+// Карточка
+// Layout карт
+
+.card {
+    width: 100%;
+}
+
+.card__image {
+    width: 100%;
+    aspect-ratio: 2/1;
+    object-fit: cover;
+
+    border-radius: 20px;
+    margin: 0 auto;
+}
+
+.card-layout {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    @media screen and (max-width: 550px) {
+        grid-template-columns: 1fr;
+    }
+
+    grid-column-gap: 2%;
+    grid-row-gap: 1%;
+}

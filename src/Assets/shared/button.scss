@@ -1,0 +1,47 @@
+// Класс кнопки определяющий: цвет, шрифт, паддинги, display
+
+@mixin button-style(
+    $color: var(--white),
+    $background-color: var(--gray),
+    $border: none
+) {
+    color: $color;
+    background-color: $background-color;
+    border: $border;
+}
+
+.button {
+    display: flex;
+    padding: 10px;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 17px;
+
+    cursor: pointer;
+
+    // Styles
+    &_primary {
+        @extend .button;
+        @include button-style;
+    }
+
+    &_secondary {
+        @extend .button;
+        @include button-style(
+            $color: var(--gray),
+            $background-color: var(--white),
+            $border: 1px solid var(--gray)
+        );
+    }
+
+    &_primary-green {
+        @extend .button;
+        @include button-style(
+            $color: var(--gray),
+            $background-color: var(--green),
+            $border: none
+        );
+    }
+}
