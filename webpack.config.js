@@ -2,9 +2,12 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = ({ development }) => ({
-    entry: "./public/index.ts",
+    entry: {
+        "app": "./public/index.ts",
+        "service-worker": "./public/service-worker.ts",
+    },
     output: {
-        filename: "index_bundle.js",
+        filename: "[name].js",
         path: path.resolve(__dirname, "dist"),
     },
     mode: development ? "development" : "production",
@@ -40,6 +43,7 @@ module.exports = ({ development }) => ({
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "public/index.html"),
+            filename: "index_app.html",
         }),
     ],
 });
