@@ -58,6 +58,21 @@ export function validateBirthday(birthday: string): string {
         return "Укажите дату рождения";
     }
 
+    const birthdayDate = new Date(birthday);
+    const currentDate = new Date();
+
+    if (birthdayDate.getTime() >= currentDate.getTime()) {
+        return "Укажите валидную дату рождения";
+    }
+
+    if (
+        currentDate.getFullYear() - birthdayDate.getFullYear() < 14 ||
+        birthdayDate.getMonth() > currentDate.getMonth() ||
+        birthdayDate.getDate() > currentDate.getDate()
+    ) {
+        return "Вы еще слишком малы, чтобы пользоваться нашим сервисом :(";
+    }
+
     return "";
 }
 
