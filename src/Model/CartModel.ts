@@ -40,11 +40,9 @@ export class CartModel implements Listenable<CartEvent> {
 
     async setCart() {
         try {
-            // TODO: Раскоментить как появятся новые даннные с бэка
-            //const cartInfo = await Api.getCart();
-            //this.cart = cartInfo.Products;
-            //this.currentRestaurant = cartInfo.Restaurant;
-            this.cart = await Api.getCart();
+            const cartInfo = await Api.getCart();
+            this.cart = cartInfo.Products;
+            this.currentRestaurant = cartInfo.Restaurant;
             this.cart?.forEach((cartPos) => {
                 cartPos.Sum = Math.round(
                     cartPos.Product.Price * cartPos.ItemCount,
@@ -60,7 +58,9 @@ export class CartModel implements Listenable<CartEvent> {
     async increase(id: number) {
         try {
             await Api.addDishToCart(id);
-            this.cart = await Api.getCart();
+            const cartInfo = await Api.getCart();
+            this.cart = cartInfo.Products;
+            this.currentRestaurant = cartInfo.Restaurant;
             this.cart?.forEach((cartPos) => {
                 cartPos.Sum = Math.round(
                     cartPos.Product.Price * cartPos.ItemCount,
@@ -76,7 +76,9 @@ export class CartModel implements Listenable<CartEvent> {
     async decrease(id: number) {
         try {
             await Api.removeDishFromCart(id);
-            this.cart = (await Api.getCart()) || [];
+            const cartInfo = await Api.getCart();
+            this.cart = cartInfo.Products || [];
+            this.currentRestaurant = cartInfo.Restaurant;
 
             if (!this.cart?.length) this.currentRestaurant = null;
 
@@ -104,7 +106,10 @@ export class CartModel implements Listenable<CartEvent> {
     }
 
     isSameRestaurant(restaurant: Restaurant) {
-        return !this.currentRestaurant || this.currentRestaurant === restaurant;
+        return (
+            !this.currentRestaurant ||
+            this.currentRestaurant.ID === restaurant.ID
+        );
     }
 
     getCurrentRestaurant() {
