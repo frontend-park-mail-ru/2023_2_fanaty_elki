@@ -66,11 +66,7 @@ export function validatePhoneNumber(phoneNumber: string): string {
         return "Укажите номер телефона";
     }
 
-    if (
-        !phoneNumber.match(
-            /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{6,10}$/,
-        )
-    ) {
+    if (!phoneNumber.match(/^\+79[0-9]{9}$/)) {
         return "Невалидный номер телефона";
     }
 
