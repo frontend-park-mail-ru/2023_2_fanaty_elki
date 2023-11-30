@@ -67,8 +67,11 @@ export function validateBirthday(birthday: string): string {
 
     if (
         currentDate.getFullYear() - birthdayDate.getFullYear() < 14 ||
-        birthdayDate.getMonth() > currentDate.getMonth() ||
-        birthdayDate.getDate() > currentDate.getDate()
+        (currentDate.getFullYear() - birthdayDate.getFullYear() == 14 &&
+            birthdayDate.getMonth() > currentDate.getMonth()) ||
+        (currentDate.getFullYear() - birthdayDate.getFullYear() == 14 &&
+            birthdayDate.getMonth() <= currentDate.getMonth() &&
+            birthdayDate.getDate() > currentDate.getDate())
     ) {
         return "Вы еще слишком малы, чтобы пользоваться нашим сервисом :(";
     }
