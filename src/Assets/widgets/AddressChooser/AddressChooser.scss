@@ -3,8 +3,14 @@
     width: 740px;
     flex-direction: column;
     align-items: flex-start;
-    width: 740px;
-    max-height: 85vh;
+
+    width: 80%;
+    height: 60%;
+    @media screen and (min-width: 641px) {
+        width: 740px;
+        max-height: 85vh;
+    }
+
     gap: 17px;
     align-self: stretch;
 }
@@ -22,6 +28,11 @@
     align-items: flex-start;
     gap: 10px;
     align-self: stretch;
+
+    font-size: var(--font-size-three);
+    @media screen and (min-width: 641px) {
+        font-size: var(--font-size-two);
+    }
 }
 
 .address-chooser__form {
@@ -32,9 +43,13 @@
 
 .address-chooser__control {
     width: 123px;
-    height: 44px;
-   
-    font-size: var(--font-size-three);
+
+    font-size: var(--font-size-four);
+    @media screen and (min-width: 641px) {
+        font-size: var(--font-size-three);
+        height: 44px;
+    }
+
     transition: all 0.2s ease-out;
 }
 
@@ -46,13 +61,22 @@
 .address-chooser__control__input {
     padding: 0 17px 0 17px;
     border-radius: 17px;
-    width: 500px;
-    height: 44px;
+    width: 90%;
+    @media screen and (min-width: 641px) {
+        width: 500px;
+    }
     font-size: 15px;
     font-weight: 600;
     word-wrap: break-word;
     line-height: 35px;
     font-family: Comfortaa;
+
+    font-size: var(--font-size-five);
+    height: 69px;
+    @media screen and (min-width: 641px) {
+        font-size: var(--font-size-four);
+        height: 44px;
+    }
 }
 
 .address-chooser__error_msg {
@@ -85,7 +109,10 @@
 }
 
 .suggest__text.suggest-display-name {
-    font-size: var(--font-size-three);
+    font-size: var(--font-size-five);
+    @media screen and (min-width: 641px) {
+        font-size: var(--font-size-three);
+    }
     font-weight: 600;
     word-wrap: break-word;
     line-height: 20px;
@@ -93,7 +120,10 @@
 }
 
 .suggest__text.suggest-value {
-    font-size: var(--font-size-four);
+    font-size: var(--font-size-six);
+    @media screen and (min-width: 641px) {
+        font-size: var(--font-size-four);
+    }
     font-weight: 600;
     word-wrap: break-word;
     line-height: 20px;
