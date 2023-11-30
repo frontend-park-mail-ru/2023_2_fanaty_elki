@@ -145,16 +145,16 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.CREATE_COMMENT:
                 await model.commentModel.createComment(
-                    model.restaurantModel.getRestaurant().RestaurantInfo.ID,
+                    model.restaurantModel.getRestaurant()!.RestaurantInfo.ID,
                     event.data as Comment,
                 );
                 await model.commentModel.setComments(
-                    model.restaurantModel.getRestaurant().RestaurantInfo.ID,
+                    model.restaurantModel.getRestaurant()!.RestaurantInfo.ID,
                 );
                 break;
             case VIEW_EVENT_TYPE.LOAD_COMMENTS:
                 model.commentModel.setComments(
-                    model.restaurantModel.getRestaurant().RestaurantInfo.ID,
+                    model.restaurantModel.getRestaurant()!.RestaurantInfo.ID,
                 );
                 break;
             case VIEW_EVENT_TYPE.LOAD_CATEGORIES:

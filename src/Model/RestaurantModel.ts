@@ -57,7 +57,7 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
      * Список ресторанов
      */
     private restaurants: Restaurant[] | null;
-    private currentRestaurant: RestaurantWithCategories;
+    private currentRestaurant: RestaurantWithCategories | null;
     private categories: string[];
 
     /**
@@ -81,7 +81,7 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
         return this.restaurants;
     }
 
-    getRestaurant(): RestaurantWithCategories {
+    getRestaurant() {
         return this.currentRestaurant;
     }
 
@@ -90,7 +90,7 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
     }
 
     getDish(id: number) {
-        for (const cat of this.currentRestaurant.Categories) {
+        for (const cat of this.currentRestaurant!.Categories) {
             for (const dish of cat.Products) {
                 if (dish.ID === +id) {
                     return dish;
@@ -110,6 +110,7 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
             this.errorMsg = null;
         } catch (e) {
             this.errorMsg = (e as Error).message;
+            this.currentRestaurant = null;
             console.error("Не удалось загрузить блюда ресторана", id);
             console.error(e);
         }

@@ -177,6 +177,7 @@ export class View {
             this.statusMessage.changeState(false);
         } else if (event === AppEvent.ONLINE) {
             this.statusMessage.changeState(true);
+            this.router_.refresh();
         }
     }
 }

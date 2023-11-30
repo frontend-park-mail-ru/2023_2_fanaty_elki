@@ -26,7 +26,7 @@ export abstract class IHTMLElement {
 export abstract class IWidget extends IHTMLElement {}
 
 export abstract class Page extends IHTMLElement {
-    unload();
+    unload() {}
     load(params?: URLSearchParams);
 }
 

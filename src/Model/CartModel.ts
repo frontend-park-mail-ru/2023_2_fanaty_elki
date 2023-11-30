@@ -85,7 +85,7 @@ export class CartModel implements Listenable<CartEvent> {
             const lineItem = this.cart.find((x) => x.Product.ID === +id);
             if (lineItem) {
                 lineItem.ItemCount++;
-                lineItem.Sum += lineItem.Product.Price;
+                lineItem.Sum += Math.round(lineItem.Product.Price);
             } else {
                 const dish = model.restaurantModel.getDish(id);
                 if (dish) {
@@ -115,7 +115,7 @@ export class CartModel implements Listenable<CartEvent> {
             const lineItem = this.cart.find((x) => x.Product.ID === +id);
             if (lineItem) {
                 lineItem.ItemCount--;
-                lineItem.Sum -= lineItem.Product.Price;
+                lineItem.Sum -= Math.round(lineItem.Product.Price);
                 if (lineItem.ItemCount === 0) {
                     const index = this.cart.indexOf(lineItem);
                     this.cart.splice(index, 1);

@@ -68,7 +68,7 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
         }
     }
 
-    setList(rest: RestaurantWithCategories) {
+    setList(rest: RestaurantWithCategories | null) {
         this.element.innerHTML = DishListTemplate(rest);
         if (!model.userModel.getUser()) {
             this.getAll(dishListSelectors.CONTROLS).forEach(
@@ -115,6 +115,7 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
 
     unload() {
         this.element.innerHTML = "";
+        console.log("clear");
     }
 
     load(restaurant_id: number, item_id: number | null) {

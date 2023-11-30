@@ -6,7 +6,7 @@ const appShellFiles = [
 ];
 
 self.addEventListener("install", (event) => {
-    console.log("[Service Worker] Install");
+    // console.log("[Service Worker] Install");
     event.waitUntil(
         (async () => {
             const cache = await caches.open(cacheName);
@@ -17,7 +17,7 @@ self.addEventListener("install", (event) => {
 });
 
 self.addEventListener("activate", (event) => {
-    console.log("Активирован");
+    // console.log("Активирован");
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
@@ -42,16 +42,16 @@ self.addEventListener("fetch", (event) => {
                 try {
                     const response = await fetch(event.request);
                     const cache = await caches.open(cacheName);
-                    console.log(
-                        `[Service Worker] Caching new resource: ${event.request.url}`,
-                    );
+                    // console.log(
+                        // `[Service Worker] Caching new resource: ${event.request.url}`,
+                    // );
                     cache.put(event.request, response.clone());
                     return response;
                 } catch (e) {
                     const r = await caches.match(event.request);
-                    console.log(
-                        `[Service Worker] Fetching resource: ${event.request.url}`,
-                    );
+                    // console.log(
+                        // `[Service Worker] Fetching resource: ${event.request.url}`,
+                    // );
                     if (r) {
                         return r;
                     }
