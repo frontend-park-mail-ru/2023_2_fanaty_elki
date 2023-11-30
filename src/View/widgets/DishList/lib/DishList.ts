@@ -49,9 +49,7 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
         this.setList(model.restaurantModel.getRestaurant());
         if (this.item_id) {
             const dish = this.getChild(`[data-product-id="${this.item_id}"`);
-            console.log(dish);
             if (dish) {
-                console.log("scroll");
                 dish.scrollIntoView();
                 return;
             }
@@ -115,7 +113,6 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
 
     unload() {
         this.element.innerHTML = "";
-        console.log("clear");
     }
 
     load(restaurant_id: number, item_id: number | null) {
