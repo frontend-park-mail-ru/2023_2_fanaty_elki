@@ -1,6 +1,10 @@
 .restaurant-comments {
-    width: 740px;
-    height: 80vh;
+    width: 80%;
+    height: 70%;
+    @media screen and (min-width: 641px) {
+        width: 740px;
+        height: 80vh;
+    }
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -16,7 +20,7 @@
 
 .restaurant-comments__comments-list__close {
     top: 25px;
-    left: 697px;
+    right: 30px;
 }
 
 .restaurant-comments__comments-list__title {
@@ -26,6 +30,7 @@
     margin: 0;
 
     width: 100%;
+    font-size: var(--font-size-two);
 }
 
 .restaurant-comments__comments-list__comments-list {
@@ -52,6 +57,12 @@
     align-items: center;
     gap: 15px;
 
+    font-size: var(--font-size-three);
+    @media screen and (min-width: 641px) {
+        font-size: var(--font-size-two);
+    }
+   
+
     width: 100%;
 }
 
@@ -73,8 +84,6 @@
 .restaurant-comments__comments-list__comments-list__comment__info__profile__name {
     display: flex;
 
-    font-size: var(--font-size-two);
-
     width: 60%;
 }
 
@@ -95,14 +104,12 @@
 .restaurant-comments__comments-list__comments-list__comment__info__rating__value {
     display: flex;
 
-    font-size: var(--font-size-two);
 }
 
 .restaurant-comments__comments-list__comments-list__comment__info__date {
     width: 20%;
 
     color: var(--middle-gray);
-    font-size: var(--font-size-two);
 }
 
 .restaurant-comments__comments-list__comments-list__comment__text {
@@ -110,6 +117,11 @@
     padding-left: 10px;
 
     word-break: break-all;
+
+    font-size: var(--font-size-five);
+    @media screen and (min-width: 641px) {
+        font-size: var(--font-size-four);
+    }
 }
 
 .restaurant-comments__comments-list__comment-button {
@@ -121,8 +133,12 @@
 }
 
 .restaurant-comments__comments-list__comment-button__button {
-    width: 30%;
-    height: 44px;
+    font-size: var(--font-size-four);
+    width: 50%;
+    @media screen and (min-width: 641px) {
+        width: 30%;
+        height: 44px;
+    }
 }
 
 .restaurant-comments__comments-list__comment-button__error {
@@ -137,6 +153,11 @@
 
 .restaurant-comments__comments-list__no-comments {
     margin: auto;
+
+    font-size: var(--font-size-three);
+    @media screen and (min-width: 641px) {
+        font-size: var(--font-size-two);
+    }
 }
 
 .restaurant-comments__comment-form {
@@ -149,7 +170,7 @@
 
 .restaurant-comments__comment-form__close {
     top: 25px;
-    left: 697px;
+    right: 30px;
 }
 
 .restaurant-comments__comment-form__close__img {
@@ -283,7 +304,6 @@
 .restaurant-comments__comment-form__comment__text {
     display: flex;
     justify-content: flex-start;
-
 }
 
 .restaurant-comments__comment-form__submit {
