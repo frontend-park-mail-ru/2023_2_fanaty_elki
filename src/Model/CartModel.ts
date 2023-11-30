@@ -101,7 +101,6 @@ export class CartModel implements Listenable<CartEvent> {
             console.error(e);
         }
         this.events.notify();
-        console.log("buffer: ", this.requestBuffer);
     }
 
     async decrease(id: number) {
@@ -126,7 +125,6 @@ export class CartModel implements Listenable<CartEvent> {
             console.error(e);
         }
         this.events.notify();
-        console.log("buffer: ", this.requestBuffer);
     }
 
     async clearCart() {

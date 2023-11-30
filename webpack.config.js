@@ -5,6 +5,7 @@ module.exports = ({ development }) => ({
     entry: {
         "app": "./public/index.ts",
         "service-worker": "./public/service-worker.ts",
+        "assets": "./public/assets.js",
     },
     output: {
         filename: "[name].js",
