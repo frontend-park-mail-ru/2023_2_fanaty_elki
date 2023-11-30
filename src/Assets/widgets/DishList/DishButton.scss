@@ -13,26 +13,27 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+
+    font-size: var(--font-size-three);
+    font-family: Comfortaa;
 }
 
 .dish-card__base-button.dish-card__controls__buttons {
     overflow: hidden;
     justify-content: space-between;
-    font-size: var(--font-size-one);
     color: var(--gray);
     background-color: var(--green);
 }
 
 .dish-card__base-button.dish-card__controls__up-button {
     justify-content: space-around;
-    font-size: var(--font-size-one);
+    
     color: var(--gray);
     background-color: var(--green);
 }
 
 .dish-card__base-button.dish-card__controls__signin-button {
     justify-content: space-around;
-    font-size: var(--font-size-two);
     color: var(--white);
     background-color: var(--middle-gray);
 }
@@ -58,7 +59,6 @@
     height: 100%;
     background-color: transparent;
     border: none;
-    font-size: var(--font-size-one);
 }
 
 .dish-card__controls__buttons .dish-card__controls__up-button:hover {
@@ -99,4 +99,5 @@
 
 .dish-card__controls__button {
     cursor: pointer;
+    font-size: var(--font-size-two);
 }
