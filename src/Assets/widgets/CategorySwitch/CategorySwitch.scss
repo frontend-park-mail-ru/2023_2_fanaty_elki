@@ -5,7 +5,6 @@
 
     height: 44px;
 
-    width: 100%;
     margin-top: 15px;
     margin-bottom: 15px;
 }
@@ -13,6 +12,7 @@
 .category-switch__title {
     margin: 0;
     min-width: 15%;
+    font-size: var(--font-size-one);
 }
 
 .category-switch__switch {
@@ -24,7 +24,7 @@
 }
 
 .category-switch__switch__category {
-    font-size: var(--font-size-two);
+    font-size: var(--font-size-three);
     padding: 10px;
     display: flex;
     align-items: center;

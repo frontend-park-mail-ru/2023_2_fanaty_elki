@@ -8,7 +8,7 @@ $search_input_size: 350px;
     background-color: var(--light-gray);
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 .navbar__logo {
@@ -37,7 +37,7 @@ $search_input_size: 350px;
     height: 100%;
     padding-left: 10px;
     border: none;
-    font-size: var(--font-size-two);
+    font-size: var(--font-size-four);
     word-wrap: break-word;
     line-height: 35px;
     font-family: Comfortaa;
@@ -103,7 +103,7 @@ $search_input_size: 350px;
 }
 
 .navbar__fields__backet__sum {
-    font-size: var(--font-size-three);
+    font-size: var(--font-size-five);
     margin: 0;
 }
 
@@ -117,7 +117,9 @@ $search_input_size: 350px;
 }
 
 .navbar__signin__title {
-    font-size: var(--font-size-two);
+    font-size: var(--font-size-four);
+    font-family: Comfortaa;
+    font-weight: bold;
     word-wrap: break-word;
     display: inline;
 }
@@ -131,7 +133,7 @@ $search_input_size: 350px;
 
 .navbar__name-container__name {
     display: inline;
-    font-size: var(--font-size-two);
+    font-size: var(--font-size-four);
     word-wrap: break-word;
     cursor: pointer;
 }
@@ -185,6 +187,10 @@ $search_input_size: 350px;
     border-right: transparent;
     border-bottom: transparent;
     cursor: pointer;
+
+    font-size: var(--font-size-four);
+    font-family: Comfortaa;
+    font-weight: bold;
 }
 
 .search-button:hover {

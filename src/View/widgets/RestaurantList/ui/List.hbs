@@ -1,20 +1,18 @@
 {{#each this}}
-    <div class="restaurant-card card" id="{{ID}}">
-        <img class="restaurant-card__image card__image" src="{{Icon}}" />
-        <div class="restaurant-card__info">
-            <h2 class="restaurant-card__info__title">{{Name}}</h2>
-            <div class="rating">
-                <img class="rating__gold-star" src="img/gold_star.svg" />
-                <div class="rating__container">
-                    <p class="rating__container__value">{{Rating}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="restaurant-card__delivery-info">
-            Доставка:
-            {{DeliveryPrice}}₽ &nbsp;
-            {{MinDeliveryTime}}-{{MaxDeliveryTime}}
-            минут
+<div class="restaurant-card card" id="{{ID}}">
+    <img class="restaurant-card__image card__image" src="{{Icon}}" />
+    <div class="restaurant-card__info">
+        <h2 class="restaurant-card__info__title">{{Name}}</h2>
+        <div class="restaurant-card__info__rating">
+            <img class="restaurant-card__info__rating__gold-star" src="img/gold_star.svg" />
+            <div class="restaurant-card__info__rating__value">{{Rating}}</div>
         </div>
     </div>
+    <div class="restaurant-card__delivery-info">
+        Доставка:
+        {{DeliveryPrice}}₽ &nbsp;
+        {{MinDeliveryTime}}-{{MaxDeliveryTime}}
+        минут
+    </div>
+</div>
 {{/each}}
