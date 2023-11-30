@@ -5,8 +5,8 @@
 .login-signup-form {
     display: flex;
 
-    width: 45%;
-    height: 40%;
+    width: 70%;
+    height: 55%;
     @media screen and (min-width: 641px) {
         width: 20%;
         height: 80vh;
@@ -45,6 +45,14 @@
     align-items: center;
     gap: 16px;
     align-self: stretch;
+}
+
+.login-signup-form__header__logo {
+    aspect-ratio: 246/38;
+    width: 80%;
+    @media screen and (min-width: 641px) {
+        width: auto;
+    }
 }
 
 .login-signup-form__header__title {
