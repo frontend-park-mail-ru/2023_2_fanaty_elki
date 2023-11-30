@@ -9,10 +9,18 @@
     width: 100%;
 }
 
+.payment-chooser__title {
+    font-size: var(--font-size-two);
+}
+
 .radio-chooser {
     display: flex;
     gap: 20px;
     width: 100%;
+}
+
+.radio-chooser__label {
+    font-size: var(--font-size-three);
 }
 
 .payment-chooser__online-card {
@@ -62,9 +70,11 @@
     align-items: flex-start;
     gap: 10px;
     align-self: stretch;
+
+    font-size: var(--font-size-two);
 }
 
 .cart__content__control__payment-approve__approve {
-    font-size: var(--font-size--three);
+    font-size: var(--font-size-three);
     width: 100%;
 }
