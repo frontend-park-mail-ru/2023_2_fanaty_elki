@@ -1,12 +1,20 @@
 // Шрифты
 
 :root {
-    --font-size-one: 2rem;
-    --font-size-two: 1.5rem;
-    --font-size-three: 1.17rem;
-    --font-size-four: 1rem;
-    --font-size-five: 0.83rem;
-    --font-size-six: 0.67rem;
+    --font-size-one: 5rem;
+    --font-size-two: 3.75rem;
+    --font-size-three: 2.925rem;
+    --font-size-four: 2.5rem;
+    --font-size-five: 2.075rem;
+    --font-size-six: 1.675rem;
+    @media screen and (min-width: 641px) {
+        --font-size-one: 2rem;
+        --font-size-two: 1.5rem;
+        --font-size-three: 1.17rem;
+        --font-size-four: 1rem;
+        --font-size-five: 0.83rem;
+        --font-size-six: 0.67rem;
+    }
 
     font-family: Comfortaa;
     font-weight: bold;
