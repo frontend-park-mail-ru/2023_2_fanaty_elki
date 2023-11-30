@@ -11,7 +11,7 @@
 
 .address-chooser__close {
     top: 25px;
-    left: 690px;
+    right: 30px;
 }
 
 .address-chooser__close__img {
@@ -31,19 +31,10 @@
 }
 
 .address-chooser__control {
-    display: flex;
-    align-items: flex-start;
-    gap: 27px;
     width: 123px;
     height: 44px;
-    border-radius: 17px;
-    background-color: var(--green);
-    border-width: 0;
-    cursor: pointer;
-    font-size: var(--font-size-two);
-    font-weight: 600;
-    word-wrap: break-word;
-    display: inline;
+   
+    font-size: var(--font-size-three);
     transition: all 0.2s ease-out;
 }
 
@@ -66,7 +57,7 @@
 
 .address-chooser__error_msg {
     font-family: Comfortaa;
-    font-size: var(--font-size-three);
+    font-size: var(--font-size-five);
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -94,7 +85,7 @@
 }
 
 .suggest__text.suggest-display-name {
-    font-size: var(--font-size-two);
+    font-size: var(--font-size-three);
     font-weight: 600;
     word-wrap: break-word;
     line-height: 20px;
@@ -102,7 +93,7 @@
 }
 
 .suggest__text.suggest-value {
-    font-size: var(--font-size-three);
+    font-size: var(--font-size-four);
     font-weight: 600;
     word-wrap: break-word;
     line-height: 20px;
