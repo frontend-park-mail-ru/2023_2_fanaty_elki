@@ -1,7 +1,7 @@
 @use "../../../../../public/index.scss" as index;
 @use "../../../shared/ui/Button/Button.scss" as button;
 
-.cart__content__control__payment{
+.cart__content__control__payment {
     width: 100%;
 }
 
@@ -12,6 +12,14 @@
     width: 100%;
 
     font-family: "Comfortaa";
+}
+
+.payment-chooser__title {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+
+    margin: 0;
 }
 
 .radio-chooser {
@@ -82,13 +90,36 @@
     align-items: flex-start;
     gap: 15px;
     align-self: stretch;
+
+    padding-top: 15px;
 }
 
-.cart__content__control__payment-approve__title {
+.cart__content__control__payment-approve__sum {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
     align-self: stretch;
+
+    margin: 0;
+}
+
+.cart__content__control__payment-approve__delivery {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+
+    margin: 0;
+}
+
+.cart__content__control__payment-approve__error {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+
+    color: red;
+    font-size: 17px;
+    min-height: 20px;
+
+    margin: 0;
 }
 
 .cart__content__control__payment-approve__approve {
@@ -109,4 +140,5 @@
     border-radius: 17px;
     font-family: "Comfortaa";
     font-size: 15px;
+    font-weight: 700;
 }

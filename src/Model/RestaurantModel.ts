@@ -103,7 +103,6 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
             console.error("Не удалось загрузить блюда ресторана", id);
             console.error(e);
         }
-        console.log(RestaurantEvent.LOADED_REST);
         this.events.notify(RestaurantEvent.LOADED_REST);
     }
     /**
