@@ -1,5 +1,3 @@
-@use "../../../../../public/index.scss" as index;
-
 .restaurant-header {
     display: flex;
     justify-content: space-between;
@@ -25,17 +23,17 @@
     width: 65%;
     align-items: center;
     cursor: pointer;
-    background-color: index.$light-gray;
+    background-color: var(--light-gray);
     border-radius: 20px;
     justify-content: center;
 }
 
 .restaurant-header__control__back-containver:hover {
-    background-color: index.$darker-light-gray;
+    background-color: var(--darkest-light-gray);
 }
 
 .restaurant-header__control__back-containver:active {
-    background-color: index.$darkest-light-gray;
+    background-color: var(--darkest-light-gray);
 }
 
 .restaurant-header__control__back-containver__back {
@@ -103,7 +101,6 @@
 .restaurnt-header__control__info__restaurant__comments {
     display: flex;
     width: 100%;
-    font-weight: 600;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -112,7 +109,6 @@
     display: flex;
     gap: 25px;
     width: 100%;
-    font-weight: 700;
 }
 
 .restaurant-header__icon {
@@ -134,7 +130,7 @@
     margin: 0 8px 2px;
     content: "";
     display: inline-block;
-    background: #9E9B98;
+    background: #9e9b98;
     vertical-align: middle;
 }
 

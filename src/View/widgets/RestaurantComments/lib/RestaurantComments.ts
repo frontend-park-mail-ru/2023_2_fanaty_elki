@@ -1,5 +1,4 @@
 import { CommentEvent } from "../../../../Model/CommentModel";
-import { RestaurantEvent } from "../../../../Model/RestaurantModel";
 import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { IWidget } from "../../../types";
@@ -7,7 +6,6 @@ import { CommentForm } from "../entities/CommentForm";
 import { CommentsList } from "../entities/CommentsList";
 
 import restaurantCommentsTemplate from "../ui/RestaurantComments.hbs";
-import "../ui/RestaurantComments.scss";
 
 export class RestaurantComments extends IWidget implements Listenable<UIEvent> {
     private events_: EventDispatcher<UIEvent>;

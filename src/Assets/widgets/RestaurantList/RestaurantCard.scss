@@ -1,75 +1,73 @@
-@use "../../../../../public/index.scss" as index;
-$card-size: 23.5%;
-$list-size: 1070px;
-$list-padding: 1em;
-
 .restaurant-card {
     display: flex;
     flex-direction: column;
-    width: $card-size;
     justify-content: space-around;
-    background-color: index.$light-gray;
-    border-radius: 20px;
 
-    padding-bottom: 10px;
-    margin-bottom: 25px; //calc(($list-size - 4*$card-size - 2*$list-padding)/3);
+    gap: 10px;
+
+    background-color: var(--light-gray);
+    border-radius: 17px;
 
     cursor: pointer;
 
     &:hover {
-        background-color: #ededed;
+        background-color: var(--darkest-light-gray);
     }
 }
 
-.restaurant-card__image {
-    width: 100%;
-    aspect-ratio: 2/1;
-    object-fit: cover;
+// .restaurant-card__image {
+//     width: 100%;
+//     aspect-ratio: 2/1;
+//     object-fit: cover;
 
-    border-radius: 20px;
-    margin: 0 auto;
-}
+//     border-radius: 20px;
+//     margin: 0 auto;
+// }
 
 .restaurant-card__info {
     display: flex;
-    padding: 0 15px;
     justify-content: space-between;
-    font-size: 15px;
-    font-weight: 700;
-    word-wrap: break-word;
+    align-items: center;
+
+    width: 100%;
 }
 
 .restaurant-card__info__title {
-    display: inline;
-    font-size: 15px;
-    font-weight: 700;
+    display: flex;
+
+    margin: 0;
+    width: 70%;
+
+    font-size: var(--font-size-two);
     word-wrap: break-word;
 }
 
-.rating {
+.restaurant-card__info__rating {
     display: flex;
+    justify-content: flex-end;
+
+    gap: 5px;
+
+    width: 30%;
 }
 
-.rating__gold-star {
-    margin-right: 5px;
+.restaurant-card__info__rating__gold-star {
+    object-fit: contain;
+    width: 15%;
+    aspect-ratio: 1/1;
 }
 
-.rating__container {
-    margin: auto 0;
-    padding-top: 2px;
-}
-
-.rating__container__value {
-    display: inline;
-    margin: 0;
+.restaurant-card__info__rating__value {
+    display: flex;
+    font-size: var(--font-size-two);
 }
 
 .restaurant-card__delivery-info {
-    font-size: 10px;
-    font-weight: 700;
-    word-wrap: break-word;
-    color: index.$middle-gray;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    width: 100%;
+
+    color: var(--middle-gray);
 }

@@ -1,5 +1,3 @@
-@use "../../../../../public/index.scss" as index;
-
 $search_button_size: 100px;
 $search_input_size: 350px;
 
@@ -7,7 +5,7 @@ $search_input_size: 350px;
     margin: 0 auto;
     gap: 10px;
     min-height: 88px;
-    background-color: index.$light-gray;
+    background-color: var(--light-gray);
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -39,11 +37,10 @@ $search_input_size: 350px;
     height: 100%;
     padding-left: 10px;
     border: none;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: var(--font-size-two);
     word-wrap: break-word;
     line-height: 35px;
-    font-family: index.$font-family;
+    font-family: Comfortaa;
 
     &:focus {
         border: none;
@@ -61,7 +58,7 @@ $search_input_size: 350px;
     border-width: 1px;
     justify-content: flex-start;
     cursor: pointer;
-    font-family: index.$font-family;
+    font-family: Comfortaa;
 }
 
 .navbar__fields__address__icon {
@@ -74,7 +71,7 @@ $search_input_size: 350px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: index.$gray;
+    color: var(--gray);
     font-size: 15px;
     font-weight: 600;
     word-wrap: break-word;
@@ -95,7 +92,7 @@ $search_input_size: 350px;
     width: 44px;
     height: 44px;
     border-radius: 44px;
-    background-color: index.$green;
+    background-color: var(--green);
     border-width: 0;
     cursor: pointer;
 }
@@ -106,9 +103,7 @@ $search_input_size: 350px;
 }
 
 .navbar__fields__backet__sum {
-    font-size: 13px;
-    font-weight: 700;
-    font-family: "Comfortaa";
+    font-size: var(--font-size-three);
     margin: 0;
 }
 
@@ -116,17 +111,15 @@ $search_input_size: 350px;
     width: 123px;
     height: 44px;
     border-radius: 17px;
-    background-color: index.$green;
+    background-color: var(--green);
     border-width: 0;
     cursor: pointer;
 }
 
 .navbar__signin__title {
-    font-size: 17px;
-    font-weight: 600;
+    font-size: var(--font-size-two);
     word-wrap: break-word;
     display: inline;
-    font-family: index.$font-family;
 }
 
 .navbar__name-container {
@@ -138,10 +131,8 @@ $search_input_size: 350px;
 
 .navbar__name-container__name {
     display: inline;
-    font-size: 15px;
-    font-weight: 700;
+    font-size: var(--font-size-two);
     word-wrap: break-word;
-    font-family: index.$font-family;
     cursor: pointer;
 }
 
@@ -149,7 +140,7 @@ $search_input_size: 350px;
     width: 44px;
     height: 44px;
     border-radius: 17px;
-    background-color: index.$green;
+    background-color: var(--green);
     border-width: 0;
     cursor: pointer;
 }
@@ -179,7 +170,7 @@ $search_input_size: 350px;
     align-items: center;
     display: flex;
     border: none;
-    background-color: index.$white;
+    background-color: var(--white);
 }
 
 .navbar__fields__search__img {
@@ -187,11 +178,9 @@ $search_input_size: 350px;
 }
 
 .search-button {
-    font-weight: 700;
-    font-family: 'Comfortaa';
     width: $search_button_size;
-    background-color: index.$green;
-    border-left: 1px solid index.$black;
+    background-color: var(--green);
+    border-left: 1px solid var(--gray);
     border-top: transparent;
     border-right: transparent;
     border-bottom: transparent;
@@ -199,9 +188,9 @@ $search_input_size: 350px;
 }
 
 .search-button:hover {
-    background-color: index.$darker-green;
+    background-color: var(--darker-green);
 }
 
 .search-button:active {
-    background-color: index.$darkest-green;
+    background-color: var(--darkest-green);
 }

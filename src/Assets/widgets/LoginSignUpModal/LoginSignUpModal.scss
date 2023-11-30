@@ -1,5 +1,3 @@
-@use "../../../../../public/index.scss" as index;
-
 .page {
     width: 100%;
 }
@@ -16,19 +14,8 @@
     min-height: 665px;
 
     border-radius: 45px;
-    border: 1px solid index.$black;
-    background: index.$white;
-}
-
-.login-signup-form__back, .login-signup-form__close {
-    position: absolute;
-    height: 15px;
-    width: 15px;
-
-    background:none;
-    border: none;
-
-    cursor: pointer;
+    border: 1px solid var(--gray);
+    background: var(--white);
 }
 
 .login-signup-form__back {
@@ -41,9 +28,8 @@
     left: 350px;
 }
 
-.login-signup-form__back__img, .login-signup-form__close__img {
-    height: 100%;
-    object-fit: contain;
+.login-signup-form__back__img,
+.login-signup-form__close__img {
 }
 
 .login-signup-form__header {
@@ -56,8 +42,8 @@
 }
 
 .login-signup-form__header__title {
-    color: index.$gray;
-    font-size: 15px;
+    color: var(--gray);
+    font-size: var(--font-size-two);
     font-weight: 400;
     word-wrap: break-word;
     text-align: center;
@@ -82,8 +68,8 @@
 }
 
 .login-signup-form__form__input-container__msg {
-    color: index.$red;
-    font-size: 17px;
+    color: var(--red);
+    font-size: var(--font-size-three);
     font-style: normal;
     font-weight: 400;
     line-height: normal;

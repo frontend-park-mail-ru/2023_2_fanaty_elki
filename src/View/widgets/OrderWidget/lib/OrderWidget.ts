@@ -3,11 +3,8 @@ import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { IWidget } from "../../../types";
 
 import orderWidgetTemplate from "../ui/OrderWidget.hbs";
-import "../ui/OrderWidget.scss";
-import "../ui/Modal.scss";
 
 import orderProductsTemplate from "../ui/OrderProducts.hbs";
-import "../ui/OrderProducts.scss";
 import { OrderEvent } from "../../../../Model/OrderModel";
 
 export class OrderWidget extends IWidget implements Listenable<UIEvent> {

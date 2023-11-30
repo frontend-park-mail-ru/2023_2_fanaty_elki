@@ -10,7 +10,6 @@ import { OrderWidget } from "../../../widgets/OrderWidget";
 import { ProfileWidget } from "../../../widgets/ProfileWidget";
 
 import profilePageTemplate from "../ui/ProfilePage.hbs";
-import "../ui/ProfilePage.scss";
 
 export class ProfilePage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;

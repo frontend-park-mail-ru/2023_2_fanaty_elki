@@ -1,6 +1,3 @@
-@use "../../../shared/ui/Button/Button.scss" as button;
-@use "../../../../../public/index.scss" as index;
-
 .cart-item {
     display: flex;
     justify-content: space-between;
@@ -25,8 +22,7 @@
     display: flex;
     width: 40%;
     justify-content: flex-start;
-    font-size: 17px;
-    font-weight: 700;
+    font-size: var(--font-size-two);
 }
 
 .cart-item__info__count-control {
@@ -38,27 +34,14 @@
 }
 
 .cart-item__info__count-control__button {
-    display: flex;
     width: 40px;
     height: 40px;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
-
-    @include button.button-style(
-        $color: index.$gray,
-        $background-color: index.$green,
-        $border: none
-    );
-
-    border-radius: 17px;
 }
 
 .cart-item__info__count-control__count {
     display: flex;
     align-items: center;
-    font-size: 17px;
-    font-weight: 700;
+    font-size: var(--font-size-two);
 }
 
 .cart-item__price {
@@ -66,8 +49,7 @@
     align-items: center;
     justify-content: center;
     width: 15%;
-    font-size: 17px;
-    font-weight: 700;
+    font-size: var(--font-size-two);
 }
 
 .empty-cart__title {

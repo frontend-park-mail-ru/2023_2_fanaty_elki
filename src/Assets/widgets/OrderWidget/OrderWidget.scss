@@ -8,21 +8,11 @@
 }
 
 .order-widget__close {
-    position: absolute;
     top: 25px;
     left: 690px;
-    height: 15px;
-    width: 15px;
-
-    background: none;
-    border: none;
-
-    cursor: pointer;
 }
 
 .order-widget__close__img {
-    height: 100%;
-    object-fit: contain;
 }
 
 .order-widget__header {
@@ -35,7 +25,7 @@
     width: 100%;
 }
 
-@mixin header-label($color: #333) {
+@mixin header-label($color: var(--gray)) {
     display: flex;
     justify-content: center;
     align-content: center;
@@ -53,7 +43,7 @@
 }
 
 .order-widget__header__status {
-    @include header-label($color: #54c45f);
+    @include header-label($color: var(--green));
 }
 
 .order-widget__order {

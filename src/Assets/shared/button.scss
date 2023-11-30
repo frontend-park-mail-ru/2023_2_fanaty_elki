@@ -45,3 +45,19 @@
         );
     }
 }
+
+.control-button {
+    position: absolute;
+    height: 15px;
+    width: 15px;
+
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
+
+.control-button__img {
+    height: 100%;
+    object-fit: contain;
+}

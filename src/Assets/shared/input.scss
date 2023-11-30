@@ -1,7 +1,5 @@
 // Класс инпута и textarea определяющий: цвет, шрифт, паддинги, display
 
-@use "../../../../../public/index.scss" as index;
-
 .input-with-msg {
     display: flex;
     flex-direction: column;
@@ -9,7 +7,8 @@
     width: 100%;
 }
 
-@mixin input-style($border: 1px solid index.$gray) {
+@mixin input-style($border: 1px solid var(--gray)) {
+    border-radius: 17px;
     border: $border;
 }
 
@@ -20,15 +19,9 @@
     align-items: center;
     width: 100%;
 
-    border-radius: 17px;
-    border: 1px solid index.$gray;
-
-    color: index.$gray;
+    color: var(--gray);
     font-family: Comfortaa;
-    font-size: 17px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    font-size: var(--font-size-two);
 
     &_default {
         @extend .input-with-msg__input;
@@ -37,26 +30,25 @@
 
     &_error {
         @extend .input-with-msg__input;
-        @include input-style($border: 1px solid index.$red);
+        @include input-style($border: 1px solid var(--red));
     }
 }
 
 .input-with-msg__msg {
-    align-self: stretch;
+    display: flex;
+
+    width: 100%;
 
     font-family: Comfortaa;
-    font-size: 11px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    font-size: var(--font-size-three);
 
     &__default {
         @extend .input-with-msg__msg;
-        color: index.$gray;
+        color: var(--gray);
     }
 
     &_error {
         @extend .input-with-msg__msg;
-        color: index.$red;
+        color: var(--red);
     }
 }

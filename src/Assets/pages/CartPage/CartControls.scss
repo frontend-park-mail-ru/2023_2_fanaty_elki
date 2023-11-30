@@ -1,7 +1,4 @@
-@use "../../../../../public/index.scss" as index;
-@use "../../../shared/ui/Button/Button.scss" as button;
-
-.cart__content__control__payment{
+.cart__content__control__payment {
     width: 100%;
 }
 
@@ -10,8 +7,6 @@
     flex-direction: column;
     gap: 10px;
     width: 100%;
-
-    font-family: "Comfortaa";
 }
 
 .radio-chooser {
@@ -36,14 +31,8 @@
 }
 
 .payment-chooser__online-card__card-data__card-number {
-    display: flex;
     height: 65px;
     width: 100%;
-    padding: 10px 10px 10px 25px;
-    border-radius: 17px;
-
-    font-family: "Comfortaa";
-    font-size: 17px;
 }
 
 .payment-chooser__online-card__card-valid-thru-cvv {
@@ -54,25 +43,13 @@
 }
 
 .payment-chooser__online-card__card-data__card-valid-thru {
-    display: flex;
     width: 70%;
     height: 65px;
-    padding: 10px 10px 10px 25px;
-    border-radius: 17px;
-
-    font-family: "Comfortaa";
-    font-size: 17px;
 }
 
 .payment-chooser__online-card__card-data__card-cvv {
-    display: flex;
     height: 65px;
     width: 25%;
-    padding: 10px 10px 10px 25px;
-    border-radius: 17px;
-
-    font-family: "Comfortaa";
-    font-size: 17px;
 }
 
 .cart__content__control__payment-approve {
@@ -92,21 +69,6 @@
 }
 
 .cart__content__control__payment-approve__approve {
-    display: flex;
-    height: 50px !important;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    align-self: stretch;
-
-    @include button.button-style(
-        $color: index.$gray,
-        $background-color: index.$green,
-        $border: none
-    );
-
-    border-radius: 17px;
-    font-family: "Comfortaa";
-    font-size: 15px;
+    height: 50px;
+    width: 100%;
 }
