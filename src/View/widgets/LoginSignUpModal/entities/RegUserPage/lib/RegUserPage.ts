@@ -23,8 +23,6 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
     private closeButton: HTMLElement;
     private backButton: HTMLElement;
 
-    private messageBox: HTMLElement;
-
     private emailMessageBox: HTMLElement;
     private emailInput: HTMLInputElement;
     private usernameMessageBox: HTMLElement;
@@ -48,10 +46,6 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
         );
         this.backButton = <HTMLElement>(
             this.element.querySelector("#reg-user-page__back")
-        );
-
-        this.messageBox = <HTMLElement>(
-            this.element.querySelector("#reg-user-page__msg")
         );
 
         this.emailMessageBox = <HTMLElement>(
@@ -170,7 +164,6 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
     }
 
     clearMessage() {
-        this.messageBox.innerText = "";
         this.emailMessageBox.innerText = "";
         this.usernameMessageBox.innerText = "";
         this.passwordMessageBox.innerText = "";

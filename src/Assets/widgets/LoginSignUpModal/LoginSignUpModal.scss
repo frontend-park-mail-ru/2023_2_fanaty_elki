@@ -3,7 +3,8 @@
 }
 
 .login-signup-form {
-    width: 400px;
+    width: 20%;
+    height: 80vh;
     display: flex;
     padding: 49px 65px 49px 65px;
     flex-direction: column;
@@ -11,7 +12,6 @@
     align-items: center;
     gap: 56px;
     flex-shrink: 0;
-    min-height: 665px;
 
     border-radius: 45px;
     border: 1px solid var(--gray);
@@ -25,7 +25,7 @@
 
 .login-signup-form__close {
     top: 25px;
-    left: 350px;
+    right: 30px;
 }
 
 .login-signup-form__back__img,
@@ -43,7 +43,7 @@
 
 .login-signup-form__header__title {
     color: var(--gray);
-    font-size: var(--font-size-two);
+    font-size: var(--font-size-four);
     font-weight: 400;
     word-wrap: break-word;
     text-align: center;
@@ -55,7 +55,7 @@
     justify-content: center;
     align-items: center;
     gap: 56px;
-    align-self: stretch;
+    width: 100%;
 }
 
 .login-signup-form__form__input-container {
@@ -79,6 +79,14 @@
     padding-bottom: 15px;
 }
 
+.login-signup-form__form__input-container__input-container {
+    width: 100%;
+}
+
+.login-signup-form__form__input-container__input-container__input {
+    align-self: stretch;
+}
+
 .login-signup-form__form__input-container__input-with-msg__msg {
     min-height: 26px;
 }
@@ -90,6 +98,11 @@
     align-items: center;
     gap: 20px;
     align-self: stretch;
+}
+
+.login-signup-form__form__button-container__button {
+    align-self: stretch;
+    font-size: var(--font-size-three);
 }
 
 .display-none {

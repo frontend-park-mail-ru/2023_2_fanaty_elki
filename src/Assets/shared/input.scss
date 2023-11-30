@@ -4,7 +4,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 100%;
 }
 
 @mixin input-style($border: 1px solid var(--gray)) {
@@ -14,14 +13,12 @@
 
 .input-with-msg__input {
     display: flex;
-    height: 44px;
-    padding: 10px 10px 10px 25px;
+    padding: 12px 10px 12px 25px;
     align-items: center;
-    width: 100%;
 
     color: var(--gray);
     font-family: Comfortaa;
-    font-size: var(--font-size-two);
+    font-size: var(--font-size-three);
 
     &_default {
         @extend .input-with-msg__input;
@@ -40,7 +37,8 @@
     width: 100%;
 
     font-family: Comfortaa;
-    font-size: var(--font-size-three);
+    font-weight: normal;
+    font-size: var(--font-size-six);
 
     &__default {
         @extend .input-with-msg__msg;
