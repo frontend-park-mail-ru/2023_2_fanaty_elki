@@ -4,21 +4,34 @@
 
 .cart__content {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    @media screen and (min-width: 641px) {
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }
 
 .cart__content__goods {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 47.5%;
-    overflow-y: scroll;
-    height: 70vh;
+
+    width: 100%;
+    @media screen and (min-width: 641px) {
+        width: 47.5%;
+        overflow-y: scroll;
+        height: 70vh;
+    }
 }
 
 .cart__content__control {
     display: flex;
-    width: 47.5%;
+
+    width: 100%;
+    @media screen and (min-width: 641px) {
+        width: 47.5%;
+    }
+
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;

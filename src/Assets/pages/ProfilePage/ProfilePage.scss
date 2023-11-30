@@ -5,16 +5,29 @@
 
 .profile__content {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    @media screen and (min-width: 641px) {
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }
 
 .profile__content__user-data {
     display: flex;
-    width: 45%;
+
+    width: 100%;
+    @media screen and (min-width: 641px) {
+        width: 45%;
+    }
+
     flex-direction: column;
 }
 
 .profile__content__orders {
     display: flex;
-    width: 45%;
+
+    width: 100%;
+    @media screen and (min-width: 641px) {
+        width: 45%;
+    }
 }
