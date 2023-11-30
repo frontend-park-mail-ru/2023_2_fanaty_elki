@@ -10,6 +10,18 @@ import { SearchPage } from "../pages/SearchPage";
 import { UserEvent } from "../../Model/UserModel";
 import { VIEW_EVENT_TYPE } from "../../Controller/Controller";
 import { OrderEvent } from "../../Model/OrderModel";
+import { AppEvent } from "../../Model/AppModel";
+import { StatusMessage } from "./entities/StatusMessage";
+import { Notifier, Value } from "./entities/Notification";
+
+const enum Messages {
+    LOGIN_FIRST = "Нужно залогиниться",
+    OFFLINE = "Соединение потеряно",
+    BACK_ONLINE = "Соединение восстановлено",
+    NOT_ALLOWED = "Сейчас это невозможно",
+    USER_UPDATED = "Данные сохранены",
+    ORDER_CREATED = "Заказ создан",
+}
 
 export class View {
     private root: HTMLElement;
@@ -19,6 +31,8 @@ export class View {
     private profilePage: ProfilePage;
     private searchPage: SearchPage;
     private router_: Router;
+    private statusMessage: StatusMessage;
+    private notifier: Notifier;
     constructor() {
         this.root = <HTMLElement>document.querySelector("#root")!;
 
@@ -59,6 +73,17 @@ export class View {
             );
         };
 
+        this.statusMessage = new StatusMessage(
+            Messages.BACK_ONLINE,
+            Messages.OFFLINE,
+        );
+        document.body.appendChild(this.statusMessage.element);
+        this.statusMessage.changeState(model.appModel.isOnline());
+
+        this.notifier = new Notifier();
+        document.body.appendChild(this.notifier.element);
+
+        model.appModel.events.subscribe(this.updateAppEvent.bind(this));
         controller.handleEvent({
             type: VIEW_EVENT_TYPE.AUTH,
             data: null,
@@ -108,7 +133,7 @@ export class View {
                         window.location.pathname == ROUTES.cart)
                 ) {
                     this.router_.redirect(ROUTES.main);
-                    alert("Нужно залогиниться");
+                    this.notifier.show(Messages.LOGIN_FIRST, Value.ERROR);
                 } else {
                     this.router_.route(
                         window.location.pathname,
@@ -125,6 +150,14 @@ export class View {
                     this.router_.redirect(ROUTES.main);
                 }
                 break;
+            case UserEvent.USER_UPDATE:
+                if (!model.userModel.getErrorMsg()) {
+                    this.notifier.show(Messages.USER_UPDATED, Value.EVENT);
+                }
+                break;
+            case UserEvent.OFFLINE:
+                this.notifier.show(Messages.NOT_ALLOWED, Value.ERROR);
+                break;
             default:
                 break;
         }
@@ -132,7 +165,18 @@ export class View {
 
     updateOrderEvent(event?: OrderEvent) {
         if (event === OrderEvent.CREATE_ORDER) {
+            this.notifier.show(Messages.ORDER_CREATED, Value.EVENT);
             this.router_.redirect(ROUTES.profile);
+        } else if (event === OrderEvent.OFFLINE) {
+            this.notifier.show(Messages.NOT_ALLOWED, Value.ERROR);
+        }
+    }
+
+    updateAppEvent(event?: AppEvent) {
+        if (event === AppEvent.OFFLINE) {
+            this.statusMessage.changeState(false);
+        } else if (event === AppEvent.ONLINE) {
+            this.statusMessage.changeState(true);
         }
     }
 }
