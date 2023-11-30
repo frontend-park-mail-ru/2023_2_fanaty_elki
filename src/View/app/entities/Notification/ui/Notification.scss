@@ -1,0 +1,40 @@
+.notification-container {
+    gap: 10px;
+    position: fixed;
+    top: 2%;
+    right: 3%;
+    width: 15%;
+    height: fit-content;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    max-height: 90%;
+    overflow: hidden;
+}
+
+.notification.js_notification {
+    padding: 10px;
+    text-align: center;
+    border-radius: 3px;
+    font-weight: 700;
+    border: 1px solid;
+    opacity: 1;
+    transition: opacity .2s;
+}
+
+.notification.js_notification[current-state=DISABLED] {
+    opacity: 0;
+}
+
+.error-notification {
+    background-color: #ff3333;
+}
+
+.event-notification {
+    background-color: #54c45f;
+}
+
+.nothing-notification {
+    background-color: #8c8c8c;
+    color: white;
+}

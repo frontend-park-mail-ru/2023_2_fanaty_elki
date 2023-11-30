@@ -1,0 +1,26 @@
+.status-message {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    display: grid;
+    text-align: center;
+    align-items: center;
+    height: 0;
+    transition: height 0.2s;
+    z-index: 100000;
+}
+
+.status-message[current-state=ONLINE] {
+    display: none;
+}
+
+.status-message[current-state=BACK_ONLINE] {
+    background-color: #54c45f;
+    transition-delay: 2.0s;
+}
+
+.status-message[current-state=OFFLINE] {
+    background-color: #8c8c8c;
+    height: 7%;
+}

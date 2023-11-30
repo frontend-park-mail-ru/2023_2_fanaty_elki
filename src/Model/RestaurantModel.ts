@@ -89,6 +89,16 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
         return this.categories;
     }
 
+    getDish(id: number) {
+        for (const cat of this.currentRestaurant.Categories) {
+            for (const dish of cat.Products) {
+                if (dish.ID === +id) {
+                    return dish;
+                }
+            }
+        }
+    }
+
     async setRestaurant(id: number) {
         try {
             const restaurant = await Api.getRestaurant(id);

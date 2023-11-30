@@ -1,5 +1,4 @@
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
-import { UserEvent } from "../../../../Model/UserModel";
 import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { Page } from "../../../types";
@@ -27,8 +26,6 @@ export class ProfilePage extends Page implements Listenable<UIEvent> {
     constructor() {
         super(profilePageTemplate(), "#profile_page");
         this.events_ = new EventDispatcher<UIEvent>();
-
-        model.userModel.events.subscribe(this.updateUserEvent.bind(this));
 
         this.navbar = new Navbar();
         this.element.querySelector("#navbar")!.appendChild(this.navbar.element);
@@ -71,17 +68,10 @@ export class ProfilePage extends Page implements Listenable<UIEvent> {
         this.events.notify(event);
     }
 
-    updateUserEvent(event?: UserEvent) {
-        if (event == UserEvent.USER_UPDATE) {
-            if (!model.userModel.getErrorMsg()) {
-                alert("Данные сохранены");
-            }
-        }
-    }
-
     load() {
         this.navbar.load();
         this.profile.load();
         this.orderList.load();
+        window.scrollTo(0, 0);
     }
 }

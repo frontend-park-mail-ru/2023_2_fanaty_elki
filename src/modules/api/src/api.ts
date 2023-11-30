@@ -69,17 +69,23 @@ function checkResponse(
 async function ajax(url: string, params: RequestInit) {
     if (params.method !== REQUEST_METHOD.GET) {
         const csrf_config: ApiElementConfig = apiConfig.api.csrf;
-        const csrfResponse = await fetch(
-            `${apiConfig.backend}${csrf_config.url}`,
-            csrf_config.params(""),
-        );
+        try {
+            const csrfResponse = await fetch(
+                `${apiConfig.backend}${csrf_config.url}`,
+                csrf_config.params(""),
+            );
 
-        const csrfToken = csrfResponse.headers.get("X-CSRF-Token");
-        if (csrfToken !== null) {
-            if (!params.headers) {
-                params.headers = {};
+            const csrfToken = csrfResponse.headers.get("X-CSRF-Token");
+            if (csrfToken !== null) {
+                if (!params.headers) {
+                    params.headers = {};
+                }
+                params.headers["X-Csrf-Token"] = csrfToken;
             }
-            params.headers["X-Csrf-Token"] = csrfToken;
+        } catch {
+            console.log(
+                "Не удалось получить csrf токен, основной запрос уйдет без него",
+            );
         }
     }
     try {
