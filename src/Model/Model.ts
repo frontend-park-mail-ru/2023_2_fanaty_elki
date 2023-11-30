@@ -20,7 +20,7 @@ export class Model {
         this.restaurantModel_ = new RestaurantModel();
         this.userModel_ = new UserModel();
         this.orderModel_ = new OrderModel();
-        this.cartModel_ = new CartModel();
+        this.cartModel_ = new CartModel(this.appModel);
         this.commentModel_ = new CommentModel();
         this.searchModel_ = new SearchModel();
     }

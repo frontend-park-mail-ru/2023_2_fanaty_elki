@@ -26,5 +26,8 @@ export class AppModel implements Listenable<AppEvent> {
     updateOnlineStatus() {
         this.status = navigator.onLine;
         this.events_.notify(this.status ? AppEvent.ONLINE : AppEvent.OFFLINE);
+        navigator.serviceWorker.controller?.postMessage(
+            this.status ? AppEvent.ONLINE : AppEvent.OFFLINE,
+        );
     }
 }

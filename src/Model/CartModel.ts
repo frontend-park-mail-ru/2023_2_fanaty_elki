@@ -1,5 +1,6 @@
 import { Api } from "../modules/api/src/api";
 import { EventDispatcher, Listenable } from "../modules/observer";
+import { AppEvent, AppModel } from "./AppModel";
 import { Dish } from "./RestaurantModel";
 
 export type CartPosition = {
@@ -20,6 +21,7 @@ export const enum CartEvent {
  */
 export class CartModel implements Listenable<CartEvent> {
     private cart: Cart;
+    requestBuffer: Map<number, number>;
 
     private events_: EventDispatcher<CartEvent>;
     get events(): EventDispatcher<CartEvent> {
@@ -29,10 +31,32 @@ export class CartModel implements Listenable<CartEvent> {
     /**
      * Конструктор
      */
-    constructor() {
+    constructor(appModel: AppModel) {
         this.events_ = new EventDispatcher<CartEvent>();
         this.cart = [];
-        console.log(this.cart);
+        this.requestBuffer = new Map<number, number>();
+        appModel.events.subscribe(this.clearBuffer.bind(this));
+    }
+
+    async clearBuffer(event?: AppEvent) {
+        if (event !== AppEvent.ONLINE) return;
+        try {
+            for (const [id, value] of this.requestBuffer) {
+                if (value > 0) {
+                    for (let i = 0; i < value; i++) {
+                        await Api.addDishToCart(id);
+                    }
+                } else if (value < 0) {
+                    for (let i = value; i < 0; i++) {
+                        await Api.removeDishFromCart(id);
+                    }
+                }
+            }
+        } catch (e) {
+            console.log("Не удалось синхронизировать корзину");
+        }
+        this.requestBuffer.clear();
+        this.setCart();
     }
 
     async setCart() {
@@ -52,7 +76,12 @@ export class CartModel implements Listenable<CartEvent> {
 
     async increase(id: number) {
         try {
-            await Api.addDishToCart(id);
+            if (!model.appModel.isOnline()) {
+                const val = this.requestBuffer.get(id);
+                this.requestBuffer.set(id, val ? val + 1 : 1);
+            } else {
+                await Api.addDishToCart(id);
+            }
             const lineItem = this.cart.find((x) => x.Product.ID === +id);
             if (lineItem) {
                 lineItem.ItemCount++;
@@ -67,17 +96,22 @@ export class CartModel implements Listenable<CartEvent> {
                     });
                 }
             }
-            console.log(this.cart);
         } catch (e) {
             console.error("Неудачное добавление");
             console.error(e);
         }
         this.events.notify();
+        console.log("buffer: ", this.requestBuffer);
     }
 
     async decrease(id: number) {
         try {
-            await Api.removeDishFromCart(id);
+            if (!model.appModel.isOnline()) {
+                const val = this.requestBuffer.get(id);
+                this.requestBuffer.set(id, val ? val - 1 : -1);
+            } else {
+                await Api.removeDishFromCart(id);
+            }
             const lineItem = this.cart.find((x) => x.Product.ID === +id);
             if (lineItem) {
                 lineItem.ItemCount--;
@@ -92,6 +126,7 @@ export class CartModel implements Listenable<CartEvent> {
             console.error(e);
         }
         this.events.notify();
+        console.log("buffer: ", this.requestBuffer);
     }
 
     async clearCart() {
