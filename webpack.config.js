@@ -22,14 +22,14 @@ module.exports = ({ development }) => ({
                 test: /\.hbs$/i,
                 use: ["handlebars-loader"],
             },
-            {
-                test: /\.(png|jpe?g|gif|ico)$/i,
-                use: [
-                    {
-                        loader: "file-loader",
-                    },
-                ],
-            },
+            // {
+            //     test: /\.(png|jpe?g|gif|ico)$/i,
+            //     use: [
+            //         {
+            //             loader: "file-loader",
+            //         },
+            //     ],
+            // },
             {
                 test: /\.(ts|js)$/,
                 exclude: /node_modules/,
