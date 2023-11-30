@@ -1,7 +1,7 @@
 .profile-info {
     display: flex;
     flex-direction: column;
-    gap: 41px;
+    gap: 35px;
 
     width: 100%;
 }
@@ -92,6 +92,11 @@
     width: 45% !important;
 }
 
+.profile-info__control__field__input {
+    align-self: stretch;   
+}
+
+
 .profile-info__control__field__value__msg {
     min-height: 13px;
 }
@@ -102,7 +107,7 @@
     min-height: 35px;
 
     color: var(--red);
-    font-size: var(--font-size-two);
+    font-size: var(--font-size-four);
 }
 
 .profile-info__submit {
