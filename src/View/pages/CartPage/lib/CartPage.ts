@@ -12,6 +12,7 @@ import "../ui/CartControls.scss";
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { OrderEvent } from "../../../../Model/OrderModel";
 import { cartElement, paymentConfig } from "./config";
+import { Cart } from "../../../../Model/CartModel";
 
 export class CartPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
@@ -73,7 +74,7 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     }
 
     updateCart() {
-        let cart = model.cartModel.getCart();
+        let cart: Cart | null = model.cartModel.getCart();
         if (cart) {
             cart.sort((a, b) => {
                 return a.Product.ID - b.Product.ID;
