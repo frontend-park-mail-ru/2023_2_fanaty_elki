@@ -1,0 +1,76 @@
+.restaurant-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    gap: 10px;
+
+    background-color: var(--light-gray);
+    border-radius: 17px;
+
+    padding-bottom: 5px;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--darkest-light-gray);
+    }
+}
+
+// .restaurant-card__image {
+//     width: 100%;
+//     aspect-ratio: 2/1;
+//     object-fit: cover;
+
+//     border-radius: 20px;
+//     margin: 0 auto;
+// }
+
+.restaurant-card__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 5px 0 5px;
+}
+
+.restaurant-card__info__title {
+    display: flex;
+
+    margin: 0;
+    width: 70%;
+
+    font-size: var(--font-size-three);
+    word-wrap: break-word;
+}
+
+.restaurant-card__info__rating {
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 5px;
+
+    width: 30%;
+}
+
+.restaurant-card__info__rating__gold-star {
+    object-fit: contain;
+    width: 15%;
+    aspect-ratio: 1/1;
+}
+
+.restaurant-card__info__rating__value {
+    display: flex;
+    font-size: var(--font-size-three);
+}
+
+.restaurant-card__delivery-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    color: var(--middle-gray);
+    font-size: var(--font-size-six);
+}

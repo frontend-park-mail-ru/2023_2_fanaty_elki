@@ -11,7 +11,6 @@ import { Navbar } from "../../../widgets/Navbar";
 import { RestaurantComments } from "../../../widgets/RestaurantComments";
 import { RestaurantHeader } from "../../../widgets/RestaurantHeader";
 import RestaurantPageTemplate from "../ui/RestaurantView.hbs";
-import "../ui/RestaurantView.scss";
 
 export class RestaurantPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;

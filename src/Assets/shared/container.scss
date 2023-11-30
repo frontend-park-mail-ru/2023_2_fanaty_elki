@@ -1,0 +1,8 @@
+// Контейнер с паддингами
+
+$padding-size: 25px;
+
+.container {
+    padding-left: $padding-size;
+    padding-right: $padding-size;
+}

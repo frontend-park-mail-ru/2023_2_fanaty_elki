@@ -1,0 +1,312 @@
+.restaurant-comments {
+    width: 80%;
+    height: 70%;
+    @media screen and (min-width: 641px) {
+        width: 740px;
+        height: 80vh;
+    }
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.restaurant-comments__comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+    height: 100%;
+}
+
+.restaurant-comments__comments-list__close {
+    top: 25px;
+    right: 30px;
+}
+
+.restaurant-comments__comments-list__title {
+    display: flex;
+    justify-content: flex-start;
+
+    margin: 0;
+
+    width: 100%;
+    font-size: var(--font-size-two);
+}
+
+.restaurant-comments__comments-list__comments-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+
+    width: 100%;
+    height: 80%;
+    overflow-y: scroll;
+}
+
+.restaurant-comments__comments-list__comments-list__comment {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    width: 100%;
+}
+
+.restaurant-comments__comments-list__comments-list__comment__info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    font-size: var(--font-size-three);
+    @media screen and (min-width: 641px) {
+        font-size: var(--font-size-two);
+    }
+   
+
+    width: 100%;
+}
+
+.restaurant-comments__comments-list__comments-list__comment__info__profile {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    width: 30%;
+}
+
+.restaurant-comments__comments-list__comments-list__comment__info__profile__icon {
+    object-fit: contain;
+    aspect-ratio: 1/1;
+    width: 40%;
+    border-radius: 50%;
+}
+
+.restaurant-comments__comments-list__comments-list__comment__info__profile__name {
+    display: flex;
+
+    width: 60%;
+}
+
+.restaurant-comments__comments-list__comments-list__comment__info__rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    width: 15%;
+}
+
+.restaurant-comments__comments-list__comments-list__comment__info__rating__star {
+    object-fit: contain;
+    width: 15%;
+    aspect-ratio: 1/1;
+}
+
+.restaurant-comments__comments-list__comments-list__comment__info__rating__value {
+    display: flex;
+
+}
+
+.restaurant-comments__comments-list__comments-list__comment__info__date {
+    width: 20%;
+
+    color: var(--middle-gray);
+}
+
+.restaurant-comments__comments-list__comments-list__comment__text {
+    display: flex;
+    padding-left: 10px;
+
+    word-break: break-all;
+
+    font-size: var(--font-size-five);
+    @media screen and (min-width: 641px) {
+        font-size: var(--font-size-four);
+    }
+}
+
+.restaurant-comments__comments-list__comment-button {
+    display: flex;
+
+    gap: 5px;
+
+    width: 100%;
+}
+
+.restaurant-comments__comments-list__comment-button__button {
+    font-size: var(--font-size-four);
+    width: 50%;
+    @media screen and (min-width: 641px) {
+        width: 30%;
+        height: 44px;
+    }
+}
+
+.restaurant-comments__comments-list__comment-button__error {
+    display: flex;
+    align-items: center;
+
+    width: 60%;
+
+    font-size: var(--font-size-three);
+    color: var(--red);
+}
+
+.restaurant-comments__comments-list__no-comments {
+    margin: auto;
+
+    font-size: var(--font-size-three);
+    @media screen and (min-width: 641px) {
+        font-size: var(--font-size-two);
+    }
+}
+
+.restaurant-comments__comment-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.restaurant-comments__comment-form__close {
+    top: 25px;
+    right: 30px;
+}
+
+.restaurant-comments__comment-form__close__img {
+}
+
+.restaurant-comments__comment-form__back {
+    top: 25px;
+    left: 25px;
+}
+
+.restaurant-comments__comment-form__back__img {
+}
+
+.restaurant-comments__comment-form__title {
+    display: flex;
+    justify-content: center;
+
+    margin: 0;
+
+    width: 100%;
+}
+
+.restaurant-comments__comment-form__rating {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    gap: 5px;
+
+    width: 100%;
+}
+
+.restaurant-comments__comment-form__rating__title {
+    display: flex;
+    justify-content: flex-start;
+
+    width: 100%;
+}
+
+.restaurant-comments__comment-form__rating__title__name {
+    font-size: var(--font-size-three);
+    font-weight: 700;
+}
+
+.restaurant-comments__comment-form__rating__title__must {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--red);
+}
+
+.restaurant-comments__comment-form__rating__title__error {
+    display: flex;
+    align-items: center;
+
+    margin-left: 15px;
+    font-size: var(--font-size-four);
+    color: var(--red);
+}
+
+.restaurant-comments__comment-form__rating__stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+
+    gap: 5px;
+
+    width: 100%;
+}
+
+.restaurant-comments__comment-form__rating__stars__star {
+    width: 5%;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+}
+
+.restaurant-comments__comment-form__rating__stars__input {
+    display: none;
+}
+
+.restaurant-comments__comment-form__rating__stars:not(:checked) > label {
+    content: url("http://localhost:4000/img/gray_star.svg");
+}
+
+.restaurant-comments__comment-form__rating__stars > input:checked ~ label {
+    content: url("http://localhost:4000/img/gold_star.svg");
+}
+
+.restaurant-comments__comment-form__rating__stars:not(:checked) > label:hover,
+.restaurant-comments__comment-form__rating__stars:not(:checked)
+    > label:hover
+    ~ label {
+    content: url("http://localhost:4000/img/gold_star.svg");
+}
+
+.restaurant-comments__comment-form__rating__stars > input:checked + label:hover,
+.restaurant-comments__comment-form__rating__stars
+    > input:checked
+    + label:hover
+    ~ label,
+.restaurant-comments__comment-form__rating__stars > input:checked ~ label:hover,
+.restaurant-comments__comment-form__rating__stars
+    > input:checked
+    ~ label:hover
+    ~ label,
+.restaurant-comments__comment-form__rating__stars
+    > label:hover
+    ~ input:checked
+    ~ label {
+    content: url("http://localhost:4000/img/gold_star.svg");
+}
+
+.restaurant-comments__comment-form__comment {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    gap: 5px;
+
+    width: 100%;
+}
+
+.restaurant-comments__comment-form__comment__title {
+    display: flex;
+    justify-content: flex-start;
+
+    font-size: var(--font-size-three);
+
+    width: 100%;
+}
+
+.restaurant-comments__comment-form__comment__text {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.restaurant-comments__comment-form__submit {
+    width: 30%;
+    height: 44px;
+}

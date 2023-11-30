@@ -4,7 +4,6 @@ import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { IWidget } from "../../../types";
 
 import changeRestaurantWidgetTemplate from "../ui/ChangeRestaurantWidget.hbs";
-import "../ui/ChangeRestaurantWidget.scss";
 
 export class ChangeRestaurantWidget
     extends IWidget

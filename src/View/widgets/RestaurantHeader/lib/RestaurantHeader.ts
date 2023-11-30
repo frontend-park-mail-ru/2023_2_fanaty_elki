@@ -5,7 +5,6 @@ import { IWidget } from "../../../types";
 
 import restaurantHeader from "../ui/RestaurantHeader.hbs";
 import restaurantHeaderTemplate from "../ui/RestaurantHeaderTemplate.hbs";
-import "../ui/RestaurantHeader.scss";
 
 export class RestaurantHeader extends IWidget implements Listenable<UIEvent> {
     private events_: EventDispatcher<UIEvent>;

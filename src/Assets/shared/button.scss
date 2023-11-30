@@ -1,0 +1,71 @@
+// Класс кнопки определяющий: цвет, шрифт, паддинги, display
+
+@mixin button-style(
+    $color: var(--white),
+    $background-color: var(--gray),
+    $border: none
+) {
+    color: $color;
+    background-color: $background-color;
+    border: $border;
+}
+
+.button {
+    display: flex;
+    padding: 10px;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 17px;
+
+    font-family: Comfortaa;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    // Styles
+    &_primary {
+        @extend .button;
+        @include button-style;
+    }
+
+    &_secondary {
+        @extend .button;
+        @include button-style(
+            $color: var(--gray),
+            $background-color: var(--white),
+            $border: 1px solid var(--gray)
+        );
+    }
+
+    &_primary-green {
+        @extend .button;
+        @include button-style(
+            $color: var(--gray),
+            $background-color: var(--green),
+            $border: none
+        );
+    }
+}
+
+.control-button {
+    position: absolute;
+
+    height: 35px;
+    width: 35px;
+    @media screen and (min-width: 641px) {
+        height: 15px;
+        width: 15px;
+    }
+
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
+
+.control-button__img {
+    height: 100%;
+    object-fit: contain;
+}

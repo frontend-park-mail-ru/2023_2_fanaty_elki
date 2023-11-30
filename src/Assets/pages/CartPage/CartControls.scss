@@ -1,0 +1,89 @@
+.cart__content__control__payment {
+    width: 100%;
+}
+
+.payment-chooser {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.payment-chooser__title {
+    font-size: var(--font-size-two);
+}
+
+.payment-chooser__title {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+
+    margin: 0;
+}
+
+.radio-chooser {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.radio-chooser__label {
+    font-size: var(--font-size-three);
+}
+
+.payment-chooser__online-card {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.payment-chooser__online-card__card-data {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.payment-chooser__online-card__card-data__card-number {
+}
+
+.payment-chooser__online-card__card-valid-thru-cvv {
+    display: flex;
+    width: 100%;
+    border-radius: 17px;
+    justify-content: space-between;
+}
+
+.payment-chooser__online-card__card-data__card-valid-thru {
+    width: 65%;
+}
+
+.payment-chooser__online-card__card-data__card-cvv {
+    width: 20%;
+}
+
+.cart__content__control__payment-approve {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 15px;
+    align-self: stretch;
+
+    padding-top: 15px;
+}
+
+.cart__content__control__payment-approve__sum {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+
+    font-size: var(--font-size-two);
+}
+
+.cart__content__control__payment-approve__approve {
+    font-size: var(--font-size-three);
+    width: 100%;
+}

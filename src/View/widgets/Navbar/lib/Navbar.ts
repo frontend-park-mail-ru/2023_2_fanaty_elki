@@ -4,7 +4,6 @@ import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { IWidget } from "../../../types";
 import navbarTemplate from "../ui/Navbar.hbs";
-import "../ui/Navbar.scss";
 
 export class Navbar extends IWidget implements Listenable<UIEvent> {
     private userNameElement: HTMLElement;

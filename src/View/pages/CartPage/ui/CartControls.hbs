@@ -21,15 +21,13 @@
                     онлайн</label>
             </div>
             <div class="payment-chooser__online-card__card-data">
-                <input class="payment-chooser__online-card__card-data__card-number" type="text" name="card-nubmer"
-                    id="card-number" placeholder="Номер карты" autocomplete="cc-number" pattern="\d{16,16}" disabled
-                    required />
+                <input class="payment-chooser__online-card__card-data__card-number input-with-msg__input_default" type="text"
+                    name="card-nubmer" id="card-number" placeholder="Номер карты" />
                 <div class="payment-chooser__online-card__card-valid-thru-cvv">
-                    <input class="payment-chooser__online-card__card-data__card-valid-thru" type="text"
-                        name="card-valid-thru" id="card-valid-thru" placeholder="Срок действия" autocomplete="cc-exp"
-                        pattern="\d{2,2}/\d{2,2}" disabled required />
-                    <input class="payment-chooser__online-card__card-data__card-cvv" type="password" name="card-cvv"
-                        id="card-cvv" placeholder="CVV" autocomplete="cc-csc" pattern="\d{3,3}" disabled required />
+                    <input class="payment-chooser__online-card__card-data__card-valid-thru input-with-msg__input_default"
+                        type="text" name="card-valid-thru" id="card-valid-thru" placeholder="Срок действия" />
+                    <input class="payment-chooser__online-card__card-data__card-cvv input-with-msg__input_default"
+                        type="password" name="card-cvv" id="card-cvv" placeholder="CVV" />
                 </div>
             </div>
         </div>
@@ -39,7 +37,8 @@
             <h2 class="cart__content__control__payment-approve__delivery" id="cart__delivery">Сумма
                 доставки:</h2>
             <div class="cart__content__control__payment-approve__error" id="cart__error"></div>
-            <input class="cart__content__control__payment-approve__approve" value="Оформить заказ" type="submit" />
+            <input class="cart__content__control__payment-approve__approve button_primary-green" value="Оформить заказ"
+                type="submit" />
         </div>
     </form>
 </div>

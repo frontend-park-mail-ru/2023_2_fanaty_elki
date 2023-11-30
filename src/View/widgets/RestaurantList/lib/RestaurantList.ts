@@ -1,8 +1,6 @@
 import { IWidget } from "../../../types";
 import restaurantsTemplate from "../ui/RestaurantsList.hbs";
 import listTemplate from "../ui/List.hbs";
-import "../ui/RestaurantsList.scss";
-import "../ui/RestaurantCard.scss";
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { UIEvent, UIEventType } from "../../../../config";
