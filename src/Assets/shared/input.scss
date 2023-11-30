@@ -22,7 +22,7 @@
 
     &_default {
         @extend .input-with-msg__input;
-        @include input-style;
+        @include input-style();
     }
 
     &_error {

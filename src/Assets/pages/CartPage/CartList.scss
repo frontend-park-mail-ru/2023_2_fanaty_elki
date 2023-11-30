@@ -14,6 +14,7 @@
 .cart-item__info__icon {
     width: 20%;
     aspect-ratio: 1/1;
+    border-radius: 17px;
 
     object-fit: contain;
 }
@@ -22,7 +23,7 @@
     display: flex;
     width: 40%;
     justify-content: flex-start;
-    font-size: var(--font-size-two);
+    font-size: var(--font-size-three);
 }
 
 .cart-item__info__count-control {
@@ -41,7 +42,7 @@
 .cart-item__info__count-control__count {
     display: flex;
     align-items: center;
-    font-size: var(--font-size-two);
+    font-size: var(--font-size-three);
 }
 
 .cart-item__price {
@@ -49,7 +50,7 @@
     align-items: center;
     justify-content: center;
     width: 15%;
-    font-size: var(--font-size-two);
+    font-size: var(--font-size-three);
 }
 
 .empty-cart__title {
