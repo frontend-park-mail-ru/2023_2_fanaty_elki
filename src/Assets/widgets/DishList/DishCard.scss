@@ -39,6 +39,8 @@
     padding-left: 5px;
     padding-right: 5px;
     gap: 5px;
+
+    font-size: var(--font-size-three);
 }
 
 .dish-card__info__text__price {
@@ -51,7 +53,11 @@
 .dish-card__info__text__dish-name {
     display: -webkit-box;
     overflow: hidden;
-    height: 35px;
+
+    @media screen and (min-width: 641px) {
+        height: 35px;
+    }
+
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
 }

@@ -51,8 +51,13 @@
 
 .control-button {
     position: absolute;
-    height: 15px;
-    width: 15px;
+
+    height: 35px;
+    width: 35px;
+    @media screen and (min-width: 641px) {
+        height: 15px;
+        width: 15px;
+    }
 
     background: none;
     border: none;
