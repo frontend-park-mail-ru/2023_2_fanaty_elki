@@ -83,7 +83,9 @@
 
 .restaurant-comments__comments-list__comments-list__comment__info__profile__name {
     display: flex;
-
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     width: 60%;
 }
 
