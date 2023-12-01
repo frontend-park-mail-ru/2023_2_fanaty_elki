@@ -22,7 +22,7 @@
     display: flex;
 
     overflow-x: scroll;
-    @media screen and (min-width: 641px) {
+    @media screen and (min-width: 800px) {
         overflow-x: auto;
     }
 
