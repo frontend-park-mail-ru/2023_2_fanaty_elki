@@ -1,9 +1,6 @@
-import { IHTMLElement, IWidget } from "../../../types";
+import { IWidget } from "../../../types";
 
 import loginSignUpModalTemplate from "../ui/LoginSignUpModal.hbs";
-import "../ui/LoginSignUpModal.scss";
-import "../ui/InputWithMsg.scss";
-import "../ui/Button.scss";
 
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { UIEvent, UIEventType } from "../../../../config";

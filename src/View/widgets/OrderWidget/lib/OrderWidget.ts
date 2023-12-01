@@ -3,11 +3,8 @@ import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { IWidget } from "../../../types";
 
 import orderWidgetTemplate from "../ui/OrderWidget.hbs";
-import "../ui/OrderWidget.scss";
-import "../ui/Modal.scss";
 
 import orderProductsTemplate from "../ui/OrderProducts.hbs";
-import "../ui/OrderProducts.scss";
 import { OrderEvent } from "../../../../Model/OrderModel";
 
 export class OrderWidget extends IWidget implements Listenable<UIEvent> {
@@ -68,7 +65,6 @@ export class OrderWidget extends IWidget implements Listenable<UIEvent> {
     updateOrderEvent(event?: OrderEvent) {
         if (event === OrderEvent.LOAD_CURRENT_ORDER) {
             const order = model.orderModel.getCurrentOrder()!;
-            console.log(order);
 
             this.orderNum.innerText = `Заказ ${order.Id}`;
             this.deliveryTime.innerText = `Ожидаемое время доставки ${this.presentDeliveryTime(

@@ -7,7 +7,6 @@ import restaurantHeader from "../ui/RestaurantHeader.hbs";
 import loadingTemplate from "../ui/Loading.hbs";
 import "../ui/Loading.scss";
 import restaurantHeaderTemplate from "../ui/RestaurantHeaderTemplate.hbs";
-import "../ui/RestaurantHeader.scss";
 
 export class RestaurantHeader extends IWidget implements Listenable<UIEvent> {
     private events_: EventDispatcher<UIEvent>;

@@ -4,7 +4,6 @@ import { IWidget } from "../../../types";
 
 import categorySwitch from "../ui/CategorySwitch.hbs";
 import categorySwitchTemplate from "../ui/CategorySwitchTemplate.hbs";
-import "../ui/CategorySwitch.scss";
 import { RestaurantEvent } from "../../../../Model/RestaurantModel";
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 
@@ -37,13 +36,9 @@ export class CategorySwitch extends IWidget implements Listenable<UIEvent> {
                 category.addEventListener("click", (event: any) => {
                     this.title.innerText = event.target!.id;
 
-                    this.selectedCategory.classList.remove(
-                        "category-switch__switch__category_selected",
-                    );
+                    this.selectedCategory.classList.remove("button_primary");
                     this.selectedCategory = event.target!;
-                    this.selectedCategory.classList.add(
-                        "category-switch__switch__category_selected",
-                    );
+                    this.selectedCategory.classList.add("button_primary");
 
                     controller.handleEvent({
                         type: VIEW_EVENT_TYPE.RESTAURANTS_CATEGORY_UPDATE,

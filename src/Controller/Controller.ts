@@ -23,6 +23,7 @@ export enum VIEW_EVENT_TYPE {
     LOAD_COMMENTS = "LOAD_COMMENTS",
     LOAD_CATEGORIES = "LOAD_CATEGORIES",
     RESTAURANTS_CATEGORY_UPDATE = "RESTAURANTS_CATEGORY_UPDATE",
+    CHANGE_ORDER_RESTAURANT = "CHANGE_ORDER_RESTAURANT",
 }
 
 export type ViewEvent = {
@@ -113,6 +114,10 @@ export class Controller {
             case VIEW_EVENT_TYPE.ADDRESS_UPDATE:
                 model.userModel.setAddress(<string>event!.data);
                 break;
+            case VIEW_EVENT_TYPE.CHANGE_ORDER_RESTAURANT:
+                await model.cartModel.clearCart();
+                await model.cartModel.increase(event!.data as number);
+                break;
             case VIEW_EVENT_TYPE.ORDER_UPDATE:
                 model.orderModel.setOrders();
                 break;
@@ -121,6 +126,9 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.INCREASE_CART:
                 model.cartModel.increase(<number>event!.data);
+                model.cartModel.setCurrentRestaurant(
+                    model.restaurantModel.getRestaurant().RestaurantInfo,
+                );
                 break;
             case VIEW_EVENT_TYPE.LOAD_CART:
                 model.cartModel.setCart();

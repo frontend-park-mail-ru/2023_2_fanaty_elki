@@ -58,6 +58,24 @@ export function validateBirthday(birthday: string): string {
         return "Укажите дату рождения";
     }
 
+    const birthdayDate = new Date(birthday);
+    const currentDate = new Date();
+
+    if (birthdayDate.getTime() >= currentDate.getTime()) {
+        return "Укажите валидную дату рождения";
+    }
+
+    if (
+        currentDate.getFullYear() - birthdayDate.getFullYear() < 14 ||
+        (currentDate.getFullYear() - birthdayDate.getFullYear() == 14 &&
+            birthdayDate.getMonth() > currentDate.getMonth()) ||
+        (currentDate.getFullYear() - birthdayDate.getFullYear() == 14 &&
+            birthdayDate.getMonth() <= currentDate.getMonth() &&
+            birthdayDate.getDate() > currentDate.getDate())
+    ) {
+        return "Вы еще слишком малы, чтобы пользоваться нашим сервисом :(";
+    }
+
     return "";
 }
 
@@ -66,11 +84,7 @@ export function validatePhoneNumber(phoneNumber: string): string {
         return "Укажите номер телефона";
     }
 
-    if (
-        !phoneNumber.match(
-            /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{6,10}$/,
-        )
-    ) {
+    if (!phoneNumber.match(/^\+79[0-9]{9}$/)) {
         return "Невалидный номер телефона";
     }
 

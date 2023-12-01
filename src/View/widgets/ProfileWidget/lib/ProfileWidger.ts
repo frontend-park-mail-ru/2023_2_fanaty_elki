@@ -4,8 +4,6 @@ import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { IWidget } from "../../../types";
 
 import profileWidgetTemplate from "../ui/ProfileWidget.hbs";
-import "../ui/ProfileWidget.scss";
-import "../ui/InputWithMsg.scss";
 import {
     validateEmail,
     validatePhoneNumber,

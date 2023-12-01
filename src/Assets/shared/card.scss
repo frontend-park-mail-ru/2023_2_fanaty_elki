@@ -1,0 +1,32 @@
+// Карточка
+// Layout карт
+
+.card {
+    width: 100%;
+}
+
+.card__image {
+    display: flex;
+    width: 100%;
+    aspect-ratio: 2/1;
+    object-fit: cover;
+
+    border-radius: 17px;
+    margin: auto;
+}
+
+.card-layout {
+    display: grid;
+
+    grid-template-columns: 1fr;
+    grid-row-gap: 10px;
+    @media screen and (min-width: 641px) {
+        grid-template-columns: repeat(4, 1fr);
+        grid-column-gap: 2%;
+        grid-row-gap: 2%;
+    }
+
+    width: 100%;
+
+    
+}

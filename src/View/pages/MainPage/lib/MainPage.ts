@@ -2,7 +2,6 @@ import { Navbar } from "../../../widgets/Navbar/index";
 import { RestaurantsList } from "../../../widgets/RestaurantList/index";
 import { LoginSignUpModal } from "../../../widgets/LoginSignUpModal";
 import MainTemplate from "../ui/MainView.hbs";
-import "../ui/MainView.scss";
 import { Page } from "../../..//types.d";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { UIEvent, UIEventType } from "../../../../config";

@@ -3,7 +3,6 @@ import { IWidget } from "../../../types";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 
 import orderListTemplate from "../ui/OrderList.hbs";
-import "../ui/OrderList.scss";
 import { OrderEvent } from "../../../../Model/OrderModel";
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 

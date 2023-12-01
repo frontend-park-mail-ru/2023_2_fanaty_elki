@@ -12,8 +12,6 @@ import { LoginSignUpModal } from "../../../widgets/LoginSignUpModal";
 import { Navbar } from "../../../widgets/Navbar";
 import searchPageTemplate from "../ui/SearchPage.hbs";
 import searchResultsTemplate from "../ui/SearchResults.hbs";
-import "../ui/SearchPage.scss";
-import "../ui/SearchResults.scss";
 import { searchElement } from "./config";
 
 export class SearchPage extends Page implements Listenable<UIEvent> {

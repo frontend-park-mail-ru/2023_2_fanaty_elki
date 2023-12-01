@@ -7,9 +7,6 @@ import { IWidget } from "../../../types";
 import DishCategoryTemplate from "../ui/DishesCategory.hbs";
 import DishListTemplate from "../ui/DishList.hbs";
 import DishButtonTemplate from "../ui/DishButton.hbs";
-import "../ui/DishCard.scss";
-import "../ui/DishesCategory.scss";
-import "../ui/DishButton.scss";
 import { UserEvent } from "../../../../Model/UserModel";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { UIEvent, UIEventType } from "../../../../config";
@@ -89,8 +86,8 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
                     .closest(dishListSelectors.CARD)!
                     .getAttribute("data-product-id");
                 if (target.classList.contains(dishListSelectors.UP_BUTTON)) {
-                    controller.handleEvent({
-                        type: VIEW_EVENT_TYPE.INCREASE_CART,
+                    this.events.notify({
+                        type: UIEventType.BUTTON_UP_CLICK,
                         data: productId,
                     });
                 } else if (
