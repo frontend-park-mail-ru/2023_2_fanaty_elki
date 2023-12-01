@@ -159,6 +159,9 @@ export class Controller {
                 await model.commentModel.setComments(
                     model.restaurantModel.getRestaurant()!.RestaurantInfo.ID,
                 );
+                await model.restaurantModel.setRestaurant(
+                    model.restaurantModel.getRestaurant()!.RestaurantInfo.ID,
+                );
                 break;
             case VIEW_EVENT_TYPE.LOAD_COMMENTS:
                 model.commentModel.setComments(
