@@ -6,12 +6,10 @@ import { Navbar } from "../../../widgets/Navbar";
 import cartTemplate from "../ui/CartView.hbs";
 import cartListTemplate from "../ui/CartList.hbs";
 import cartControlsTemplate from "../ui/CartControls.hbs";
-import "../ui/CartView.scss";
-import "../ui/CartList.scss";
-import "../ui/CartControls.scss";
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { OrderEvent } from "../../../../Model/OrderModel";
 import { cartElement, paymentConfig } from "./config";
+import { Cart } from "../../../../Model/CartModel";
 
 export class CartPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
@@ -43,10 +41,18 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     private bindEvents() {
         this.getChild("#form").addEventListener("submit", (event: Event) => {
             event.preventDefault();
-            controller.handleEvent({
-                type: VIEW_EVENT_TYPE.CREATE_ORDER,
-                data: null,
-            });
+            if (model.userModel.getAddress()) {
+                controller.handleEvent({
+                    type: VIEW_EVENT_TYPE.CREATE_ORDER,
+                    data: null,
+                });
+            } else {
+                this.getChild(cartElement.ERROR_BOX).innerText =
+                    "Укажите адрес доставки";
+            }
+        });
+        this.element.addEventListener("click", () => {
+            this.getChild(cartElement.ERROR_BOX).innerText = "";
         });
         this.getChild("#courier-cash").addEventListener("input", () => {
             this.disableCardInputs();
@@ -73,7 +79,7 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     }
 
     updateCart() {
-        let cart = model.cartModel.getCart();
+        let cart: Cart | null = model.cartModel.getCart();
         if (cart) {
             cart.sort((a, b) => {
                 return a.Product.ID - b.Product.ID;
@@ -95,6 +101,8 @@ export class CartPage extends Page implements Listenable<UIEvent> {
             });
         });
         this.summ = model.cartModel.getSumm();
+        this.deliveryPrice =
+            model.cartModel.getCurrentRestaurant()?.DeliveryPrice || 0;
     }
 
     update(event?: UIEvent) {
@@ -119,6 +127,12 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     set summ(total: number) {
         this.getChild(
             cartElement.TOTAL_TITLE,
-        ).innerHTML = `${paymentConfig.summ_phrase}${total}₽`;
+        ).innerHTML = `${paymentConfig.summ_phrase}${total} ₽`;
+    }
+
+    set deliveryPrice(deliveryPrice: number) {
+        this.getChild(
+            cartElement.DELIVERY_PRICE,
+        ).innerHTML = `${paymentConfig.delivery_phrase}${deliveryPrice} ₽`;
     }
 }

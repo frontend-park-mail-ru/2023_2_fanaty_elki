@@ -21,31 +21,36 @@ const users = [];
 const sessions = new Map();
 
 app.get('/main', (req, res) => {
-    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index_app.html'));
 });
 
 app.get('/', (req, res) => {
-    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+    res.set('Cache-control', 'public, max-age=300');
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index_app.html'));
 });
 
 app.get('/signup', (req, res) => {
-    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index_app.html'));
 });
 
 app.get('/login', (req, res) => {
-    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index_app.html'));
 });
 
 app.get('/restaurants', (req, res) => {
-    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index_app.html'));
 });
 
 app.get('/cart', (req, res) => {
-    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index_app.html'));
 });
 
 app.get('/me', (req, res) => {
-    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index.html'));
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index_app.html'));
+});
+
+app.get('/search', (req, res) => {
+    return res.sendFile(path.resolve(__dirname, '..', 'dist', 'index_app.html'));
 });
 
 const port = process.env.PORT || 4000;

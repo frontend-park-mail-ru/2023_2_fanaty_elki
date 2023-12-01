@@ -1,9 +1,6 @@
-import { IHTMLElement, IWidget } from "../../../types";
+import { IWidget } from "../../../types";
 
 import loginSignUpModalTemplate from "../ui/LoginSignUpModal.hbs";
-import "../ui/LoginSignUpModal.scss";
-import "../ui/InputWithMsg.scss";
-import "../ui/Button.scss";
 
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { UIEvent, UIEventType } from "../../../../config";
@@ -98,7 +95,9 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
             });
         this.element.addEventListener("click", (event: any) => {
             if (event._isClickWithInModal) return;
-            event.currentTarget!.classList.remove("open");
+            this.close();
+            this.clearInputs();
+            this.clearMessages();
         });
     }
 
@@ -108,9 +107,11 @@ export class LoginSignUpModal extends IWidget implements Listenable<UIEvent> {
 
     close() {
         this.element.classList.remove("open");
-        this.clearInputs();
-        this.clearMessages();
-        this.setLoginPage();
+        setTimeout(() => {
+            this.clearInputs();
+            this.clearMessages();
+            this.setLoginPage();
+        }, 200);
     }
 
     clearInputs() {

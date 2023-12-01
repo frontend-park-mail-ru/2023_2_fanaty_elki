@@ -1,0 +1,38 @@
+<div class="restaurant-header__control">
+    <div class="restaurant-header__control__back-containver" id="back">
+        <button class="restaurant-header__control__back-containver__back" type="button">
+            <img class="restaurant-header__control__back-containver__back__img" src="img/ArrowBack.svg" alt=""
+                srcset="">
+        </button>
+        <h2 class="restaurant-header__control__back-containver__label">
+            Все рестораны
+        </h2>
+    </div>
+    <div class="restaurant-header__control__info">
+        <div class="restaurnt-header__control__info__restaurant">
+            <div class="restaurnt-header__control__info__restaurant__name-rating">
+                <h1 class="restaurnt-header__control__info__restaurant__name-rating__name">{{ Name }}</h1>
+                <div class="restaurnt-header__control__info__restaurant__name-rating__rating">
+                    <img class="restaurnt-header__control__info__restaurant__name-rating__rating__gold-star"
+                        src="img/gold_star.svg" />
+                    <h1 class="restaurnt-header__control__info__restaurant__name-rating__rating__value">
+                        {{ Rating }}</h1>
+                </div>
+            </div>
+            <div class="restaurnt-header__control__info__restaurant__comments" id="comments">
+                Отзывы ({{ CommentsCount }})
+            </div>
+        </div>
+        <div class="restaurnt-header__control__info__delivery">
+            <div class="restaurant-header__control__info__delivery__name">Доставка</div>
+            <div class="restaurant-header__control__info__delivery__price">{{ DeliveryPrice }} ₽</div>
+            <div class="restaurant-header__control__info__delivery__time">
+                {{ MinDeliveryTime }}-{{ MaxDeliveryTime}} минут
+            </div>
+        </div>
+        <p class="restaurnt-header__control__info__categories">
+            {{#each Categories}}<span class="restaurnt-header__control__info__categories__category">{{this}}</span>{{/each}}
+        </p>
+    </div>
+</div>
+<img src="{{ Icon }}" alt="{{ Name }}" class="restaurant-header__icon">

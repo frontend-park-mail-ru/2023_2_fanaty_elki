@@ -4,7 +4,6 @@ import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 
 import addressChooserTemplate from "../ui/AddressChooser.hbs";
 import suggestsTemplate from "../ui/Suggests.hbs";
-import "../ui/AddressChooser.scss";
 
 import { ISuggestResult } from "yandex-maps";
 import { UserEvent } from "../../../../Model/UserModel";

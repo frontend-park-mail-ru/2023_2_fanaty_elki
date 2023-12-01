@@ -1,3 +1,4 @@
+import { Comment } from "../Model/CommentModel";
 import { User } from "../Model/UserModel";
 
 export enum VIEW_EVENT_TYPE {
@@ -16,6 +17,13 @@ export enum VIEW_EVENT_TYPE {
     CREATE_ORDER = "CREATE_ORDER",
     CLEAR_CART = "CLEAR_CART",
     USER_UPDATE = "USER_UPDATE",
+    SEARCH = "SEARCH",
+    LOAD_ORDER = "LOAD_ORDER",
+    CREATE_COMMENT = "CREATE_COMMENT",
+    LOAD_COMMENTS = "LOAD_COMMENTS",
+    LOAD_CATEGORIES = "LOAD_CATEGORIES",
+    RESTAURANTS_CATEGORY_UPDATE = "RESTAURANTS_CATEGORY_UPDATE",
+    CHANGE_ORDER_RESTAURANT = "CHANGE_ORDER_RESTAURANT",
 }
 
 export type ViewEvent = {
@@ -31,6 +39,16 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.RESTAURANT_UPDATE:
                 model.restaurantModel.setRestaurant(<number>event.data);
+                model.commentModel.setComments(<number>event.data);
+                break;
+            case VIEW_EVENT_TYPE.RESTAURANTS_CATEGORY_UPDATE:
+                if (<string>event.data == "Рестораны") {
+                    model.restaurantModel.setRestaurantList();
+                    break;
+                }
+                model.restaurantModel.setRestaurantListByCategory(
+                    <string>event.data,
+                );
                 break;
             case VIEW_EVENT_TYPE.LOGIN:
                 await model.userModel.login(
@@ -96,6 +114,10 @@ export class Controller {
             case VIEW_EVENT_TYPE.ADDRESS_UPDATE:
                 model.userModel.setAddress(<string>event!.data);
                 break;
+            case VIEW_EVENT_TYPE.CHANGE_ORDER_RESTAURANT:
+                await model.cartModel.clearCart();
+                await model.cartModel.increase(event!.data as number);
+                break;
             case VIEW_EVENT_TYPE.ORDER_UPDATE:
                 model.orderModel.setOrders();
                 break;
@@ -104,26 +126,47 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.INCREASE_CART:
                 model.cartModel.increase(<number>event!.data);
+                model.cartModel.setCurrentRestaurant(
+                    model.restaurantModel.getRestaurant()!.RestaurantInfo,
+                );
                 break;
             case VIEW_EVENT_TYPE.LOAD_CART:
                 model.cartModel.setCart();
                 break;
             case VIEW_EVENT_TYPE.CREATE_ORDER:
                 {
-                    const products =
-                        model.cartModel.getCart()?.map((element) => {
-                            return element.Product.ID;
-                        }) || [];
-
-                    if (products.length === 0) return;
+                    if (!model.cartModel.getCart()) return;
 
                     const address = model.userModel.getAddress();
-                    await model.orderModel.createOrder(products, address);
+                    await model.orderModel.createOrder(address);
                     model.cartModel.clearCart();
                 }
                 break;
             case VIEW_EVENT_TYPE.CLEAR_CART:
                 model.cartModel.clearCart();
+                break;
+            case VIEW_EVENT_TYPE.SEARCH:
+                model.searchModel.getResults(<string>event.data);
+                break;
+            case VIEW_EVENT_TYPE.LOAD_ORDER:
+                model.orderModel.setCurrentOrder(event.data as number);
+                break;
+            case VIEW_EVENT_TYPE.CREATE_COMMENT:
+                await model.commentModel.createComment(
+                    model.restaurantModel.getRestaurant()!.RestaurantInfo.ID,
+                    event.data as Comment,
+                );
+                await model.commentModel.setComments(
+                    model.restaurantModel.getRestaurant()!.RestaurantInfo.ID,
+                );
+                break;
+            case VIEW_EVENT_TYPE.LOAD_COMMENTS:
+                model.commentModel.setComments(
+                    model.restaurantModel.getRestaurant()!.RestaurantInfo.ID,
+                );
+                break;
+            case VIEW_EVENT_TYPE.LOAD_CATEGORIES:
+                model.restaurantModel.setCategories();
                 break;
         }
     }

@@ -1,1 +1,1 @@
-export { CartEvent } from "../../../Model/CartModel";
+export { CartPage } from "./lib/CartPage";

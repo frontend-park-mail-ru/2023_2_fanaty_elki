@@ -7,9 +7,6 @@ import { IWidget } from "../../../types";
 import DishCategoryTemplate from "../ui/DishesCategory.hbs";
 import DishListTemplate from "../ui/DishList.hbs";
 import DishButtonTemplate from "../ui/DishButton.hbs";
-import "../ui/DishCard.scss";
-import "../ui/DishesCategory.scss";
-import "../ui/DishButton.scss";
 import { UserEvent } from "../../../../Model/UserModel";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { UIEvent, UIEventType } from "../../../../config";
@@ -25,6 +22,8 @@ Handlebars.registerHelper("is_auth", () => {
 
 export class DishList extends IWidget implements Listenable<UIEvent> {
     private events_: EventDispatcher<UIEvent>;
+    private item_id: number | null;
+
     get events(): EventDispatcher<UIEvent> {
         return this.events_;
     }
@@ -45,6 +44,13 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
     updateRestaurantEvent(event?: RestaurantEvent) {
         if (event !== RestaurantEvent.LOADED_REST) return;
         this.setList(model.restaurantModel.getRestaurant());
+        if (this.item_id) {
+            const dish = this.getChild(`[data-product-id="${this.item_id}"`);
+            if (dish) {
+                dish.scrollIntoView();
+                return;
+            }
+        }
     }
 
     updateUserEvent(event?: UserEvent) {
@@ -57,7 +63,7 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
         }
     }
 
-    setList(rest: RestaurantWithCategories) {
+    setList(rest: RestaurantWithCategories | null) {
         this.element.innerHTML = DishListTemplate(rest);
         if (!model.userModel.getUser()) {
             this.getAll(dishListSelectors.CONTROLS).forEach(
@@ -80,8 +86,8 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
                     .closest(dishListSelectors.CARD)!
                     .getAttribute("data-product-id");
                 if (target.classList.contains(dishListSelectors.UP_BUTTON)) {
-                    controller.handleEvent({
-                        type: VIEW_EVENT_TYPE.INCREASE_CART,
+                    this.events.notify({
+                        type: UIEventType.BUTTON_UP_CLICK,
                         data: productId,
                     });
                 } else if (
@@ -102,7 +108,12 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
         });
     }
 
-    load(restaurant_id: number) {
+    unload() {
+        this.element.innerHTML = "";
+    }
+
+    load(restaurant_id: number, item_id: number | null) {
+        this.item_id = item_id;
         controller.handleEvent({
             type: VIEW_EVENT_TYPE.RESTAURANT_UPDATE,
             data: restaurant_id,

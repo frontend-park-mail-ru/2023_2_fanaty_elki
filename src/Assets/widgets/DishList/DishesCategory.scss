@@ -1,0 +1,27 @@
+.dishes-category {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 35px;
+}
+
+.dishes-category__categories {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 35px;
+    align-self: stretch;
+}
+
+.dishes-category__categories__title {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+    margin: 0;
+
+    font-size: var(--font-size-two);
+}
+
+.dishes-category__categories__items {
+}

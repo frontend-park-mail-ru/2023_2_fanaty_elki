@@ -2,8 +2,8 @@
     <form class="payment-chooser" id="form">
         <h2 class="payment-chooser__title">Способ оплаты</h2>
         <div class="payment-chooser__courier-cash radio-chooser">
-            <input class="radio-chooser__radio" type="radio" name="payment-type" id="courier-cash"
-                value="courier-cash" />
+            <input class="radio-chooser__radio" type="radio" name="payment-type" id="courier-cash" value="courier-cash"
+                checked />
             <label class="radio-chooser__label" for="courier-cash">Наличными
                 курьеру</label>
         </div>
@@ -21,20 +21,24 @@
                     онлайн</label>
             </div>
             <div class="payment-chooser__online-card__card-data">
-                <input class="payment-chooser__online-card__card-data__card-number" type="text" name="card-nubmer"
-                    id="card-number" placeholder="Номер карты" />
+                <input class="payment-chooser__online-card__card-data__card-number input-with-msg__input_default" type="text"
+                    name="card-nubmer" id="card-number" placeholder="Номер карты" />
                 <div class="payment-chooser__online-card__card-valid-thru-cvv">
-                    <input class="payment-chooser__online-card__card-data__card-valid-thru" type="text"
-                        name="card-valid-thru" id="card-valid-thru" placeholder="Срок действия" />
-                    <input class="payment-chooser__online-card__card-data__card-cvv" type="password" name="card-cvv"
-                        id="card-cvv" placeholder="CVV" />
+                    <input class="payment-chooser__online-card__card-data__card-valid-thru input-with-msg__input_default"
+                        type="text" name="card-valid-thru" id="card-valid-thru" placeholder="Срок действия" />
+                    <input class="payment-chooser__online-card__card-data__card-cvv input-with-msg__input_default"
+                        type="password" name="card-cvv" id="card-cvv" placeholder="CVV" />
                 </div>
             </div>
         </div>
         <div class="cart__content__control__payment-approve">
-            <h2 class="cart__content__control__payment-approve__title">Сумма
+            <h2 class="cart__content__control__payment-approve__sum" id="cart__sum">Сумма
                 заказа:</h2>
-            <input class="cart__content__control__payment-approve__approve" value="Оформить заказ" type="submit" />
+            <h2 class="cart__content__control__payment-approve__delivery" id="cart__delivery">Сумма
+                доставки:</h2>
+            <div class="cart__content__control__payment-approve__error" id="cart__error"></div>
+            <input class="cart__content__control__payment-approve__approve button_primary-green" value="Оформить заказ"
+                type="submit" />
         </div>
     </form>
 </div>

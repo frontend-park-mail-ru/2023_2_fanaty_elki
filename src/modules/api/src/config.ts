@@ -8,8 +8,8 @@ export enum REQUEST_METHOD {
 }
 
 export const apiConfig: ApiConfig = {
-    backend: "http://84.23.53.216:8080/api",
-    //backend: "http://localhost:8080/api",
+    // backend: "http://84.23.53.216:8080/api",
+    backend: "http://localhost:8080/api",
     api: {
         auth: {
             url: "/auth",
@@ -184,6 +184,21 @@ export const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
+        getCategories: {
+            url: "/categories",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
         dishes: {
             url: "/restaurants",
             params: () => {
@@ -331,6 +346,24 @@ export const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
+        getOrder: {
+            url: "/orders",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                401: "Не авторизован",
+                404: "Не найден заказ",
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
         createOrder: {
             url: "/orders",
             params: (body) => {
@@ -364,6 +397,56 @@ export const apiConfig: ApiConfig = {
             },
             failure: {
                 401: "Не авторизован",
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        search: {
+            url: "/restaurants/",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        getCommentsByRestaurantId: {
+            url: "/comments",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        createComment: {
+            url: "/comments",
+            params: (body) => {
+                return {
+                    method: REQUEST_METHOD.POST,
+                    body,
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                };
+            },
+            success: {
+                201: "OK",
+            },
+            failure: {
                 500: "Ошибка сервера",
             },
             restrictions: {},

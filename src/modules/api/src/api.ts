@@ -1,4 +1,5 @@
 import { User, Address } from "../../../Model/UserModel";
+import { Comment } from "../../../Model/CommentModel";
 import { apiConfig } from "./config";
 import { REQUEST_METHOD } from "./config";
 
@@ -68,17 +69,23 @@ function checkResponse(
 async function ajax(url: string, params: RequestInit) {
     if (params.method !== REQUEST_METHOD.GET) {
         const csrf_config: ApiElementConfig = apiConfig.api.csrf;
-        const csrfResponse = await fetch(
-            `${apiConfig.backend}${csrf_config.url}`,
-            csrf_config.params(""),
-        );
+        try {
+            const csrfResponse = await fetch(
+                `${apiConfig.backend}${csrf_config.url}`,
+                csrf_config.params(""),
+            );
 
-        const csrfToken = csrfResponse.headers.get("X-CSRF-Token");
-        if (csrfToken !== null) {
-            if (!params.headers) {
-                params.headers = {};
+            const csrfToken = csrfResponse.headers.get("X-CSRF-Token");
+            if (csrfToken !== null) {
+                if (!params.headers) {
+                    params.headers = {};
+                }
+                params.headers["X-Csrf-Token"] = csrfToken;
             }
-            params.headers["X-Csrf-Token"] = csrfToken;
+        } catch {
+            console.log(
+                "Не удалось получить csrf токен, основной запрос уйдет без него",
+            );
         }
     }
     try {
@@ -202,6 +209,39 @@ const Api = {
         return json.Body;
     },
 
+    async getSearchResults(query: string) {
+        const config = apiConfig.api.search;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}?search=${query}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
+    async getCategories() {
+        const config = apiConfig.api.getCategories;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
+    async getRestaurantsByCategory(category: string) {
+        const config = apiConfig.api.getRestaurants;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}/${category}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
     async getRestaurant(restaurantId: number) {
         const config = apiConfig.api.restaurants_get;
         const response = await ajax(
@@ -307,11 +347,45 @@ const Api = {
         return json.Body;
     },
 
-    async createOrder(Products: number[], Address: Address) {
+    async getOrder(orderId: number) {
+        const config = apiConfig.api.getOrder;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}/${orderId}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
+    async createOrder(Address: Address) {
         const config = apiConfig.api.createOrder;
-        const body = JSON.stringify({ Products, Address });
+        const body = JSON.stringify({ Address });
         const response = await ajax(
             `${apiConfig.backend}${config.url}`,
+            config.params(body),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
+    async getCommentsByRestaurantId(restaurantId: number) {
+        const config = apiConfig.api.getCommentsByRestaurantId;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}/${restaurantId}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
+    async createComment(restaurantId: number, comment: Comment) {
+        const config = apiConfig.api.createComment;
+        const body = JSON.stringify(comment);
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}/${restaurantId}`,
             config.params(body),
         );
         checkResponse(response, config);

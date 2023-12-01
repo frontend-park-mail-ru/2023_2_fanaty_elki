@@ -1,0 +1,19 @@
+{{#each this}}
+<div class="order-products">
+    <h2 class="order-products__restaurant-name">{{ RestaurantName }}</h2>
+    <div class="order-products__products">
+        {{#each Products}}
+        <div class="order-products__products__product">
+            <div class="order-products__products__product__info">
+                <img class="order-products__products__product__info__icon" src="{{ Icon }}" alt="">
+                <div class="order-products__products__product__info__name">{{ Name }}</div>
+                <div class="order-products__products__product__info__count">{{ Count }}</div>
+            </div>
+            <div class="order-products__products__price">
+                {{ Sum }}₽
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+{{/each}}

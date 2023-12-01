@@ -1,0 +1,103 @@
+.dish-card__controls {
+    width: 100%;
+}
+
+.dish-card__base-button {
+    display: flex;
+    padding: 10px;
+    width: 100%;
+    border-radius: 17px;
+    border: none;
+    align-items: center;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+    font-size: var(--font-size-three);
+    font-family: Comfortaa;
+}
+
+.dish-card__base-button.dish-card__controls__buttons {
+    overflow: hidden;
+    justify-content: space-between;
+    color: var(--gray);
+    background-color: var(--green);
+}
+
+.dish-card__base-button.dish-card__controls__up-button {
+    justify-content: space-around;
+    
+    color: var(--gray);
+    background-color: var(--green);
+}
+
+.dish-card__base-button.dish-card__controls__signin-button {
+    justify-content: space-around;
+    color: var(--white);
+    background-color: var(--middle-gray);
+    font-size: var(--font-size-three);
+}
+
+.dish-card__base-button.dish-card__controls__signin-button:hover {
+    background-color: var(--darker-middle-gray);
+}
+
+.dish-card__base-button.dish-card__controls__signin-button:active {
+    background-color: var(--darkest-middle-gray);
+}
+
+.dish-card__base-button.dish-card__controls__up-button:hover {
+    background-color: var(--darker-green);
+}
+
+.dish-card__base-button.dish-card__controls__up-button:active {
+    background-color: var(--darkest-green);
+}
+
+.dish-card__controls__buttons .dish-card__controls__button {
+    width: 40%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+}
+
+.dish-card__controls__buttons .dish-card__controls__up-button:hover {
+    background: linear-gradient(
+        to left,
+        var(--darker-green),
+        20%,
+        var(--green)
+    );
+}
+
+.dish-card__controls__buttons .dish-card__controls__up-button:active {
+    background: linear-gradient(
+        to left,
+        var(--darkest-green),
+        20%,
+        var(--green)
+    );
+}
+
+.dish-card__controls__buttons .dish-card__controls__down-button:hover {
+    background: linear-gradient(
+        to right,
+        var(--darker-green),
+        20%,
+        var(--green)
+    );
+}
+
+.dish-card__controls__buttons .dish-card__controls__down-button:active {
+    background: linear-gradient(
+        to right,
+        var(--darkest-green),
+        20%,
+        var(--green)
+    );
+}
+
+.dish-card__controls__button {
+    cursor: pointer;
+    font-size: var(--font-size-two);
+}

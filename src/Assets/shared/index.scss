@@ -1,0 +1,17 @@
+@import "./button.scss";
+@import "./card.scss";
+@import "./colors.scss";
+@import "./container.scss";
+@import "./fonts.scss";
+@import "./input.scss";
+@import "./modal.scss";
+
+body {
+    margin: 0;
+}
+
+.middle-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
