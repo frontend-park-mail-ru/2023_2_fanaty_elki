@@ -40,6 +40,10 @@
     @media not (max-width: 1200px) {
         padding: 10px clamp(10px,2vw,50px);
     }
+    @media (max-width: 800px) {
+        font-size: var(--font-size-five);
+        padding: 10px;
+    }
     display: flex;
     align-items: center;
     cursor: pointer;
