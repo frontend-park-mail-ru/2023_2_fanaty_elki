@@ -13,6 +13,7 @@ export function start() {
             try {
                 await navigator.serviceWorker.register("/service-worker.js", {
                     scope: "/",
+                    type: "module",
                 });
                 console.log("SW registered: ");
             } catch (registrationError) {

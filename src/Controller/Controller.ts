@@ -127,7 +127,7 @@ export class Controller {
             case VIEW_EVENT_TYPE.INCREASE_CART:
                 model.cartModel.increase(<number>event!.data);
                 model.cartModel.setCurrentRestaurant(
-                    model.restaurantModel.getRestaurant().RestaurantInfo,
+                    model.restaurantModel.getRestaurant()!.RestaurantInfo,
                 );
                 break;
             case VIEW_EVENT_TYPE.LOAD_CART:

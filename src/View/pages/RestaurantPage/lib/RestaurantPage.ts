@@ -84,7 +84,7 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
             case UIEventType.BUTTON_UP_CLICK:
                 if (
                     !model.cartModel.isSameRestaurant(
-                        model.restaurantModel.getRestaurant().RestaurantInfo,
+                        model.restaurantModel.getRestaurant()!.RestaurantInfo,
                     )
                 ) {
                     this.changeRestaurant.setNewProduct(event!.data as number);

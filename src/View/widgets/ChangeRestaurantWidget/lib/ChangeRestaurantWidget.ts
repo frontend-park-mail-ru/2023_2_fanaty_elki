@@ -73,7 +73,7 @@ export class ChangeRestaurantWidget
         this.getChild(
             "#new-restaurant",
         ).innerText = `Оформить заказ из ресторана ${
-            model.restaurantModel.getRestaurant().RestaurantInfo.Name
+            model.restaurantModel.getRestaurant()!.RestaurantInfo.Name
         }`;
 
         this.getChild(

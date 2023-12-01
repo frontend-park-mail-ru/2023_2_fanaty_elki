@@ -1,7 +1,5 @@
+import { appShellFiles } from "./assets.js";
 const cacheName = "my-cache-v1";
-if ("function" === typeof importScripts) {
-    importScripts("assets.js");
-}
 
 self.addEventListener("install", (event) => {
     event.waitUntil(

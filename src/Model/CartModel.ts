@@ -22,7 +22,6 @@ export const enum CartEvent {
  */
 export class CartModel implements Listenable<CartEvent> {
     private cart: Cart;
-    requestBuffer: Map<number, number>;
 
     private events_: EventDispatcher<CartEvent>;
     get events(): EventDispatcher<CartEvent> {
@@ -38,54 +37,45 @@ export class CartModel implements Listenable<CartEvent> {
         this.events_ = new EventDispatcher<CartEvent>();
         this.currentRestaurant = null;
         this.cart = [];
-        this.requestBuffer = new Map<number, number>();
         appModel.events.subscribe(this.clearBuffer.bind(this));
     }
 
     async clearBuffer(event?: AppEvent) {
         if (event !== AppEvent.ONLINE) return;
         try {
-            for (const [id, value] of this.requestBuffer) {
-                if (value > 0) {
-                    for (let i = 0; i < value; i++) {
-                        await Api.addDishToCart(id);
-                    }
-                } else if (value < 0) {
-                    for (let i = value; i < 0; i++) {
-                        await Api.removeDishFromCart(id);
-                    }
+            await Api.clearCart();
+            for (const product of this.cart) {
+                for (let i = 0; i < product.ItemCount; i++) {
+                    await Api.addDishToCart(product.Product.ID);
                 }
             }
         } catch (e) {
-            console.log("Не удалось синхронизировать корзину");
+            console.error("Не удалось синхронизировать корзину");
+            console.error(e);
         }
-        this.requestBuffer.clear();
         this.setCart();
     }
 
     async setCart() {
         try {
             const cartInfo = await Api.getCart();
-            this.cart = cartInfo.Products;
+            this.cart = cartInfo.Products || [];
             this.currentRestaurant = cartInfo.Restaurant;
             this.cart?.forEach((cartPos) => {
                 cartPos.Sum = Math.round(
                     cartPos.Product.Price * cartPos.ItemCount,
                 );
             });
+            this.events.notify();
         } catch (e) {
             console.error("Неудачный запрос корзины");
             console.error(e);
         }
-        this.events.notify();
     }
 
     async increase(id: number) {
         try {
-            if (!model.appModel.isOnline()) {
-                const val = this.requestBuffer.get(id);
-                this.requestBuffer.set(id, val ? val + 1 : 1);
-            } else {
+            if (model.appModel.isOnline()) {
                 await Api.addDishToCart(id);
             }
             const lineItem = this.cart.find((x) => x.Product.ID === +id);
@@ -102,19 +92,16 @@ export class CartModel implements Listenable<CartEvent> {
                     });
                 }
             }
+            this.events.notify();
         } catch (e) {
-            console.error("Неудачное добавление");
+            console.error("Неудачное добавление в корзину");
             console.error(e);
         }
-        this.events.notify();
     }
 
     async decrease(id: number) {
         try {
-            if (!model.appModel.isOnline()) {
-                const val = this.requestBuffer.get(id);
-                this.requestBuffer.set(id, val ? val - 1 : -1);
-            } else {
+            if (model.appModel.isOnline()) {
                 await Api.removeDishFromCart(id);
             }
             const lineItem = this.cart.find((x) => x.Product.ID === +id);
@@ -126,18 +113,25 @@ export class CartModel implements Listenable<CartEvent> {
                     this.cart.splice(index, 1);
                 }
             }
+            this.events.notify();
         } catch (e) {
-            console.error("Неудачное удаление");
+            console.error("Неудачное удаление из корзины");
             console.error(e);
         }
-        this.events.notify();
     }
 
     async clearCart() {
-        await Api.clearCart();
-        this.cart = [];
-        this.currentRestaurant = null;
-        this.events.notify();
+        try {
+            if (model.appModel.isOnline()) {
+                await Api.clearCart();
+            }
+            this.cart = [];
+            this.currentRestaurant = null;
+            this.events.notify();
+        } catch (e) {
+            console.error("Неудачная очистка корзины");
+            console.error(e);
+        }
     }
 
     async setCurrentRestaurant(restaurant: Restaurant) {
@@ -157,6 +151,7 @@ export class CartModel implements Listenable<CartEvent> {
 
     clearLocalCart() {
         this.cart = [];
+        this.currentRestaurant = null;
         this.events.notify();
     }
 
