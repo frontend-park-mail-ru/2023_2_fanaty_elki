@@ -13,6 +13,14 @@
     font-size: var(--font-size-two);
 }
 
+.payment-chooser__title {
+    display: flex;
+    align-items: flex-start;
+    align-self: stretch;
+
+    margin: 0;
+}
+
 .radio-chooser {
     display: flex;
     gap: 20px;
@@ -63,12 +71,13 @@
     align-items: flex-start;
     gap: 15px;
     align-self: stretch;
+
+    padding-top: 15px;
 }
 
-.cart__content__control__payment-approve__title {
+.cart__content__control__payment-approve__sum {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
     align-self: stretch;
 
     font-size: var(--font-size-two);

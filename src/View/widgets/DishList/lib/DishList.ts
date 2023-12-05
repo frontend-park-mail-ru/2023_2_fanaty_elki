@@ -46,9 +46,7 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
         this.setList(model.restaurantModel.getRestaurant());
         if (this.item_id) {
             const dish = this.getChild(`[data-product-id="${this.item_id}"`);
-            console.log(dish);
             if (dish) {
-                console.log("scroll");
                 dish.scrollIntoView();
                 return;
             }
@@ -65,7 +63,7 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
         }
     }
 
-    setList(rest: RestaurantWithCategories) {
+    setList(rest: RestaurantWithCategories | null) {
         this.element.innerHTML = DishListTemplate(rest);
         if (!model.userModel.getUser()) {
             this.getAll(dishListSelectors.CONTROLS).forEach(
@@ -88,8 +86,8 @@ export class DishList extends IWidget implements Listenable<UIEvent> {
                     .closest(dishListSelectors.CARD)!
                     .getAttribute("data-product-id");
                 if (target.classList.contains(dishListSelectors.UP_BUTTON)) {
-                    controller.handleEvent({
-                        type: VIEW_EVENT_TYPE.INCREASE_CART,
+                    this.events.notify({
+                        type: UIEventType.BUTTON_UP_CLICK,
                         data: productId,
                     });
                 } else if (

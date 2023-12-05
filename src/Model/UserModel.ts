@@ -19,6 +19,7 @@ export const enum UserEvent {
     AUTH = "AUTH",
     ADDRESS_CHANGE = "ADDRESS_CHANGE",
     USER_ICON_UPDATE = "USER_ICON_UPDATE",
+    OFFLINE = "OFFLINE",
 }
 
 export type Address = {
@@ -106,6 +107,10 @@ export class UserModel implements Listenable<UserEvent> {
             await Api.createUser(user);
             this.errorMsg = null;
         } catch (e: any) {
+            if (!model.appModel.isOnline()) {
+                this.events.notify(UserEvent.OFFLINE);
+                throw e;
+            }
             this.errorMsg = apiConfig.api.signup.failure[e.status];
             this.events.notify(UserEvent.USER_REG); // Грязный хак
             throw e;
@@ -129,6 +134,10 @@ export class UserModel implements Listenable<UserEvent> {
                 this.user?.Birthday.slice(0, 10) || this.user!.Birthday;
             this.errorMsg = null;
         } catch (e: any) {
+            if (!model.appModel.isOnline()) {
+                this.events.notify(UserEvent.OFFLINE);
+                throw e;
+            }
             this.errorMsg = apiConfig.api.login.failure[e.status];
         }
         this.events.notify(UserEvent.USER_LOGIN);
@@ -144,6 +153,10 @@ export class UserModel implements Listenable<UserEvent> {
             this.user = null;
             this.errorMsg = null;
         } catch (e: any) {
+            if (!model.appModel.isOnline()) {
+                this.events.notify(UserEvent.OFFLINE);
+                throw e;
+            }
             this.errorMsg = apiConfig.api.logout.failure[e.status];
             console.error("Неудачный логаут");
             console.error(e);
@@ -164,6 +177,10 @@ export class UserModel implements Listenable<UserEvent> {
                 this.user?.Birthday.slice(0, 10) || this.user!.Birthday;
             this.errorMsg = null;
         } catch (e: any) {
+            if (!model.appModel.isOnline()) {
+                this.events.notify(UserEvent.OFFLINE);
+                throw e;
+            }
             this.errorMsg = apiConfig.api.updateUser.failure[e.status];
             console.error("Неудачное обновление пользователя");
             console.error(e);
@@ -179,6 +196,10 @@ export class UserModel implements Listenable<UserEvent> {
                 this.user?.Birthday.slice(0, 10) || this.user!.Birthday;
             this.errorMsg = null;
         } catch (e: any) {
+            if (!model.appModel.isOnline()) {
+                this.events.notify(UserEvent.OFFLINE);
+                throw e;
+            }
             this.errorMsg = apiConfig.api.updateUser.failure[e.status];
             console.error("Неудачное обновление фотографии пользователя");
             console.error(e);

@@ -65,7 +65,6 @@ export class OrderWidget extends IWidget implements Listenable<UIEvent> {
     updateOrderEvent(event?: OrderEvent) {
         if (event === OrderEvent.LOAD_CURRENT_ORDER) {
             const order = model.orderModel.getCurrentOrder()!;
-            console.log(order);
 
             this.orderNum.innerText = `Заказ ${order.Id}`;
             this.deliveryTime.innerText = `Ожидаемое время доставки ${this.presentDeliveryTime(

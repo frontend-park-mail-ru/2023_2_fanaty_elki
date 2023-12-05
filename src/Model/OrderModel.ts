@@ -5,6 +5,7 @@ export const enum OrderEvent {
     LOAD_ORDERS = "LOAD_ORDERS",
     CREATE_ORDER = "CREATE_ORDER",
     LOAD_CURRENT_ORDER = "LOAD_CURRENT_ORDER",
+    OFFLINE = "OFFLINE",
 }
 
 export const enum OrderStatus {
@@ -96,6 +97,10 @@ export class OrderModel implements Listenable<OrderEvent> {
             await Api.createOrder(mocAddress);
             this.events.notify(OrderEvent.CREATE_ORDER);
         } catch (e) {
+            if (!model.appModel.isOnline()) {
+                this.events.notify(OrderEvent.OFFLINE);
+                throw e;
+            }
             console.error("Не удалось создать заказ");
             console.error(e);
         }

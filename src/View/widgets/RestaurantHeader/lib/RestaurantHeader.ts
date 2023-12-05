@@ -4,6 +4,8 @@ import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { IWidget } from "../../../types";
 
 import restaurantHeader from "../ui/RestaurantHeader.hbs";
+import loadingTemplate from "../ui/Loading.hbs";
+import "../ui/Loading.scss";
 import restaurantHeaderTemplate from "../ui/RestaurantHeaderTemplate.hbs";
 
 export class RestaurantHeader extends IWidget implements Listenable<UIEvent> {
@@ -45,10 +47,14 @@ export class RestaurantHeader extends IWidget implements Listenable<UIEvent> {
 
     updateRestaurantEvent(event?: RestaurantEvent) {
         if (event === RestaurantEvent.LOADED_REST) {
-            this.element.innerHTML = restaurantHeaderTemplate(
-                model.restaurantModel.getRestaurant().RestaurantInfo,
-            );
-            this.bindEvents();
+            if (model.restaurantModel.getRestaurant()) {
+                this.element.innerHTML = restaurantHeaderTemplate(
+                    model.restaurantModel.getRestaurant()!.RestaurantInfo,
+                );
+                this.bindEvents();
+            } else {
+                this.element.innerHTML = loadingTemplate();
+            }
         }
     }
 }

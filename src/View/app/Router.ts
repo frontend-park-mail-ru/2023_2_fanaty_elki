@@ -7,6 +7,10 @@ export class Router {
         private root: HTMLElement,
     ) {}
 
+    refresh() {
+        this.route(window.location.pathname, window.location.search);
+    }
+
     redirect(url: string, search?: string) {
         window.history.pushState({}, "", search ? url + search : url);
         this.route(url, search);
@@ -22,5 +26,6 @@ export class Router {
         page.load(search ? new URLSearchParams(search) : undefined);
         this.root.innerHTML = "";
         this.root.appendChild(page.element);
+        this.current = page;
     }
 }

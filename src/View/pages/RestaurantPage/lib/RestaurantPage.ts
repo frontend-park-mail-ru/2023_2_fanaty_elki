@@ -1,8 +1,10 @@
 // import { RestaurantEvent } from "../../../../Model/RestaurantModel";
+import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { Page } from "../../../types";
 import { AddressChooser } from "../../../widgets/AddressChooser";
+import { ChangeRestaurantWidget } from "../../../widgets/ChangeRestaurantWidget";
 import { DishList } from "../../../widgets/DishList";
 import { LoginSignUpModal } from "../../../widgets/LoginSignUpModal";
 import { Navbar } from "../../../widgets/Navbar";
@@ -17,6 +19,7 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
     private address: AddressChooser;
     private restaurantHeader: RestaurantHeader;
     private restaurantComments: RestaurantComments;
+    private changeRestaurant: ChangeRestaurantWidget;
 
     private events_: EventDispatcher<UIEvent>;
 
@@ -55,6 +58,11 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
             this.restaurantComments.element,
         );
 
+        this.changeRestaurant = new ChangeRestaurantWidget();
+        this.getChild("#change_restaurant_modal").appendChild(
+            this.changeRestaurant.element,
+        );
+
         this.navbar.events.subscribe(this.updateUIEvent.bind(this));
         this.d_list.events.subscribe(this.updateUIEvent.bind(this));
         this.login.events.subscribe(this.updateUIEvent.bind(this));
@@ -72,6 +80,21 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
                 break;
             case UIEventType.RESTAURANT_COMMENTS_CLICK:
                 this.restaurantComments.open();
+                break;
+            case UIEventType.BUTTON_UP_CLICK:
+                if (
+                    !model.cartModel.isSameRestaurant(
+                        model.restaurantModel.getRestaurant()!.RestaurantInfo,
+                    )
+                ) {
+                    this.changeRestaurant.setNewProduct(event!.data as number);
+                    this.changeRestaurant.open();
+                } else {
+                    controller.handleEvent({
+                        type: VIEW_EVENT_TYPE.INCREASE_CART,
+                        data: event!.data,
+                    });
+                }
                 break;
             default:
                 break;

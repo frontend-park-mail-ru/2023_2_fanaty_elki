@@ -34,10 +34,14 @@
 
 .category-switch__switch__category {
     font-size: var(--font-size-three);
-    padding: 10px;
+    @media (max-width: 1200px) {
+        width: 100%;
+    }
+    @media not (max-width: 1200px) {
+        padding: 10px clamp(10px,2vw,50px);
+    }
     display: flex;
     align-items: center;
-
     cursor: pointer;
 }
 
