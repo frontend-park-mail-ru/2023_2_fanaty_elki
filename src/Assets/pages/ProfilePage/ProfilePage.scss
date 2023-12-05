@@ -3,12 +3,18 @@
     gap: 40px;
 }
 
+.profile__title {
+    font-size: var(--font-size-one);
+}
+
 .profile__content {
     display: flex;
     flex-direction: column;
+    gap: 25px;
     @media screen and (min-width: 641px) {
         flex-direction: row;
         justify-content: space-between;
+        gap: 0px;
     }
 }
 
