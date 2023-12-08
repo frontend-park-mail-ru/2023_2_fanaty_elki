@@ -1,48 +1,39 @@
 {{#if this}}
 {{#each this}}
-    <div class="search-result js__search-result">
-        <div class="search-result__restaurant js__restaurant" data-restaurant-id="{{ID}}">
-            <img
-                class="search-result__restaurant-image"
-                src="{{Icon}}"
-            />
-            <div class="search-result__restaurant-info">
-                <h2 class="search-result__restaurant-info__title">{{Name}}</h2>
-                <div class="search-result__subtitle">
-                    <span class="search-result__subtitle__meta">{{MinDeliveryTime}} – {{MaxDeliveryTime}} мин</span>
-                    <span class="search-result__subtitle__meta">{{DeliveryPrice}}₽</span>
-                    {{#each Categories}}
-                        <span class="search-result__subtitle__tag">{{this}}</span>
-                    {{/each}}
-                </div>
+<div class="search-result js__search-result">
+    <div class="search-result__restaurant js__restaurant" data-restaurant-id="{{ID}}">
+        <img class="search-result__restaurant-image" src="{{Icon}}" />
+        <div class="search-result__restaurant-info">
+            <h2 class="search-result__restaurant-info__title">{{Name}}</h2>
+            <div class="search-result__subtitle">
+                <span class="search-result__subtitle__meta">{{MinDeliveryTime}} – {{MaxDeliveryTime}} мин</span>
+                <span class="search-result__subtitle__meta">{{DeliveryPrice}}₽</span>
+                {{#each Categories}}
+                <span class="search-result__subtitle__tag">{{this}}</span>
+                {{/each}}
             </div>
         </div>
-
-        <div class="search-result__items">
-            {{#each Products}}
-                <div class="dish-card pointer-card js__dish-card" data-product-id="{{ID}}">
-                    <div class="dish-card__top">
-                        <img
-                            class="dish-card__image"
-                            src="{{Icon}}"
-                        />
-                        <div class="dish-card__info__text">
-                            <div class="dish-card__info__text__dish-name">
-                                {{Name}}
-                            </div>
-                            <div class="dish-card__info__text__price">{{Price}} ₽</div>
-                        </div>
-                    </div>
-                    <div class="dish-card__controls">
-                        <button
-                            class="dish-card__base-button dish-card__controls__button dish-card__controls__up-button">
-                            Заказать
-                        </button>
-                    </div>
-                </div>
-            {{/each}}
-        </div>
     </div>
+
+    <div class="search-result__items card-layout">
+        {{#each Products}}
+        <div class="dish-card card pointer-card js__dish-card" data-product-id="{{ID}}">
+            <div class="dish-card__top">
+                <img class="dish-card__image card-image" src="{{Icon}}" alt="" srcset="" />
+                <div class="dish-card__info__text">
+                    <div class="dish-card__info__text__dish-name">{{Name}}</div>
+                    <div class="dish-card__info__text__price">{{Price}} ₽</div>
+                </div>
+            </div>
+            <div class="dish-card__controls">
+                <button class="dish-card__base-button dish-card__controls__button dish-card__controls__up-button">
+                    Заказать
+                </button>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
 {{/each}}
 {{else}}
 <h2 class="">
