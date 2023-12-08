@@ -35,29 +35,37 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
     }
 
     get searchValue() {
-        return (<HTMLInputElement>(
-            (<HTMLFormElement>this.getChild(".js_search-input"))[0]
-        )).value.trim();
+        return (
+            (<HTMLInputElement>(
+                (<HTMLFormElement>this.getAll(".js_search-input")[0])[0]
+            )).value.trim() ||
+            (<HTMLInputElement>(
+                (<HTMLFormElement>this.getAll(".js_search-input")[1])[0]
+            )).value.trim()
+        );
     }
 
     set searchValue(value: string) {
-        (<HTMLInputElement>(
-            (<HTMLFormElement>this.getChild(".js_search-input"))[0]
-        )).value = value;
+        const search_forms = this.getAll(".js_search-input");
+        search_forms.forEach((form) => {
+            (<HTMLInputElement>(<HTMLFormElement>form)[0]).value = value;
+        });
     }
 
     private bindEvents() {
-        const search_form = this.getChild(".js_search-input");
-        search_form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            const query = this.searchValue;
-            if (query.length > 2) {
-                this.searchValue = "";
-                this.events.notify({
-                    type: UIEventType.NAVBAR_SEARCH_SUBMIT,
-                    data: query,
-                });
-            }
+        const search_forms = this.getAll(".js_search-input");
+        search_forms.forEach((form) => {
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const query = this.searchValue;
+                if (query.length > 2) {
+                    this.searchValue = "";
+                    this.events.notify({
+                        type: UIEventType.NAVBAR_SEARCH_SUBMIT,
+                        data: query,
+                    });
+                }
+            });
         });
         this.element.querySelector("#logo")!.addEventListener("click", () => {
             this.events.notify({ type: UIEventType.NAVBAR_LOGO_CLICK });
@@ -126,20 +134,28 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
 
     private setAuthUser(username: string) {
         this.userNameElement.firstElementChild!.innerHTML = username;
-        this.element.appendChild(this.userNameElement);
+        this.element
+            .querySelector(".navbar_main")!
+            .appendChild(this.userNameElement);
         this.element
             .querySelector(".navbar__fields")!
             .appendChild(this.cartButton);
         this.updateCartIcon();
         if (this.signInButton.parentNode) {
-            this.element.removeChild(this.signInButton);
+            this.element
+                .querySelector(".navbar_main")!
+                .removeChild(this.signInButton);
         }
     }
 
     private setNonAuthUser() {
-        this.element.appendChild(this.signInButton);
+        this.element
+            .querySelector(".navbar_main")!
+            .appendChild(this.signInButton);
         if (this.userNameElement.parentNode) {
-            this.element.removeChild(this.userNameElement);
+            this.element
+                .querySelector(".navbar_main")!
+                .removeChild(this.userNameElement);
         }
         if (this.cartButton.parentNode) {
             this.element

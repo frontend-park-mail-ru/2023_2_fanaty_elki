@@ -1,35 +1,46 @@
 <div class="navbar container">
-    <img class="navbar__logo" id="logo" src="img/logo.svg" alt="Logo" />
-    <div class="navbar__fields">
-        <form class="navbar__fields__search-container js_search-input">
-            <div class="navbar__fields__search">
-                <div class="navbar__fields__search__img">
-                    <img class="" src="img/glass.svg" />
+    <div class="navbar_main">
+        <img class="navbar__logo" id="logo" src="img/logo.svg" alt="Logo" />
+        <div class="navbar__fields">
+            <form class="navbar__fields__search-container js_search-input">
+                <div class="navbar__fields__search">
+                    <div class="navbar__fields__search__img">
+                        <img class="" src="img/glass.svg" />
+                    </div>
+                    <input class="navbar__fields__search__input" type="search" placeholder="Поиск" name="query" />
                 </div>
-                <input class="navbar__fields__search__input" type="search" placeholder="Поиск" name="query" />
-            </div>
-            <input class="search-button" type="submit" value="Найти" />
-        </form>
-        <button class="navbar__fields__address" id="address-button" type="button" value="">
-            <img class="navbar__fields__address__icon" src="img/navigate.svg" alt="" />
-            <p class="navbar__fields__address__title">Укажите адрес</p>
-        </button>
-        <div class="navbar__fields__backet" id="cart">
-            <button class="navbar__fields__backet__button" type="button" value="">
-                <img class="navbar__fields__backet__button__icon" src="img/shop_basket.svg" alt="" />
+                <input class="search-button" type="submit" value="Найти" />
+            </form>
+            <button class="navbar__fields__address" id="address-button" type="button" value="">
+                <img class="navbar__fields__address__icon" src="img/navigate.svg" alt="" />
+                <p class="navbar__fields__address__title">Укажите адрес</p>
             </button>
-            <p class="navbar__fields__backet__sum" id="sum"></p>
+            <div class="navbar__fields__backet" id="cart">
+                <button class="navbar__fields__backet__button" type="button" value="">
+                    <img class="navbar__fields__backet__button__icon" src="img/shop_basket.svg" alt="" />
+                </button>
+                <p class="navbar__fields__backet__sum" id="sum"></p>
+            </div>
+        </div>
+        <button class="navbar__signin" id="signin-button" type="button" value="">
+            <p class="navbar__signin__title">Войти</p>
+        </button>
+        <div class="navbar__name-container" id="name-container">
+            <p id="me" class="navbar__name-container__name"></p>
+            <button class="navbar__name-container__exit" id="exit-button" type="button" value="">
+                <img class="navbar__name-container__exit__icon" src="img/door-exit.svg" alt="" />
+            </button>
+        </div>
+        <div class="modal" id="address-modal">
         </div>
     </div>
-    <button class="navbar__signin" id="signin-button" type="button" value="">
-        <p class="navbar__signin__title">Войти</p>
-    </button>
-    <div class="navbar__name-container" id="name-container">
-        <p id="me" class="navbar__name-container__name"></p>
-        <button class="navbar__name-container__exit" id="exit-button" type="button" value="">
-            <img class="navbar__name-container__exit__icon" src="img/door-exit.svg" alt="" />
-        </button>
-    </div>
-    <div class="modal" id="address-modal">
-    </div>
+    <form class="navbar__fields__search-container_mobile js_search-input">
+        <div class="navbar__fields__search_mobile">
+            <div class="navbar__fields__search__img_mobile">
+                <img class="" src="img/glass.svg" />
+            </div>
+            <input class="navbar__fields__search__input_mobile" type="search" placeholder="Поиск" name="query" />
+        </div>
+        <input class="search-button_mobile" type="submit" value="Найти" />
+    </form>
 </div>
