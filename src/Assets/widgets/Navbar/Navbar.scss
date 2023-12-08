@@ -7,7 +7,6 @@ $search_input_height: 44px;
 .navbar {
     margin: 0 auto;
     gap: 10px;
-    min-height: 88px;
     background-color: var(--light-gray);
     display: flex;
     align-items: center;
@@ -15,34 +14,20 @@ $search_input_height: 44px;
 }
 
 .navbar__logo {
-    @media screen and (min-width: 1280px) {
-        // display: flex;
+    aspect-ratio: 3/1;
+    width: 40%;
+    @media screen and (min-width: 461px) {
+        width: 16%;
     }
-    @media screen and (min-width: 800px) and (max-width: 1280px) {
-        // display: flex;
-    }
-    @media screen and (min-width: 640px) and (max-width: 800px) {
-        // display: flex;
-    }
-    @media screen and (max-width: 640px) {
-        // display: flex;
-    }
+    
     cursor: pointer;
 }
 
 .navbar__fields {
-    @media screen and (min-width: 1280px) {
-    }
-    @media screen and (min-width: 800px) and (max-width: 1280px) {
-    }
-    @media screen and (min-width: 640px) and (max-width: 800px) {
-    }
-    @media screen and (max-width: 640px) {
-    }
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    width: 50%;
 }
 
 .navbar__fields__search {
@@ -54,19 +39,7 @@ $search_input_height: 44px;
 }
 
 .navbar__fields__search-container {
-    @media screen and (min-width: 1280px) {
-        width: clamp(
-            $search_input_min_size,
-            $search_input_size,
-            $search_input_max_size
-        );
-    }
-    @media screen and (min-width: 800px) and (max-width: 1280px) {
-    }
-    @media screen and (min-width: 640px) and (max-width: 800px) {
-    }
-    @media screen and (max-width: 640px) {
-    }
+    width: 50%;
     border-radius: 12px;
     overflow: hidden;
     border: solid 1px;
@@ -112,16 +85,7 @@ $search_input_height: 44px;
 }
 
 .navbar__fields__address {
-    @media screen and (min-width: 800px) {
-        width: clamp(44px, 22vw, 280px);
-    }
-    @media screen and (min-width: 640px) and (max-width: 800px) {
-        width: 44px;
-    }
-    @media screen and (max-width: 640px) {
-        width: 44px;
-    }
-    height: 44px;
+    width: 40%;
     border-radius: 17px;
     display: flex;
     align-items: center;
@@ -154,23 +118,24 @@ $search_input_height: 44px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 6%;
     gap: 2px;
     padding-top: 15px;
     cursor: pointer;
 }
 
 .navbar__fields__backet__button {
-    width: 44px;
-    height: 44px;
-    border-radius: 44px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
     background-color: var(--green);
     border-width: 0;
     cursor: pointer;
 }
 
 .navbar__fields__backet__button__icon {
-    width: 25px;
-    height: 28px;
+    aspect-ratio: 1/1;
+    width: 100%;
 }
 
 .navbar__fields__backet__sum {
@@ -198,7 +163,7 @@ $search_input_height: 44px;
 .navbar__name-container {
     display: flex;
     align-items: center;
-    width: 180px;
+    width: 10%;
     justify-content: space-evenly;
 }
 
@@ -210,8 +175,8 @@ $search_input_height: 44px;
 }
 
 .navbar__name-container__exit {
-    width: 44px;
-    height: 44px;
+    width: 30%;
+    aspect-ratio: 1/1;
     border-radius: 17px;
     background-color: var(--green);
     border-width: 0;
@@ -219,8 +184,8 @@ $search_input_height: 44px;
 }
 
 .navbar__name-container__exit__icon {
-    width: 25px;
-    height: 40px;
+    width: 90%;
+    aspect-ratio: 1/1;
     margin: auto auto;
 }
 
