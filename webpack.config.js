@@ -1,11 +1,12 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = ({ development }) => ({
     entry: {
-        "app": "./public/index.ts",
+        app: "./public/index.ts",
         "service-worker": "./public/service-worker.ts",
-        "assets": "./public/assets.js",
+        assets: "./public/assets.js",
     },
     output: {
         filename: "[name].js",
@@ -45,6 +46,11 @@ module.exports = ({ development }) => ({
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "public/index.html"),
             filename: "index_app.html",
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: "src/img", to: "img" },
+            ],
         }),
     ],
 });

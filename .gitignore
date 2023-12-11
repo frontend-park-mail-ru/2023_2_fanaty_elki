@@ -4,4 +4,4 @@ dist
 out
 .vscode
 .modal
-keys
+nginx/keys
