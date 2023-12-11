@@ -259,18 +259,18 @@
 }
 
 .restaurant-comments__comment-form__rating__stars:not(:checked) > label {
-    content: url("http://84.23.53.216/img/gray_star.svg");
+    content: url("https://prinesy-poday.ru/img/gray_star.svg");
 }
 
 .restaurant-comments__comment-form__rating__stars > input:checked ~ label {
-    content: url("http://84.23.53.216/img/gold_star.svg");
+    content: url("http://prinesy-poday.ru/img/gold_star.svg");
 }
 
 .restaurant-comments__comment-form__rating__stars:not(:checked) > label:hover,
 .restaurant-comments__comment-form__rating__stars:not(:checked)
     > label:hover
     ~ label {
-    content: url("http://84.23.53.216/img/gold_star.svg");
+    content: url("http://prinesy-poday.ru/img/gold_star.svg");
 }
 
 .restaurant-comments__comment-form__rating__stars > input:checked + label:hover,
@@ -287,7 +287,7 @@
     > label:hover
     ~ input:checked
     ~ label {
-    content: url("http://84.23.53.216/img/gold_star.svg");
+    content: url("http://prinesy-poday.ru/img/gold_star.svg");
 }
 
 .restaurant-comments__comment-form__comment {
