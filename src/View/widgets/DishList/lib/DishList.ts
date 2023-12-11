@@ -11,6 +11,7 @@ import { UserEvent } from "../../../../Model/UserModel";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { UIEvent, UIEventType } from "../../../../config";
 import { dishListSelectors } from "./config";
+import Handlebars from "handlebars";
 
 Handlebars.registerHelper("itemcount", (id) => {
     return model.cartModel.getDishCount(id);
