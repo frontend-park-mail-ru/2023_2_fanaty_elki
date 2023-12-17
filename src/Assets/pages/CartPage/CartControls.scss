@@ -134,12 +134,27 @@
     width: 100%;
 }
 
-.cart__content__control__promo__label {
+.cart__content__control__promo__header {
+    display: flex;
+    align-items: flex-end;
+
+    gap: 10px;
+
+    width: 100%;
+}
+
+.cart__content__control__promo__header__label {
     display: flex;
 
     font-size: var(--font-size-two);
 
-    width: 100%;
+    width: 30%;
+}
+
+.cart__content__control__promo__header__error {
+    display: flex;
+    color: var(--red);
+    font-size: var(--font-size-four);
 }
 
 .cart__content__control__promo__input-control {

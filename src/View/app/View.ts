@@ -13,6 +13,7 @@ import { OrderEvent } from "../../Model/OrderModel";
 import { AppEvent } from "../../Model/AppModel";
 import { StatusMessage } from "./entities/StatusMessage";
 import { Notifier, Value } from "./entities/Notification";
+import { CartEvent } from "../../Model/CartModel";
 
 const enum Messages {
     LOGIN_FIRST = "Нужно залогиниться",
@@ -21,6 +22,7 @@ const enum Messages {
     NOT_ALLOWED = "Сейчас это невозможно",
     USER_UPDATED = "Данные сохранены",
     ORDER_CREATED = "Заказ создан",
+    PROMO_RELEASED = "Промокод применен",
 }
 
 export class View {
@@ -38,6 +40,7 @@ export class View {
 
         model.userModel.events.subscribe(this.updateUserEvent.bind(this));
         model.orderModel.events.subscribe(this.updateOrderEvent.bind(this));
+        model.cartModel.events.subscribe(this.updateCartEvent.bind(this));
 
         this.mainPage = new MainPage();
         this.mainPage.events.subscribe(this.updateUIEvent.bind(this));
@@ -169,6 +172,14 @@ export class View {
             this.router_.redirect(ROUTES.profile);
         } else if (event === OrderEvent.OFFLINE) {
             this.notifier.show(Messages.NOT_ALLOWED, Value.ERROR);
+        }
+    }
+
+    updateCartEvent(event?: CartEvent) {
+        if (event === CartEvent.PROMO) {
+            if (model.cartModel.getPromo()) {
+                this.notifier.show(Messages.PROMO_RELEASED, Value.EVENT);
+            }
         }
     }
 

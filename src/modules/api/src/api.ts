@@ -392,6 +392,27 @@ const Api = {
         const json = await response.json();
         return json.Body;
     },
+
+    async releasePromo(promo: string) {
+        const config = apiConfig.api.releasePromo;
+        const body = JSON.stringify(promo);
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(body),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
+
+    async cancelPromo(promo: string) {
+        const config = apiConfig.api.cancelPromo;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}/${promo}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+    },
 };
 
 export { Api, ERROR_TYPE };

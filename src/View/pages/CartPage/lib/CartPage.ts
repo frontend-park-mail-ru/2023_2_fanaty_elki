@@ -9,7 +9,7 @@ import cartControlsTemplate from "../ui/CartControls.hbs";
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { OrderEvent } from "../../../../Model/OrderModel";
 import { cartElement, paymentConfig, navbarConfig } from "./config";
-import { Cart } from "../../../../Model/CartModel";
+import { Cart, CartEvent, PromoType } from "../../../../Model/CartModel";
 import { UserEvent } from "../../../../Model/UserModel";
 
 export class CartPage extends Page implements Listenable<UIEvent> {
@@ -19,6 +19,9 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     private addressInput: HTMLInputElement;
     private addressButton: HTMLElement;
     private cardPayment: HTMLElement;
+    private promo: HTMLInputElement;
+    private promoButton: HTMLElement;
+    private promoError: HTMLElement;
 
     private events_: EventDispatcher<UIEvent>;
 
@@ -42,6 +45,10 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         this.addressButton = this.getChild("#cart__change-address");
         this.cardPayment = this.getChild("#card-payment");
 
+        this.promo = <HTMLInputElement>this.getChild("#promo__value");
+        this.promoButton = this.getChild("#promo__submit");
+        this.promoError = this.getChild("#promo__error");
+
         this.navbar.events.subscribe(this.update.bind(this));
 
         model.cartModel.events.subscribe(this.updateCart.bind(this));
@@ -63,6 +70,12 @@ export class CartPage extends Page implements Listenable<UIEvent> {
                     "Укажите адрес доставки";
             }
         });
+
+        this.element.addEventListener("click", () => {
+            this.getChild(cartElement.ERROR_BOX).innerText = "";
+            this.promoError.innerText = "";
+        });
+
         this.getChild("#courier-cash").addEventListener("input", () => {
             this.disableCardInputs();
         });
@@ -76,6 +89,21 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         this.addressButton.addEventListener("click", () => {
             this.getChild(cartElement.ERROR_BOX).innerText = "";
             this.address.open();
+        });
+
+        this.promoButton.addEventListener("click", () => {
+            if (this.promoButton.dataset.Action === "release") {
+                if (!this.promo.value) return;
+                controller.handleEvent({
+                    type: VIEW_EVENT_TYPE.RELEASE_PROMO,
+                    data: this.promo.value,
+                });
+            } else {
+                controller.handleEvent({
+                    type: VIEW_EVENT_TYPE.CANCEL_PROMO,
+                    data: this.promo.value,
+                });
+            }
         });
     }
 
@@ -106,7 +134,7 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         this.cardPayment.style.gap = "0";
     }
 
-    updateCart() {
+    updateCart(event?: CartEvent) {
         let cart: Cart | null = model.cartModel.getCart();
         if (cart) {
             cart.sort((a, b) => {
@@ -128,9 +156,38 @@ export class CartPage extends Page implements Listenable<UIEvent> {
                 });
             });
         });
-        this.summ = model.cartModel.getSumm();
-        this.deliveryPrice =
+        const summ = model.cartModel.getSumm();
+        const deliveryPrice =
             model.cartModel.getCurrentRestaurant()?.DeliveryPrice || 0;
+        const promo = model.cartModel.getPromo();
+        const errorMsg = model.cartModel.getError();
+
+        this.summ = summ;
+        this.deliveryPrice = deliveryPrice;
+        this.promoButton.innerText = "Применить";
+        this.promoButton.dataset.Action = "release";
+        this.promo.value = "";
+
+        if (errorMsg) {
+            this.promoError.innerText = errorMsg;
+        } else {
+            this.promoError.innerText = "";
+        }
+
+        if (promo) {
+            this.promoButton.innerText = "Отменить";
+            this.promoButton.dataset.Action = "cancel";
+            this.promo.value = promo.Promo;
+
+            switch (promo.Type) {
+                case PromoType.DISCOUNT:
+                    this.setDiscountedSumm(summ, promo.Discount);
+                    break;
+                case PromoType.FREE_DELIVERY:
+                    this.setFreeDelivery(deliveryPrice);
+                    break;
+            }
+        }
     }
 
     updateUserEvent(event: UserEvent | undefined) {
@@ -168,5 +225,19 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         this.getChild(
             cartElement.DELIVERY_PRICE,
         ).innerHTML = `${paymentConfig.delivery_phrase}${deliveryPrice} ₽`;
+    }
+
+    setDiscountedSumm(summ: number, discount: number) {
+        this.getChild(cartElement.TOTAL_TITLE).innerHTML = `${
+            paymentConfig.summ_phrase
+        }&nbsp;<del><i>${summ}₽</i></del>&nbsp;${(summ * discount).toFixed(
+            2,
+        )} ₽`;
+    }
+
+    setFreeDelivery(deliveryPrice: number) {
+        this.getChild(
+            cartElement.DELIVERY_PRICE,
+        ).innerHTML = `${paymentConfig.delivery_phrase}&nbsp;<del><i>${deliveryPrice}₽</i></del>&nbsp;0 ₽`;
     }
 }

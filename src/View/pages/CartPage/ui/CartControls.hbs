@@ -46,11 +46,15 @@
             </div>
         </div>
         <div class="cart__content__control__promo">
+            <div class="cart__content__control__promo__header">
+                <div class="cart__content__control__promo__header__label">Промокод</div>
+                <div class="cart__content__control__promo__header__error" id="promo__error"></div>
+            </div>
             <div class="cart__content__control__promo__input-control">
                 <input type="text" name="promo" id="promo__value" placeholder="Промокод"
                     class="cart__content__control__promo__input-control__input input-with-msg__input_default">
                 <button type="button" class="cart__content__control__promo__input-control__button button_primary"
-                    id="promo__submit">Применить</button>
+                    id="promo__submit" data-action="release">Применить</button>
             </div>
         </div>
         <div class="cart__content__control__payment-approve">

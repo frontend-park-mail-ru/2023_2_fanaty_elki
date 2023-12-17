@@ -24,6 +24,8 @@ export enum VIEW_EVENT_TYPE {
     LOAD_CATEGORIES = "LOAD_CATEGORIES",
     RESTAURANTS_CATEGORY_UPDATE = "RESTAURANTS_CATEGORY_UPDATE",
     CHANGE_ORDER_RESTAURANT = "CHANGE_ORDER_RESTAURANT",
+    RELEASE_PROMO = "RELEASE_PROMO",
+    CANCEL_PROMO = "CANCEL_PROMO",
 }
 
 export type ViewEvent = {
@@ -167,6 +169,12 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.LOAD_CATEGORIES:
                 model.restaurantModel.setCategories();
+                break;
+            case VIEW_EVENT_TYPE.RELEASE_PROMO:
+                model.cartModel.releasePromo(<string>event!.data);
+                break;
+            case VIEW_EVENT_TYPE.CANCEL_PROMO:
+                model.cartModel.cancelPromo();
                 break;
         }
     }

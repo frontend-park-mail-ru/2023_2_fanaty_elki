@@ -451,5 +451,45 @@ export const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
+        releasePromo: {
+            url: "/promo",
+            params: (body) => {
+                return {
+                    method: REQUEST_METHOD.POST,
+                    body,
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                404: "Неизвестный промокод",
+                494: "Не соблюдены условия акции",
+                495: "Вы уже использовали этот промокод",
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        cancelPromo: {
+            url: "/promo",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.DELETE,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                404: "Вы не применяли промокод",
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
     },
 };
