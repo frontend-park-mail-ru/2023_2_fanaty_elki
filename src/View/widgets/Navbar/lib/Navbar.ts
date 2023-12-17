@@ -9,14 +9,15 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
     private userNameElement: HTMLElement;
     private signInButton: HTMLElement;
     private cartButton: HTMLElement;
+    private backButton: HTMLElement;
 
     private events_: EventDispatcher<UIEvent>;
     get events(): EventDispatcher<UIEvent> {
         return this.events_;
     }
 
-    constructor() {
-        super(navbarTemplate(), ".navbar");
+    constructor(navbarConfig: { noFields: boolean } | undefined) {
+        super(navbarTemplate(navbarConfig), ".navbar");
         this.events_ = new EventDispatcher<UIEvent>();
 
         model.userModel.events.subscribe(this.update.bind(this));
@@ -29,6 +30,7 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
             this.element.querySelector("#signin-button")
         );
         this.cartButton = <HTMLElement>this.element.querySelector("#cart");
+        this.backButton = this.getChild("#navbar__back");
 
         this.bindEvents();
         this.setNonAuthUser();
@@ -108,6 +110,9 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
                     data: null,
                 });
             });
+        this.backButton.addEventListener("click", () => {
+            history.back();
+        });
     }
 
     updateCartIcon() {

@@ -22,6 +22,40 @@ $search_input_height: 44px;
     justify-content: space-between;
 }
 
+.navbar__back-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 5%;
+    width: 10%;
+
+    padding: 10px;
+    background-color: var(--light-gray);
+    border: none;
+    border-radius: 17px;
+
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+        background-color: var(--darkest-light-gray);
+    }
+}
+
+.navbar__back-container__img {
+    aspect-ratio: 1/1;
+    object-fit: contain;
+
+    width: 20%;
+}
+
+.navbar__back-container__text {
+    font-family: Comfortaa;
+    font-weight: bold;
+    font-size: var(--font-size-three);
+}
+
 .navbar__logo {
     aspect-ratio: 3/1;
     width: 40%;

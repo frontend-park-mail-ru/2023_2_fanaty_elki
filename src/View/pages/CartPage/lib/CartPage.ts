@@ -8,7 +8,7 @@ import cartListTemplate from "../ui/CartList.hbs";
 import cartControlsTemplate from "../ui/CartControls.hbs";
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { OrderEvent } from "../../../../Model/OrderModel";
-import { cartElement, paymentConfig } from "./config";
+import { cartElement, paymentConfig, navbarConfig } from "./config";
 import { Cart } from "../../../../Model/CartModel";
 
 export class CartPage extends Page implements Listenable<UIEvent> {
@@ -26,7 +26,7 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         this.getChild(cartElement.CONTROLS).innerHTML = cartControlsTemplate();
         this.events_ = new EventDispatcher<UIEvent>();
 
-        this.navbar = new Navbar();
+        this.navbar = new Navbar(navbarConfig);
         this.getChild(cartElement.NAVBAR).appendChild(this.navbar.element);
         model.orderModel.events.subscribe(this.updateControls.bind(this));
 

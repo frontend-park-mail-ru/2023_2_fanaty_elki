@@ -9,6 +9,7 @@ import { OrderWidget } from "../../../widgets/OrderWidget";
 import { ProfileWidget } from "../../../widgets/ProfileWidget";
 
 import profilePageTemplate from "../ui/ProfilePage.hbs";
+import { navbarConfig } from "./config";
 
 export class ProfilePage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
@@ -26,7 +27,7 @@ export class ProfilePage extends Page implements Listenable<UIEvent> {
         super(profilePageTemplate(), "#profile_page");
         this.events_ = new EventDispatcher<UIEvent>();
 
-        this.navbar = new Navbar();
+        this.navbar = new Navbar(navbarConfig);
         this.element.querySelector("#navbar")!.appendChild(this.navbar.element);
         this.navbar.events.subscribe(this.updateUIEvent.bind(this));
 

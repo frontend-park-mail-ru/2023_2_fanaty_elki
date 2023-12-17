@@ -12,7 +12,7 @@ import { LoginSignUpModal } from "../../../widgets/LoginSignUpModal";
 import { Navbar } from "../../../widgets/Navbar";
 import searchPageTemplate from "../ui/SearchPage.hbs";
 import searchResultsTemplate from "../ui/SearchResults.hbs";
-import { searchElement } from "./config";
+import { navbarConfig, searchElement } from "./config";
 
 export class SearchPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
@@ -29,7 +29,7 @@ export class SearchPage extends Page implements Listenable<UIEvent> {
         super(searchPageTemplate(), searchElement.ROOT);
         this.events_ = new EventDispatcher<UIEvent>();
 
-        this.navbar = new Navbar();
+        this.navbar = new Navbar(navbarConfig);
         this.getChild(searchElement.NAVBAR).appendChild(this.navbar.element);
 
         this.address = new AddressChooser();

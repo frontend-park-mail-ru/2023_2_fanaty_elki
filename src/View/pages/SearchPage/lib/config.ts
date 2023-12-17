@@ -8,3 +8,7 @@ export enum searchElement {
     RESTAURANT = ".js__restaurant",
     RESULT = ".js__search-result",
 }
+
+export const navbarConfig = {
+    noFields: false,
+};

@@ -7,6 +7,7 @@ import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { UIEvent, UIEventType } from "../../../../config";
 import { AddressChooser } from "../../../widgets/AddressChooser";
 import { CategorySwitch } from "../../../widgets/CategorySwitch";
+import { navbarConfig } from "./config";
 export class MainPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
     private r_list: RestaurantsList;
@@ -23,7 +24,7 @@ export class MainPage extends Page implements Listenable<UIEvent> {
         super(MainTemplate(), "#main_page");
         this.events_ = new EventDispatcher<UIEvent>();
 
-        this.navbar = new Navbar();
+        this.navbar = new Navbar(navbarConfig);
         this.element.querySelector("#navbar")!.appendChild(this.navbar.element);
 
         this.address = new AddressChooser();

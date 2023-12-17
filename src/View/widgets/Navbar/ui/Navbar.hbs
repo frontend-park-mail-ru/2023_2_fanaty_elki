@@ -1,7 +1,12 @@
 <div class="navbar container">
     <div class="navbar_main">
+        <button class="navbar__back-container" id="navbar__back" {{#unless noFields}} style="display: none;"
+            {{/unless}}>
+            <img class="navbar__back-container__img" src="img/ArrowBack.svg" alt="" srcset="">
+            <div class="navbar__back-container__text">Назад</div>
+        </button>
         <img class="navbar__logo" id="logo" src="img/logo.svg" alt="Logo" />
-        <div class="navbar__fields">
+        <div class="navbar__fields" {{#if noFields}} style="display: none;" {{/if}}>
             <form class="navbar__fields__search-container js_search-input">
                 <div class="navbar__fields__search">
                     <div class="navbar__fields__search__img">
@@ -22,6 +27,7 @@
                 <p class="navbar__fields__backet__sum" id="sum"></p>
             </div>
         </div>
+
         <button class="navbar__signin" id="signin-button" type="button" value="">
             <p class="navbar__signin__title">Войти</p>
         </button>

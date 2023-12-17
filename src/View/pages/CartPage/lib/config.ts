@@ -3,6 +3,10 @@ export const paymentConfig = {
     delivery_phrase: "Сумма доставки: ",
 };
 
+export const navbarConfig = {
+    noFields: true,
+};
+
 export enum cartElement {
     ROOT = "#cart_page",
     BUTTON = ".cart-item__info__count-control__button",
