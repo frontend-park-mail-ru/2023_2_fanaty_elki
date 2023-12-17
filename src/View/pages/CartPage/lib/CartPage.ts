@@ -85,14 +85,25 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         this.cardPayment.style.gap = "15px";
 
         this.getChild("#card-number").classList.remove("hide-input");
+        (this.getChild("#card-number") as HTMLInputElement).disabled = false;
+
         this.getChild("#card-valid-thru").classList.remove("hide-input");
+        (this.getChild("#card-valid-thru") as HTMLInputElement).disabled =
+            false;
+
         this.getChild("#card-cvv").classList.remove("hide-input");
+        (this.getChild("#card-cvv") as HTMLInputElement).disabled = false;
     }
 
     disableCardInputs() {
         this.getChild("#card-number").classList.add("hide-input");
+        (this.getChild("#card-number") as HTMLInputElement).disabled = true;
+
         this.getChild("#card-valid-thru").classList.add("hide-input");
+        (this.getChild("#card-valid-thru") as HTMLInputElement).disabled = true;
+
         this.getChild("#card-cvv").classList.add("hide-input");
+        (this.getChild("#card-cvv") as HTMLInputElement).disabled = true;
 
         this.cardPayment.style.gap = "0";
     }
