@@ -82,6 +82,20 @@
     flex-direction: column;
     gap: 15px;
     width: 100%;
+
+    transition: all 0.3s ease-out;
+}
+
+.hide-input {
+    height: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+.input-transition {
+    transition-property: all;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
 }
 
 .payment-chooser__online-card__card-data__card-number {
@@ -113,12 +127,21 @@
     padding-top: 15px;
 }
 
-.cart__content__control__payment-approve__sum {
+.cart__content__control__payment-approve__error {
+    color: var(--red);
+    min-height: 19px;
+    font-size: var(--font-size-four);
+}
+
+.cart__content__control__payment-approve__sum,
+.cart__content__control__payment-approve__delivery {
     display: flex;
     align-items: flex-start;
     align-self: stretch;
 
     font-size: var(--font-size-two);
+
+    margin: 0;
 }
 
 .cart__content__control__payment-approve__approve {

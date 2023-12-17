@@ -11,8 +11,8 @@
     <form class="payment-chooser" id="form">
         <h2 class="payment-chooser__title">Способ оплаты</h2>
         <div class="payment-chooser__courier-cash radio-chooser">
-            <input class="radio-chooser__radio" type="radio" name="payment-type" id="courier-cash" value="courier-cash"
-                checked />
+            <input class="radio-chooser__radio" type="radio" name="payment-type" id="courier-cash"
+                value="courier-cash" />
             <label class="radio-chooser__label" for="courier-cash">Наличными
                 курьеру</label>
         </div>
@@ -25,22 +25,23 @@
         <div class="payment-chooser__online-card">
             <div class="radio-chooser">
                 <input class="radio-chooser__radio" type="radio" name="payment-type" id="online-card"
-                    value="online-card" />
+                    value="online-card" checked />
                 <label class="radio-chooser__label" for="online-card">Картой
                     онлайн</label>
             </div>
-            <div class="payment-chooser__online-card__card-data">
-                <input class="payment-chooser__online-card__card-data__card-number input-with-msg__input_default"
+            <div class="payment-chooser__online-card__card-data" id="card-payment">
+                <input
+                    class="payment-chooser__online-card__card-data__card-number input-with-msg__input_default input-transition"
                     type="text" name="card-nubmer" id="card-number" placeholder="Номер карты" pattern="\d{16,16}"
-                    disabled required />
+                    required />
                 <div class="payment-chooser__online-card__card-valid-thru-cvv">
                     <input
-                        class="payment-chooser__online-card__card-data__card-valid-thru input-with-msg__input_default"
+                        class="payment-chooser__online-card__card-data__card-valid-thru input-with-msg__input_default input-transition"
                         type="text" name="card-valid-thru" id="card-valid-thru" placeholder="Срок действия ММ/ГГ"
-                        pattern="\d{2,2}/\d{2,2}" disabled required />
-                    <input class="payment-chooser__online-card__card-data__card-cvv input-with-msg__input_default"
-                        type="password" name="card-cvv" id="card-cvv" placeholder="CVV" pattern="\d{3,3}" disabled
-                        required />
+                        pattern="\d{2,2}/\d{2,2}" required />
+                    <input
+                        class="payment-chooser__online-card__card-data__card-cvv input-with-msg__input_default input-transition"
+                        type="password" name="card-cvv" id="card-cvv" placeholder="CVV" pattern="\d{3,3}" required />
                 </div>
             </div>
         </div>

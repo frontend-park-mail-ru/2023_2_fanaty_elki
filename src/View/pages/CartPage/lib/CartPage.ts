@@ -18,6 +18,7 @@ export class CartPage extends Page implements Listenable<UIEvent> {
 
     private addressInput: HTMLInputElement;
     private addressButton: HTMLElement;
+    private cardPayment: HTMLElement;
 
     private events_: EventDispatcher<UIEvent>;
 
@@ -39,6 +40,7 @@ export class CartPage extends Page implements Listenable<UIEvent> {
 
         this.addressInput = <HTMLInputElement>this.getChild("#cart__address");
         this.addressButton = this.getChild("#cart__change-address");
+        this.cardPayment = this.getChild("#card-payment");
 
         this.navbar.events.subscribe(this.update.bind(this));
 
@@ -80,16 +82,19 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     }
 
     enableCardInputs() {
-        (this.getChild("#card-number") as HTMLInputElement).disabled = false;
-        (this.getChild("#card-valid-thru") as HTMLInputElement).disabled =
-            false;
-        (this.getChild("#card-cvv") as HTMLInputElement).disabled = false;
+        this.cardPayment.style.gap = "15px";
+
+        this.getChild("#card-number").classList.remove("hide-input");
+        this.getChild("#card-valid-thru").classList.remove("hide-input");
+        this.getChild("#card-cvv").classList.remove("hide-input");
     }
 
     disableCardInputs() {
-        (this.getChild("#card-number") as HTMLInputElement).disabled = true;
-        (this.getChild("#card-valid-thru") as HTMLInputElement).disabled = true;
-        (this.getChild("#card-cvv") as HTMLInputElement).disabled = true;
+        this.getChild("#card-number").classList.add("hide-input");
+        this.getChild("#card-valid-thru").classList.add("hide-input");
+        this.getChild("#card-cvv").classList.add("hide-input");
+
+        this.cardPayment.style.gap = "0";
     }
 
     updateCart() {
@@ -119,7 +124,7 @@ export class CartPage extends Page implements Listenable<UIEvent> {
             model.cartModel.getCurrentRestaurant()?.DeliveryPrice || 0;
     }
 
-    updateUserEvent(event: UserEvent) {
+    updateUserEvent(event: UserEvent | undefined) {
         if (event == UserEvent.ADDRESS_CHANGE) {
             this.addressInput.value = model.userModel.getAddress();
         }
