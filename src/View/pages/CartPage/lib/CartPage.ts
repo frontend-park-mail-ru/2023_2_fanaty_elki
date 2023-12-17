@@ -10,10 +10,14 @@ import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { OrderEvent } from "../../../../Model/OrderModel";
 import { cartElement, paymentConfig, navbarConfig } from "./config";
 import { Cart } from "../../../../Model/CartModel";
+import { UserEvent } from "../../../../Model/UserModel";
 
 export class CartPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
     private address: AddressChooser;
+
+    private addressInput: HTMLInputElement;
+    private addressButton: HTMLElement;
 
     private events_: EventDispatcher<UIEvent>;
 
@@ -33,8 +37,14 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         this.address = new AddressChooser();
         this.getChild(cartElement.ADDRESS).appendChild(this.address.element);
 
+        this.addressInput = <HTMLInputElement>this.getChild("#cart__address");
+        this.addressButton = this.getChild("#cart__change-address");
+
         this.navbar.events.subscribe(this.update.bind(this));
+
         model.cartModel.events.subscribe(this.updateCart.bind(this));
+        model.userModel.events.subscribe(this.updateUserEvent.bind(this));
+
         this.bindEvents();
     }
 
@@ -62,6 +72,10 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         });
         this.getChild("#online-card").addEventListener("input", () => {
             this.enableCardInputs();
+        });
+
+        this.addressButton.addEventListener("click", () => {
+            this.address.open();
         });
     }
 
@@ -103,6 +117,12 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         this.summ = model.cartModel.getSumm();
         this.deliveryPrice =
             model.cartModel.getCurrentRestaurant()?.DeliveryPrice || 0;
+    }
+
+    updateUserEvent(event: UserEvent) {
+        if (event == UserEvent.ADDRESS_CHANGE) {
+            this.addressInput.value = model.userModel.getAddress();
+        }
     }
 
     update(event?: UIEvent) {

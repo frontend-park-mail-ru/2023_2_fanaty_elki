@@ -1,4 +1,13 @@
 <div class="cart__content__control__payment">
+    <div class="cart__content__control__payment__address">
+        <div class="cart__content__control__payment__address__label">Адрес доставки</div>
+        <div class="cart__content__control__payment__address__input-control">
+            <input type="text" name="cart__address" id="cart__address" placeholder="Укажите адрес доставки"
+                class="cart__content__control__payment__address__input-control__input input-with-msg__input_default">
+            <button type="button" class="cart__content__control__payment__address__input-control__button button_primary"
+                id="cart__change-address">Изменить</button>
+        </div>
+    </div>
     <form class="payment-chooser" id="form">
         <h2 class="payment-chooser__title">Способ оплаты</h2>
         <div class="payment-chooser__courier-cash radio-chooser">
@@ -27,7 +36,7 @@
                 <div class="payment-chooser__online-card__card-valid-thru-cvv">
                     <input
                         class="payment-chooser__online-card__card-data__card-valid-thru input-with-msg__input_default"
-                        type="text" name="card-valid-thru" id="card-valid-thru" placeholder="Срок действия ММ/ГГГГ"
+                        type="text" name="card-valid-thru" id="card-valid-thru" placeholder="Срок действия ММ/ГГ"
                         pattern="\d{2,2}/\d{2,2}" disabled required />
                     <input class="payment-chooser__online-card__card-data__card-cvv input-with-msg__input_default"
                         type="password" name="card-cvv" id="card-cvv" placeholder="CVV" pattern="\d{3,3}" disabled
