@@ -8,8 +8,8 @@ export enum REQUEST_METHOD {
 }
 
 export const apiConfig: ApiConfig = {
-    backend: "https://prinesy-poday.ru/api",
-    //backend: "http://localhost:8080/api",
+    // backend: "https://prinesy-poday.ru/api",
+    backend: "http://localhost:8080/api",
     api: {
         auth: {
             url: "/auth",
@@ -487,6 +487,72 @@ export const apiConfig: ApiConfig = {
             },
             failure: {
                 404: "Вы не применяли промокод",
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        getUserInfo: {
+            url: "/users/me",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                401: "Не авторизован",
+                500: "Ошибка сервера",
+            },
+            restrictions: {
+                "content-type": "application/json",
+            },
+        },
+        addAddress: {
+            url: "/users/me/addresses",
+            params: (body) => {
+                return {
+                    method: REQUEST_METHOD.POST,
+                    credentials: "include",
+                    body,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                };
+            },
+            success: {
+                201: "OK",
+            },
+            failure: {
+                401: "Не авторизован",
+                496: "Такой адрес уже существует",
+                500: "Ошибка сервера",
+            },
+            restrictions: {
+                "content-type": "application/json",
+            },
+        },
+        updateAddress: {
+            url: "/users/me/addresses",
+            params: (body) => {
+                return {
+                    method: REQUEST_METHOD.PATCH,
+                    body,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                400: "Синтаксическая ошибка",
+                401: "Отсутствует авторизация",
+                404: "Нет такого адреса",
                 500: "Ошибка сервера",
             },
             restrictions: {},
