@@ -159,6 +159,7 @@ export const apiConfig: ApiConfig = {
             params: () => {
                 return {
                     method: REQUEST_METHOD.GET,
+                    credentials: "include",
                 };
             },
             success: {
@@ -553,6 +554,22 @@ export const apiConfig: ApiConfig = {
                 400: "Синтаксическая ошибка",
                 401: "Отсутствует авторизация",
                 404: "Нет такого адреса",
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        getRestaurantsTips: {
+            url: "/restaurants/tips",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
                 500: "Ошибка сервера",
             },
             restrictions: {},

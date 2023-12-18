@@ -445,6 +445,17 @@ const Api = {
         checkResponse(response, config);
         return;
     },
+
+    async getRestaurantTips() {
+        const config = apiConfig.api.getRestaurantsTips;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
 };
 
 export { Api, ERROR_TYPE };

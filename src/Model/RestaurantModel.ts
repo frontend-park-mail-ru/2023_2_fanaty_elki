@@ -39,6 +39,7 @@ export type RestaurantWithCategories = {
 
 export enum RestaurantEvent {
     LOADED_LIST = "LOADED_LIST",
+    LOADED_TIPS = "LOADED_TIPS",
     LOADED_REST = "LOADED_REST",
     LOADED_CATEGORIES = "LOADED_CATEGORIES",
 }
@@ -56,6 +57,7 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
     /**
      * Список ресторанов
      */
+    private tips: Restaurant[] | null;
     private restaurants: Restaurant[] | null;
     private currentRestaurant: RestaurantWithCategories | null;
     private categories: string[];
@@ -79,6 +81,10 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
      */
     getRestaurants(): Restaurant[] | null {
         return this.restaurants;
+    }
+
+    getTips() {
+        return this.tips;
     }
 
     getRestaurant() {
@@ -130,6 +136,18 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
             console.error(e);
         }
         this.events.notify(RestaurantEvent.LOADED_LIST);
+    }
+
+    async setRestaurantTips() {
+        try {
+            this.tips = await Api.getRestaurantTips();
+            this.errorMsg = null;
+        } catch (e) {
+            this.errorMsg = (e as Error).message;
+            console.error("Не удалось загрузить рекомендуемые рестораны");
+            console.error(e);
+        }
+        this.events.notify(RestaurantEvent.LOADED_TIPS);
     }
 
     async setRestaurantListByCategory(category: string) {

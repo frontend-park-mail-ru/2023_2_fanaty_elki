@@ -39,6 +39,7 @@ export class Controller {
         switch (event.type) {
             case VIEW_EVENT_TYPE.RESTAURANTS_UPDATE:
                 model.restaurantModel.setRestaurantList();
+                model.restaurantModel.setRestaurantTips();
                 break;
             case VIEW_EVENT_TYPE.RESTAURANT_UPDATE:
                 model.restaurantModel.setRestaurant(<number>event.data);
