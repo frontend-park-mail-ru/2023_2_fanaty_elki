@@ -130,18 +130,18 @@ export class Controller {
                 model.orderModel.setOrders();
                 break;
             case VIEW_EVENT_TYPE.DECREASE_CART:
-                model.cartModel.decrease(<number>event!.data);
+                await model.cartModel.decrease(<number>event!.data);
                 model.restaurantModel.setCartRecomendations();
                 break;
             case VIEW_EVENT_TYPE.INCREASE_CART:
-                model.cartModel.increase(<number>event!.data);
-                model.cartModel.setCurrentRestaurant(
+                await model.cartModel.increase(<number>event!.data);
+                await model.cartModel.setCurrentRestaurant(
                     model.restaurantModel.getRestaurant()!.RestaurantInfo,
                 );
                 model.restaurantModel.setCartRecomendations();
                 break;
             case VIEW_EVENT_TYPE.LOAD_CART:
-                model.cartModel.setCart();
+                await model.cartModel.setCart();
                 model.restaurantModel.setCartRecomendations();
                 break;
             case VIEW_EVENT_TYPE.CREATE_ORDER:
