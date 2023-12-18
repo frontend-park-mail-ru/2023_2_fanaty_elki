@@ -18,4 +18,5 @@ export enum cartElement {
     TOTAL_TITLE = "#cart__sum",
     DELIVERY_PRICE = "#cart__delivery",
     ERROR_BOX = "#cart__error",
+    CART_RECOMENDATIONS = "#cart_recomendations",
 }

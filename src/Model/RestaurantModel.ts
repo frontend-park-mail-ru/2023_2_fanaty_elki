@@ -42,6 +42,7 @@ export enum RestaurantEvent {
     LOADED_TIPS = "LOADED_TIPS",
     LOADED_REST = "LOADED_REST",
     LOADED_CATEGORIES = "LOADED_CATEGORIES",
+    LOADED_CART_RECOMENDATIONS = "LOADED_CART_RECOMENDATIONS",
 }
 
 /**
@@ -61,6 +62,7 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
     private restaurants: Restaurant[] | null;
     private currentRestaurant: RestaurantWithCategories | null;
     private categories: string[];
+    private cartRecomendations: Dish[];
 
     /**
      * Сообщение об ошибке
@@ -73,6 +75,7 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
     constructor() {
         this.events_ = new EventDispatcher<RestaurantEvent>();
         this.restaurants = null;
+        this.cartRecomendations = [];
     }
 
     /**
@@ -103,6 +106,10 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
                 }
             }
         }
+    }
+
+    getCartRecomendations() {
+        return this.cartRecomendations;
     }
 
     async setRestaurant(id: number) {
@@ -165,5 +172,15 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
     async setCategories() {
         this.categories = await Api.getCategories();
         this.events.notify(RestaurantEvent.LOADED_CATEGORIES);
+    }
+
+    async setCartRecomendations() {
+        try {
+            this.cartRecomendations = await Api.getCartRecommendations();
+        } catch (e) {
+            console.error("Не удалось загрузить рекоменадации для корзины");
+            console.error(e);
+        }
+        this.events.notify(RestaurantEvent.LOADED_CART_RECOMENDATIONS);
     }
 }

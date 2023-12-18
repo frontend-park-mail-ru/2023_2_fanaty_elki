@@ -1,0 +1,18 @@
+.cart-recomendations {
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+
+    width: 100%;
+
+    padding-bottom: 50px;
+}
+
+.cart-recommendations__label {
+    display: flex;
+
+    width: 100%;
+
+    font-size: var(--font-size-two);
+}
