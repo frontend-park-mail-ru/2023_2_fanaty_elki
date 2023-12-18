@@ -11,10 +11,12 @@ import { OrderEvent } from "../../../../Model/OrderModel";
 import { cartElement, paymentConfig, navbarConfig } from "./config";
 import { Cart, CartEvent, PromoType } from "../../../../Model/CartModel";
 import { UserEvent } from "../../../../Model/UserModel";
+import { CartRecomendations } from "../../../widgets/CartRecomendations";
 
 export class CartPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
     private address: AddressChooser;
+    private cartRecomendations: CartRecomendations;
 
     private addressInput: HTMLInputElement;
     private addressButton: HTMLElement;
@@ -40,6 +42,11 @@ export class CartPage extends Page implements Listenable<UIEvent> {
 
         this.address = new AddressChooser();
         this.getChild(cartElement.ADDRESS).appendChild(this.address.element);
+
+        this.cartRecomendations = new CartRecomendations();
+        this.getChild(cartElement.CART_RECOMENDATIONS).appendChild(
+            this.cartRecomendations.element,
+        );
 
         this.addressInput = <HTMLInputElement>this.getChild("#cart__address");
         this.addressButton = this.getChild("#cart__change-address");
@@ -213,6 +220,7 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     load() {
         this.navbar.load();
         this.address.load();
+        this.cartRecomendations.load();
         this.updateCart();
     }
 

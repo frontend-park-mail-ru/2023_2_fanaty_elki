@@ -557,5 +557,21 @@ export const apiConfig: ApiConfig = {
             },
             restrictions: {},
         },
+        cartRecommendations: {
+            url: "/cart/tips",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
     },
 };

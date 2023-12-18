@@ -46,22 +46,10 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
 
     get searchValue() {
         if (window.matchMedia("(min-width: 400px)").matches) {
-            console.log("desc");
-            console.log(
-                (<HTMLInputElement>(
-                    (<HTMLFormElement>this.getAll(".js_search-input")[0])[0]
-                )).value.trim(),
-            );
             return (<HTMLInputElement>(
                 (<HTMLFormElement>this.getAll(".js_search-input")[0])[0]
             )).value.trim();
         } else {
-            console.log("mobile");
-            console.log(
-                (<HTMLInputElement>(
-                    (<HTMLFormElement>this.getAll(".js_search-input")[1])[0]
-                )).value.trim(),
-            );
             return (<HTMLInputElement>(
                 (<HTMLFormElement>this.getAll(".js_search-input")[1])[0]
             )).value.trim();

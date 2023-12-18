@@ -445,6 +445,17 @@ const Api = {
         checkResponse(response, config);
         return;
     },
+
+    async getCartRecommendations() {
+        const config = apiConfig.api.cartRecommendations;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        const json = await response.json();
+        return json.Body;
+    },
 };
 
 export { Api, ERROR_TYPE };
