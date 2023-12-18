@@ -567,6 +567,7 @@ export const apiConfig: ApiConfig = {
             },
             success: {
                 200: "OK",
+                404: "Нет рекомендаций",
             },
             failure: {
                 500: "Ошибка сервера",

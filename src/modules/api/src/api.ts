@@ -453,7 +453,13 @@ const Api = {
             config.params(""),
         );
         checkResponse(response, config);
-        const json = await response.json();
+        let json: any;
+        try {
+            json = await response.json();
+        } catch {
+            json = { Body: null };
+            json.Body = [];
+        }
         return json.Body;
     },
 };
