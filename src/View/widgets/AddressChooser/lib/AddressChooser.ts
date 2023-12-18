@@ -6,8 +6,12 @@ import addressChooserTemplate from "../ui/AddressChooser.hbs";
 import suggestsTemplate from "../ui/Suggests.hbs";
 
 import { ISuggestResult } from "yandex-maps";
-import { UserEvent } from "../../../../Model/UserModel";
-import { addressChooserConfig, addressSelectors } from "./config";
+import { Address, UserEvent } from "../../../../Model/UserModel";
+import {
+    AddressInputMessages,
+    addressChooserConfig,
+    addressSelectors,
+} from "./config";
 
 export class AddressChooser extends IWidget {
     message: HTMLElement;
@@ -18,6 +22,7 @@ export class AddressChooser extends IWidget {
         );
         model.userModel.events.subscribe(this.update.bind(this));
         this.message = this.getChild(addressSelectors.ERROR_MSG);
+        this.setMessage(AddressInputMessages.NO_SUGGEST_ERROR);
         this.bindEvents();
     }
 
@@ -35,6 +40,7 @@ export class AddressChooser extends IWidget {
                         this.value,
                     );
                     if (this.value !== "" && suggests.length === 0) {
+                        this.setMessage(AddressInputMessages.NO_SUGGEST_ERROR);
                         this.disableForm();
                     } else {
                         this.enableForm();
@@ -50,10 +56,12 @@ export class AddressChooser extends IWidget {
             "submit",
             (event) => {
                 event.preventDefault();
-                controller.handleEvent({
-                    type: VIEW_EVENT_TYPE.ADDRESS_UPDATE,
-                    data: this.value,
-                });
+                if (this.value === "") {
+                    this.setMessage(AddressInputMessages.DOESNT_FILLED);
+                    this.disableForm();
+                    return;
+                }
+                this.geocode();
             },
         );
         this.getChild(".modal__box").addEventListener("click", (event: any) => {
@@ -71,7 +79,8 @@ export class AddressChooser extends IWidget {
     }
 
     load() {
-        this.value = model.userModel.getAddress();
+        const address = model.userModel.getAddressText();
+        this.value = address ? address : "";
     }
 
     update(event?: UserEvent) {
@@ -90,7 +99,70 @@ export class AddressChooser extends IWidget {
                 )!.innerHTML;
                 this.getChild(addressSelectors.SUGGESTS).innerHTML = "";
                 this.getChild(addressSelectors.INPUT_FIELD).focus();
+                this.enableForm();
             });
+        });
+    }
+
+    async geocode() {
+        const res = await ymaps.geocode(this.value);
+        const obj = res.geoObjects.get(0);
+        let error: string | undefined;
+
+        if (obj) {
+            switch (
+                obj.properties.get(
+                    "metaDataProperty.GeocoderMetaData.precision",
+                )
+            ) {
+                case "exact":
+                    break;
+                case "number":
+                case "near":
+                case "range":
+                    error = AddressInputMessages.CLARIFICATION_REQUIRED;
+                    break;
+                case "street":
+                    error = AddressInputMessages.CLARIFICATION_REQUIRED;
+                    break;
+                case "other":
+                default:
+                    error = AddressInputMessages.CLARIFICATION_REQUIRED;
+            }
+        } else {
+            error = AddressInputMessages.NO_SUGGEST_ERROR;
+        }
+
+        if (error) {
+            this.setMessage(error);
+            this.disableForm();
+            return;
+        }
+        const address = obj.properties.get(
+            "metaDataProperty.GeocoderMetaData.Address.Components",
+        );
+        const country = address.find((element) => element.kind === "country");
+        if (country.name !== "Россия") {
+            this.setMessage(AddressInputMessages.NO_SUGGEST_ERROR);
+            this.disableForm();
+            return;
+        }
+        const city = address.find((element) => element.kind === "locality");
+        const street = address.find((element) => element.kind === "street");
+        const house = address.find((element) => element.kind === "house");
+        const distinct = address
+            .filter((element) => element.kind === "distinct")
+            .map((element) => element.name)
+            .join(",");
+        const separateAddress: Address = {
+            City: city.name,
+            Street: street ? street.name : distinct,
+            House: house.name,
+            Flat: 0,
+        };
+        controller.handleEvent({
+            type: VIEW_EVENT_TYPE.ADDRESS_UPDATE,
+            data: separateAddress,
         });
     }
 
@@ -103,6 +175,10 @@ export class AddressChooser extends IWidget {
         this.setSuggests([]);
         this.enableForm();
         this.element.classList.remove("open");
+    }
+
+    setMessage(value: string) {
+        this.message.innerText = value;
     }
 
     disableForm() {

@@ -3,10 +3,13 @@ import { UserEvent } from "../../../../Model/UserModel";
 import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { IWidget } from "../../../types";
+import { AddressDropdown } from "../entities/AddressDropdown";
 import navbarTemplate from "../ui/Navbar.hbs";
 
 export class Navbar extends IWidget implements Listenable<UIEvent> {
     private userNameElement: HTMLElement;
+    private addressDropdown: AddressDropdown;
+    private addressButton: HTMLElement;
     private signInButton: HTMLElement;
     private cartButton: HTMLElement;
 
@@ -29,6 +32,11 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
             this.element.querySelector("#signin-button")
         );
         this.cartButton = <HTMLElement>this.element.querySelector("#cart");
+        this.addressDropdown = new AddressDropdown();
+        this.getChild(".js_address_dropdown").appendChild(
+            this.addressDropdown.element,
+        );
+        this.addressButton = this.getChild(".js_address_dropdown");
 
         this.bindEvents();
         this.setNonAuthUser();
@@ -86,7 +94,7 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
         this.element
             .querySelector("#address-button")!
             .addEventListener("click", () => {
-                this.events.notify({ type: UIEventType.NAVBAR_ADDRESS_CLICK });
+                this.addressDropdown.toggle();
             });
         this.element.querySelector("#cart")!.addEventListener("click", () => {
             this.events.notify({ type: UIEventType.NAVBAR_CART_CLICK });
@@ -108,6 +116,11 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
                     data: null,
                 });
             });
+
+        this.addressDropdown.bindAddClick(() => {
+            this.addressDropdown.toggle();
+            this.events.notify({ type: UIEventType.NAVBAR_ADDRESS_CLICK });
+        });
     }
 
     updateCartIcon() {
@@ -135,9 +148,16 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
             }
             case UserEvent.ADDRESS_CHANGE: {
                 const address = model.userModel.getAddress();
-                this.element.querySelector(
+                this.addressButton.querySelector(
                     ".navbar__fields__address__title",
-                )!.innerHTML = address ? address : "Укажите адрес";
+                )!.innerHTML =
+                    address === 0
+                        ? "Укажите адрес"
+                        : model.userModel.getAddressText()!;
+                this.addressDropdown.update(
+                    model.userModel.getAddresses(),
+                    address,
+                );
                 break;
             }
             default:
@@ -152,6 +172,9 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
             .appendChild(this.userNameElement);
         this.element
             .querySelector(".navbar__fields")!
+            .appendChild(this.addressButton);
+        this.element
+            .querySelector(".navbar__fields")!
             .appendChild(this.cartButton);
         this.updateCartIcon();
         if (this.signInButton.parentNode) {
@@ -159,6 +182,7 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
                 .querySelector(".navbar_main")!
                 .removeChild(this.signInButton);
         }
+        this.getChild(".js_search-input").classList.remove("max_width");
     }
 
     private setNonAuthUser() {
@@ -175,6 +199,12 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
                 .querySelector(".navbar__fields")!
                 .removeChild(this.cartButton);
         }
+        if (this.addressButton.parentNode) {
+            this.element
+                .querySelector(".navbar__fields")!
+                .removeChild(this.addressButton);
+        }
+        this.getChild(".js_search-input").classList.add("max_width");
     }
 
     load() {

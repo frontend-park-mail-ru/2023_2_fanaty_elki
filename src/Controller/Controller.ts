@@ -1,5 +1,5 @@
 import { Comment } from "../Model/CommentModel";
-import { User } from "../Model/UserModel";
+import { Address, User } from "../Model/UserModel";
 
 export enum VIEW_EVENT_TYPE {
     LOGIN = "LOGIN",
@@ -8,6 +8,7 @@ export enum VIEW_EVENT_TYPE {
     ADD_DISH = "ADD_DISH",
     RESTAURANT_UPDATE = "RESTAURANT_UPDATE",
     ADDRESS_UPDATE = "ADDRESS_UPDATE",
+    ADDRESS_PATCH = "ADDRESS_PATCH",
     INCREASE_CART = "INCREASE_UPDATE",
     DECREASE_CART = "DECREASE_UPDATE",
     LOGOUT = "LOGOUT",
@@ -112,7 +113,11 @@ export class Controller {
                 }
                 break;
             case VIEW_EVENT_TYPE.ADDRESS_UPDATE:
-                model.userModel.setAddress(<string>event!.data);
+                await model.userModel.addAddress(<Address>event!.data);
+                model.userModel.updateAddress();
+                break;
+            case VIEW_EVENT_TYPE.ADDRESS_PATCH:
+                model.userModel.patchAddress(<number>event!.data);
                 break;
             case VIEW_EVENT_TYPE.CHANGE_ORDER_RESTAURANT:
                 await model.cartModel.clearCart();
@@ -138,7 +143,7 @@ export class Controller {
                     if (!model.cartModel.getCart()) return;
 
                     const address = model.userModel.getAddress();
-                    await model.orderModel.createOrder(address);
+                    await model.orderModel.createOrder(address + "");
                     model.cartModel.clearCart();
                 }
                 break;

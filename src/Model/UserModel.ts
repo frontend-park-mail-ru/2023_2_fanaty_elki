@@ -6,6 +6,7 @@ export type User = {
     Username: string;
     Birthday: string;
     PhoneNumber: string;
+    Addresses: (Address & { Id: number })[];
     Email: string;
     Password: string;
     Icon: string;
@@ -38,7 +39,7 @@ export class UserModel implements Listenable<UserEvent> {
      * Пользователь
      */
     private user: User | null;
-    private address: string;
+    private address: number;
     private errorMsg: string | null;
 
     private events_: EventDispatcher<UserEvent>;
@@ -52,7 +53,7 @@ export class UserModel implements Listenable<UserEvent> {
     constructor() {
         this.events_ = new EventDispatcher<UserEvent>();
         this.user = null;
-        this.address = "";
+        this.address = 0;
     }
 
     usersDiff(newUserData: { [index: string]: string }, oldUser: User | null) {
@@ -89,12 +90,15 @@ export class UserModel implements Listenable<UserEvent> {
      */
     async auth() {
         try {
-            this.user = await Api.authUser();
+            const user = await Api.authUser();
+            this.user = user;
+            this.address = +user.CurrentAddressId;
             this.user!.Birthday =
                 this.user?.Birthday.slice(0, 10) || this.user!.Birthday;
             this.errorMsg = null;
             this.events.notify(UserEvent.AUTH);
             this.events.notify(UserEvent.USER_LOGIN);
+            this.events.notify(UserEvent.ADDRESS_CHANGE);
         } catch (e) {
             this.events.notify(UserEvent.AUTH);
             console.error("Неудачная авторизация");
@@ -126,13 +130,16 @@ export class UserModel implements Listenable<UserEvent> {
      */
     async login(username: string, password: string) {
         try {
-            this.user = await Api.loginUser({
+            const user = await Api.loginUser({
                 username,
                 password,
             });
+            this.user = user;
+            this.address = +user.CurrentAddressId;
             this.user!.Birthday =
                 this.user?.Birthday.slice(0, 10) || this.user!.Birthday;
             this.errorMsg = null;
+            this.events.notify(UserEvent.ADDRESS_CHANGE);
         } catch (e: any) {
             if (!model.appModel.isOnline()) {
                 this.events.notify(UserEvent.OFFLINE);
@@ -207,12 +214,66 @@ export class UserModel implements Listenable<UserEvent> {
         this.events.notify(UserEvent.USER_ICON_UPDATE);
     }
 
-    setAddress(address: string) {
-        this.address = address;
-        this.events.notify(UserEvent.ADDRESS_CHANGE);
+    async addAddress(address: Address) {
+        try {
+            await Api.addAddress(address);
+        } catch (e: any) {
+            if (e.status === 496) {
+                const Address = this.user?.Addresses.find(
+                    (addr) =>
+                        addr.City === address.City &&
+                        addr.Flat === address.Flat &&
+                        addr.House === address.House &&
+                        addr.Street === address.Street,
+                );
+                if (Address) {
+                    this.patchAddress(Address.Id);
+                }
+                return;
+            }
+            console.error("Неудачное добавление адреса");
+            console.error(e);
+        }
+    }
+
+    async patchAddress(addressId: number) {
+        try {
+            await Api.updateAddress(addressId);
+            this.address = +addressId;
+            this.events.notify(UserEvent.ADDRESS_CHANGE);
+        } catch (e: any) {
+            console.error("Неудачное обновление адреса");
+            console.error(e);
+        }
+    }
+
+    async updateAddress() {
+        try {
+            const user = await Api.getUserInfo();
+            this.user!.Addresses = user.Addresses;
+            this.address = user.CurrentAddressId;
+            this.events.notify(UserEvent.ADDRESS_CHANGE);
+        } catch (e: any) {
+            console.error("Неудачное обновление адреса");
+            console.error(e);
+        }
     }
 
     getAddress() {
         return this.address;
+    }
+
+    getAddressText() {
+        const current = this.user?.Addresses.find(
+            (address) => address.Id === this.address,
+        );
+        if (!current) {
+            return null;
+        }
+        return current.City + ", " + current.Street + ", " + current.House;
+    }
+
+    getAddresses() {
+        return this.user?.Addresses;
     }
 }
