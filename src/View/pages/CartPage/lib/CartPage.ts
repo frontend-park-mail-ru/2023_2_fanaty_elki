@@ -192,7 +192,8 @@ export class CartPage extends Page implements Listenable<UIEvent> {
 
     updateUserEvent(event: UserEvent | undefined) {
         if (event == UserEvent.ADDRESS_CHANGE) {
-            this.addressInput.value = model.userModel.getAddress();
+            const address = model.userModel.getAddressText();
+            this.addressInput.value = address ? address : "";
         }
     }
 
