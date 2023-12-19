@@ -1,5 +1,5 @@
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
-import { UIEvent } from "../../../../config";
+import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { IWidget } from "../../../types";
 
@@ -94,6 +94,16 @@ export class ProfileWidget extends IWidget implements Listenable<UIEvent> {
         this.iconInput.addEventListener("change", () => {
             this.icon.src = URL.createObjectURL(this.iconInput.files![0]);
         });
+
+        this.getChild("#profile-widget__exit").addEventListener(
+            "click",
+            (event: Event) => {
+                event.preventDefault();
+                this.events.notify({
+                    type: UIEventType.EXIT_CLICK,
+                });
+            },
+        );
     }
 
     update() {
