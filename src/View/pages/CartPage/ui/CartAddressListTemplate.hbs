@@ -1,0 +1,8 @@
+{{#each this}}
+<div class="dropdown_content__element__wrapper js_dropdown__address" data-id="{{Id}}">
+    <div class="dropdown_content__element__text">{{address}}</div>
+    {{#if isMain}}
+    <img class="dropdown_content__element__img" src="img/check.svg">
+    {{/if}}
+</div>
+{{/each}}

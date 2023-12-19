@@ -8,10 +8,7 @@
 }
 
 .cart__content__control__payment__address {
-    display: flex;
-    flex-direction: column;
-
-    gap: 10px;
+    position: relative;
 
     width: 100%;
 }
@@ -27,18 +24,28 @@
 .cart__content__control__payment__address__input-control {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    margin-top: 10px;
 
     width: 100%;
 }
 
 .cart__content__control__payment__address__input-control__input {
-    width: 60%;
+    width: 100%;
 }
 
-.cart__content__control__payment__address__input-control__button {
-    width: 30%;
-    font-size: var(--font-size-three);
+.cart__content__control__payment__address__input-control__control {
+    width: 2.5%;
+    aspect-ratio: 1/1;
+    position: absolute;
+    right: 15px;
 }
+
+// .cart__content__control__payment__address__input-control__button {
+//     width: 30%;
+//     font-size: var(--font-size-three);
+// }
 
 .payment-chooser {
     display: flex;

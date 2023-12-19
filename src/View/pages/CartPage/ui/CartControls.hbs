@@ -1,11 +1,20 @@
 <div class="cart__content__control__payment">
     <div class="cart__content__control__payment__address">
         <div class="cart__content__control__payment__address__label">Адрес доставки</div>
-        <div class="cart__content__control__payment__address__input-control">
+        <div class="cart__content__control__payment__address__input-control" id="cart__address__dropdown-trigger">
             <input type="text" name="cart__address" id="cart__address" placeholder="Укажите адрес доставки"
-                class="cart__content__control__payment__address__input-control__input input-with-msg__input_default">
-            <button type="button" class="cart__content__control__payment__address__input-control__button button_primary"
-                id="cart__change-address">Изменить</button>
+                class="cart__content__control__payment__address__input-control__input input-with-msg__input_default"
+                disabled>
+            <img class="cart__content__control__payment__address__input-control__control" src="img/dropdown.svg" alt=""
+                srcset="">
+        </div>
+        <div class="dropdown_content js_address_dropdown disabled" id="cart__address-dropdown">
+            <div class="dropdown_content__element__wrapper js_dropdown_content__add_button" id="cart__address__add-button">
+                <div class="dropdown_content__element__text">Добавить адрес</div>
+                <img class="dropdown_content__element__img" src="img/plus.svg" />
+            </div>
+            <div class="dropdown_content__address_container js_address_dropdown__content" id="cart__address__content">
+            </div>
         </div>
     </div>
     <form class="payment-chooser" id="form">
