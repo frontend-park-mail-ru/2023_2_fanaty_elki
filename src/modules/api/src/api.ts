@@ -107,7 +107,7 @@ const Api = {
         );
         checkResponse(response, auth_config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     /**
@@ -127,7 +127,7 @@ const Api = {
         );
         checkResponse(response, login_config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async me() {
@@ -138,7 +138,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     /**
@@ -206,7 +206,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async getSearchResults(query: string) {
@@ -217,7 +217,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async getCategories() {
@@ -228,7 +228,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async getRestaurantsByCategory(category: string) {
@@ -239,7 +239,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async getRestaurant(restaurantId: number) {
@@ -250,7 +250,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async getDishes(restaurantId: number) {
@@ -261,7 +261,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async getCart() {
@@ -272,7 +272,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async clearCart() {
@@ -333,7 +333,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async getUserOrders() {
@@ -344,7 +344,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async getOrder(orderId: number) {
@@ -355,7 +355,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async createOrder(Address: Address) {
@@ -367,7 +367,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async getCommentsByRestaurantId(restaurantId: number) {
@@ -378,7 +378,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async createComment(restaurantId: number, comment: Comment) {
@@ -390,7 +390,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async releasePromo(promo: string) {
@@ -402,7 +402,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async getUserInfo() {
@@ -413,7 +413,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async cancelPromo(promo: string) {
@@ -454,7 +454,7 @@ const Api = {
         );
         checkResponse(response, config);
         const json = await response.json();
-        return json.Body;
+        return json;
     },
 
     async getCartRecommendations() {
@@ -468,10 +468,9 @@ const Api = {
         try {
             json = await response.json();
         } catch {
-            json = { Body: null };
-            json.Body = [];
+            json = [];
         }
-        return json.Body;
+        return json;
     },
 };
 
