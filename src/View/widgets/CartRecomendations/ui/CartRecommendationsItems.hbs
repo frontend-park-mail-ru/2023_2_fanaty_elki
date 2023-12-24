@@ -1,0 +1,20 @@
+{{#if this}}
+<div class="cart-recommendations__label">Рекомендуем</div>
+<div class="cart-recommendations__items card-layout">
+    {{#each this}}
+    <div class="dish-card card js-cart-rec-card" data-product-id="{{ID}}">
+        <div class="dish-card__top">
+            <img class="dish-card__image card-image" src="{{Icon}}" alt="" srcset="" />
+            <div class="dish-card__info__text">
+                <div class="dish-card__info__text__dish-name">{{Name}}</div>
+                <div class="dish-card__info__text__price">{{Price}}₽</div>
+            </div>
+        </div>
+        <div class="dish-card__controls">
+            <button class="dish-card__base-button dish-card__controls__button dish-card__controls__up-button">В
+                корзину</button>
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{/if}}

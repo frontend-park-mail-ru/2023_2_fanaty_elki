@@ -1,0 +1,58 @@
+.exit-submiter {
+    width: 580px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+
+    gap: 10px;
+}
+
+.exit-submiter__close {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+
+    height: 15px;
+    width: 15px;
+
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
+
+.exit-submiter__close__img {
+    height: 100%;
+    object-fit: contain;
+}
+
+.exit-submiter__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    gap: 20px;
+
+    width: 100%;
+}
+
+.exit-submiter__form__title {
+    display: flex;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    width: 100%;
+}
+
+.exit-submiter__form__text {
+    display: flex;
+
+    font-size: 17px;
+    font-weight: 500;
+
+    width: 100%;
+}
+
+.exit-submiter__form__submit {
+}

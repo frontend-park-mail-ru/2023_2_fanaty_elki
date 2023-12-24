@@ -46,22 +46,10 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
 
     get searchValue() {
         if (window.matchMedia("(min-width: 400px)").matches) {
-            console.log("desc");
-            console.log(
-                (<HTMLInputElement>(
-                    (<HTMLFormElement>this.getAll(".js_search-input")[0])[0]
-                )).value.trim(),
-            );
             return (<HTMLInputElement>(
                 (<HTMLFormElement>this.getAll(".js_search-input")[0])[0]
             )).value.trim();
         } else {
-            console.log("mobile");
-            console.log(
-                (<HTMLInputElement>(
-                    (<HTMLFormElement>this.getAll(".js_search-input")[1])[0]
-                )).value.trim(),
-            );
             return (<HTMLInputElement>(
                 (<HTMLFormElement>this.getAll(".js_search-input")[1])[0]
             )).value.trim();
@@ -106,17 +94,10 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
             .addEventListener("click", () => {
                 this.events.notify({ type: UIEventType.NAVBAR_SIGNIN_CLICK });
             });
-        this.element.querySelector("#me")!.addEventListener("click", () => {
-            this.events.notify({ type: UIEventType.NAVBAR_NAME_CLICK });
-        });
         this.element
-            .querySelector("#exit-button")!
+            .querySelector("#name-container")!
             .addEventListener("click", () => {
-                this.events.notify({ type: UIEventType.NAVBAR_EXIT_CLICK });
-                controller.handleEvent({
-                    type: VIEW_EVENT_TYPE.LOGOUT,
-                    data: null,
-                });
+                this.events.notify({ type: UIEventType.NAVBAR_NAME_CLICK });
             });
         this.backButton.addEventListener("click", () => {
             history.back();
@@ -187,6 +168,8 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
                 .querySelector(".navbar_main")!
                 .removeChild(this.signInButton);
         }
+        (this.getChild("#navbar__icon") as HTMLImageElement).src =
+            model.userModel.getUser()!.Icon;
         this.getChild(".js_search-input").classList.remove("max_width");
     }
 

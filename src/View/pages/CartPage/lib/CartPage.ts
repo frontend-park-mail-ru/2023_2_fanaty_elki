@@ -11,10 +11,14 @@ import { OrderEvent } from "../../../../Model/OrderModel";
 import { cartElement, paymentConfig, navbarConfig } from "./config";
 import { Cart, CartEvent, PromoType } from "../../../../Model/CartModel";
 import { UserEvent } from "../../../../Model/UserModel";
+import { CartRecomendations } from "../../../widgets/CartRecomendations";
+
+import cartAddressListTemplate from "../ui/CartAddressListTemplate.hbs";
 
 export class CartPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
     private address: AddressChooser;
+    private cartRecomendations: CartRecomendations;
 
     private addressInput: HTMLInputElement;
     private addressButton: HTMLElement;
@@ -22,6 +26,10 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     private promo: HTMLInputElement;
     private promoButton: HTMLElement;
     private promoError: HTMLElement;
+    private addressDropdown: HTMLElement;
+
+    private addressDropdownCallback: any;
+    private addressDropdownIsOpen: boolean;
 
     private events_: EventDispatcher<UIEvent>;
 
@@ -41,6 +49,11 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         this.address = new AddressChooser();
         this.getChild(cartElement.ADDRESS).appendChild(this.address.element);
 
+        this.cartRecomendations = new CartRecomendations();
+        this.getChild(cartElement.CART_RECOMENDATIONS).appendChild(
+            this.cartRecomendations.element,
+        );
+
         this.addressInput = <HTMLInputElement>this.getChild("#cart__address");
         this.addressButton = this.getChild("#cart__change-address");
         this.cardPayment = this.getChild("#card-payment");
@@ -48,6 +61,10 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         this.promo = <HTMLInputElement>this.getChild("#promo__value");
         this.promoButton = this.getChild("#promo__submit");
         this.promoError = this.getChild("#promo__error");
+
+        this.addressDropdown = this.getChild("#cart__address-dropdown");
+        this.addressDropdownIsOpen = false;
+        this.addressDropdownCallback = null;
 
         this.navbar.events.subscribe(this.update.bind(this));
 
@@ -86,10 +103,19 @@ export class CartPage extends Page implements Listenable<UIEvent> {
             this.enableCardInputs();
         });
 
-        this.addressButton.addEventListener("click", () => {
-            this.getChild(cartElement.ERROR_BOX).innerText = "";
-            this.address.open();
-        });
+        this.getChild("#cart__address__add-button").addEventListener(
+            "click",
+            () => {
+                this.address.open();
+            },
+        );
+
+        this.getChild("#cart__address__dropdown-trigger").addEventListener(
+            "click",
+            () => {
+                this.toggleAddressDropdown();
+            },
+        );
 
         this.promoButton.addEventListener("click", () => {
             if (this.promoButton.dataset.Action === "release") {
@@ -192,9 +218,52 @@ export class CartPage extends Page implements Listenable<UIEvent> {
 
     updateUserEvent(event: UserEvent | undefined) {
         if (event == UserEvent.ADDRESS_CHANGE) {
-            const address = model.userModel.getAddressText();
-            this.addressInput.value = address ? address : "";
+            const current = model.userModel.getAddress();
+            (
+                this.getChild(cartElement.ADDRESS_INPUT) as HTMLInputElement
+            ).value = current === 0 ? "" : model.userModel.getAddressText()!;
+
+            const addresses = model.userModel.getAddresses();
+
+            const addressList = addresses?.map((addr) => ({
+                address: addr.Street + ", " + addr.House,
+                isMain: +addr.Id === current,
+                Id: addr.Id,
+            }));
+
+            console.log(this.getChild(cartElement.ADDRESS_CONTENT));
+            console.log(addressList);
+
+            this.getChild(cartElement.ADDRESS_CONTENT).innerHTML =
+                cartAddressListTemplate(addressList);
+
+            this.getAll(cartElement.DDELEMENT).forEach((x) => {
+                x.addEventListener("click", () => {
+                    controller.handleEvent({
+                        type: VIEW_EVENT_TYPE.ADDRESS_PATCH,
+                        data: x.getAttribute("data-id"),
+                    });
+                });
+            });
         }
+    }
+
+    toggleAddressDropdown() {
+        if (!this.addressDropdownIsOpen) {
+            this.addressDropdownCallback = (event) => {
+                if (
+                    !this.addressDropdown.parentElement!.contains(event.target)
+                ) {
+                    this.toggleAddressDropdown();
+                }
+            };
+            document.addEventListener("click", this.addressDropdownCallback);
+        } else {
+            document.removeEventListener("click", this.addressDropdownCallback);
+            this.addressDropdownCallback = null;
+        }
+        this.addressDropdownIsOpen = !this.addressDropdownIsOpen;
+        this.addressDropdown.classList.toggle("disabled");
     }
 
     update(event?: UIEvent) {
@@ -213,6 +282,7 @@ export class CartPage extends Page implements Listenable<UIEvent> {
     load() {
         this.navbar.load();
         this.address.load();
+        this.cartRecomendations.load();
         this.updateCart();
     }
 

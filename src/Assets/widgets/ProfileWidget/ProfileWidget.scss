@@ -8,6 +8,8 @@
 
 .profile-info__header {
     display: flex;
+    align-items: center;
+
     gap: 5%;
     width: 100%;
 }
@@ -76,6 +78,19 @@
     display: flex;
     align-items: center;
     margin: 0;
+}
+
+.profile-info__header__exit {
+    display: flex;
+    align-items: center;
+
+    color: var(--red);
+
+    background: none;
+    border: none;
+
+    font-family: Comfortaa;
+    font-size: var(--font-size-two);
 }
 
 .profile-info__control {

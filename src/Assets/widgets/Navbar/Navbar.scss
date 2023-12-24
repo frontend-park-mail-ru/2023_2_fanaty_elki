@@ -287,16 +287,20 @@ $search_input_height: 44px;
 }
 
 .navbar__name-container__exit {
+    display: flex;
+
+    background-color: var(--white);
+
     width: 30%;
+
     aspect-ratio: 1/1;
-    border-radius: 17px;
-    background-color: var(--green);
+    border-radius: 50%;
     border-width: 0;
     cursor: pointer;
 }
 
 .navbar__name-container__exit__icon {
-    width: 90%;
+    width: 100%;
     aspect-ratio: 1/1;
     margin: auto auto;
 }

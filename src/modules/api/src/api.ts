@@ -456,6 +456,23 @@ const Api = {
         const json = await response.json();
         return json.Body;
     },
+
+    async getCartRecommendations() {
+        const config = apiConfig.api.cartRecommendations;
+        const response = await ajax(
+            `${apiConfig.backend}${config.url}`,
+            config.params(""),
+        );
+        checkResponse(response, config);
+        let json: any;
+        try {
+            json = await response.json();
+        } catch {
+            json = { Body: null };
+            json.Body = [];
+        }
+        return json.Body;
+    },
 };
 
 export { Api, ERROR_TYPE };
