@@ -135,6 +135,7 @@ export class UserModel implements Listenable<UserEvent> {
                 password,
             });
             this.user = user;
+            console.log(user);
             this.address = +user.CurrentAddressId;
             this.user!.Birthday =
                 this.user?.Birthday.slice(0, 10) || this.user!.Birthday;

@@ -7,9 +7,8 @@ import cartTemplate from "../ui/CartView.hbs";
 import cartListTemplate from "../ui/CartList.hbs";
 import cartControlsTemplate from "../ui/CartControls.hbs";
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
-import { OrderEvent } from "../../../../Model/OrderModel";
 import { cartElement, paymentConfig, navbarConfig } from "./config";
-import { Cart, CartEvent, PromoType } from "../../../../Model/CartModel";
+import { Cart, PromoType } from "../../../../Model/CartModel";
 import { UserEvent } from "../../../../Model/UserModel";
 import { CartRecomendations } from "../../../widgets/CartRecomendations";
 
@@ -160,7 +159,7 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         this.cardPayment.style.gap = "0";
     }
 
-    updateCart(event?: CartEvent) {
+    updateCart() {
         let cart: Cart | null = model.cartModel.getCart();
         if (cart) {
             cart.sort((a, b) => {
@@ -277,7 +276,7 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         this.events_.notify(event);
     }
 
-    updateControls(event?: OrderEvent) {}
+    updateControls() {}
 
     load() {
         this.navbar.load();
