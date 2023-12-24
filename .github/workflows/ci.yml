@@ -1,7 +1,7 @@
 name: ci
 on: 
-  push: 
-    branches: ["ci/cd"]
+  push:
+    branches: ["dev"]
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -9,29 +9,3 @@ jobs:
       - uses: actions/checkout@v3
       - run: npm ci
       - run: npm run eslint
-  build:
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - run: npm ci
-      - run: npm run build-prod 
-      - name: copy file via ssh password
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.VIRTUAL_HOST }}
-          username: ${{ secrets.VIRTUAL_USERNAME }}
-          key: ${{ secrets.VIRTUAL_KEY }}
-          source: "dist,nginx"
-          target: "~/front"
-      - name: remote control
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.VIRTUAL_HOST }}
-          username: ${{ secrets.VIRTUAL_USERNAME }}
-          key: ${{ secrets.VIRTUAL_KEY }}
-          port: 22
-          script: |
-            sudo docker stop nginx || true && sudo docker run --name nginx -v /home/ubuntu/front/nginx/config:/etc/nginx/conf.d -v /home/ubuntu/front/dist:/dist -v /home/ubuntu/front/nginx/keys:/etc/ssl -p 443:443 -p 80:80 --rm -d nginx
-
-            
