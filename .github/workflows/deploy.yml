@@ -1,0 +1,27 @@
+name: cd
+on: 
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm ci
+      - run: npm run build-prod 
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: "84.23.53.216"
+          username: "ubuntu"
+          key_path: "./key.cer"
+          source: "dist,nginx"
+          target: "~/front"
+      - name: remote control
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: "84.23.53.216"
+          username: "ubuntu"
+          key_path: "./key.cer"
+          port: 22
+          script: |
+            sudo docker stop nginx || true && sudo docker run --name nginx -v /home/ubuntu/front/nginx/config:/etc/nginx/conf.d -v /home/ubuntu/front/dist:/dist -v /home/ubuntu/front/nginx/keys:/etc/ssl -p 443:443 -p 80:80 --rm -d nginx
