@@ -270,7 +270,6 @@ export class UserModel implements Listenable<UserEvent> {
         if (!this.user.Addresses) {
             return null;
         }
-        console.log(this.user.Addresses);
         const current = this.user.Addresses.find(
             (address) => address.Id === this.address,
         );
