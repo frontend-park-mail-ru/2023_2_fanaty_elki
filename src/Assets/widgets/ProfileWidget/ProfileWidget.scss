@@ -23,13 +23,14 @@
     width: 100%;
     aspect-ratio: 1/1;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .profile-info__header__image__container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100%;
+    min-width: 100%;
 
     position: relative;
     left: -100%;
@@ -52,6 +53,10 @@
     display: flex;
     align-self: stretch;
     padding: 10px 15px;
+
+    $margin: 10px;
+    margin-left: $margin;
+    margin-right: $margin;
 
     border-radius: 17px;
     border: 1px solid var(--white);

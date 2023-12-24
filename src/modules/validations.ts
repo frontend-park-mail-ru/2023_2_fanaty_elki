@@ -84,7 +84,7 @@ export function validatePhoneNumber(phoneNumber: string): string {
         return "Укажите номер телефона";
     }
 
-    if (!phoneNumber.match(/^\+79[0-9]{9}$/)) {
+    if (!phoneNumber.match(/^\+7\s9[0-9]{2}\s[0-9]{3}-[0-9]{2}-[0-9]{2}$/)) {
         return "Невалидный номер телефона";
     }
 

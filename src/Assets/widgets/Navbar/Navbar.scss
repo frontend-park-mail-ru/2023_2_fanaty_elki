@@ -303,6 +303,7 @@ $search_input_height: 44px;
     width: 100%;
     aspect-ratio: 1/1;
     margin: auto auto;
+    object-fit: cover;
 }
 
 [type="search"]::-webkit-search-cancel-button,
