@@ -12,8 +12,7 @@ module.exports = ({ development }) => ({
         path: path.resolve(__dirname, "dist"),
     },
     mode: development ? "development" : "production",
-    devtool: "eval-cheap-source-map",
-    // devtool: development ? "eval-cheap-source-map" : false,
+    devtool: development ? "eval-cheap-source-map" : false,
     module: {
         rules: [
             {

@@ -1,4 +1,3 @@
-import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { UserEvent } from "../../../../Model/UserModel";
 import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";

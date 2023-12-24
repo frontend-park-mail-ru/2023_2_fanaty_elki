@@ -1,7 +1,6 @@
 import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
-import { CartEvent } from "../../../../Model/CartModel";
 import { Dish, RestaurantEvent } from "../../../../Model/RestaurantModel";
-import { UIEvent, UIEventType } from "../../../../config";
+import { UIEvent } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { IWidget } from "../../../types";
 

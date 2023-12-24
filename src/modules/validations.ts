@@ -3,7 +3,7 @@ export function validateEmail(email: string): string {
         return "Email не может быть пустым";
     }
 
-    if (!email.match(/^[\x00-\x7F]*@[\x00-\x7F]*$/)) {
+    if (!email.match(/^[\x21-\x7F]*@[\x21-\x7F]*$/)) {
         return "Невалидный email";
     }
 
