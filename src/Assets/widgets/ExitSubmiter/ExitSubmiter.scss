@@ -39,8 +39,7 @@
 .exit-submiter__form__title {
     display: flex;
 
-    font-size: 17px;
-    font-weight: 700;
+    font-size: var(--font-size-three);
 
     width: 100%;
 }
@@ -48,11 +47,12 @@
 .exit-submiter__form__text {
     display: flex;
 
-    font-size: 17px;
+    font-size: var(--font-size-four);
     font-weight: 500;
 
     width: 100%;
 }
 
 .exit-submiter__form__submit {
+    font-size: var(--font-size-four);
 }
