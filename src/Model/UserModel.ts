@@ -264,7 +264,14 @@ export class UserModel implements Listenable<UserEvent> {
     }
 
     getAddressText() {
-        const current = this.user?.Addresses.find(
+        if (!this.user) {
+            return null;
+        }
+        if (!this.user.Addresses) {
+            return null;
+        }
+        console.log(this.user.Addresses);
+        const current = this.user.Addresses.find(
             (address) => address.Id === this.address,
         );
         if (!current) {
