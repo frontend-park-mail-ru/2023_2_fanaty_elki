@@ -1,10 +1,12 @@
 name: check
 # on – определяет события, которые запускают воркфлоу
-on: push
+on: 
+  push: 
+    branches: ["ci/cd"]
 jobs:
   # build – произвольно выбранное имя задания
   # их может быть больше одного
-  build:
+  lint:
     # операционная система для работы воркфлоу
     runs-on: ubuntu-latest
     steps: # список шагов, которые надо выполнить
@@ -13,6 +15,14 @@ jobs:
       - uses: actions/checkout@v3
       # run – произвольная bash-команда
       # ls -la выведет содержимое текущего репозитория
-      - run: ls -la
       - run: npm ci
       - run: npm run eslint
+  build:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm ci
+      - run: npm run build-prod
+
+
