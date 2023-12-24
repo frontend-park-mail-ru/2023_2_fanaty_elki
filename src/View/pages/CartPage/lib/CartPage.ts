@@ -14,6 +14,7 @@ import { UserEvent } from "../../../../Model/UserModel";
 import { CartRecomendations } from "../../../widgets/CartRecomendations";
 
 import cartAddressListTemplate from "../ui/CartAddressListTemplate.hbs";
+import { InputMask } from "../../../../modules/mask";
 
 export class CartPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
@@ -30,6 +31,9 @@ export class CartPage extends Page implements Listenable<UIEvent> {
 
     private addressDropdownCallback: any;
     private addressDropdownIsOpen: boolean;
+
+    private cardNumberMask: InputMask;
+    private cardDateMask: InputMask;
 
     private events_: EventDispatcher<UIEvent>;
 
@@ -57,6 +61,20 @@ export class CartPage extends Page implements Listenable<UIEvent> {
         this.addressInput = <HTMLInputElement>this.getChild("#cart__address");
         this.addressButton = this.getChild("#cart__change-address");
         this.cardPayment = this.getChild("#card-payment");
+
+        this.cardNumberMask = new InputMask(
+            "____ ____ ____ ____",
+            "_",
+            "\\d",
+            this.getChild("#card-number") as HTMLInputElement,
+        );
+
+        this.cardDateMask = new InputMask(
+            "__/__",
+            "_",
+            "\\d",
+            this.getChild("#card-valid-thru") as HTMLInputElement,
+        );
 
         this.promo = <HTMLInputElement>this.getChild("#promo__value");
         this.promoButton = this.getChild("#promo__submit");
