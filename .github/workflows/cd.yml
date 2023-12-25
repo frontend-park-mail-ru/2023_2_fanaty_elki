@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm ci
-      - run: npm run build-prod 
+      - run: npm run build:js-prod 
       - name: copy file via ssh password
         uses: appleboy/scp-action@v0.1.4
         with:
