@@ -248,9 +248,6 @@ export class CartPage extends Page implements Listenable<UIEvent> {
                 Id: addr.Id,
             }));
 
-            console.log(this.getChild(cartElement.ADDRESS_CONTENT));
-            console.log(addressList);
-
             this.getChild(cartElement.ADDRESS_CONTENT).innerHTML =
                 cartAddressListTemplate(addressList);
 
