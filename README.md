@@ -4,7 +4,7 @@
 
 ## Ссылки
 
--   Application — [prinesy-poday.online](http://84.23.53.216/)
+-   Application — [prinesy-poday.ru](https://prinesy-poday.ru/)
 
 -   Figma — [Prinesy_Poday_Design](https://www.figma.com/file/uLMO4NIxL4hJmxxldfO7SC/%D0%9F%D1%80%D0%B8%D0%BD%D0%B5%D1%81%D0%B8-%26-%D0%9F%D0%BE%D0%B4%D0%B0%D0%B9?type=design&node-id=0%3A1&mode=design&t=U1d86yjlcLPqKqjp-1)
 
