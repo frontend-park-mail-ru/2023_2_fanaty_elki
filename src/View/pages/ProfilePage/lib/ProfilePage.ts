@@ -56,6 +56,14 @@ export class ProfilePage extends Page implements Listenable<UIEvent> {
         this.exitSubmiter = new ExitSubmiter();
         this.getChild("#exit_submiter").appendChild(this.exitSubmiter.element);
         this.exitSubmiter.events.subscribe(this.updateUIEvent.bind(this));
+
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        this.element.addEventListener("click", () => {
+            this.profile.clearError();
+        });
     }
 
     updateUIEvent(event?: UIEvent) {
