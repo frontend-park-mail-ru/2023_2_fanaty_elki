@@ -45,16 +45,16 @@ export class InputMask {
             this.target.selectionStart,
             this.target.selectionEnd,
         ].map((i) => {
-            i = this.clean(this.target.value.slice(0, i)).findIndex((c) =>
-                this.replacers.has(c),
-            );
+            i = this.clean(
+                this.target.value.slice(0, i as number | undefined),
+            ).findIndex((c) => this.replacers.has(c));
             return i < 0
                 ? this.prev[this.prev.length - 1]
                 : this.back
                 ? this.prev[i - 1] || this.first
                 : i;
         });
-        this.target.value = this.clean(this.target.value).join``;
+        this.target.value = this.clean(this.target.value).join("");
         this.target.setSelectionRange(i, j);
         this.back = false;
     }
