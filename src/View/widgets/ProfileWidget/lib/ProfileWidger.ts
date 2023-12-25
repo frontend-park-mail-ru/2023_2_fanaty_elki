@@ -121,4 +121,10 @@ export class ProfileWidget extends IWidget implements Listenable<UIEvent> {
             this.icon.src = user.Icon;
         }
     }
+
+    clearError() {
+        this.phoneNumberMsg.innerText = "";
+        this.emailMsg.innerText = "";
+        this.msg.innerText = "";
+    }
 }
