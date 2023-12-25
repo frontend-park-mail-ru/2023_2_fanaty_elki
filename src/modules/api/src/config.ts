@@ -8,8 +8,8 @@ export enum REQUEST_METHOD {
 }
 
 export const apiConfig: ApiConfig = {
-    backend: "http://84.23.53.216:8080/api",
-    //backend: "http://localhost:8080/api",
+    backend: "https://prinesy-poday.ru/api",
+    // backend: "http://localhost:8080/api",
     api: {
         auth: {
             url: "/auth",
@@ -84,7 +84,7 @@ export const apiConfig: ApiConfig = {
                 201: "OK",
             },
             failure: {
-                400: "Такой пользователь уже существует",
+                400: "Некорректные данные",
                 491: "Пользователь с таким именем уже существует",
                 492: "Пользователь с такой почтой уже существует",
                 493: "Пользователь с таким номером телефона уже существует",
@@ -159,6 +159,7 @@ export const apiConfig: ApiConfig = {
             params: () => {
                 return {
                     method: REQUEST_METHOD.GET,
+                    credentials: "include",
                 };
             },
             success: {
@@ -445,6 +446,146 @@ export const apiConfig: ApiConfig = {
             },
             success: {
                 201: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        releasePromo: {
+            url: "/promo",
+            params: (body) => {
+                return {
+                    method: REQUEST_METHOD.POST,
+                    body,
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                404: "Неизвестный промокод",
+                494: "Не соблюдены условия акции",
+                495: "Вы уже использовали этот промокод",
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        cancelPromo: {
+            url: "/promo",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.DELETE,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                404: "Вы не применяли промокод",
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        getUserInfo: {
+            url: "/users/me",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                401: "Не авторизован",
+                500: "Ошибка сервера",
+            },
+            restrictions: {
+                "content-type": "application/json",
+            },
+        },
+        addAddress: {
+            url: "/users/me/addresses",
+            params: (body) => {
+                return {
+                    method: REQUEST_METHOD.POST,
+                    credentials: "include",
+                    body,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                };
+            },
+            success: {
+                201: "OK",
+            },
+            failure: {
+                401: "Не авторизован",
+                496: "Такой адрес уже существует",
+                500: "Ошибка сервера",
+            },
+            restrictions: {
+                "content-type": "application/json",
+            },
+        },
+        updateAddress: {
+            url: "/users/me/addresses",
+            params: (body) => {
+                return {
+                    method: REQUEST_METHOD.PATCH,
+                    body,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                400: "Синтаксическая ошибка",
+                401: "Отсутствует авторизация",
+                404: "Нет такого адреса",
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+
+        getRestaurantsTips: {
+            url: "/restaurants/tips",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+            },
+            failure: {
+                500: "Ошибка сервера",
+            },
+            restrictions: {},
+        },
+        cartRecommendations: {
+            url: "/cart/tips",
+            params: () => {
+                return {
+                    method: REQUEST_METHOD.GET,
+                    credentials: "include",
+                };
+            },
+            success: {
+                200: "OK",
+                404: "Нет рекомендаций",
             },
             failure: {
                 500: "Ошибка сервера",

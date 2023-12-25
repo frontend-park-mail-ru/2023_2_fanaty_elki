@@ -1,9 +1,28 @@
 <div class="cart__content__control__payment">
+    <div class="cart__content__control__payment__address">
+        <div class="cart__content__control__payment__address__label">Адрес доставки</div>
+        <div class="cart__content__control__payment__address__input-control" id="cart__address__dropdown-trigger">
+            <input type="text" name="cart__address" id="cart__address" placeholder="Укажите адрес доставки"
+                class="cart__content__control__payment__address__input-control__input input-with-msg__input_default"
+                disabled>
+            <img class="cart__content__control__payment__address__input-control__control" src="img/dropdown.svg" alt=""
+                srcset="">
+        </div>
+        <div class="dropdown_content js_address_dropdown disabled" id="cart__address-dropdown">
+            <div class="dropdown_content__element__wrapper js_dropdown_content__add_button"
+                id="cart__address__add-button">
+                <div class="dropdown_content__element__text">Добавить адрес</div>
+                <img class="dropdown_content__element__img" src="img/plus.svg" />
+            </div>
+            <div class="dropdown_content__address_container js_address_dropdown__content" id="cart__address__content">
+            </div>
+        </div>
+    </div>
     <form class="payment-chooser" id="form">
         <h2 class="payment-chooser__title">Способ оплаты</h2>
         <div class="payment-chooser__courier-cash radio-chooser">
-            <input class="radio-chooser__radio" type="radio" name="payment-type" id="courier-cash" value="courier-cash"
-                checked />
+            <input class="radio-chooser__radio" type="radio" name="payment-type" id="courier-cash"
+                value="courier-cash" />
             <label class="radio-chooser__label" for="courier-cash">Наличными
                 курьеру</label>
         </div>
@@ -16,23 +35,35 @@
         <div class="payment-chooser__online-card">
             <div class="radio-chooser">
                 <input class="radio-chooser__radio" type="radio" name="payment-type" id="online-card"
-                    value="online-card" />
+                    value="online-card" checked />
                 <label class="radio-chooser__label" for="online-card">Картой
                     онлайн</label>
             </div>
-            <div class="payment-chooser__online-card__card-data">
-                <input class="payment-chooser__online-card__card-data__card-number input-with-msg__input_default"
-                    type="text" name="card-nubmer" id="card-number" placeholder="Номер карты" pattern="\d{16,16}"
-                    disabled required />
+            <div class="payment-chooser__online-card__card-data" id="card-payment">
+                <input
+                    class="payment-chooser__online-card__card-data__card-number input-with-msg__input_default input-transition"
+                    type="text" name="card-nubmer" id="card-number" placeholder="Номер карты" required />
                 <div class="payment-chooser__online-card__card-valid-thru-cvv">
                     <input
-                        class="payment-chooser__online-card__card-data__card-valid-thru input-with-msg__input_default"
-                        type="text" name="card-valid-thru" id="card-valid-thru" placeholder="Срок действия ММ/ГГГГ"
-                        pattern="\d{2,2}/\d{2,2}" disabled required />
-                    <input class="payment-chooser__online-card__card-data__card-cvv input-with-msg__input_default"
-                        type="password" name="card-cvv" id="card-cvv" placeholder="CVV" pattern="\d{3,3}" disabled
+                        class="payment-chooser__online-card__card-data__card-valid-thru input-with-msg__input_default input-transition"
+                        type="text" name="card-valid-thru" id="card-valid-thru" placeholder="Срок действия ММ/ГГ"
                         required />
+                    <input
+                        class="payment-chooser__online-card__card-data__card-cvv input-with-msg__input_default input-transition"
+                        type="password" name="card-cvv" id="card-cvv" placeholder="CVV" pattern="\d{3,3}" required />
                 </div>
+            </div>
+        </div>
+        <div class="cart__content__control__promo">
+            <div class="cart__content__control__promo__header">
+                <div class="cart__content__control__promo__header__label">Промокод</div>
+                <div class="cart__content__control__promo__header__error" id="promo__error"></div>
+            </div>
+            <div class="cart__content__control__promo__input-control">
+                <input type="text" name="promo" id="promo__value" placeholder="Промокод"
+                    class="cart__content__control__promo__input-control__input input-with-msg__input_default">
+                <button type="button" class="cart__content__control__promo__input-control__button button_primary"
+                    id="promo__submit" data-action="release">Применить</button>
             </div>
         </div>
         <div class="cart__content__control__payment-approve">

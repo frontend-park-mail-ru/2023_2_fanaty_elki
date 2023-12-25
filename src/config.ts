@@ -35,6 +35,10 @@ export const enum UIEventType {
     RESTAURANT_COMMENTS_CLICK = "RESTAURANT_COMMENTS_CLICK",
 
     BUTTON_UP_CLICK = "BUTTON_UP_CLICK",
+
+    RELEASED_PROMO = "RELEASED_PROMO",
+
+    EXIT_CLICK = "EXIT_CLICK",
 }
 
 export type UIEvent = {

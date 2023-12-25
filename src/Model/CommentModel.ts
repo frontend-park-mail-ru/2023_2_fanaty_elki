@@ -48,7 +48,8 @@ export class CommentModel implements Listenable<CommentEvent> {
 
     async setComments(restaurantId: number) {
         try {
-            const comments = await Api.getCommentsByRestaurantId(restaurantId);
+            const comments =
+                (await Api.getCommentsByRestaurantId(restaurantId)) || [];
             comments.forEach((comment) => {
                 comment.Date = this.presentDate(comment.Date);
             });

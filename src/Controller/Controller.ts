@@ -1,5 +1,5 @@
 import { Comment } from "../Model/CommentModel";
-import { User } from "../Model/UserModel";
+import { Address, User } from "../Model/UserModel";
 
 export enum VIEW_EVENT_TYPE {
     LOGIN = "LOGIN",
@@ -8,6 +8,7 @@ export enum VIEW_EVENT_TYPE {
     ADD_DISH = "ADD_DISH",
     RESTAURANT_UPDATE = "RESTAURANT_UPDATE",
     ADDRESS_UPDATE = "ADDRESS_UPDATE",
+    ADDRESS_PATCH = "ADDRESS_PATCH",
     INCREASE_CART = "INCREASE_UPDATE",
     DECREASE_CART = "DECREASE_UPDATE",
     LOGOUT = "LOGOUT",
@@ -24,6 +25,9 @@ export enum VIEW_EVENT_TYPE {
     LOAD_CATEGORIES = "LOAD_CATEGORIES",
     RESTAURANTS_CATEGORY_UPDATE = "RESTAURANTS_CATEGORY_UPDATE",
     CHANGE_ORDER_RESTAURANT = "CHANGE_ORDER_RESTAURANT",
+    RELEASE_PROMO = "RELEASE_PROMO",
+    CANCEL_PROMO = "CANCEL_PROMO",
+    LOAD_CART_RECOMENDATIONS = "LOAD_CART_RECOMENDATIONS",
 }
 
 export type ViewEvent = {
@@ -36,6 +40,7 @@ export class Controller {
         switch (event.type) {
             case VIEW_EVENT_TYPE.RESTAURANTS_UPDATE:
                 model.restaurantModel.setRestaurantList();
+                model.restaurantModel.setRestaurantTips();
                 break;
             case VIEW_EVENT_TYPE.RESTAURANT_UPDATE:
                 model.restaurantModel.setRestaurant(<number>event.data);
@@ -112,7 +117,11 @@ export class Controller {
                 }
                 break;
             case VIEW_EVENT_TYPE.ADDRESS_UPDATE:
-                model.userModel.setAddress(<string>event!.data);
+                await model.userModel.addAddress(<Address>event!.data);
+                model.userModel.updateAddress();
+                break;
+            case VIEW_EVENT_TYPE.ADDRESS_PATCH:
+                model.userModel.patchAddress(<number>event!.data);
                 break;
             case VIEW_EVENT_TYPE.CHANGE_ORDER_RESTAURANT:
                 await model.cartModel.clearCart();
@@ -122,23 +131,26 @@ export class Controller {
                 model.orderModel.setOrders();
                 break;
             case VIEW_EVENT_TYPE.DECREASE_CART:
-                model.cartModel.decrease(<number>event!.data);
+                await model.cartModel.decrease(<number>event!.data);
+                model.restaurantModel.setCartRecomendations();
                 break;
             case VIEW_EVENT_TYPE.INCREASE_CART:
-                model.cartModel.increase(<number>event!.data);
-                model.cartModel.setCurrentRestaurant(
+                await model.cartModel.increase(<number>event!.data);
+                await model.cartModel.setCurrentRestaurant(
                     model.restaurantModel.getRestaurant()!.RestaurantInfo,
                 );
+                model.restaurantModel.setCartRecomendations();
                 break;
             case VIEW_EVENT_TYPE.LOAD_CART:
-                model.cartModel.setCart();
+                await model.cartModel.setCart();
+                model.restaurantModel.setCartRecomendations();
                 break;
             case VIEW_EVENT_TYPE.CREATE_ORDER:
                 {
                     if (!model.cartModel.getCart()) return;
 
                     const address = model.userModel.getAddress();
-                    await model.orderModel.createOrder(address);
+                    await model.orderModel.createOrder(address + "");
                     model.cartModel.clearCart();
                 }
                 break;
@@ -167,6 +179,15 @@ export class Controller {
                 break;
             case VIEW_EVENT_TYPE.LOAD_CATEGORIES:
                 model.restaurantModel.setCategories();
+                break;
+            case VIEW_EVENT_TYPE.RELEASE_PROMO:
+                model.cartModel.releasePromo(<string>event!.data);
+                break;
+            case VIEW_EVENT_TYPE.CANCEL_PROMO:
+                model.cartModel.cancelPromo();
+                break;
+            case VIEW_EVENT_TYPE.LOAD_CART_RECOMENDATIONS:
+                model.restaurantModel.setCartRecomendations();
                 break;
         }
     }

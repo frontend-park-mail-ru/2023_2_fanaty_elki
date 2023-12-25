@@ -11,6 +11,7 @@ import { Navbar } from "../../../widgets/Navbar";
 import { RestaurantComments } from "../../../widgets/RestaurantComments";
 import { RestaurantHeader } from "../../../widgets/RestaurantHeader";
 import RestaurantPageTemplate from "../ui/RestaurantView.hbs";
+import { navbarConfig } from "./config";
 
 export class RestaurantPage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
@@ -30,7 +31,7 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
         super(RestaurantPageTemplate(), "#main");
         this.events_ = new EventDispatcher<UIEvent>();
 
-        this.navbar = new Navbar();
+        this.navbar = new Navbar(navbarConfig);
         this.element.querySelector("#navbar")!.appendChild(this.navbar.element);
 
         this.address = new AddressChooser();

@@ -6,11 +6,11 @@
     display: flex;
 
     width: 70%;
-    height: 55%;
+    height: 70%;
+    min-height: 500px;
     @media screen and (min-width: 641px) {
         width: 20%;
         height: 80vh;
-        padding: 49px 65px 49px 65px;
     }
 
     flex-direction: column;

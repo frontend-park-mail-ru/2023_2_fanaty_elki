@@ -1,8 +1,7 @@
 .restaurant-header {
     display: flex;
 
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     width: auto;
 
     margin-top: 14px;
@@ -11,6 +10,8 @@
     @media screen and (min-width: 641px) {
         margin-bottom: 14px;
         height: 40vh;
+        flex-direction: row;
+        justify-content: space-between;
     }
 }
 
@@ -19,7 +20,7 @@
     flex-direction: column;
 
     gap: 15px;
-    width: 45%;
+    width: 100%;
     @media screen and (min-width: 641px) {
         width: 30%;
         justify-content: space-between;
@@ -70,7 +71,7 @@
 .restaurant-header__control__info {
     display: flex;
     flex-direction: column;
-    gap: 15%;
+    gap: 15px;
 
     height: 70%;
 }
@@ -98,19 +99,13 @@
 }
 
 .restaurnt-header__control__info__restaurant__name-rating__rating__gold-star {
-    height: 55px;
-    @media screen and (min-width: 641px) {
-        height: 30px;
-    }
+    height: var(--font-size-one);
     aspect-ratio: 1/1;
 }
 
 .restaurnt-header__control__info__restaurant__name-rating__rating__value {
     margin: 0;
-    font-size: var(--font-size-three);
-    @media screen and (min-width: 641px) {
-        font-size: var(--font-size-one);
-    }
+    font-size: var(--font-size-one);
 }
 
 .restaurnt-header__control__info__restaurant__name-rating__name {
@@ -141,10 +136,10 @@
 
 .restaurant-header__icon {
     object-fit: cover;
-    width: 50%;
-    aspect-ratio: 1/1;
+    width: 100%;
+    aspect-ratio: 2/1;
     @media screen and (min-width: 641px) {
-        aspect-ratio: 2/1;
+        width: 50%;
     }
 
     border-radius: 17px;

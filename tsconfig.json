@@ -7,7 +7,7 @@
         "outDir": "./dist/",
         "allowJs": true,
         "noEmitOnError": true,
-        "declaration": true,
+        "declaration": false,
         "isolatedModules": true,
         "moduleResolution": "node",
         "strictPropertyInitialization": false,

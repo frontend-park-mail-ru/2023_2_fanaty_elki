@@ -51,30 +51,8 @@
 }
 
 .dish-card__info__text__dish-name {
-    display: -webkit-box;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
 
-    @media screen and (min-width: 641px) {
-        height: 35px;
-    }
-
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    height: calc(2.25 * var(--font-size-three));
 }
-
-// .button_primary-green {
-//     display: flex;
-//     height: 44px;
-//     width: 138px;
-//     padding: 10px;
-//     justify-content: center;
-//     align-items: center;
-//     gap: 10px;
-
-//     border-radius: 17px;
-//     @include button.button-style(
-//         $color: index.$gray,
-//         $background-color: index.$green,
-//         $border: none
-//     );
-// }

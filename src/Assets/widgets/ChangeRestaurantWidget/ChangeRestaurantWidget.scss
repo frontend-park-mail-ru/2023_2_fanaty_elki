@@ -10,7 +10,7 @@
 .change-restaurant__close {
     position: absolute;
     top: 25px;
-    left: 534px;
+    right: 30px;
 
     height: 15px;
     width: 15px;
@@ -39,8 +39,7 @@
 .change-restaurant__form__title {
     display: flex;
 
-    font-size: 17px;
-    font-weight: 700;
+    font-size: var(--font-size-three);
 
     width: 100%;
 }
@@ -48,11 +47,12 @@
 .change-restaurant__form__text {
     display: flex;
 
-    font-size: 17px;
+    font-size: var(--font-size-four);
     font-weight: 500;
 
     width: 100%;
 }
 
 .change-restaurant__form__submit {
+    font-size: var(--font-size-four);
 }

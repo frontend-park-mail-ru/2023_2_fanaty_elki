@@ -28,6 +28,7 @@ module.exports = {
     },
     rules: {
         "prettier/prettier": "error",
+        "@typescript-eslint/no-explicit-any": "off",
     },
     globals: {
         router: "readonly",

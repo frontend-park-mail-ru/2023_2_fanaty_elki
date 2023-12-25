@@ -2,6 +2,7 @@ import { Api } from "../modules/api/src/api";
 import { EventDispatcher, Listenable } from "../modules/observer";
 import { Dish, Restaurant } from "./RestaurantModel";
 import { AppEvent, AppModel } from "./AppModel";
+import { apiConfig } from "../modules/api";
 
 export type CartPosition = {
     Product: Dish;
@@ -11,9 +12,21 @@ export type CartPosition = {
 
 export type Cart = CartPosition[];
 
+export const enum PromoType {
+    DISCOUNT = 0,
+    FREE_DELIVERY = 1,
+}
+
+export type Promo = {
+    Type: PromoType;
+    Discount: number;
+    Promo: string;
+};
+
 export const enum CartEvent {
     UPDATE = "UPDATE",
     NOT_SAME_RESTAURANT = "NOT_SAME_RESTAURANT",
+    PROMO = "PROMO",
 }
 
 /**
@@ -29,14 +42,20 @@ export class CartModel implements Listenable<CartEvent> {
     }
 
     private currentRestaurant: Restaurant | null;
+    private promo: Promo | null;
+    private errorMsg: string | null;
 
     /**
      * Конструктор
      */
     constructor(appModel: AppModel) {
         this.events_ = new EventDispatcher<CartEvent>();
+
         this.currentRestaurant = null;
         this.cart = [];
+        this.promo = null;
+        this.errorMsg = null;
+
         appModel.events.subscribe(this.clearBuffer.bind(this));
     }
 
@@ -59,8 +78,15 @@ export class CartModel implements Listenable<CartEvent> {
     async setCart() {
         try {
             const cartInfo = await Api.getCart();
+
             this.cart = cartInfo.Products || [];
             this.currentRestaurant = cartInfo.Restaurant;
+            this.promo = cartInfo.Promo;
+
+            if (this.promo) {
+                this.promo.Discount = 1 - this.promo?.Discount / 100;
+            }
+
             this.cart?.forEach((cartPos) => {
                 cartPos.Sum = Math.round(
                     cartPos.Product.Price * cartPos.ItemCount,
@@ -138,6 +164,27 @@ export class CartModel implements Listenable<CartEvent> {
         this.currentRestaurant = restaurant;
     }
 
+    async releasePromo(promo: string) {
+        try {
+            this.promo = await Api.releasePromo(promo);
+            this.promo!.Discount = 1 - this.promo!.Discount / 100;
+        } catch (e: any) {
+            this.errorMsg = apiConfig.api.releasePromo.failure[e.status];
+        }
+
+        this.events.notify(CartEvent.PROMO);
+    }
+
+    async cancelPromo() {
+        try {
+            await Api.cancelPromo(this.promo!.Promo);
+            this.promo = null;
+        } catch (e: any) {
+            this.errorMsg = apiConfig.api.releasePromo.failure[e.status];
+        }
+        this.events.notify(CartEvent.PROMO);
+    }
+
     isSameRestaurant(restaurant: Restaurant) {
         return (
             !this.currentRestaurant ||
@@ -178,5 +225,13 @@ export class CartModel implements Listenable<CartEvent> {
             summ += product.Product.Price * product.ItemCount;
         }
         return Math.round(summ);
+    }
+
+    getPromo() {
+        return this.promo;
+    }
+
+    getError() {
+        return this.errorMsg;
     }
 }

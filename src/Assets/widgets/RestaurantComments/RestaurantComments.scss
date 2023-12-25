@@ -1,6 +1,7 @@
 .restaurant-comments {
-    width: 80%;
+    width: 70%;
     height: 70%;
+    min-height: 500px;
     @media screen and (min-width: 641px) {
         width: 740px;
         height: 80vh;
@@ -58,10 +59,6 @@
     gap: 15px;
 
     font-size: var(--font-size-three);
-    @media screen and (min-width: 641px) {
-        font-size: var(--font-size-two);
-    }
-   
 
     width: 100%;
 }
@@ -75,7 +72,7 @@
 }
 
 .restaurant-comments__comments-list__comments-list__comment__info__profile__icon {
-    object-fit: contain;
+    object-fit: cover;
     aspect-ratio: 1/1;
     width: 40%;
     border-radius: 50%;
@@ -97,13 +94,12 @@
 
 .restaurant-comments__comments-list__comments-list__comment__info__rating__star {
     object-fit: contain;
-    width: 15%;
+    width: var(--font-size-three);
     aspect-ratio: 1/1;
 }
 
 .restaurant-comments__comments-list__comments-list__comment__info__rating__value {
     display: flex;
-
 }
 
 .restaurant-comments__comments-list__comments-list__comment__info__date {
@@ -114,13 +110,13 @@
 
 .restaurant-comments__comments-list__comments-list__comment__text {
     display: flex;
-    padding-left: 10px;
 
     word-break: break-all;
 
     font-size: var(--font-size-five);
     @media screen and (min-width: 641px) {
         font-size: var(--font-size-four);
+        padding-left: 10px;
     }
 }
 
@@ -129,15 +125,19 @@
 
     gap: 5px;
 
+    flex-direction: column;
+    @media screen and (min-width: 641px) {
+        flex-direction: row;
+    }
+
     width: 100%;
 }
 
 .restaurant-comments__comments-list__comment-button__button {
     font-size: var(--font-size-four);
-    width: 50%;
+    width: 100%;
     @media screen and (min-width: 641px) {
         width: 30%;
-        height: 44px;
     }
 }
 
@@ -145,9 +145,13 @@
     display: flex;
     align-items: center;
 
-    width: 60%;
+    width: 100%;
+    font-size: var(--font-size-five);
+    @media screen and (min-width: 641px) {
+        width: 60%;
+        font-size: var(--font-size-four);
+    }
 
-    font-size: var(--font-size-three);
     color: var(--red);
 }
 
@@ -190,6 +194,8 @@
 
     margin: 0;
 
+    font-size: var(--font-size-two);
+
     width: 100%;
 }
 
@@ -206,6 +212,8 @@
 .restaurant-comments__comment-form__rating__title {
     display: flex;
     justify-content: flex-start;
+
+    font-size: var(--font-size-two);
 
     width: 100%;
 }
@@ -241,7 +249,7 @@
 }
 
 .restaurant-comments__comment-form__rating__stars__star {
-    width: 5%;
+    width: var(--font-size-two);
     aspect-ratio: 1/1;
     object-fit: contain;
 }
@@ -251,18 +259,18 @@
 }
 
 .restaurant-comments__comment-form__rating__stars:not(:checked) > label {
-    content: url("http://84.23.53.216/img/gray_star.svg");
+    content: url("https://prinesy-poday.ru/img/gray_star.svg");
 }
 
 .restaurant-comments__comment-form__rating__stars > input:checked ~ label {
-    content: url("http://84.23.53.216/img/gold_star.svg");
+    content: url("http://prinesy-poday.ru/img/gold_star.svg");
 }
 
 .restaurant-comments__comment-form__rating__stars:not(:checked) > label:hover,
 .restaurant-comments__comment-form__rating__stars:not(:checked)
     > label:hover
     ~ label {
-    content: url("http://84.23.53.216/img/gold_star.svg");
+    content: url("http://prinesy-poday.ru/img/gold_star.svg");
 }
 
 .restaurant-comments__comment-form__rating__stars > input:checked + label:hover,
@@ -279,7 +287,7 @@
     > label:hover
     ~ input:checked
     ~ label {
-    content: url("http://84.23.53.216/img/gold_star.svg");
+    content: url("http://prinesy-poday.ru/img/gold_star.svg");
 }
 
 .restaurant-comments__comment-form__comment {
@@ -307,6 +315,9 @@
 }
 
 .restaurant-comments__comment-form__submit {
-    width: 30%;
-    height: 44px;
+    font-size: var(--font-size-three);
+    width: 100%;
+    @media screen and (min-width: 641px) {
+        width: 30%;
+    }
 }

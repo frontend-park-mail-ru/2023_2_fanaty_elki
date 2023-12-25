@@ -1,5 +1,11 @@
 .order-widget {
-    width: 740px;
+    width: 70%;
+    height: 70%;
+    @media screen and (min-width: 641px) {
+        width: 55%;
+        height: 80%;
+    }
+
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -21,6 +27,11 @@
     align-content: center;
 
     gap: 10px;
+
+    font-size: var(--font-size-six);
+    @media screen and (min-width: 641px) {
+        font-size: var(--font-size-four);
+    }
 
     width: 100%;
 }
@@ -74,6 +85,11 @@
     justify-content: flex-end;
 
     margin: 0;
+
+    font-size: var(--font-size-three);
+    @media screen and (min-width: 641px) {
+        font-size: var(--font-size-two);
+    }
 
     width: 100%;
 }

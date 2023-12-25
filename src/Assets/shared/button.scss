@@ -49,15 +49,13 @@
     }
 }
 
+$contol-button-size: var(--font-size-four);
+
 .control-button {
     position: absolute;
 
-    height: 35px;
-    width: 35px;
-    @media screen and (min-width: 641px) {
-        height: 15px;
-        width: 15px;
-    }
+    height: $contol-button-size;
+    width: $contol-button-size;
 
     background: none;
     border: none;

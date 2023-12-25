@@ -1,5 +1,6 @@
 import { UserEvent } from "../../../../../../Model/UserModel";
 import { UIEventType, UIEvent } from "../../../../../../config";
+import { InputMask } from "../../../../../../modules/mask";
 import {
     EventDispatcher,
     Listenable,
@@ -30,6 +31,7 @@ export class RegExtraInfoPage
     private birthdayInput: HTMLInputElement;
     private phoneNumberMessageBox: HTMLElement;
     private phoneNumberInput: HTMLInputElement;
+    private phoneNumberMask: InputMask;
 
     private form: HTMLFormElement;
     private authButton: HTMLElement;
@@ -65,6 +67,12 @@ export class RegExtraInfoPage
         );
         this.phoneNumberInput = <HTMLInputElement>(
             this.element.querySelector("#reg-extra-info-page__phone-number")
+        );
+        this.phoneNumberMask = new InputMask(
+            "+7 ___ ___-__-__",
+            "_",
+            "\\d",
+            this.phoneNumberInput,
         );
 
         this.form = <HTMLFormElement>(

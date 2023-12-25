@@ -1,4 +1,3 @@
-import { UserEvent } from "../../../../../../Model/UserModel";
 import { UIEvent, UIEventType } from "../../../../../../config";
 import {
     EventDispatcher,
@@ -83,7 +82,7 @@ export class RegUserPage extends IHTMLElement implements Listenable<UIEvent> {
         this.bindEvents();
     }
 
-    updateUserEvent(event?: UserEvent) {
+    updateUserEvent() {
         // TODO: Добавить потенциальную обработку событий
     }
 

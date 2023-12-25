@@ -6,14 +6,13 @@
         <h2 class="address-chooser__title">{{title}}</h2>
         <form class="address-chooser__form">
             <div class="address-chooser__input">
-                <input class="address-chooser__control__input" id="address-value" type="text" name="address-value"
-                    placeholder="{{input_ph}}" />
-                <div class="address-chooser__error_msg">
-                    <p style="margin: 5px 0 0 25px;">{{error_message}}</p>
-                </div>
+                <input class="address-chooser__control__input input-with-msg__input_default" id="address-value"
+                    type="text" name="address-value" placeholder="{{input_ph}}" />
+                <input class="address-chooser__control button_primary-green" id="choose-address" type="submit"
+                    value="{{button_text}}" />
             </div>
-            <input class="address-chooser__control button_primary-green" id="choose-address" type="submit"
-                value="{{button_text}}" />
+            <div class="address-chooser__error_msg input-with-msg__msg_error js_address-chooser__error_msg">
+            </div>
         </form>
         <div class="suggest-container">
         </div>

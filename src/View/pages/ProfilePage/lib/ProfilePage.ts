@@ -3,12 +3,14 @@ import { UIEvent, UIEventType } from "../../../../config";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { Page } from "../../../types";
 import { AddressChooser } from "../../../widgets/AddressChooser";
+import { ExitSubmiter } from "../../../widgets/ExitSubmiter";
 import { Navbar } from "../../../widgets/Navbar";
 import { OrderList } from "../../../widgets/OrderList";
 import { OrderWidget } from "../../../widgets/OrderWidget";
 import { ProfileWidget } from "../../../widgets/ProfileWidget";
 
 import profilePageTemplate from "../ui/ProfilePage.hbs";
+import { navbarConfig } from "./config";
 
 export class ProfilePage extends Page implements Listenable<UIEvent> {
     private navbar: Navbar;
@@ -16,6 +18,7 @@ export class ProfilePage extends Page implements Listenable<UIEvent> {
     private profile: ProfileWidget;
     private addressChooser: AddressChooser;
     private orderWidget: OrderWidget;
+    private exitSubmiter: ExitSubmiter;
 
     private events_: EventDispatcher<UIEvent>;
     get events(): EventDispatcher<UIEvent> {
@@ -26,7 +29,7 @@ export class ProfilePage extends Page implements Listenable<UIEvent> {
         super(profilePageTemplate(), "#profile_page");
         this.events_ = new EventDispatcher<UIEvent>();
 
-        this.navbar = new Navbar();
+        this.navbar = new Navbar(navbarConfig);
         this.element.querySelector("#navbar")!.appendChild(this.navbar.element);
         this.navbar.events.subscribe(this.updateUIEvent.bind(this));
 
@@ -34,6 +37,7 @@ export class ProfilePage extends Page implements Listenable<UIEvent> {
         this.element
             .querySelector(".profile__content__user-data")!
             .appendChild(this.profile.element);
+        this.profile.events.subscribe(this.updateUIEvent.bind(this));
 
         this.orderList = new OrderList();
         this.element
@@ -48,6 +52,10 @@ export class ProfilePage extends Page implements Listenable<UIEvent> {
 
         this.orderWidget = new OrderWidget();
         this.getChild("#order-widget").appendChild(this.orderWidget.element);
+
+        this.exitSubmiter = new ExitSubmiter();
+        this.getChild("#exit_submiter").appendChild(this.exitSubmiter.element);
+        this.exitSubmiter.events.subscribe(this.updateUIEvent.bind(this));
     }
 
     updateUIEvent(event?: UIEvent) {
@@ -61,6 +69,9 @@ export class ProfilePage extends Page implements Listenable<UIEvent> {
                         type: VIEW_EVENT_TYPE.LOAD_ORDER,
                         data: event.data,
                     });
+                    break;
+                case UIEventType.EXIT_CLICK:
+                    this.exitSubmiter.open();
                     break;
             }
         }

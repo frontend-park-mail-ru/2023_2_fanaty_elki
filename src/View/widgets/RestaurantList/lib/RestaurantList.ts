@@ -1,7 +1,6 @@
 import { IWidget } from "../../../types";
 import restaurantsTemplate from "../ui/RestaurantsList.hbs";
 import listTemplate from "../ui/List.hbs";
-import { VIEW_EVENT_TYPE } from "../../../../Controller/Controller";
 import { EventDispatcher, Listenable } from "../../../../modules/observer";
 import { UIEvent, UIEventType } from "../../../../config";
 
@@ -31,10 +30,5 @@ export class RestaurantsList extends IWidget implements Listenable<UIEvent> {
         );
     }
 
-    load() {
-        controller.handleEvent({
-            type: VIEW_EVENT_TYPE.RESTAURANTS_UPDATE,
-            data: null,
-        });
-    }
+    load() {}
 }

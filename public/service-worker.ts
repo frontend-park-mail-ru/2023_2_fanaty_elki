@@ -26,7 +26,6 @@ self.addEventListener("activate", (event) => {
     );
 });
 
-const cart_request = new URLPattern({ pathname: "/api/cart*" });
 self.addEventListener("fetch", (event) => {
     if (event.request.method === "GET") {
         event.respondWith(
