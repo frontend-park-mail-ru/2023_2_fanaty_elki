@@ -349,6 +349,7 @@ $search_input_height: 44px;
     word-wrap: break-word;
     line-height: 35px;
     font-family: Comfortaa;
+    background-color: var(--white);
 
     &:focus {
         border: none;
@@ -358,6 +359,10 @@ $search_input_height: 44px;
     @media screen and (min-width: 641px) {
         display: none;
     }
+}
+
+.navbar__fields__search__img_mobile {
+    padding-left: 10px;
 }
 
 .search-button_mobile {
