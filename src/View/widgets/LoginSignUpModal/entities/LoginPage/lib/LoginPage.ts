@@ -1,6 +1,7 @@
 import { VIEW_EVENT_TYPE } from "../../../../../../Controller/Controller";
 import { UserEvent } from "../../../../../../Model/UserModel";
 import { UIEvent, UIEventType } from "../../../../../../config";
+import { InputMask } from "../../../../../../modules/mask";
 import {
     EventDispatcher,
     Listenable,
@@ -22,6 +23,8 @@ export class LoginPage extends IHTMLElement implements Listenable<UIEvent> {
     private form: HTMLFormElement;
     private regButton: HTMLElement;
 
+    private phoneNumberMask: InputMask;
+
     constructor() {
         super(loginPageTemplate(), "#login-page");
         this.events_ = new EventDispatcher<UIEvent>();
@@ -39,6 +42,14 @@ export class LoginPage extends IHTMLElement implements Listenable<UIEvent> {
         this.usernameInput = <HTMLInputElement>(
             this.element.querySelector("#login-page__username")
         );
+
+        this.phoneNumberMask = new InputMask(
+            "+7 ___ ___-__-__",
+            "_",
+            "\\d",
+            this.usernameInput,
+        );
+
         this.passwordInput = <HTMLInputElement>(
             this.element.querySelector("#login-page__password")
         );

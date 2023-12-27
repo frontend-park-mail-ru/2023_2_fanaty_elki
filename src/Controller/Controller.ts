@@ -108,7 +108,7 @@ export class Controller {
                 try {
                     await model.userModel.createUser(event.data as User);
                     model.userModel.login(
-                        (<User>event.data).Username,
+                        (<User>event.data).PhoneNumber,
                         (<User>event.data).Password,
                     );
                 } catch (e) {
