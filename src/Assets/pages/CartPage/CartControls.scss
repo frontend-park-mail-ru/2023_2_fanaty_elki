@@ -33,6 +33,9 @@
 
 .cart__content__control__payment__address__input-control__input {
     width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-right: 25px;
 }
 
 .cart__content__control__payment__address__input-control__control {
@@ -40,12 +43,6 @@
     aspect-ratio: 1/1;
     position: absolute;
     right: 15px;
-}
-
-.cart__address {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    padding-right: 25px;
 }
 
 .payment-chooser {
