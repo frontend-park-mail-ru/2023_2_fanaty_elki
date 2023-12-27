@@ -23,7 +23,7 @@ export function validateUsername(username: string): string {
         return "Имя пользователя не должно содержать пробелов";
     }
 
-    if (!String(username).match(/^.{4,29}$/)) {
+    if (!String(username).match(/^.{4,19}$/)) {
         return "Имя пользователя должно иметь длину от 4 до 29 символов";
     }
 
