@@ -146,6 +146,10 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
                 );
                 break;
             }
+            case UserEvent.USER_ICON_UPDATE:
+                (this.getChild("#navbar__icon") as HTMLImageElement).src =
+                    model.userModel.getUser()!.Icon || "img/defaultIcon.png";
+                break;
             default:
                 break;
         }
