@@ -15,8 +15,12 @@ export function validateUsername(username: string): string {
         return "Имя пользователя не может быть пустым";
     }
 
-    if (!username.match(/^[А-Яа-я\s]*$/)) {
+    if (!username.match(/^[А-Яа-я]*$/)) {
         return "Имя пользователя должно состоять из кириллицы";
+    }
+
+    if (!username.match(/^[А-Яа-я\s]*$/)) {
+        return "Имя пользователя не должно содержать пробелов";
     }
 
     if (!String(username).match(/^.{4,29}$/)) {
