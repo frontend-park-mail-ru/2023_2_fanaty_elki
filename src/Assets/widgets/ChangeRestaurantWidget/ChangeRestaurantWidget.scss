@@ -5,25 +5,18 @@
     align-content: center;
 
     gap: 10px;
+
+    @media screen and (max-width: 461px) {
+        height: 15%;        
+    }
 }
 
 .change-restaurant__close {
-    position: absolute;
     top: 25px;
     right: 30px;
-
-    height: 15px;
-    width: 15px;
-
-    background: none;
-    border: none;
-
-    cursor: pointer;
 }
 
 .change-restaurant__close__img {
-    height: 100%;
-    object-fit: contain;
 }
 
 .change-restaurant__form {

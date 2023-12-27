@@ -48,12 +48,20 @@ $search_input_height: 44px;
     object-fit: contain;
 
     width: 20%;
+
+    @media screen and (max-width: 461px) {
+        width: 70%;
+    }
 }
 
 .navbar__back-container__text {
     font-family: Comfortaa;
     font-weight: bold;
     font-size: var(--font-size-three);
+
+    @media screen and (max-width: 461px) {
+        display: none;
+    }
 }
 
 .navbar__logo {
@@ -149,8 +157,10 @@ $search_input_height: 44px;
 .address_dropdown {
     position: relative;
     width: 55%;
+    display: none;
     @media screen and (min-width: 461px) {
         width: 40%;
+        display: block;
     }
 }
 
@@ -197,6 +207,10 @@ $search_input_height: 44px;
     justify-content: flex-start;
     cursor: pointer;
     font-family: Comfortaa;
+
+    @media screen and (max-width: 461px) {
+        margin-right: 25px;        
+    }
 }
 
 .navbar__fields__address__icon {
