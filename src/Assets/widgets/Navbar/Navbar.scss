@@ -290,6 +290,7 @@ $search_input_height: 44px;
     width: 30%;
     @media screen and (min-width: 461px) {
         width: 10%;
+        justify-content: flex-end;
     }
 }
 
@@ -298,6 +299,10 @@ $search_input_height: 44px;
     font-size: var(--font-size-four);
     word-wrap: break-word;
     cursor: pointer;
+
+    @media screen and (max-width: 461px) {
+        display: none;
+    }
 }
 
 .navbar__name-container__exit {
@@ -311,6 +316,10 @@ $search_input_height: 44px;
     border-radius: 50%;
     border-width: 0;
     cursor: pointer;
+
+    @media screen and (max-width: 461px) {
+        width: 50%;
+    }
 }
 
 .navbar__name-container__exit__icon {
