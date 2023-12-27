@@ -295,9 +295,10 @@ $search_input_height: 44px;
 }
 
 .navbar__name-container__name {
-    display: inline;
+    display: flex;
     font-size: var(--font-size-four);
-    word-wrap: break-word;
+    width: 70%;
+    justify-content: flex-end;
     cursor: pointer;
 
     @media screen and (max-width: 461px) {
