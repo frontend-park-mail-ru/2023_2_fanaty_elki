@@ -80,6 +80,10 @@ export function validateBirthday(birthday: string): string {
         return "Вы еще слишком малы, чтобы пользоваться нашим сервисом :(";
     }
 
+    if (currentDate.getFullYear() - birthdayDate.getFullYear() > 100) {
+        return "Укажите валидную дату рождения";
+    }
+
     return "";
 }
 
