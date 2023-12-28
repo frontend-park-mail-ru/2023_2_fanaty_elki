@@ -38,8 +38,8 @@ export class SearchModel implements Listenable<SearchEvent> {
                 data: results,
             });
         } catch (e) {
-            console.error("Неудачный поиск по запросу");
-            console.error(e);
+            // console.error("Неудачный поиск по запросу");
+            // console.error(e);
             this.events.notify({
                 type: SearchModelEventType.ERROR,
                 data: null,

@@ -68,7 +68,7 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
             form.addEventListener("submit", (event) => {
                 event.preventDefault();
                 const query = this.searchValue;
-                console.log(this.searchValue);
+                // console.log(this.searchValue);
                 if (query.length > 2) {
                     this.searchValue = "";
                     this.events.notify({

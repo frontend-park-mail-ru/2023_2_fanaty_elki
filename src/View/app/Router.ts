@@ -19,7 +19,7 @@ export class Router {
     route(url: string, search?: string) {
         const page = this.pages.get(url);
         if (!page) {
-            console.error("Wrong url", url);
+            // console.error("Wrong url", url);
             return;
         }
         this.current?.unload();
