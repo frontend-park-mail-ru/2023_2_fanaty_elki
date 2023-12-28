@@ -139,6 +139,11 @@ export class CartModel implements Listenable<CartEvent> {
                     this.cart.splice(index, 1);
                 }
             }
+
+            if (this.cart.length === 0) {
+                this.setCurrentRestaurant(null);
+            }
+
             this.events.notify();
         } catch (e) {
             console.error("Неудачное удаление из корзины");
@@ -160,7 +165,7 @@ export class CartModel implements Listenable<CartEvent> {
         }
     }
 
-    async setCurrentRestaurant(restaurant: Restaurant) {
+    async setCurrentRestaurant(restaurant: Restaurant | null) {
         this.currentRestaurant = restaurant;
     }
 
@@ -233,5 +238,9 @@ export class CartModel implements Listenable<CartEvent> {
 
     getError() {
         return this.errorMsg;
+    }
+
+    clearError() {
+        this.errorMsg = null;
     }
 }
