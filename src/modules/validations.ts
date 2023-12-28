@@ -35,6 +35,10 @@ export function validatePassword(password: string): string {
         return "Пароль не может быть пустым";
     }
 
+    if (password.match(/[А-Яа-я]/)) {
+        return "Пароль не должен содержать кириллицу";
+    }
+
     if (!password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z!@#$%^&-_\d]{8,}$/)) {
         return "Пароль должен быть длиннее 8 символов и содержать хотя бы одну букву и цифру";
     }

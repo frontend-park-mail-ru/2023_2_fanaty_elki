@@ -44,7 +44,7 @@ export class LoginPage extends IHTMLElement implements Listenable<UIEvent> {
         );
 
         this.phoneNumberMask = new InputMask(
-            "+7 ___ ___-__-__",
+            "+7 9__ ___-__-__",
             "_",
             "\\d",
             this.usernameInput,
