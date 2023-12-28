@@ -15,12 +15,12 @@ export function validateUsername(username: string): string {
         return "Имя пользователя не может быть пустым";
     }
 
-    if (!username.match(/^[А-Яа-я\s]*$/)) {
-        return "Имя пользователя должно состоять из кириллицы";
+    if (!username.match(/^[a-zA-Z0-9_-]*$/)) {
+        return 'Имя пользователя должно состоять из латинских букв, цифр, символов "-", "_"';
     }
 
-    if (!String(username).match(/^.{4,29}$/)) {
-        return "Имя пользователя должно иметь длину от 4 до 29 символов";
+    if (!String(username).match(/^.{4,19}$/)) {
+        return "Имя пользователя должно иметь длину от 4 до 19 символов";
     }
 
     return "";
@@ -29,6 +29,10 @@ export function validateUsername(username: string): string {
 export function validatePassword(password: string): string {
     if (!password) {
         return "Пароль не может быть пустым";
+    }
+
+    if (password.match(/[А-Яа-я]/)) {
+        return "Пароль не должен содержать кириллицу";
     }
 
     if (!password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z!@#$%^&-_\d]{8,}$/)) {
@@ -74,6 +78,10 @@ export function validateBirthday(birthday: string): string {
             birthdayDate.getDate() > currentDate.getDate())
     ) {
         return "Вы еще слишком малы, чтобы пользоваться нашим сервисом :(";
+    }
+
+    if (currentDate.getFullYear() - birthdayDate.getFullYear() > 100) {
+        return "Укажите валидную дату рождения";
     }
 
     return "";

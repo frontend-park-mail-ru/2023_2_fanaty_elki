@@ -44,12 +44,22 @@
     display: flex;
     justify-content: space-between;
 
+    @media screen and (max-width: 461px) {
+        flex-direction: column;
+        gap: 10px;
+    }
+
     width: 100%;
 }
 
 .address-chooser__control__input {
     width: 70%;
     font-size: var(--font-size-four);
+
+    @media screen and (max-width: 461px) {
+        width: auto;
+        align-self: stretch;
+    }
 }
 
 .address-chooser__error_msg {
@@ -67,6 +77,10 @@
     font-size: var(--font-size-three);
 
     transition: all 0.2s ease-out;
+
+    @media screen and (max-width: 461px) {
+        width: 100%;
+    }
 }
 
 .address-chooser__control:disabled {

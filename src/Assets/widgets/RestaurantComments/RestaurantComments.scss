@@ -61,6 +61,12 @@
     font-size: var(--font-size-three);
 
     width: 100%;
+
+    @media screen and (max-width: 461px) {
+        justify-content: space-between;
+        gap: 0;
+        width: 90%;       
+    }
 }
 
 .restaurant-comments__comments-list__comments-list__comment__info__profile {
@@ -82,6 +88,8 @@
     display: flex;
 
     width: 60%;
+
+    font-size: var(--font-size-four);
 }
 
 .restaurant-comments__comments-list__comments-list__comment__info__rating {
@@ -90,12 +98,20 @@
     gap: 5px;
 
     width: 15%;
+
+    @media screen and (max-width: 461px) {
+        font-size: var(--font-size-five);        
+    }
 }
 
 .restaurant-comments__comments-list__comments-list__comment__info__rating__star {
     object-fit: contain;
     width: var(--font-size-three);
     aspect-ratio: 1/1;
+
+    @media screen and (max-width: 461px) {
+        font-size: var(--font-size-five);        
+    }
 }
 
 .restaurant-comments__comments-list__comments-list__comment__info__rating__value {
@@ -106,6 +122,10 @@
     width: 20%;
 
     color: var(--middle-gray);
+
+    @media screen and (max-width: 461px) {
+        font-size: var(--font-size-five);        
+    }
 }
 
 .restaurant-comments__comments-list__comments-list__comment__text {
@@ -157,6 +177,7 @@
 
 .restaurant-comments__comments-list__no-comments {
     margin: auto;
+    text-align: center;
 
     font-size: var(--font-size-three);
     @media screen and (min-width: 641px) {

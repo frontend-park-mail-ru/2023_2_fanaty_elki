@@ -26,8 +26,10 @@
     gap: 15px;
 
     width: 100%;
+    min-height: 200px;
     @media screen and (min-width: 641px) {
         width: 47.5%;
+        min-height: none;
     }
 }
 

@@ -83,9 +83,9 @@ async function ajax(url: string, params: RequestInit) {
                 params.headers["X-Csrf-Token"] = csrfToken;
             }
         } catch {
-            console.log(
-                "Не удалось получить csrf токен, основной запрос уйдет без него",
-            );
+            // console.log(
+            //  "Не удалось получить csrf токен, основной запрос уйдет без него",
+            // );
         }
     }
     try {

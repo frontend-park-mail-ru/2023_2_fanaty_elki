@@ -47,8 +47,8 @@ export class AddressChooser extends IWidget {
                     }
                     this.setSuggests(suggests);
                 } catch (e) {
-                    console.error("Error on get suggests");
-                    console.error(e);
+                    // console.error("Error on get suggests");
+                    // console.error(e);
                 }
             },
         );

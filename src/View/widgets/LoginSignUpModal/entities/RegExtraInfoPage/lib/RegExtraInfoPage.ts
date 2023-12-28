@@ -69,7 +69,7 @@ export class RegExtraInfoPage
             this.element.querySelector("#reg-extra-info-page__phone-number")
         );
         this.phoneNumberMask = new InputMask(
-            "+7 ___ ___-__-__",
+            "+7 9__ ___-__-__",
             "_",
             "\\d",
             this.phoneNumberInput,
