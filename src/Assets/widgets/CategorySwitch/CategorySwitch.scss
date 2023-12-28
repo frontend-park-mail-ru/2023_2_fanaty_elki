@@ -1,12 +1,11 @@
 .category-switch {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-direction: column;
     @media screen and (min-width: 641px) {
         flex-direction: row;
         align-items: center;
     }
-    gap: 25px;
 
     margin-top: 15px;
     margin-bottom: 15px;
@@ -26,7 +25,6 @@
         overflow-x: auto;
     }
 
-    gap: 5px;
     border: 1px solid var(--gray);
     padding: 5px;
     border-radius: 17px;
@@ -38,7 +36,7 @@
         width: 100%;
     }
     @media not (max-width: 1200px) {
-        padding: 10px clamp(10px,2vw,50px);
+        padding: 10px clamp(10px, 2vw, 50px);
     }
     display: flex;
     align-items: center;

@@ -69,8 +69,8 @@ export class CartModel implements Listenable<CartEvent> {
                 }
             }
         } catch (e) {
-            console.error("Не удалось синхронизировать корзину");
-            console.error(e);
+            // console.error("Не удалось синхронизировать корзину");
+            // console.error(e);
         }
         this.setCart();
     }
@@ -94,8 +94,8 @@ export class CartModel implements Listenable<CartEvent> {
             });
             this.events.notify();
         } catch (e) {
-            console.error("Неудачный запрос корзины");
-            console.error(e);
+            // console.error("Неудачный запрос корзины");
+            // console.error(e);
         }
     }
 
@@ -120,8 +120,8 @@ export class CartModel implements Listenable<CartEvent> {
             }
             this.events.notify();
         } catch (e) {
-            console.error("Неудачное добавление в корзину");
-            console.error(e);
+            // console.error("Неудачное добавление в корзину");
+            // console.error(e);
         }
     }
 
@@ -139,10 +139,15 @@ export class CartModel implements Listenable<CartEvent> {
                     this.cart.splice(index, 1);
                 }
             }
+
+            if (this.cart.length === 0) {
+                this.setCurrentRestaurant(null);
+            }
+
             this.events.notify();
         } catch (e) {
-            console.error("Неудачное удаление из корзины");
-            console.error(e);
+            // console.error("Неудачное удаление из корзины");
+            // console.error(e);
         }
     }
 
@@ -155,12 +160,12 @@ export class CartModel implements Listenable<CartEvent> {
             this.currentRestaurant = null;
             this.events.notify();
         } catch (e) {
-            console.error("Неудачная очистка корзины");
-            console.error(e);
+            // console.error("Неудачная очистка корзины");
+            // console.error(e);
         }
     }
 
-    async setCurrentRestaurant(restaurant: Restaurant) {
+    async setCurrentRestaurant(restaurant: Restaurant | null) {
         this.currentRestaurant = restaurant;
     }
 
@@ -233,5 +238,9 @@ export class CartModel implements Listenable<CartEvent> {
 
     getError() {
         return this.errorMsg;
+    }
+
+    clearError() {
+        this.errorMsg = null;
     }
 }
