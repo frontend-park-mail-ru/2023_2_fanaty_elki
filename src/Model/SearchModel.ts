@@ -31,7 +31,8 @@ export class SearchModel implements Listenable<SearchEvent> {
 
     async getResults(query: string) {
         try {
-            const results: SearchResult[] = await Api.getSearchResults(query);
+            const results: SearchResult[] =
+                (await Api.getSearchResults(query)) || [];
             this.events.notify({
                 type: SearchModelEventType.UPDATED,
                 data: results,

@@ -33,6 +33,9 @@
 
 .cart__content__control__payment__address__input-control__input {
     width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-right: 25px;
 }
 
 .cart__content__control__payment__address__input-control__control {
@@ -41,11 +44,6 @@
     position: absolute;
     right: 15px;
 }
-
-// .cart__content__control__payment__address__input-control__button {
-//     width: 30%;
-//     font-size: var(--font-size-three);
-// }
 
 .payment-chooser {
     display: flex;
@@ -118,10 +116,21 @@
 
 .payment-chooser__online-card__card-data__card-valid-thru {
     width: 65%;
+
+    @media screen and (max-width: 461px){
+        padding: 10px 12px 10px 12px !important;
+        width: 63%;
+    }
 }
 
 .payment-chooser__online-card__card-data__card-cvv {
     width: 20%;
+
+    @media screen and (max-width: 461px){
+        padding: 10px 12px 10px 12px !important;
+        text-align: center;
+        width: 17%;
+    }
 }
 
 .cart__content__control__promo {
@@ -170,11 +179,19 @@
 
 .cart__content__control__promo__input-control__input {
     width: 60%;
+
+    @media screen and (max-width: 461px) {
+        width: 55%;
+    }
 }
 
 .cart__content__control__promo__input-control__button {
     width: 30%;
     font-size: var(--font-size-three);
+
+    @media screen and (max-width: 461px) {
+        font-size: var(--font-size-five);
+    }
 }
 
 .cart__content__control__payment-approve {

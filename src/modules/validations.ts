@@ -15,11 +15,15 @@ export function validateUsername(username: string): string {
         return "Имя пользователя не может быть пустым";
     }
 
-    if (!username.match(/^[А-Яа-я\s]*$/)) {
+    if (!username.match(/^[А-Яа-я]*$/)) {
         return "Имя пользователя должно состоять из кириллицы";
     }
 
-    if (!String(username).match(/^.{4,29}$/)) {
+    if (!username.match(/^[А-Яа-я\s]*$/)) {
+        return "Имя пользователя не должно содержать пробелов";
+    }
+
+    if (!String(username).match(/^.{4,19}$/)) {
         return "Имя пользователя должно иметь длину от 4 до 29 символов";
     }
 
@@ -74,6 +78,10 @@ export function validateBirthday(birthday: string): string {
             birthdayDate.getDate() > currentDate.getDate())
     ) {
         return "Вы еще слишком малы, чтобы пользоваться нашим сервисом :(";
+    }
+
+    if (currentDate.getFullYear() - birthdayDate.getFullYear() > 100) {
+        return "Укажите валидную дату рождения";
     }
 
     return "";
