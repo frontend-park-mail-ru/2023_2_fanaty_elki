@@ -76,12 +76,12 @@ export class CartPage extends Page implements Listenable<UIEvent> {
             this.getChild("#card-valid-thru") as HTMLInputElement,
         );
 
-        this.cardCVVMask = new InputMask(
-            "___",
-            "_",
-            "\\d",
-            this.getChild("#card-cvv") as HTMLInputElement,
-        );
+        // this.cardCVVMask = new InputMask(
+        //     "___",
+        //     "_",
+        //     "\\d",
+        //     this.getChild("#card-cvv") as HTMLInputElement,
+        // );
 
         this.promo = <HTMLInputElement>this.getChild("#promo__value");
         this.promoButton = this.getChild("#promo__submit");
