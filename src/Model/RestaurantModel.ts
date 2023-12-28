@@ -124,8 +124,8 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
         } catch (e) {
             this.errorMsg = (e as Error).message;
             this.currentRestaurant = null;
-            console.error("Не удалось загрузить блюда ресторана", id);
-            console.error(e);
+            // console.error("Не удалось загрузить блюда ресторана", id);
+            // console.error(e);
         }
         this.events.notify(RestaurantEvent.LOADED_REST);
     }
@@ -139,8 +139,8 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
             this.errorMsg = null;
         } catch (e) {
             this.errorMsg = (e as Error).message;
-            console.error("Не удалось загрузить рестораны");
-            console.error(e);
+            // console.error("Не удалось загрузить рестораны");
+            // console.error(e);
         }
         this.events.notify(RestaurantEvent.LOADED_LIST);
     }
@@ -151,8 +151,8 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
             this.errorMsg = null;
         } catch (e) {
             this.errorMsg = (e as Error).message;
-            console.error("Не удалось загрузить рекомендуемые рестораны");
-            console.error(e);
+            // console.error("Не удалось загрузить рекомендуемые рестораны");
+            // console.error(e);
         }
         this.events.notify(RestaurantEvent.LOADED_TIPS);
     }
@@ -163,8 +163,8 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
             this.errorMsg = null;
         } catch (e) {
             this.errorMsg = (e as Error).message;
-            console.error("Не удалось загрузить категорию");
-            console.error(e);
+            // console.error("Не удалось загрузить категорию");
+            // console.error(e);
         }
         this.events.notify(RestaurantEvent.LOADED_LIST);
     }
@@ -178,8 +178,8 @@ export class RestaurantModel implements Listenable<RestaurantEvent> {
         try {
             this.cartRecomendations = await Api.getCartRecommendations();
         } catch (e) {
-            console.error("Не удалось загрузить рекоменадации для корзины");
-            console.error(e);
+            // console.error("Не удалось загрузить рекоменадации для корзины");
+            // console.error(e);
         }
         this.events.notify(RestaurantEvent.LOADED_CART_RECOMENDATIONS);
     }

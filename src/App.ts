@@ -15,9 +15,9 @@ export function start() {
                     scope: "/",
                     type: "module",
                 });
-                console.log("SW registered: ");
+                // console.log("SW registered: ");
             } catch (registrationError) {
-                console.log("SW registration failed: ", registrationError);
+                // console.log("SW registration failed: ", registrationError);
             }
         });
     }

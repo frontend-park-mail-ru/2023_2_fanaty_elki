@@ -81,8 +81,8 @@ export class OrderModel implements Listenable<OrderEvent> {
             this.orders = orders;
             this.events.notify(OrderEvent.LOAD_ORDERS);
         } catch (e) {
-            console.error("Неудалось загрузить заказы");
-            console.error(e);
+            // console.error("Неудалось загрузить заказы");
+            // console.error(e);
         }
     }
 
@@ -101,8 +101,8 @@ export class OrderModel implements Listenable<OrderEvent> {
                 this.events.notify(OrderEvent.OFFLINE);
                 throw e;
             }
-            console.error("Не удалось создать заказ");
-            console.error(e);
+            // console.error("Не удалось создать заказ");
+            // console.error(e);
         }
     }
 
@@ -121,8 +121,8 @@ export class OrderModel implements Listenable<OrderEvent> {
             this.currentOrder = order;
             this.events.notify(OrderEvent.LOAD_CURRENT_ORDER);
         } catch (e) {
-            console.error("Не удалось загрузить заказ");
-            console.error(e);
+            // console.error("Не удалось загрузить заказ");
+            // console.error(e);
         }
     }
 

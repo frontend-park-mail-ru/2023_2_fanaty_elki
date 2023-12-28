@@ -101,8 +101,8 @@ export class UserModel implements Listenable<UserEvent> {
             this.events.notify(UserEvent.ADDRESS_CHANGE);
         } catch (e) {
             this.events.notify(UserEvent.AUTH);
-            console.error("Неудачная авторизация");
-            console.error(e);
+            // console.error("Неудачная авторизация");
+            // console.error(e);
         }
     }
 
@@ -165,8 +165,8 @@ export class UserModel implements Listenable<UserEvent> {
                 throw e;
             }
             this.errorMsg = apiConfig.api.logout.failure[e.status];
-            console.error("Неудачный логаут");
-            console.error(e);
+            // console.error("Неудачный логаут");
+            // console.error(e);
         }
         this.events.notify(UserEvent.USER_LOGOUT);
     }
@@ -189,8 +189,8 @@ export class UserModel implements Listenable<UserEvent> {
                 throw e;
             }
             this.errorMsg = apiConfig.api.updateUser.failure[e.status];
-            console.error("Неудачное обновление пользователя");
-            console.error(e);
+            // console.error("Неудачное обновление пользователя");
+            // console.error(e);
         }
         this.events.notify(UserEvent.USER_UPDATE);
     }
@@ -208,8 +208,8 @@ export class UserModel implements Listenable<UserEvent> {
                 throw e;
             }
             this.errorMsg = apiConfig.api.updateUser.failure[e.status];
-            console.error("Неудачное обновление фотографии пользователя");
-            console.error(e);
+            // console.error("Неудачное обновление фотографии пользователя");
+            // console.error(e);
         }
         this.events.notify(UserEvent.USER_ICON_UPDATE);
     }
@@ -231,8 +231,8 @@ export class UserModel implements Listenable<UserEvent> {
                 }
                 return;
             }
-            console.error("Неудачное добавление адреса");
-            console.error(e);
+            // console.error("Неудачное добавление адреса");
+            // console.error(e);
         }
     }
 
@@ -242,8 +242,8 @@ export class UserModel implements Listenable<UserEvent> {
             this.address = +addressId;
             this.events.notify(UserEvent.ADDRESS_CHANGE);
         } catch (e: any) {
-            console.error("Неудачное обновление адреса");
-            console.error(e);
+            // console.error("Неудачное обновление адреса");
+            // console.error(e);
         }
     }
 
@@ -254,8 +254,8 @@ export class UserModel implements Listenable<UserEvent> {
             this.address = user.CurrentAddressId;
             this.events.notify(UserEvent.ADDRESS_CHANGE);
         } catch (e: any) {
-            console.error("Неудачное обновление адреса");
-            console.error(e);
+            // console.error("Неудачное обновление адреса");
+            // console.error(e);
         }
     }
 
