@@ -84,8 +84,8 @@ async function ajax(url: string, params: RequestInit) {
             }
         } catch {
             // console.log(
-                "Не удалось получить csrf токен, основной запрос уйдет без него",
-            );
+            //  "Не удалось получить csrf токен, основной запрос уйдет без него",
+            // );
         }
     }
     try {
