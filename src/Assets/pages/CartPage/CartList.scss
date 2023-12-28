@@ -48,6 +48,14 @@
     }
 }
 
+.cart-item__info__count-control__button:hover {
+    background-color: var(--darker-green);
+}
+
+.cart-item__info__count-control__button:active {
+    background-color: var(--darkest-green);
+}
+
 .cart-item__info__count-control__count {
     display: flex;
     align-items: center;
