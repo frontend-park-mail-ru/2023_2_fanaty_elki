@@ -15,16 +15,16 @@ export function validateUsername(username: string): string {
         return "Имя пользователя не может быть пустым";
     }
 
-    if (!username.match(/^[А-Яа-я]*$/)) {
-        return "Имя пользователя должно состоять из кириллицы";
+    if (!username.match(/^[A-za-z-_$@]*$/)) {
+        return 'Имя пользователя должно состоять из латиницы и символов "-_$@"';
     }
 
-    if (!username.match(/^[А-Яа-я\s]*$/)) {
+    if (!username.match(/^[A-Za-z\s]*$/)) {
         return "Имя пользователя не должно содержать пробелов";
     }
 
     if (!String(username).match(/^.{4,19}$/)) {
-        return "Имя пользователя должно иметь длину от 4 до 29 символов";
+        return "Имя пользователя должно иметь длину от 4 до 19 символов";
     }
 
     return "";
