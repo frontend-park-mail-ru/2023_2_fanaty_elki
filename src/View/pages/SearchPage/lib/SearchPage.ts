@@ -101,12 +101,12 @@ export class SearchPage extends Page implements Listenable<UIEvent> {
         this.navbar.load();
         this.address.load();
         if (!params || !params.get("query")) {
-            console.error("No query");
+            // console.error("No query");
             return;
         }
         const query = params.get("query")!;
         if (query.length === 0) {
-            console.error("Empty query");
+            // console.error("Empty query");
         }
         this.navbar.searchValue = query;
         controller.handleEvent({

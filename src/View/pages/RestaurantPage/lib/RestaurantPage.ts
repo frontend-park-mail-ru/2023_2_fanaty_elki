@@ -118,12 +118,12 @@ export class RestaurantPage extends Page implements Listenable<UIEvent> {
         this.navbar.load();
         this.address.load();
         if (!params || !params.get("id")) {
-            console.error("No id to get restaurant");
+            // console.error("No id to get restaurant");
             return;
         }
         const id = Number(params.get("id")!);
         if (isNaN(id)) {
-            console.error("Restaurant id is NAN");
+            // console.error("Restaurant id is NAN");
         }
         let item_id: number | null = null;
         if (params) {

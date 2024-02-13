@@ -31,14 +31,15 @@ export class SearchModel implements Listenable<SearchEvent> {
 
     async getResults(query: string) {
         try {
-            const results: SearchResult[] = await Api.getSearchResults(query);
+            const results: SearchResult[] =
+                (await Api.getSearchResults(query)) || [];
             this.events.notify({
                 type: SearchModelEventType.UPDATED,
                 data: results,
             });
         } catch (e) {
-            console.error("Неудачный поиск по запросу");
-            console.error(e);
+            // console.error("Неудачный поиск по запросу");
+            // console.error(e);
             this.events.notify({
                 type: SearchModelEventType.ERROR,
                 data: null,

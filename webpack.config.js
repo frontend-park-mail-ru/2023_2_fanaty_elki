@@ -8,7 +8,7 @@ module.exports = ({ development }) => ({
         "service-worker": "./public/service-worker.ts",
     },
     output: {
-        filename: "src/[name].js",
+        filename: "[name].js",
         path: path.resolve(__dirname, "dist"),
     },
     mode: development ? "development" : "production",

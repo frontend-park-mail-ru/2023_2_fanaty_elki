@@ -8,6 +8,7 @@ import {
     validateEmail,
     validatePhoneNumber,
 } from "../../../../modules/validations";
+import { InputMask } from "../../../../modules/mask";
 
 export class ProfileWidget extends IWidget implements Listenable<UIEvent> {
     private username: HTMLElement;
@@ -21,6 +22,8 @@ export class ProfileWidget extends IWidget implements Listenable<UIEvent> {
     private icon: HTMLImageElement;
 
     private msg: HTMLElement;
+
+    private phoneNumberMask: InputMask;
 
     private events_: EventDispatcher<UIEvent>;
     get events() {
@@ -52,6 +55,12 @@ export class ProfileWidget extends IWidget implements Listenable<UIEvent> {
         );
         this.phoneNumberMsg = <HTMLElement>(
             this.element.querySelector("#phone-number__msg")
+        );
+        this.phoneNumberMask = new InputMask(
+            "+7 9__ ___-__-__",
+            "_",
+            "\\d",
+            this.phoneNumber,
         );
 
         this.iconInput = <HTMLInputElement>(

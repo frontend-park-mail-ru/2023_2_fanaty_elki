@@ -112,8 +112,8 @@ export class Controller {
                         (<User>event.data).Password,
                     );
                 } catch (e) {
-                    console.error("Неудачная регистрация");
-                    console.error(e);
+                    // console.error("Неудачная регистрация");
+                    // console.error(e);
                 }
                 break;
             case VIEW_EVENT_TYPE.ADDRESS_UPDATE:
@@ -126,6 +126,10 @@ export class Controller {
             case VIEW_EVENT_TYPE.CHANGE_ORDER_RESTAURANT:
                 await model.cartModel.clearCart();
                 await model.cartModel.increase(event!.data as number);
+                await model.cartModel.setCurrentRestaurant(
+                    model.restaurantModel.getRestaurant()!.RestaurantInfo,
+                );
+                model.restaurantModel.setCartRecomendations();
                 break;
             case VIEW_EVENT_TYPE.ORDER_UPDATE:
                 model.orderModel.setOrders();

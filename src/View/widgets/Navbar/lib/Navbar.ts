@@ -44,13 +44,13 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
     }
 
     get searchValue() {
-        if (window.matchMedia("(min-width: 400px)").matches) {
+        if (window.matchMedia("(max-width: 400px)").matches) {
             return (<HTMLInputElement>(
-                (<HTMLFormElement>this.getAll(".js_search-input")[0])[0]
+                (<HTMLFormElement>this.getAll(".js_search-input")[1])[0]
             )).value.trim();
         } else {
             return (<HTMLInputElement>(
-                (<HTMLFormElement>this.getAll(".js_search-input")[1])[0]
+                (<HTMLFormElement>this.getAll(".js_search-input")[0])[0]
             )).value.trim();
         }
     }
@@ -68,6 +68,7 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
             form.addEventListener("submit", (event) => {
                 event.preventDefault();
                 const query = this.searchValue;
+                // console.log(this.searchValue);
                 if (query.length > 2) {
                     this.searchValue = "";
                     this.events.notify({
@@ -145,6 +146,10 @@ export class Navbar extends IWidget implements Listenable<UIEvent> {
                 );
                 break;
             }
+            case UserEvent.USER_ICON_UPDATE:
+                (this.getChild("#navbar__icon") as HTMLImageElement).src =
+                    model.userModel.getUser()!.Icon || "img/defaultIcon.png";
+                break;
             default:
                 break;
         }
